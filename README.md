@@ -6,8 +6,9 @@ Dies ist die Portierung der Badewannenverschwörung in libGDX. Erstellt um
  2. Kotlin zu lernen
  3. libGDX auszuprobieren 
 
-## Build
-Einfach den _build_ oder _assemble_ Task von Gradle ausführen. Baut ohne Probleme :)
+## Starten
+Im Moment lässt sich nur die Desktopvariante starten:
+org.wanne.DesktopLauncher.main
 
 ## ToDos:
  * Hauptmenü einbauen

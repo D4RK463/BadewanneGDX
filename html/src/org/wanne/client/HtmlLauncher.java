@@ -3,7 +3,7 @@ package org.wanne.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import org.wanne.WanneGame;
+import org.wanne.game.WanneGame;
 
 public class HtmlLauncher extends GwtApplication {
 
