@@ -4,15 +4,15 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import org.wanne.screens.MainMenuScreen
+import org.wanne.screens.MenuTestScreen
 
 class WanneGame : Game() {
     var batch: SpriteBatch? = null
-    var font: BitmapFont? = null
 
     override fun create() {
         batch = SpriteBatch()
-        font = BitmapFont() // use libGDX's default Arial font
-        this.setScreen(MainMenuScreen(this))
+//        this.setScreen(MainMenuScreen(this))
+        this.setScreen(MenuTestScreen())
     }
 
     override fun render() {
@@ -21,6 +21,5 @@ class WanneGame : Game() {
 
     override fun dispose() {
         batch!!.dispose()
-        font!!.dispose()
     }
 }
