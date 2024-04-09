@@ -23,7 +23,7 @@ class MainMenuScreen(var game: WanneGame) : Screen {
 
     override fun show() {
         // Fenster Größe setzen
-        Gdx.graphics.setWindowedMode(400, 250)
+        Gdx.graphics.setWindowedMode(800, 600)
 
         menuStage = Stage()
         Gdx.input.inputProcessor = menuStage

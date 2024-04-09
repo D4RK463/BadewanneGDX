@@ -1,9 +1,7 @@
 package org.wanne.game
 
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import org.wanne.screens.MainMenuScreen
 import org.wanne.screens.MenuTestScreen
 
 class WanneGame : Game() {
@@ -12,7 +10,7 @@ class WanneGame : Game() {
     override fun create() {
         batch = SpriteBatch()
 //        this.setScreen(MainMenuScreen(this))
-        this.setScreen(MenuTestScreen())
+        this.setScreen(MenuTestScreen(this))
     }
 
     override fun render() {

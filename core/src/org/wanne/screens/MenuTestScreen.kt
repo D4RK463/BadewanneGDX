@@ -11,16 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import com.badlogic.gdx.utils.Align
+import org.wanne.game.WanneGame
 
-
-class MenuTestScreen : Screen {
+class MenuTestScreen(var game: WanneGame) : Screen {
     private var stage: Stage? = null
     private var skin: Skin? = null
 
     private var batch: SpriteBatch? = null
 
     private var logoHeadline: Texture = Texture(Gdx.files.internal("pictures/Menue/header.png"))
+
+    private var duck: Texture = Texture(Gdx.files.internal("pictures/Players/Ente/p2lookLeft0.png"))
+
+    private var poolAttendant: Texture = Texture(Gdx.files.internal("pictures/Players/Bademeister/p1lookRight0.png"))
 
     override fun show() {
         batch = SpriteBatch()
@@ -44,16 +47,20 @@ class MenuTestScreen : Screen {
         stage!!.act()
         stage!!.draw()
 
-        batch!!.begin()
-        batch!!.draw(logoHeadline, 100f, 180f)
-        batch!!.end()
+        val halfScreen = Gdx.graphics.width / 2
+
+        game.batch!!.begin()
+        game.batch!!.draw(logoHeadline, halfScreen.toFloat(), 400f)
+        game.batch!!.draw(duck, 300f, 50f)
+        game.batch!!.draw(poolAttendant, -30f, -70f)
+        game.batch!!.end()
     }
 
     private fun buildMenu() {
         val menuTable = Table(skin)
         menuTable.setPosition(0f, 0f)
         menuTable.setSize(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
-        menuTable.align(Align.top)
+//        menuTable.align(Align.top)
 
         stage!!.addActor(menuTable)
 
@@ -77,7 +84,6 @@ class MenuTestScreen : Screen {
 //        })
 //        menuTable.add(imageButton)
 
-
         val startButton = TextButton("Singleplayer", skin, "default")
         startButton.setPosition(250f, 250f)
         startButton.setSize(210f, 60f)
@@ -93,10 +99,29 @@ class MenuTestScreen : Screen {
             },
         )
 
+        val multiButton = TextButton("Multiplayer", skin, "default")
+        multiButton.setPosition(300f, 300f)
+        multiButton.setSize(210f, 60f)
+
+        multiButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    println("Button Pressed")
+                }
+            },
+        )
+
         menuTable.add(startButton)
+        menuTable.add(multiButton)
     }
 
-    override fun resize(width: Int, height: Int) {
+    override fun resize(
+        width: Int,
+        height: Int,
+    ) {
     }
 
     override fun pause() {
@@ -106,6 +131,6 @@ class MenuTestScreen : Screen {
     }
 
     override fun dispose() {
-        batch!!.dispose();
+        batch!!.dispose()
     }
 }

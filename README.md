@@ -10,18 +10,5 @@ Dies ist die Portierung der Badewannenverschwörung in libGDX. Erstellt um
 Im Moment lässt sich nur die Desktopvariante starten:
 org.wanne.DesktopLauncher.main
 
-## ToDos:
- * Hauptmenü einbauen
- * Grafik einbauen und Maus Steuerung
- * Logic übertragen
- * Videos neu codieren, vielleicht in mp4
- * Netzwerk neu implementieren
- * Tests schreiben
- * Mehr Kommentare und Dokumentation schreiben
- * Neue Synco aufnehmen
- * Alte Entwickler kontaktieren
- * Nice to have
-   * HTML Version die im Browser läuft
-   * Controller Support
-   * Remastered Assets und Hintergründe für höhere Auflösungen
-   * Mal schaun was mir noch so einfällt
+## ToDos
+Sind im Github Projekt angegeben.
