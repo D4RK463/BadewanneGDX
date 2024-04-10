@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.utils.viewport.ScreenViewport
 import org.wanne.game.WanneGame
 import kotlin.system.exitProcess
 
@@ -25,6 +26,8 @@ class MenuScreen(var game: WanneGame) : Screen {
 
     private var poolAttendant: Texture = Texture(Gdx.files.internal("pictures/Players/Bademeister/p1lookRight0.png"))
 
+    private var viewport: ScreenViewport? = null
+
     override fun show() {
         batch = SpriteBatch()
         stage = Stage()
@@ -32,26 +35,9 @@ class MenuScreen(var game: WanneGame) : Screen {
         Gdx.input.inputProcessor = stage
         skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
+        viewport = ScreenViewport()
+
         buildMenu()
-    }
-
-    override fun hide() {
-        stage = null
-        skin = null
-    }
-
-    override fun render(delta: Float) {
-        Gdx.gl.glClearColor(84 / 255f, 88 / 255f, 92 / 255f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
-        stage!!.act()
-        stage!!.draw()
-
-        batch!!.begin()
-        batch!!.draw(logoHeadline, 220f, 400f)
-        batch!!.draw(duck, 450f, 20f)
-        batch!!.draw(poolAttendant, 10f, 20f)
-        batch!!.end()
     }
 
     private fun buildMenu() {
@@ -110,10 +96,27 @@ class MenuScreen(var game: WanneGame) : Screen {
         return button
     }
 
+    override fun render(delta: Float) {
+        Gdx.gl.glClearColor(84 / 255f, 88 / 255f, 92 / 255f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        viewport!!.apply()
+
+        stage!!.act()
+        stage!!.draw()
+
+        batch!!.projectionMatrix = viewport!!.camera.combined
+        batch!!.begin()
+        batch!!.draw(logoHeadline, 220f, 400f)
+        batch!!.draw(duck, 450f, 20f)
+        batch!!.draw(poolAttendant, 10f, 20f)
+        batch!!.end()
+    }
+
     override fun resize(
         width: Int,
         height: Int,
     ) {
+        viewport!!.update(width, height, true)
     }
 
     override fun pause() {
@@ -124,5 +127,10 @@ class MenuScreen(var game: WanneGame) : Screen {
 
     override fun dispose() {
         batch!!.dispose()
+    }
+
+    override fun hide() {
+        stage = null
+        skin = null
     }
 }
