@@ -47,11 +47,11 @@ class MenuScreen(var game: WanneGame) : Screen {
         stage!!.act()
         stage!!.draw()
 
-        game.batch!!.begin()
-        game.batch!!.draw(logoHeadline, 220f, 400f)
-        game.batch!!.draw(duck, 450f, 20f)
-        game.batch!!.draw(poolAttendant, 10f, 20f)
-        game.batch!!.end()
+        batch!!.begin()
+        batch!!.draw(logoHeadline, 220f, 400f)
+        batch!!.draw(duck, 450f, 20f)
+        batch!!.draw(poolAttendant, 10f, 20f)
+        batch!!.end()
     }
 
     private fun buildMenu() {
@@ -62,7 +62,7 @@ class MenuScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    game.screen = RoomScreen()
+                    game.screen = RoomScreen(game)
                     dispose()
                 }
             },
