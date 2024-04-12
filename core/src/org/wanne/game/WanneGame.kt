@@ -4,8 +4,10 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import org.wanne.screens.MenuScreen
 
-class WanneGame : Game() {
+class WanneGame() : Game() {
     var batch: SpriteBatch? = null
+
+    var isSingleplayer = true
 
     override fun create() {
         batch = SpriteBatch()

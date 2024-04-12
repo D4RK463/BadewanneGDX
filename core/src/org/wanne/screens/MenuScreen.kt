@@ -16,7 +16,7 @@ import kotlin.system.exitProcess
 
 class MenuScreen(var game: WanneGame) : Screen {
     private var stage: Stage? = null
-    private var skin: Skin? = null
+    private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
     private var batch: SpriteBatch? = null
 
@@ -33,8 +33,6 @@ class MenuScreen(var game: WanneGame) : Screen {
         stage = Stage()
 
         Gdx.input.inputProcessor = stage
-        skin = Skin(Gdx.files.internal("ui/uiskin.json"))
-
         viewport = ScreenViewport()
 
         buildMenu()
@@ -131,6 +129,5 @@ class MenuScreen(var game: WanneGame) : Screen {
 
     override fun hide() {
         stage = null
-        skin = null
     }
 }
