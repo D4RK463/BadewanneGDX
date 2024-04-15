@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -15,7 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
+import org.wanne.model.Duck
 import org.wanne.model.Player
+import org.wanne.model.PoolAttendant
 import kotlin.system.exitProcess
 
 class RoomScreen(var game: WanneGame) : Screen {
@@ -42,13 +45,10 @@ class RoomScreen(var game: WanneGame) : Screen {
     private val exitButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/exitPressed.png"))
 
     // Players
-    private val poolAttendantRight: Texture = Texture(Gdx.files.internal("pictures/Players/Bademeister/p1lookRight0.png"))
-    private val poolAttendantLeft: Texture = Texture(Gdx.files.internal("pictures/Players/Bademeister/p1lookLeft0.png"))
-    private var poolAttendant: Player? = null
+    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
+    private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
 
-    private val duckRight: Texture = Texture(Gdx.files.internal("pictures/Players/Ente/p2lookRight0.png"))
-    private val duckLeft: Texture = Texture(Gdx.files.internal("pictures/Players/Ente/p2lookLeft0.png"))
-    private var duck: Player? = null
+    var stateTime: Float = 0f
 
     private var viewport: FitViewport? = null
 
@@ -62,8 +62,7 @@ class RoomScreen(var game: WanneGame) : Screen {
 
         createGameUI()
 
-        poolAttendant = Player(poolAttendantRight, poolAttendantLeft, 200F, 200F, Player.Companion.Looking.LEFT)
-        duck = Player(duckRight, duckLeft, 500F, 200F, Player.Companion.Looking.RIGHT)
+//        duck = Player(500F, 200F, Player.Companion.Looking.RIGHT)
     }
 
     private fun createGameUI() {
@@ -173,10 +172,16 @@ class RoomScreen(var game: WanneGame) : Screen {
         ScreenUtils.clear(Color.BLACK)
         viewport!!.apply()
 
-        // Background
+        // Animationen holen
+        stateTime += Gdx.graphics.deltaTime
+        val poolAttendantSprite: Sprite = poolAttendant.getSpriteOfCurrentState(stateTime)
+        val duckSprite: Sprite = duck.getSpriteOfCurrentState(stateTime)
+
+        // Zeichnen
         batch!!.projectionMatrix = viewport!!.camera.combined
         batch!!.begin()
 
+        // Background
         if (game.isSingleplayer) {
             batch!!.draw(roomBackgroundSingle, 0f, 0f)
         } else {
@@ -184,9 +189,8 @@ class RoomScreen(var game: WanneGame) : Screen {
         }
 
         // Players
-        batch!!.draw(poolAttendant!!.getTextureOfCurrentState(), poolAttendant!!.posX, poolAttendant!!.posY)
-        batch!!.draw(duck!!.getTextureOfCurrentState(), duck!!.posX, duck!!.posY)
-
+        poolAttendantSprite.draw(batch)
+        duckSprite.draw(batch)
         batch!!.end()
 
         stage!!.act()
@@ -211,5 +215,6 @@ class RoomScreen(var game: WanneGame) : Screen {
 
     override fun dispose() {
         batch!!.dispose()
+        poolAttendant.dispose()
     }
 }

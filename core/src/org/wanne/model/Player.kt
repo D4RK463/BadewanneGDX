@@ -1,20 +1,23 @@
 package org.wanne.model
 
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 
-class Player(val textureRight: Texture, val textureLeft: Texture, var posX: Float, var posY: Float, var looking: Looking) {
-    fun getTextureOfCurrentState(): Texture {
-        return if (looking == Looking.RIGHT) {
-            textureLeft
-        } else {
-            textureRight
-        }
-    }
+abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
+    var state: State = State.STANDING
+
+    abstract fun getSpriteOfCurrentState(stateTime: Float): Sprite
+
+    abstract fun dispose()
 
     companion object {
         enum class Looking {
             RIGHT,
             LEFT,
+        }
+
+        enum class State {
+            STANDING,
+            WALKING,
         }
     }
 }

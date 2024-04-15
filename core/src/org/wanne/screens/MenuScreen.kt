@@ -22,9 +22,9 @@ class MenuScreen(var game: WanneGame) : Screen {
 
     private var logoHeadline: Texture = Texture(Gdx.files.internal("pictures/Menue/header.png"))
 
-    private var duck: Texture = Texture(Gdx.files.internal("pictures/Players/Ente/p2lookLeft0.png"))
+    private var duck: Texture = Texture(Gdx.files.internal("pictures/Menue/ente.png"))
 
-    private var poolAttendant: Texture = Texture(Gdx.files.internal("pictures/Players/Bademeister/p1lookRight0.png"))
+    private var poolAttendant: Texture = Texture(Gdx.files.internal("pictures/Menue/bademeister.png"))
 
     private var viewport: ScreenViewport? = null
 
