@@ -34,7 +34,7 @@ class RoomScreen(var game: WanneGame) : Screen {
     private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
 
     // Players
-    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.LEFT)
+    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
 
     var stateTime: Float = 0f
@@ -54,6 +54,49 @@ class RoomScreen(var game: WanneGame) : Screen {
 
     private fun createGameUI() {
         // Buttons
+        // Nur beim Single-Player sind die Buttons notwendig
+        if (game.isSingleplayer) {
+            val poolAttendantButton =
+                createUIButton(
+                    buttonAtlas.createSprite("Bademeister"),
+                    buttonAtlas.createSprite("BademeisterPressed"),
+                    5f,
+                    705f,
+                )
+            poolAttendantButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        println("Switch to Pool Attendant")
+                    }
+                },
+            )
+            poolAttendantButton.isVisible = false
+
+            val duckButton =
+                createUIButton(
+                    buttonAtlas.createSprite("Ente"),
+                    buttonAtlas.createSprite("EntePressed"),
+                    5f,
+                    705f,
+                )
+            duckButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        println("Switch to Duck")
+                    }
+                },
+            )
+
+            stage!!.addActor(poolAttendantButton)
+            stage!!.addActor(duckButton)
+        }
+
         val lookButton =
             createUIButton(
                 buttonAtlas.createSprite("Ansehen"),
@@ -233,6 +276,8 @@ class RoomScreen(var game: WanneGame) : Screen {
 
     override fun dispose() {
         batch!!.dispose()
+        buttonAtlas.dispose()
         poolAttendant.dispose()
+        duck.dispose()
     }
 }

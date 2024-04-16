@@ -75,13 +75,21 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
 
         if (looking == Looking.LEFT) {
             if (state == Companion.State.STANDING) {
-                sprite = lookLeftAnimation!!.getKeyFrame(stateTime, true)
+                if (scratchLeftAnimation!!.isAnimationFinished(stateTime)) {
+                    sprite = lookLeftAnimation!!.getKeyFrame(stateTime)
+                } else {
+                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
+                }
             } else {
                 sprite = walkLeftAnimation!!.getKeyFrame(stateTime, true)
             }
         } else {
             if (state == Companion.State.STANDING) {
-                sprite = lookRightAnimation!!.getKeyFrame(stateTime, true)
+                if (lookRightAnimation!!.isAnimationFinished(stateTime)) {
+                    sprite = lookRightAnimation!!.getKeyFrame(stateTime, true)
+                } else {
+                    sprite = scratchRightAnimation!!.getKeyFrame(stateTime)
+                }
             } else {
                 sprite = walkRightAnimation!!.getKeyFrame(stateTime, true)
             }
