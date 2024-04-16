@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
@@ -31,21 +31,10 @@ class RoomScreen(var game: WanneGame) : Screen {
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
 
     // Buttons
-    private val lookButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/Ansehen.png"))
-    private val lookButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/AnsehenPressed.png"))
-    private val speakButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/Reden.png"))
-    private val speakButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/RedenPressed.png"))
-    private val takeButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/Nehmen.png"))
-    private val takeButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/NehmenPressed.png"))
-    private val useButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/Benutzen.png"))
-    private val useButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/BenutzenPressed.png"))
-    private val combineButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/kombinieren.png"))
-    private val combineButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/kombinierenPressed.png"))
-    private val exitButtonNormal: Texture = Texture(Gdx.files.internal("pictures/Buttons/exit.png"))
-    private val exitButtonPressed: Texture = Texture(Gdx.files.internal("pictures/Buttons/exitPressed.png"))
+    private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
 
     // Players
-    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
+    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.LEFT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
 
     var stateTime: Float = 0f
@@ -61,13 +50,17 @@ class RoomScreen(var game: WanneGame) : Screen {
         Gdx.input.inputProcessor = stage
 
         createGameUI()
-
-//        duck = Player(500F, 200F, Player.Companion.Looking.RIGHT)
     }
 
     private fun createGameUI() {
         // Buttons
-        val lookButton = createUIButton(lookButtonNormal, lookButtonPressed, 5f, 45f)
+        val lookButton =
+            createUIButton(
+                buttonAtlas.createSprite("Ansehen"),
+                buttonAtlas.createSprite("AnsehenPressed"),
+                5f,
+                45f,
+            )
         lookButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -79,7 +72,13 @@ class RoomScreen(var game: WanneGame) : Screen {
             },
         )
 
-        val speakButton = createUIButton(speakButtonNormal, speakButtonPressed, 65f, 45f)
+        val speakButton =
+            createUIButton(
+                buttonAtlas.createSprite("Reden"),
+                buttonAtlas.createSprite("RedenPressed"),
+                65f,
+                45f,
+            )
         speakButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -91,7 +90,13 @@ class RoomScreen(var game: WanneGame) : Screen {
             },
         )
 
-        val takeButton = createUIButton(takeButtonNormal, takeButtonPressed, 120f, 45f)
+        val takeButton =
+            createUIButton(
+                buttonAtlas.createSprite("Nehmen"),
+                buttonAtlas.createSprite("NehmenPressed"),
+                120f,
+                45f,
+            )
         takeButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -103,7 +108,13 @@ class RoomScreen(var game: WanneGame) : Screen {
             },
         )
 
-        val useButton = createUIButton(useButtonNormal, useButtonPressed, 180f, 45f)
+        val useButton =
+            createUIButton(
+                buttonAtlas.createSprite("Benutzen"),
+                buttonAtlas.createSprite("BenutzenPressed"),
+                180f,
+                45f,
+            )
         useButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -115,7 +126,13 @@ class RoomScreen(var game: WanneGame) : Screen {
             },
         )
 
-        val combineButton = createUIButton(combineButtonNormal, combineButtonPressed, 240f, 40f)
+        val combineButton =
+            createUIButton(
+                buttonAtlas.createSprite("kombinieren"),
+                buttonAtlas.createSprite("kombinierenPressed"),
+                240f,
+                40f,
+            )
         combineButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -127,7 +144,13 @@ class RoomScreen(var game: WanneGame) : Screen {
             },
         )
 
-        val exitButton = createUIButton(exitButtonNormal, exitButtonPressed, 980f, 705f)
+        val exitButton =
+            createUIButton(
+                buttonAtlas.createSprite("exit"),
+                buttonAtlas.createSprite("exitPressed"),
+                980f,
+                705f,
+            )
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -148,24 +171,19 @@ class RoomScreen(var game: WanneGame) : Screen {
     }
 
     private fun createUIButton(
-        texture: Texture,
-        texturePressed: Texture,
+        texture: Sprite,
+        texturePressed: Sprite,
         x: Float,
         y: Float,
     ): ImageButton {
         val style = ImageButtonStyle()
-        style.imageUp = getDrawableOfTexture(texture)
-        style.imageDown = getDrawableOfTexture(texturePressed)
+        style.imageUp = TextureRegionDrawable(texture)
+        style.imageDown = TextureRegionDrawable(texturePressed)
         val button = ImageButton(style)
         button.x = x
         button.y = y
 
         return button
-    }
-
-    private fun getDrawableOfTexture(texture: Texture): TextureRegionDrawable {
-        val textureRegion = TextureRegion(texture)
-        return TextureRegionDrawable(textureRegion)
     }
 
     override fun render(delta: Float) {
