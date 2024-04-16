@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
@@ -36,10 +38,14 @@ class RoomScreen(var game: WanneGame) : Screen {
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
+    private var currentPlayer: CurrentPlayer = CurrentPlayer.POOL_ATTENDANT
 
     var stateTime: Float = 0f
 
     private var viewport: FitViewport? = null
+
+    private var moveToPoint: Point? = null
+    private var needToMove = false
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
@@ -49,7 +55,57 @@ class RoomScreen(var game: WanneGame) : Screen {
         stage = Stage(viewport)
         Gdx.input.inputProcessor = stage
 
+        // Steuerung
+        stage!!.addListener(
+            object : InputListener() {
+                override fun touchDown(
+                    event: InputEvent?,
+                    x: Float,
+                    y: Float,
+                    pointer: Int,
+                    button: Int,
+                ): Boolean {
+                    println("touchDown $x:$y")
+
+                    // Raum Limits
+                    val limits = IntArray(4)
+                    limits[0] = 241 // links
+                    limits[1] = 141 // unten
+                    limits[2] = 958 // rechts
+                    limits[3] = 312 // oben
+
+                    var moveX = x.toInt()
+                    var moveY = y.toInt()
+
+                    if (moveX < limits[0]) { // links
+                        moveX = limits[0]
+                    } else if (moveX > limits[2]) { // rechts
+                        moveX = limits[2]
+                    }
+                    if (moveY < limits[1]) { // unten
+                        moveY = limits[1]
+                    } else if (moveY > limits[3]) { // oben
+                        moveY = limits[3]
+                    }
+
+                    moveX = (moveX - (moveX % Player.movePixel))
+                    moveY = (moveY - (moveY % Player.movePixel))
+
+                    moveToPoint = Point(moveX, moveY)
+                    needToMove = true
+                    return true
+                }
+            },
+        )
+
         createGameUI()
+    }
+
+    private data class Point(var x: Int, var y: Int)
+
+    private enum class CurrentPlayer {
+        POOL_ATTENDANT,
+        DUCK,
     }
 
     private fun createGameUI() {
@@ -63,18 +119,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     5f,
                     705f,
                 )
-            poolAttendantButton.addListener(
-                object : ChangeListener() {
-                    override fun changed(
-                        event: ChangeEvent?,
-                        actor: Actor?,
-                    ) {
-                        println("Switch to Pool Attendant")
-                    }
-                },
-            )
             poolAttendantButton.isVisible = false
-
             val duckButton =
                 createUIButton(
                     buttonAtlas.createSprite("Ente"),
@@ -82,13 +127,30 @@ class RoomScreen(var game: WanneGame) : Screen {
                     5f,
                     705f,
                 )
+
             duckButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
                         event: ChangeEvent?,
                         actor: Actor?,
                     ) {
-                        println("Switch to Duck")
+                        currentPlayer = CurrentPlayer.DUCK
+                        poolAttendantButton.isVisible = true
+                        duckButton.isVisible = false
+                        needToMove = false
+                    }
+                },
+            )
+            poolAttendantButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        currentPlayer = CurrentPlayer.POOL_ATTENDANT
+                        poolAttendantButton.isVisible = false
+                        duckButton.isVisible = true
+                        needToMove = false
                     }
                 },
             )
@@ -111,6 +173,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     println("Look at stuff")
+                    needToMove = false
                 }
             },
         )
@@ -129,6 +192,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     println("Speak to stuff")
+                    needToMove = false
                 }
             },
         )
@@ -147,6 +211,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     println("Take stuff")
+                    needToMove = false
                 }
             },
         )
@@ -165,6 +230,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     println("Use stuff")
+                    needToMove = false
                 }
             },
         )
@@ -183,6 +249,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     println("Combine stuff")
+                    needToMove = false
                 }
             },
         )
@@ -200,6 +267,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    needToMove = false
                     exitProcess(0)
                 }
             },
@@ -232,6 +300,15 @@ class RoomScreen(var game: WanneGame) : Screen {
     override fun render(delta: Float) {
         ScreenUtils.clear(Color.BLACK)
         viewport!!.apply()
+
+        // Movement
+        if (moveToPoint != null && needToMove) {
+            if (currentPlayer == CurrentPlayer.POOL_ATTENDANT) {
+                poolAttendant.walkToPoint(moveToPoint!!.x, moveToPoint!!.y)
+            } else {
+                duck.walkToPoint(moveToPoint!!.x, moveToPoint!!.y)
+            }
+        }
 
         // Animationen holen
         stateTime += Gdx.graphics.deltaTime
