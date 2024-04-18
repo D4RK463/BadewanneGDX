@@ -72,6 +72,10 @@ class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, look
         return sprite
     }
 
+    override fun getSprite(): Sprite {
+        return lookLeftTextureAtlas.createSprite("entelookL", 1)
+    }
+
     override fun dispose() {
         lookLeftTextureAtlas.dispose()
         lookRightTextureAtlas.dispose()

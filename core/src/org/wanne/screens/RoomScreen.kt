@@ -55,7 +55,7 @@ class RoomScreen(var game: WanneGame) : Screen {
         stage = Stage(viewport)
         Gdx.input.inputProcessor = stage
 
-        // Steuerung
+        // Klick Steuerung der Charaktere
         stage!!.addListener(
             object : InputListener() {
                 override fun touchDown(
@@ -67,32 +67,43 @@ class RoomScreen(var game: WanneGame) : Screen {
                 ): Boolean {
                     println("touchDown $x:$y")
 
-                    // Raum Limits
+                    // Raum Lauf-Limits
                     val limits = IntArray(4)
                     limits[0] = 241 // links
-                    limits[1] = 141 // unten
+                    limits[1] = 137 // unten
                     limits[2] = 958 // rechts
                     limits[3] = 312 // oben
+
+                    val clickLimits = IntArray(2)
+                    clickLimits[0] = 685 // oben
+                    clickLimits[1] = 137 // unten
 
                     var moveX = x.toInt()
                     var moveY = y.toInt()
 
-                    if (moveX < limits[0]) { // links
-                        moveX = limits[0]
-                    } else if (moveX > limits[2]) { // rechts
-                        moveX = limits[2]
-                    }
-                    if (moveY < limits[1]) { // unten
-                        moveY = limits[1]
-                    } else if (moveY > limits[3]) { // oben
-                        moveY = limits[3]
+                    // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
+                    if (moveY < clickLimits[0] && moveY > clickLimits[1]) {
+                        if (moveX < limits[0]) { // links
+                            moveX = limits[0]
+                        } else if (moveX > limits[2]) { // rechts
+                            moveX = limits[2]
+                        }
+                        if (moveY < limits[1]) { // unten
+                            moveY = limits[1]
+                        } else if (moveY > limits[3]) { // oben
+                            moveY = limits[3]
+                        }
+
+                        // Koordinate am Raster ausrichten
+                        moveX = (moveX - (moveX % Player.movePixel))
+                        moveY = (moveY - (moveY % Player.movePixel))
+
+                        moveToPoint = Point(moveX, moveY)
+                        needToMove = true
+                    } else {
+                        needToMove = false
                     }
 
-                    moveX = (moveX - (moveX % Player.movePixel))
-                    moveY = (moveY - (moveY % Player.movePixel))
-
-                    moveToPoint = Point(moveX, moveY)
-                    needToMove = true
                     return true
                 }
             },

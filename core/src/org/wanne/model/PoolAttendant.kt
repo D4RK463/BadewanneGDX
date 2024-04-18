@@ -101,6 +101,10 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
         return sprite
     }
 
+    override fun getSprite(): Sprite {
+        return lookLeftTextureAtlas.createSprite("meisterlookL", 1)
+    }
+
     override fun dispose() {
         scratchLeftTextureAtlas.dispose()
         scratchRightTextureAtlas.dispose()

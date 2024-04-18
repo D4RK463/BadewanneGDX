@@ -23,23 +23,30 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
         move2posX: Int,
         move2posY: Int,
     ) {
-        println("move from: $posX:$posY => $move2posX:$move2posY")
+        println("$posX:$posY => $move2posX:$move2posY")
+
+        val sprite = getSprite()
+
+        val movePosX = move2posX - sprite.width / 2
+        val movePosY = move2posY - sprite.height / 2
+
+        println("fixed = $posX:$posY => $movePosX:$movePosY")
 
         state = State.WALKING
-        if (posX < move2posX) {
+        if (posX < movePosX) {
             looking = Looking.RIGHT
             posX += movePixel
-            if (posY < move2posY) { // walks up-right
+            if (posY < movePosY) { // walks up-right
                 posY += movePixel
                 // } else if (posY == move2posY) { // walks
                 // right
-            } else if (posY > move2posY) { // walks down-right
+            } else if (posY > movePosY) { // walks down-right
                 posY -= movePixel
             }
-        } else if (posX == move2posX.toFloat()) {
-            if (posY < move2posY) { // walks up
+        } else if (posX == movePosX.toFloat()) {
+            if (posY < movePosY) { // walks up
                 posY += movePixel
-            } else if (posY == move2posY.toFloat()) { // stand
+            } else if (posY == movePosY.toFloat()) { // stand
                 state = State.STANDING
             } else { // if (posY > move2posY) // walks down
                 posY -= movePixel
@@ -47,17 +54,19 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
         } else { // (posX > move2posX)
             looking = Looking.LEFT
             posX -= movePixel
-            if (posY < move2posY) { // walks up-left
+            if (posY < movePosY) { // walks up-left
                 posY += movePixel
                 // } else if (posY == move2posY) { // walks
                 // left
-            } else if (posY > move2posY) { // walks down-left
+            } else if (posY > movePosY) { // walks down-left
                 posY -= movePixel
             }
         }
     }
 
     abstract fun getSpriteOfCurrentState(stateTime: Float): Sprite
+
+    abstract fun getSprite(): Sprite
 
     abstract fun dispose()
 }
