@@ -65,18 +65,18 @@ class RoomScreen(var game: WanneGame) : Screen {
                     pointer: Int,
                     button: Int,
                 ): Boolean {
-                    println("touchDown $x:$y")
+//                    println("touchDown $x:$y")
 
                     // Raum Lauf-Limits
                     val limits = IntArray(4)
                     limits[0] = 241 // links
-                    limits[1] = 137 // unten
-                    limits[2] = 958 // rechts
+                    limits[1] = 129 // unten
+                    limits[2] = 934 // rechts
                     limits[3] = 312 // oben
 
                     val clickLimits = IntArray(2)
                     clickLimits[0] = 685 // oben
-                    clickLimits[1] = 137 // unten
+                    clickLimits[1] = 129 // unten
 
                     var moveX = x.toInt()
                     var moveY = y.toInt()
@@ -94,7 +94,7 @@ class RoomScreen(var game: WanneGame) : Screen {
                             moveY = limits[3]
                         }
 
-                        // Koordinate am Raster ausrichten
+                        // Koordinaten am Raster ausrichten
                         moveX = (moveX - (moveX % Player.movePixel))
                         moveY = (moveY - (moveY % Player.movePixel))
 
@@ -121,55 +121,6 @@ class RoomScreen(var game: WanneGame) : Screen {
 
     private fun createGameUI() {
         // Buttons
-        // Nur beim Single-Player sind die Buttons notwendig
-        if (game.isSingleplayer) {
-            val poolAttendantButton =
-                createUIButton(
-                    buttonAtlas.createSprite("Bademeister"),
-                    buttonAtlas.createSprite("BademeisterPressed"),
-                    5f,
-                    705f,
-                )
-            poolAttendantButton.isVisible = false
-            val duckButton =
-                createUIButton(
-                    buttonAtlas.createSprite("Ente"),
-                    buttonAtlas.createSprite("EntePressed"),
-                    5f,
-                    705f,
-                )
-
-            duckButton.addListener(
-                object : ChangeListener() {
-                    override fun changed(
-                        event: ChangeEvent?,
-                        actor: Actor?,
-                    ) {
-                        currentPlayer = CurrentPlayer.DUCK
-                        poolAttendantButton.isVisible = true
-                        duckButton.isVisible = false
-                        needToMove = false
-                    }
-                },
-            )
-            poolAttendantButton.addListener(
-                object : ChangeListener() {
-                    override fun changed(
-                        event: ChangeEvent?,
-                        actor: Actor?,
-                    ) {
-                        currentPlayer = CurrentPlayer.POOL_ATTENDANT
-                        poolAttendantButton.isVisible = false
-                        duckButton.isVisible = true
-                        needToMove = false
-                    }
-                },
-            )
-
-            stage!!.addActor(poolAttendantButton)
-            stage!!.addActor(duckButton)
-        }
-
         val lookButton =
             createUIButton(
                 buttonAtlas.createSprite("Ansehen"),
@@ -264,6 +215,74 @@ class RoomScreen(var game: WanneGame) : Screen {
                 }
             },
         )
+
+        // Nur beim Single-Player sind die Buttons notwendig
+        if (game.isSingleplayer) {
+            val poolAttendantButton =
+                createUIButton(
+                    buttonAtlas.createSprite("Bademeister"),
+                    buttonAtlas.createSprite("BademeisterPressed"),
+                    5f,
+                    705f,
+                )
+            poolAttendantButton.isVisible = false
+            val duckButton =
+                createUIButton(
+                    buttonAtlas.createSprite("Ente"),
+                    buttonAtlas.createSprite("EntePressed"),
+                    5f,
+                    705f,
+                )
+
+            duckButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        poolAttendant.state = Player.Companion.State.STANDING
+                        currentPlayer = CurrentPlayer.DUCK
+
+                        poolAttendantButton.isVisible = true
+                        duckButton.isVisible = false
+
+                        speakButton.isVisible = true
+                        takeButton.isVisible = false
+                        useButton.isVisible = false
+                        combineButton.isVisible = true
+
+                        needToMove = false
+                    }
+                },
+            )
+            poolAttendantButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        duck.state = Player.Companion.State.STANDING
+                        currentPlayer = CurrentPlayer.POOL_ATTENDANT
+
+                        poolAttendantButton.isVisible = false
+                        duckButton.isVisible = true
+
+                        speakButton.isVisible = false
+                        takeButton.isVisible = true
+                        useButton.isVisible = true
+                        combineButton.isVisible = false
+
+                        needToMove = false
+                    }
+                },
+            )
+
+            speakButton.isVisible = false
+            combineButton.isVisible = false
+
+            stage!!.addActor(poolAttendantButton)
+            stage!!.addActor(duckButton)
+        }
 
         val exitButton =
             createUIButton(

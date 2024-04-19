@@ -23,14 +23,11 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
         move2posX: Int,
         move2posY: Int,
     ) {
-        println("$posX:$posY => $move2posX:$move2posY")
-
         val sprite = getSprite()
 
+        // Punkt sollte in der Mitte der Figur sein
         val movePosX = move2posX - sprite.width / 2
-        val movePosY = move2posY - sprite.height / 2
-
-        println("fixed = $posX:$posY => $movePosX:$movePosY")
+        val movePosY = move2posY // - sprite.height / 2
 
         state = State.WALKING
         if (posX < movePosX) {
