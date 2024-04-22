@@ -15,54 +15,44 @@ class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, look
     private val walkRightTextureAtlas: TextureAtlas =
         TextureAtlas("pictures/Players/Ente/walkRight.atlas")
 
-    private var lookLeftAnimation: Animation<Sprite>? = null
-    private var lookRightAnimation: Animation<Sprite>? = null
-    private var walkLeftAnimation: Animation<Sprite>? = null
-    private var walkRightAnimation: Animation<Sprite>? = null
-
-    init {
-        lookLeftAnimation =
-            Animation(
-                0.033f,
-                lookLeftTextureAtlas.createSprites("entelookL"),
-                Animation.PlayMode.LOOP,
-            )
-
-        lookRightAnimation =
-            Animation(
-                0.033f,
-                lookRightTextureAtlas.createSprites("entelookR"),
-                Animation.PlayMode.LOOP,
-            )
-
-        walkLeftAnimation =
-            Animation(
-                0.033f,
-                walkLeftTextureAtlas.createSprites("entewalkL"),
-                Animation.PlayMode.LOOP,
-            )
-
-        walkRightAnimation =
-            Animation(
-                0.033f,
-                walkRightTextureAtlas.createSprites("entewalkR"),
-                Animation.PlayMode.LOOP,
-            )
-    }
+    private var lookLeftAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            lookLeftTextureAtlas.createSprites("entelookL"),
+            Animation.PlayMode.LOOP,
+        )
+    private var lookRightAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            lookRightTextureAtlas.createSprites("entelookR"),
+            Animation.PlayMode.LOOP,
+        )
+    private var walkLeftAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            walkLeftTextureAtlas.createSprites("entewalkL"),
+            Animation.PlayMode.LOOP,
+        )
+    private var walkRightAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            walkRightTextureAtlas.createSprites("entewalkR"),
+            Animation.PlayMode.LOOP,
+        )
 
     override fun getSpriteOfCurrentState(stateTime: Float): Sprite {
         val sprite: Sprite =
             if (looking == Looking.LEFT) {
                 if (state == Companion.State.STANDING) {
-                    lookLeftAnimation!!.getKeyFrame(stateTime, true)
+                    lookLeftAnimation.getKeyFrame(stateTime, true)
                 } else {
-                    walkLeftAnimation!!.getKeyFrame(stateTime, true)
+                    walkLeftAnimation.getKeyFrame(stateTime, true)
                 }
             } else {
                 if (state == Companion.State.STANDING) {
-                    lookRightAnimation!!.getKeyFrame(stateTime, true)
+                    lookRightAnimation.getKeyFrame(stateTime, true)
                 } else {
-                    walkRightAnimation!!.getKeyFrame(stateTime, true)
+                    walkRightAnimation.getKeyFrame(stateTime, true)
                 }
             }
 

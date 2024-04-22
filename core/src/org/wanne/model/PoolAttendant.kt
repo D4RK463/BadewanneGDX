@@ -19,79 +19,77 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
     private val walkRightTextureAtlas: TextureAtlas =
         TextureAtlas("pictures/Players/Bademeister/walkRight.atlas")
 
-    private var scratchLeftAnimation: Animation<Sprite>? = null
-    private var scratchRightAnimation: Animation<Sprite>? = null
-    private var lookLeftAnimation: Animation<Sprite>? = null
-    private var lookRightAnimation: Animation<Sprite>? = null
-    private var walkLeftAnimation: Animation<Sprite>? = null
-    private var walkRightAnimation: Animation<Sprite>? = null
-
-    init {
-        scratchLeftAnimation =
-            Animation(
-                0.033f,
-                scratchLeftTextureAtlas.createSprites("meisterscratchL"),
-                Animation.PlayMode.LOOP,
-            )
-
-        scratchRightAnimation =
-            Animation(
-                0.033f,
-                scratchRightTextureAtlas.createSprites("meisterscratchR"),
-                Animation.PlayMode.LOOP,
-            )
-
-        lookLeftAnimation =
-            Animation(
-                0.033f,
-                lookLeftTextureAtlas.createSprites("meisterlookL"),
-                Animation.PlayMode.LOOP,
-            )
-
-        lookRightAnimation =
-            Animation(
-                0.033f,
-                lookRightTextureAtlas.createSprites("meisterlookR"),
-                Animation.PlayMode.LOOP,
-            )
-
-        walkLeftAnimation =
-            Animation(
-                0.033f,
-                walkLeftTextureAtlas.createSprites("meisterwalkL"),
-                Animation.PlayMode.LOOP,
-            )
-
-        walkRightAnimation =
-            Animation(
-                0.033f,
-                walkRightTextureAtlas.createSprites("meisterwalkR"),
-                Animation.PlayMode.LOOP,
-            )
-    }
+    private var scratchLeftAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            scratchLeftTextureAtlas.createSprites("meisterscratchL"),
+            Animation.PlayMode.LOOP,
+        )
+    private var scratchRightAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            scratchRightTextureAtlas.createSprites("meisterscratchR"),
+            Animation.PlayMode.LOOP,
+        )
+    private var lookLeftAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            lookLeftTextureAtlas.createSprites("meisterlookL"),
+            Animation.PlayMode.LOOP,
+        )
+    private var lookRightAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            lookRightTextureAtlas.createSprites("meisterlookR"),
+            Animation.PlayMode.LOOP,
+        )
+    private var walkLeftAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            walkLeftTextureAtlas.createSprites("meisterwalkL"),
+            Animation.PlayMode.LOOP,
+        )
+    private var walkRightAnimation: Animation<Sprite> =
+        Animation(
+            0.033f,
+            walkRightTextureAtlas.createSprites("meisterwalkR"),
+            Animation.PlayMode.LOOP,
+        )
 
     override fun getSpriteOfCurrentState(stateTime: Float): Sprite {
         val sprite: Sprite
 
         if (looking == Looking.LEFT) {
             if (state == Companion.State.STANDING) {
-                if (scratchLeftAnimation!!.isAnimationFinished(stateTime)) {
-                    sprite = lookLeftAnimation!!.getKeyFrame(stateTime)
-                } else {
-                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
+                var spriteAni = scratchLeftAnimation.getKeyFrame(stateTime)
+//                println(scratchLeftAnimation.isAnimationFinished(stateTime))
+                if (scratchLeftAnimation.isAnimationFinished(stateTime)) {
+                    spriteAni = lookLeftAnimation.getKeyFrame(stateTime)
                 }
+
+                sprite = spriteAni
+
+//                if (scratchLeftAnimation!!.isAnimationFinished(stateTime)) {
+//                    sprite = lookLeftAnimation!!.getKeyFrame(stateTime)
+//                } else if (lookLeftAnimation!!.isAnimationFinished(stateTime)) {
+//                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
+//                } else {
+//                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
+//                }
             } else {
-                sprite = walkLeftAnimation!!.getKeyFrame(stateTime, true)
+                sprite = walkLeftAnimation.getKeyFrame(stateTime, true)
             }
         } else {
             if (state == Companion.State.STANDING) {
-                if (lookRightAnimation!!.isAnimationFinished(stateTime)) {
-                    sprite = lookRightAnimation!!.getKeyFrame(stateTime, true)
+                if (scratchRightAnimation.isAnimationFinished(stateTime)) {
+                    sprite = lookRightAnimation.getKeyFrame(stateTime, true)
+                } else if (lookRightAnimation.isAnimationFinished(stateTime)) {
+                    sprite = scratchRightAnimation.getKeyFrame(stateTime)
                 } else {
-                    sprite = scratchRightAnimation!!.getKeyFrame(stateTime)
+                    sprite = scratchRightAnimation.getKeyFrame(stateTime)
                 }
             } else {
-                sprite = walkRightAnimation!!.getKeyFrame(stateTime, true)
+                sprite = walkRightAnimation.getKeyFrame(stateTime, true)
             }
         }
 
