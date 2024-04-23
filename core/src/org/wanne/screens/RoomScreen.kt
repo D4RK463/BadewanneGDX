@@ -18,9 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
-import org.wanne.model.Duck
-import org.wanne.model.Player
-import org.wanne.model.PoolAttendant
+import org.wanne.model.*
 import kotlin.system.exitProcess
 
 class RoomScreen(var game: WanneGame) : Screen {
@@ -47,6 +45,8 @@ class RoomScreen(var game: WanneGame) : Screen {
     private var moveToPoint: Point? = null
     private var needToMove = false
 
+    private var currentAction: Action = Action.createDefaultAction()
+
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
@@ -65,44 +65,50 @@ class RoomScreen(var game: WanneGame) : Screen {
                     pointer: Int,
                     button: Int,
                 ): Boolean {
-//                    println("touchDown $x:$y")
+                    // Aktion ausführen
+                    if (currentAction.type != ActionType.NOTHING) {
+                        println("${currentAction.type} at $x:$y")
+                    } else { // oder laufen
 
-                    // Raum Lauf-Limits
-                    val limits = IntArray(4)
-                    limits[0] = 241 // links
-                    limits[1] = 129 // unten
-                    limits[2] = 934 // rechts
-                    limits[3] = 312 // oben
+                        // Raum Lauf-Limits
+                        val limits = IntArray(4)
+                        limits[0] = 241 // links
+                        limits[1] = 129 // unten
+                        limits[2] = 934 // rechts
+                        limits[3] = 312 // oben
 
-                    val clickLimits = IntArray(2)
-                    clickLimits[0] = 685 // oben
-                    clickLimits[1] = 129 // unten
+                        val clickLimits = IntArray(2)
+                        clickLimits[0] = 685 // oben
+                        clickLimits[1] = 129 // unten
 
-                    var moveX = x.toInt()
-                    var moveY = y.toInt()
+                        var moveX = x.toInt()
+                        var moveY = y.toInt()
 
-                    // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-                    if (moveY < clickLimits[0] && moveY > clickLimits[1]) {
-                        if (moveX < limits[0]) { // links
-                            moveX = limits[0]
-                        } else if (moveX > limits[2]) { // rechts
-                            moveX = limits[2]
+                        // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
+                        if (moveY < clickLimits[0] && moveY > clickLimits[1]) {
+                            if (moveX < limits[0]) { // links
+                                moveX = limits[0]
+                            } else if (moveX > limits[2]) { // rechts
+                                moveX = limits[2]
+                            }
+                            if (moveY < limits[1]) { // unten
+                                moveY = limits[1]
+                            } else if (moveY > limits[3]) { // oben
+                                moveY = limits[3]
+                            }
+
+                            // Koordinaten am Raster ausrichten
+                            moveX = (moveX - (moveX % Player.movePixel))
+                            moveY = (moveY - (moveY % Player.movePixel))
+
+                            moveToPoint = Point(moveX, moveY)
+                            needToMove = true
+                        } else {
+                            needToMove = false
                         }
-                        if (moveY < limits[1]) { // unten
-                            moveY = limits[1]
-                        } else if (moveY > limits[3]) { // oben
-                            moveY = limits[3]
-                        }
-
-                        // Koordinaten am Raster ausrichten
-                        moveX = (moveX - (moveX % Player.movePixel))
-                        moveY = (moveY - (moveY % Player.movePixel))
-
-                        moveToPoint = Point(moveX, moveY)
-                        needToMove = true
-                    } else {
-                        needToMove = false
                     }
+
+                    currentAction = Action.createDefaultAction()
 
                     return true
                 }
@@ -134,8 +140,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Look at stuff")
                     needToMove = false
+                    currentAction = Action(ActionType.LOOK_AT)
                 }
             },
         )
@@ -153,8 +159,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Speak to stuff")
                     needToMove = false
+                    currentAction = Action(ActionType.TALK_TO)
                 }
             },
         )
@@ -172,8 +178,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Take stuff")
                     needToMove = false
+                    currentAction = Action(ActionType.ADD_TO_INVENTORY)
                 }
             },
         )
@@ -191,8 +197,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Use stuff")
                     needToMove = false
+                    currentAction = Action(ActionType.USE)
                 }
             },
         )
@@ -210,8 +216,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Combine stuff")
                     needToMove = false
+                    currentAction = Action(ActionType.COMBINE)
                 }
             },
         )
