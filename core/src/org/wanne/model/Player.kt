@@ -1,8 +1,9 @@
 package org.wanne.model
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.scenes.scene2d.Actor
 
-abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
+abstract class Player(var posX: Float, var posY: Float, var looking: Looking) : Actor() {
     var state: State = State.STANDING
 
     companion object {
@@ -16,7 +17,7 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
             WALKING,
         }
 
-        val movePixel = 2
+        const val MOVE_PIXEL = 2
     }
 
     fun walkToPoint(
@@ -31,37 +32,41 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
 
         state = State.WALKING
         if (posX < movePosX) {
-            looking = Looking.RIGHT
-            posX += movePixel
+            changeView(Looking.RIGHT)
+            posX += MOVE_PIXEL
             if (posY < movePosY) { // walks up-right
-                posY += movePixel
+                posY += MOVE_PIXEL
                 // } else if (posY == move2posY) { // walks
                 // right
             } else if (posY > movePosY) { // walks down-right
-                posY -= movePixel
+                posY -= MOVE_PIXEL
             }
         } else if (posX == movePosX.toFloat()) {
             if (posY < movePosY) { // walks up
-                posY += movePixel
+                posY += MOVE_PIXEL
             } else if (posY == movePosY.toFloat()) { // stand
                 state = State.STANDING
             } else { // if (posY > move2posY) // walks down
-                posY -= movePixel
+                posY -= MOVE_PIXEL
             }
         } else { // (posX > move2posX)
-            looking = Looking.LEFT
-            posX -= movePixel
+            changeView(Looking.LEFT)
+            posX -= MOVE_PIXEL
             if (posY < movePosY) { // walks up-left
-                posY += movePixel
+                posY += MOVE_PIXEL
                 // } else if (posY == move2posY) { // walks
                 // left
             } else if (posY > movePosY) { // walks down-left
-                posY -= movePixel
+                posY -= MOVE_PIXEL
             }
         }
     }
 
-    abstract fun getSpriteOfCurrentState(stateTime: Float): Sprite
+    open fun changeView(newView: Looking) {
+        this.looking = newView
+    }
+
+    abstract fun getSpriteOfCurrentState(time: Float): Sprite
 
     abstract fun getSprite(): Sprite
 

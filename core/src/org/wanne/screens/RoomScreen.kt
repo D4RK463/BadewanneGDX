@@ -18,10 +18,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
-import org.wanne.model.*
+import org.wanne.model.Action
+import org.wanne.model.ActionType
+import org.wanne.model.Duck
+import org.wanne.model.Player
+import org.wanne.model.PoolAttendant
 import kotlin.system.exitProcess
 
-class RoomScreen(var game: WanneGame) : Screen {
+class RoomScreen(private var game: WanneGame) : Screen {
     private lateinit var stage: Stage
 
     private lateinit var batch: SpriteBatch
@@ -98,8 +102,8 @@ class RoomScreen(var game: WanneGame) : Screen {
                             }
 
                             // Koordinaten am Raster ausrichten
-                            moveX = (moveX - (moveX % Player.movePixel))
-                            moveY = (moveY - (moveY % Player.movePixel))
+                            moveX = (moveX - (moveX % Player.MOVE_PIXEL))
+                            moveY = (moveY - (moveY % Player.MOVE_PIXEL))
 
                             moveToPoint = Point(moveX, moveY)
                             needToMove = true
@@ -348,7 +352,7 @@ class RoomScreen(var game: WanneGame) : Screen {
 
         // Animationen holen
         stateTime += Gdx.graphics.deltaTime
-        val poolAttendantSprite: Sprite = poolAttendant.getSpriteOfCurrentState(stateTime)
+        val poolAttendantSprite: Sprite = poolAttendant.getSpriteOfCurrentState(Gdx.graphics.deltaTime)
         val duckSprite: Sprite = duck.getSpriteOfCurrentState(stateTime)
 
         // Zeichnen

@@ -23,25 +23,25 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
         Animation(
             0.033f,
             scratchLeftTextureAtlas.createSprites("meisterscratchL"),
-            Animation.PlayMode.LOOP,
+            Animation.PlayMode.NORMAL,
         )
     private var scratchRightAnimation: Animation<Sprite> =
         Animation(
             0.033f,
             scratchRightTextureAtlas.createSprites("meisterscratchR"),
-            Animation.PlayMode.LOOP,
+            Animation.PlayMode.NORMAL,
         )
     private var lookLeftAnimation: Animation<Sprite> =
         Animation(
             0.033f,
             lookLeftTextureAtlas.createSprites("meisterlookL"),
-            Animation.PlayMode.LOOP,
+            Animation.PlayMode.NORMAL,
         )
     private var lookRightAnimation: Animation<Sprite> =
         Animation(
             0.033f,
             lookRightTextureAtlas.createSprites("meisterlookR"),
-            Animation.PlayMode.LOOP,
+            Animation.PlayMode.NORMAL,
         )
     private var walkLeftAnimation: Animation<Sprite> =
         Animation(
@@ -56,41 +56,33 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
             Animation.PlayMode.LOOP,
         )
 
-    override fun getSpriteOfCurrentState(stateTime: Float): Sprite {
+    private var currentAnimation: Animation<Sprite> = scratchRightAnimation
+    private var stateTime = 0F
+
+    override fun getSpriteOfCurrentState(time: Float): Sprite {
         val sprite: Sprite
+        stateTime += time
 
-        if (looking == Looking.LEFT) {
-            if (state == Companion.State.STANDING) {
-                var spriteAni = scratchLeftAnimation.getKeyFrame(stateTime)
-//                println(scratchLeftAnimation.isAnimationFinished(stateTime))
-                if (scratchLeftAnimation.isAnimationFinished(stateTime)) {
-                    spriteAni = lookLeftAnimation.getKeyFrame(stateTime)
-                }
-
-                sprite = spriteAni
-
-//                if (scratchLeftAnimation!!.isAnimationFinished(stateTime)) {
-//                    sprite = lookLeftAnimation!!.getKeyFrame(stateTime)
-//                } else if (lookLeftAnimation!!.isAnimationFinished(stateTime)) {
-//                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
-//                } else {
-//                    sprite = scratchLeftAnimation!!.getKeyFrame(stateTime)
-//                }
-            } else {
+        if (state == Companion.State.WALKING) {
+            if (looking == Looking.LEFT) {
                 sprite = walkLeftAnimation.getKeyFrame(stateTime, true)
-            }
-        } else {
-            if (state == Companion.State.STANDING) {
-                if (scratchRightAnimation.isAnimationFinished(stateTime)) {
-                    sprite = lookRightAnimation.getKeyFrame(stateTime, true)
-                } else if (lookRightAnimation.isAnimationFinished(stateTime)) {
-                    sprite = scratchRightAnimation.getKeyFrame(stateTime)
-                } else {
-                    sprite = scratchRightAnimation.getKeyFrame(stateTime)
-                }
             } else {
                 sprite = walkRightAnimation.getKeyFrame(stateTime, true)
             }
+        } else {
+            val standingAnimation = currentAnimation
+
+            if (looking == Looking.LEFT) {
+                if (standingAnimation.isAnimationFinished(stateTime)) {
+                    currentAnimation = lookLeftAnimation
+                }
+            } else {
+                if (standingAnimation.isAnimationFinished(stateTime)) {
+                    currentAnimation = lookRightAnimation
+                }
+            }
+
+            sprite = standingAnimation.getKeyFrame(stateTime, true)
         }
 
         sprite.x = posX
@@ -110,5 +102,18 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
         lookRightTextureAtlas.dispose()
         walkLeftTextureAtlas.dispose()
         walkRightTextureAtlas.dispose()
+    }
+
+    override fun changeView(newView: Looking) {
+        if (newView != looking) {
+            if (newView == Looking.RIGHT) {
+                currentAnimation = scratchRightAnimation
+            } else {
+                currentAnimation = scratchLeftAnimation
+            }
+            stateTime = 0F
+        }
+
+        this.looking = newView
     }
 }

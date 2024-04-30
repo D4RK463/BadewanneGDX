@@ -40,19 +40,19 @@ class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, look
             Animation.PlayMode.LOOP,
         )
 
-    override fun getSpriteOfCurrentState(stateTime: Float): Sprite {
+    override fun getSpriteOfCurrentState(time: Float): Sprite {
         val sprite: Sprite =
             if (looking == Looking.LEFT) {
                 if (state == Companion.State.STANDING) {
-                    lookLeftAnimation.getKeyFrame(stateTime, true)
+                    lookLeftAnimation.getKeyFrame(time, true)
                 } else {
-                    walkLeftAnimation.getKeyFrame(stateTime, true)
+                    walkLeftAnimation.getKeyFrame(time, true)
                 }
             } else {
                 if (state == Companion.State.STANDING) {
-                    lookRightAnimation.getKeyFrame(stateTime, true)
+                    lookRightAnimation.getKeyFrame(time, true)
                 } else {
-                    walkRightAnimation.getKeyFrame(stateTime, true)
+                    walkRightAnimation.getKeyFrame(time, true)
                 }
             }
 
