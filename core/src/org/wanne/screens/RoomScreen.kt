@@ -20,10 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.ActionType
-import org.wanne.model.`object`.Bed
-import org.wanne.model.`object`.Drawer
-import org.wanne.model.`object`.GameObject
-import org.wanne.model.`object`.Window
+import org.wanne.model.objects.*
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
@@ -42,9 +39,18 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
 
     // Objects
-    private val bed = Bed(65F, 210F)
-    private val roomWindow = Window(400F, 495F)
-    private val drawer = Drawer(400F, 359F)
+    private val bed = Bed()
+    private val roomWindow = Window()
+    private val drawer = Drawer()
+    private val door = Door()
+    private val pa2Poster = PA2Poster()
+    private val brucePoster = BrucePoster()
+    private val deanPoster = DeanPoster()
+    private val rug = Rug()
+    private val stickers = Stickers()
+    private val straw = Straw()
+    private val box = Box()
+    private val safe = Safe()
 
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
@@ -82,13 +88,19 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     if (currentAction.type != ActionType.NOTHING) {
                         println("${currentAction.type} at $x:$y")
 
-                        println("${currentAction.clickedObject}")
+                        // Das Objekt holen, auf welches geklickt wurde
+                        val hitObject = stage.hit(x, y, true)
+                        if (hitObject is GameObject) {
+                            currentAction.clickedObject = hitObject
+                        }
+
+                        currentAction.action()
 
                     } else { // oder laufen
 
                         // Raum Lauf-Limits
                         val limits = IntArray(4)
-                        limits[0] = 241 // links
+                        limits[0] = 255 // links
                         limits[1] = 129 // unten
                         limits[2] = 934 // rechts
                         limits[3] = 312 // oben
@@ -124,14 +136,13 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         }
                     }
 
-                    //currentAction.type = ActionType.NOTHING
-                    event?.handle()
-
+                    currentAction.reset()
                     return true
                 }
             },
         )
 
+        createGameObjects()
         createGameUI()
     }
 
@@ -140,6 +151,22 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private enum class CurrentPlayer {
         POOL_ATTENDANT,
         DUCK,
+    }
+
+    private fun createGameObjects() {
+        // Objekte hinzufügen (Reihenfolge ist wichtig)
+        stage.addActor(bed)
+        stage.addActor(roomWindow)
+        stage.addActor(drawer)
+        stage.addActor(stickers)
+        stage.addActor(straw)
+        stage.addActor(door)
+        stage.addActor(pa2Poster)
+        stage.addActor(brucePoster)
+        stage.addActor(deanPoster)
+        stage.addActor(safe)
+        stage.addActor(rug)
+        stage.addActor(box)
     }
 
     private fun createGameUI() {
@@ -379,18 +406,16 @@ class RoomScreen(private var game: WanneGame) : Screen {
             batch.draw(roomBackgroundMulti, 0f, 0f)
         }
 
-        // Objects (Reihenfolge ist wichtig)
-        bed.getSprite().draw(batch)
-        roomWindow.getSprite().draw(batch)
-        drawer.getSprite().draw(batch)
+        // Objekte und UI
+        stickers.getSprite().draw(batch)
+        stage.act()
+        stage.draw()
 
         // Players
         poolAttendantSprite.draw(batch)
         duckSprite.draw(batch)
         batch.end()
 
-        stage.act()
-        stage.draw()
     }
 
     override fun resize(
@@ -414,5 +439,17 @@ class RoomScreen(private var game: WanneGame) : Screen {
         buttonAtlas.dispose()
         poolAttendant.dispose()
         duck.dispose()
+        bed.dispose()
+        roomWindow.dispose()
+        box.dispose()
+        brucePoster.dispose()
+        deanPoster.dispose()
+        door.dispose()
+        drawer.dispose()
+        pa2Poster.dispose()
+        rug.dispose()
+        stickers.dispose()
+        straw.dispose()
+        safe.dispose()
     }
 }
