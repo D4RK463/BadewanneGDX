@@ -102,7 +102,7 @@ class MenuScreen(var game: WanneGame) : Screen {
         stage.act()
         stage.draw()
 
-        batch.projectionMatrix = viewport!!.camera.combined
+        batch.projectionMatrix = viewport.camera.combined
         batch.begin()
         batch.draw(logoHeadline, 220f, 400f)
         batch.draw(duck, 450f, 20f)

@@ -1,9 +1,9 @@
-package org.wanne.model
+package org.wanne.model.player
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import org.wanne.model.Player.Companion.Looking
+import org.wanne.model.player.Player.Companion.Looking
 
 class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, looking) {
     private val lookLeftTextureAtlas: TextureAtlas =

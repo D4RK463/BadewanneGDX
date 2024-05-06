@@ -20,9 +20,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.ActionType
-import org.wanne.model.Duck
-import org.wanne.model.Player
-import org.wanne.model.PoolAttendant
+import org.wanne.model.`object`.Bed
+import org.wanne.model.`object`.Drawer
+import org.wanne.model.`object`.GameObject
+import org.wanne.model.`object`.Window
+import org.wanne.model.player.Duck
+import org.wanne.model.player.Player
+import org.wanne.model.player.PoolAttendant
 import kotlin.system.exitProcess
 
 class RoomScreen(private var game: WanneGame) : Screen {
@@ -36,6 +40,11 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
     // Buttons
     private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
+
+    // Objects
+    private val bed = Bed(65F, 210F)
+    private val roomWindow = Window(400F, 495F)
+    private val drawer = Drawer(400F, 359F)
 
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
@@ -72,6 +81,9 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     // Aktion ausführen
                     if (currentAction.type != ActionType.NOTHING) {
                         println("${currentAction.type} at $x:$y")
+
+                        println("${currentAction.clickedObject}")
+
                     } else { // oder laufen
 
                         // Raum Lauf-Limits
@@ -112,7 +124,8 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         }
                     }
 
-                    currentAction = Action.createDefaultAction()
+                    //currentAction.type = ActionType.NOTHING
+                    event?.handle()
 
                     return true
                 }
@@ -365,6 +378,11 @@ class RoomScreen(private var game: WanneGame) : Screen {
         } else {
             batch.draw(roomBackgroundMulti, 0f, 0f)
         }
+
+        // Objects (Reihenfolge ist wichtig)
+        bed.getSprite().draw(batch)
+        roomWindow.getSprite().draw(batch)
+        drawer.getSprite().draw(batch)
 
         // Players
         poolAttendantSprite.draw(batch)
