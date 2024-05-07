@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
+import org.wanne.model.Point
+import org.wanne.model.player.Player
 
 abstract class GameObject (var posX: Float, var posY: Float): Actor() {
 
@@ -12,6 +14,8 @@ abstract class GameObject (var posX: Float, var posY: Float): Actor() {
     abstract fun getSprite() : Sprite
 
     abstract fun look()
+
+    abstract fun getInteractPosition() : Pair<Point,Player.Companion.Looking?>
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
         sprite.x = posX

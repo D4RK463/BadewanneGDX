@@ -1,6 +1,8 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Point
+import org.wanne.model.player.Player
 
 class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
 
@@ -17,5 +19,9 @@ class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
 
     override fun look() {
         println("Ein alter Schrank!!!")
+    }
+
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
+        return Pair(Point(510,308), null)
     }
 }

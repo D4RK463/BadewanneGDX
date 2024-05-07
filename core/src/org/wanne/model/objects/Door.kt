@@ -1,6 +1,8 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Point
+import org.wanne.model.player.Player
 
 class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
 
@@ -17,5 +19,9 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
 
     override fun look() {
         println("Eine Tür")
+    }
+
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
+        return Pair(Point(862,216), Player.Companion.Looking.RIGHT)
     }
 }

@@ -3,6 +3,8 @@ package org.wanne.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Cursor
+import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -20,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.ActionType
+import org.wanne.model.Point
 import org.wanne.model.objects.*
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
@@ -28,7 +31,6 @@ import kotlin.system.exitProcess
 
 class RoomScreen(private var game: WanneGame) : Screen {
     private lateinit var stage: Stage
-
     private lateinit var batch: SpriteBatch
 
     // Background
@@ -55,7 +57,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
-    private var currentPlayer: CurrentPlayer = CurrentPlayer.POOL_ATTENDANT
+    private var currentPlayer: Player = poolAttendant
 
     private var stateTime: Float = 0f
 
@@ -65,6 +67,8 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private var needToMove = false
 
     private var currentAction: Action = Action.createDefaultAction()
+    private var lookingAtTheEnd: Player.Companion.Looking? = null
+    private var doTheAction: () -> Unit = {}
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
@@ -84,7 +88,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     pointer: Int,
                     button: Int,
                 ): Boolean {
-                    // Aktion ausführen
+                    // Aktion
                     if (currentAction.type != ActionType.NOTHING) {
                         println("${currentAction.type} at $x:$y")
 
@@ -94,9 +98,20 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             currentAction.clickedObject = hitObject
                         }
 
-                        currentAction.action()
+                        // Auf das Objekt zugehen und in die richtige Richtung schauen
+                        moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
+                        lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
+                        needToMove = true
+
+                        // Aktion ausführen als Lambda
+                        doTheAction = {
+                            currentAction.action()
+                            currentAction.reset()
+                        }
 
                     } else { // oder laufen
+                        lookingAtTheEnd = null
+                        doTheAction = {}
 
                         // Raum Lauf-Limits
                         val limits = IntArray(4)
@@ -136,7 +151,9 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         }
                     }
 
-                    currentAction.reset()
+                    // Cursor reset
+                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+
                     return true
                 }
             },
@@ -144,13 +161,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
         createGameObjects()
         createGameUI()
-    }
-
-    private data class Point(var x: Int, var y: Int)
-
-    private enum class CurrentPlayer {
-        POOL_ATTENDANT,
-        DUCK,
     }
 
     private fun createGameObjects() {
@@ -171,6 +181,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
     private fun createGameUI() {
         // Buttons
+        val lookCursor = Pixmap(Gdx.files.internal("ui/cursor/Ansehen.png"))
         val lookButton =
             createUIButton(
                 buttonAtlas.createSprite("Ansehen"),
@@ -184,12 +195,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     currentAction = Action(ActionType.LOOK_AT)
                 }
             },
         )
 
+        val speakCursor = Pixmap(Gdx.files.internal("ui/cursor/Reden.png"))
         val speakButton =
             createUIButton(
                 buttonAtlas.createSprite("Reden"),
@@ -203,12 +217,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     currentAction = Action(ActionType.TALK_TO)
                 }
             },
         )
 
+        val takeCursor = Pixmap(Gdx.files.internal("ui/cursor/Nehmen.png"))
         val takeButton =
             createUIButton(
                 buttonAtlas.createSprite("Nehmen"),
@@ -222,12 +239,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     currentAction = Action(ActionType.ADD_TO_INVENTORY)
                 }
             },
         )
 
+        val useCursor = Pixmap(Gdx.files.internal("ui/cursor/Benutzen.png"))
         val useButton =
             createUIButton(
                 buttonAtlas.createSprite("Benutzen"),
@@ -241,12 +261,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     currentAction = Action(ActionType.USE)
                 }
             },
         )
 
+        val combineCursor = Pixmap(Gdx.files.internal("ui/cursor/kombinieren.png"))
         val combineButton =
             createUIButton(
                 buttonAtlas.createSprite("kombinieren"),
@@ -260,7 +283,9 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     currentAction = Action(ActionType.COMBINE)
                 }
             },
@@ -291,7 +316,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        currentPlayer = CurrentPlayer.DUCK
+                        currentPlayer = duck
 
                         poolAttendantButton.isVisible = true
                         duckButton.isVisible = false
@@ -302,6 +327,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         combineButton.isVisible = true
 
                         needToMove = false
+                        currentPlayer.stopHammerTime()
                     }
                 },
             )
@@ -312,7 +338,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        currentPlayer = CurrentPlayer.POOL_ATTENDANT
+                        currentPlayer = poolAttendant
 
                         poolAttendantButton.isVisible = false
                         duckButton.isVisible = true
@@ -323,6 +349,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         combineButton.isVisible = false
 
                         needToMove = false
+                        currentPlayer.stopHammerTime()
                     }
                 },
             )
@@ -348,6 +375,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     actor: Actor?,
                 ) {
                     needToMove = false
+                    currentPlayer.stopHammerTime()
                     exitProcess(0)
                 }
             },
@@ -383,11 +411,12 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
         // Movement
         if (moveToPoint != null && needToMove) {
-            if (currentPlayer == CurrentPlayer.POOL_ATTENDANT) {
-                poolAttendant.walkToPoint(moveToPoint!!.x, moveToPoint!!.y)
-            } else {
-                duck.walkToPoint(moveToPoint!!.x, moveToPoint!!.y)
-            }
+            currentPlayer.walkToPoint(
+                moveToPoint!!.x,
+                moveToPoint!!.y,
+                lookingAtTheEnd,
+                doTheAction
+            )
         }
 
         // Animationen holen

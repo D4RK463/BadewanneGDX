@@ -1,6 +1,8 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Point
+import org.wanne.model.player.Player
 
 class Box(posX: Float = 678F, posY: Float = 272F) : GameObject(posX, posY) {
 
@@ -17,5 +19,9 @@ class Box(posX: Float = 678F, posY: Float = 272F) : GameObject(posX, posY) {
 
     override fun look() {
         println("Nur ne Kiste.")
+    }
+
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
+        return Pair(Point(638,268), Player.Companion.Looking.RIGHT)
     }
 }
