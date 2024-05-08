@@ -18,8 +18,13 @@ class Action(var type: ActionType) {
     }
 
     fun action() {
-        if (type == ActionType.LOOK_AT) {
-            clickedObject?.look()
+        when (type) {
+            ActionType.LOOK_AT -> clickedObject?.look()
+            ActionType.TALK_TO -> clickedObject?.talk()
+            ActionType.USE -> clickedObject?.use()
+            ActionType.COMBINE -> clickedObject?.combine()
+            ActionType.ADD_TO_INVENTORY -> clickedObject?.take()
+            ActionType.NOTHING -> return
         }
     }
 }

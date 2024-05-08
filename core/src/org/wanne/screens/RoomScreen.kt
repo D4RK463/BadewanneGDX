@@ -30,11 +30,15 @@ import org.wanne.model.objects.Box
 import org.wanne.model.objects.BrucePoster
 import org.wanne.model.objects.DeanPoster
 import org.wanne.model.objects.Door
+import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
 import org.wanne.model.objects.GameObject
+import org.wanne.model.objects.Mario
 import org.wanne.model.objects.PA2Poster
 import org.wanne.model.objects.Rug
 import org.wanne.model.objects.Safe
+import org.wanne.model.objects.Scalpel
+import org.wanne.model.objects.Stethoscope
 import org.wanne.model.objects.Stickers
 import org.wanne.model.objects.Straw
 import org.wanne.model.objects.Window
@@ -68,6 +72,10 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val straw = Straw()
     private val box = Box()
     private val safe = Safe()
+    private val drBear = DrBear()
+    private val stethoscope = Stethoscope()
+    private val scalpel = Scalpel()
+    private val mario = Mario()
 
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
@@ -181,6 +189,14 @@ class RoomScreen(private var game: WanneGame) : Screen {
         // Objekte hinzufügen (Reihenfolge ist wichtig)
         bed.addListener(TextTooltip("Bett", skin))
         stage.addActor(bed)
+        drBear.addListener(TextTooltip("Arztbaer", skin))
+        stage.addActor(drBear)
+        stethoscope.addListener(TextTooltip("Stethoskop", skin))
+        stage.addActor(stethoscope)
+        scalpel.addListener(TextTooltip("Skalpell", skin))
+        stage.addActor(scalpel)
+        mario.addListener(TextTooltip("Mario", skin))
+        stage.addActor(mario)
         roomWindow.addListener(TextTooltip("Kleines Fenster", skin))
         stage.addActor(roomWindow)
         drawer.addListener(TextTooltip("Holzschrank", skin))
@@ -511,5 +527,9 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stickers.dispose()
         straw.dispose()
         safe.dispose()
+        drBear.dispose()
+        stethoscope.dispose()
+        scalpel.dispose()
+        mario.dispose()
     }
 }

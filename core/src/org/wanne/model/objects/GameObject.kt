@@ -6,14 +6,51 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import org.wanne.model.Point
 import org.wanne.model.player.Player
+import java.util.*
 
 abstract class GameObject (var posX: Float, var posY: Float): Actor() {
 
     val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
 
+    private val random = Random()
+
+    var stupidAnswers = listOf(
+        "Hääh?!?",
+        "Was zum Teufel?",
+        "Ich kann da nicht bauen!!",
+        "Das geht so nicht!",
+        "Belästige mich nicht!",
+        "Versteh ich nich!!",
+        "Wie solln das gehn?",
+        "w00t?",
+        "Bin doch net blöd!",
+        "Hör auf mich zu verwirren!",
+        "KLAR...",
+        "NATÜRLICH...",
+        "Denk doch ma nach!",
+        "Funst net!",
+        "LANGWEILIG!"
+    )
+
     abstract fun getSprite() : Sprite
 
     abstract fun look()
+
+    fun use() {
+        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    }
+
+    fun combine() {
+        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    }
+
+    fun talk() {
+        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    }
+
+    fun take() {
+        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    }
 
     abstract fun getInteractPosition() : Pair<Point,Player.Companion.Looking?>
 
