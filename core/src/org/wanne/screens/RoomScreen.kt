@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
@@ -23,7 +25,19 @@ import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.ActionType
 import org.wanne.model.Point
-import org.wanne.model.objects.*
+import org.wanne.model.objects.Bed
+import org.wanne.model.objects.Box
+import org.wanne.model.objects.BrucePoster
+import org.wanne.model.objects.DeanPoster
+import org.wanne.model.objects.Door
+import org.wanne.model.objects.Drawer
+import org.wanne.model.objects.GameObject
+import org.wanne.model.objects.PA2Poster
+import org.wanne.model.objects.Rug
+import org.wanne.model.objects.Safe
+import org.wanne.model.objects.Stickers
+import org.wanne.model.objects.Straw
+import org.wanne.model.objects.Window
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
@@ -32,6 +46,7 @@ import kotlin.system.exitProcess
 class RoomScreen(private var game: WanneGame) : Screen {
     private lateinit var stage: Stage
     private lateinit var batch: SpriteBatch
+    private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
     // Background
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
@@ -108,7 +123,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             currentAction.action()
                             currentAction.reset()
                         }
-
                     } else { // oder laufen
                         lookingAtTheEnd = null
                         doTheAction = {}
@@ -152,7 +166,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     }
 
                     // Cursor reset
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
                     return true
                 }
@@ -165,17 +179,29 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
     private fun createGameObjects() {
         // Objekte hinzufügen (Reihenfolge ist wichtig)
+        bed.addListener(TextTooltip("Bett", skin))
         stage.addActor(bed)
+        roomWindow.addListener(TextTooltip("Kleines Fenster", skin))
         stage.addActor(roomWindow)
+        drawer.addListener(TextTooltip("Holzschrank", skin))
         stage.addActor(drawer)
+        stickers.addListener(TextTooltip("Aufkleber", skin))
         stage.addActor(stickers)
+        straw.addListener(TextTooltip("Stroh", skin))
         stage.addActor(straw)
+        door.addListener(TextTooltip("Tuer", skin))
         stage.addActor(door)
+        pa2Poster.addListener(TextTooltip("Poster", skin))
         stage.addActor(pa2Poster)
+        brucePoster.addListener(TextTooltip("Bruce Lee", skin))
         stage.addActor(brucePoster)
+        deanPoster.addListener(TextTooltip("James Dean Film", skin))
         stage.addActor(deanPoster)
+        safe.addListener(TextTooltip("Alter Safe", skin))
         stage.addActor(safe)
+        rug.addListener(TextTooltip("Funky Teppich", skin))
         stage.addActor(rug)
+        box.addListener(TextTooltip("Blaue Kiste", skin))
         stage.addActor(box)
     }
 
@@ -415,7 +441,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 moveToPoint!!.x,
                 moveToPoint!!.y,
                 lookingAtTheEnd,
-                doTheAction
+                doTheAction,
             )
         }
 
@@ -444,7 +470,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
         poolAttendantSprite.draw(batch)
         duckSprite.draw(batch)
         batch.end()
-
     }
 
     override fun resize(

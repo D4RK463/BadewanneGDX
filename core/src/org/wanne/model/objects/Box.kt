@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Box(posX: Float = 678F, posY: Float = 272F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Box(posX: Float = 678F, posY: Float = 272F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Nur ne Kiste.")
+        println("Eine blaue Kiste, nix besonderes.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(638,268), Player.Companion.Looking.RIGHT)
+        return Pair(Point(638, 268), Player.Companion.Looking.RIGHT)
     }
 }

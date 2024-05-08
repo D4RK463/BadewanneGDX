@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Ohh der Eismann!!!")
+        println("Es ist halb offen.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
-        return Pair(Point(510,308), null)
+        return Pair(Point(510, 308), null)
     }
 }

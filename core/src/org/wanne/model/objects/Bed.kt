@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Ein Bett!!!")
+        println("Ist das ein SuperSchaf?")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(344,264), Player.Companion.Looking.LEFT)
+        return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
     }
 }

@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Rug(posX: Float = 278F, posY: Float = 190F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Rug(posX: Float = 278F, posY: Float = 190F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Ein Teppich")
+        println("Funkytastisch! Vielleicht lässt er sich bewegen.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(414,264), Player.Companion.Looking.LEFT)
+        return Pair(Point(414, 264), Player.Companion.Looking.LEFT)
     }
 }

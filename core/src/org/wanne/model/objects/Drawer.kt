@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Ein alter Schrank!!!")
+        println("Die Schubladen sind nur aufgemalt... lol.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
-        return Pair(Point(510,308), null)
+        return Pair(Point(510, 308), null)
     }
 }

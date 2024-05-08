@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
     }
 
     override fun look() {
-        println("Eine Tür")
+        println("Sie ist verschlossen!")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(862,216), Player.Companion.Looking.RIGHT)
+        return Pair(Point(862, 216), Player.Companion.Looking.RIGHT)
     }
 }

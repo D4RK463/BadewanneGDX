@@ -5,7 +5,6 @@ import org.wanne.model.Point
 import org.wanne.model.player.Player
 
 class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, posY) {
-
     init {
         x = posX
         y = posY
@@ -18,10 +17,10 @@ class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, pos
     }
 
     override fun look() {
-        println("Ich liebe den Typ")
+        println("Der Typ ist mein Held.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(638,268), Player.Companion.Looking.RIGHT)
+        return Pair(Point(638, 268), Player.Companion.Looking.RIGHT)
     }
 }
