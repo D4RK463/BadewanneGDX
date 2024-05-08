@@ -466,9 +466,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stage.act()
         stage.draw()
 
-        // Players
-        poolAttendantSprite.draw(batch)
-        duckSprite.draw(batch)
+        // Players in der richtigen Reihenfolge, je nachdem wer gerade vorne steht
+        if (poolAttendant.posY < duck.posY) {
+            duckSprite.draw(batch)
+            poolAttendantSprite.draw(batch)
+        } else {
+            poolAttendantSprite.draw(batch)
+            duckSprite.draw(batch)
+        }
+
         batch.end()
     }
 
