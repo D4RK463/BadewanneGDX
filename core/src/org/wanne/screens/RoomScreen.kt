@@ -28,19 +28,26 @@ import org.wanne.model.Point
 import org.wanne.model.objects.Bed
 import org.wanne.model.objects.Box
 import org.wanne.model.objects.BrucePoster
+import org.wanne.model.objects.Cowbell
 import org.wanne.model.objects.DeanPoster
 import org.wanne.model.objects.Door
 import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
+import org.wanne.model.objects.FireFlower
 import org.wanne.model.objects.GameObject
 import org.wanne.model.objects.Mario
+import org.wanne.model.objects.MilkSucker
+import org.wanne.model.objects.Note
 import org.wanne.model.objects.PA2Poster
+import org.wanne.model.objects.Pills
 import org.wanne.model.objects.Rug
 import org.wanne.model.objects.Safe
 import org.wanne.model.objects.Scalpel
 import org.wanne.model.objects.Stethoscope
 import org.wanne.model.objects.Stickers
 import org.wanne.model.objects.Straw
+import org.wanne.model.objects.Teddy
+import org.wanne.model.objects.Telephone
 import org.wanne.model.objects.Window
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
@@ -76,6 +83,13 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val stethoscope = Stethoscope()
     private val scalpel = Scalpel()
     private val mario = Mario()
+    private val bell = Cowbell()
+    private val teddy = Teddy()
+    private val flower = FireFlower()
+    private val telephone = Telephone()
+    private val milkSucker = MilkSucker()
+    private val pills = Pills()
+    private val note = Note()
 
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
@@ -197,6 +211,8 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stage.addActor(scalpel)
         mario.addListener(TextTooltip("Mario", skin))
         stage.addActor(mario)
+        bell.addListener(TextTooltip("Kuhglocke", skin))
+        stage.addActor(bell)
         roomWindow.addListener(TextTooltip("Kleines Fenster", skin))
         stage.addActor(roomWindow)
         drawer.addListener(TextTooltip("Holzschrank", skin))
@@ -217,8 +233,25 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stage.addActor(safe)
         rug.addListener(TextTooltip("Funky Teppich", skin))
         stage.addActor(rug)
+        flower.addListener(TextTooltip("Feuerblume", skin))
+        stage.addActor(flower)
+        telephone.addListener(TextTooltip("Rosa Telefon", skin))
+        stage.addActor(telephone)
         box.addListener(TextTooltip("Blaue Kiste", skin))
         stage.addActor(box)
+        teddy.addListener(TextTooltip("Teddy", skin))
+        stage.addActor(teddy)
+
+        // Objekte für später im Spiel
+        milkSucker.addListener(TextTooltip("Milchabsauger 2000", skin))
+        milkSucker.isVisible = false
+        stage.addActor(milkSucker)
+        pills.addListener(TextTooltip("Tabletten", skin))
+        pills.isVisible = false
+        stage.addActor(pills)
+        note.addListener(TextTooltip("Zettel mit Telefonnummer", skin))
+        note.isVisible = false
+        stage.addActor(note)
     }
 
     private fun createGameUI() {
@@ -531,5 +564,12 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stethoscope.dispose()
         scalpel.dispose()
         mario.dispose()
+        bell.dispose()
+        teddy.dispose()
+        flower.dispose()
+        telephone.dispose()
+        milkSucker.dispose()
+        pills.dispose()
+        note.dispose()
     }
 }

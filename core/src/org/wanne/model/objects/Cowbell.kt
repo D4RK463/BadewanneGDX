@@ -1,0 +1,26 @@
+package org.wanne.model.objects
+
+import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Point
+import org.wanne.model.player.Player
+
+class Cowbell(posX: Float = 150F, posY: Float = 175F) : GameObject(posX, posY) {
+    init {
+        x = posX
+        y = posY
+        height = getSprite().height
+        width = getSprite().width
+    }
+
+    override fun getSprite(): Sprite {
+        return addPositionToSprite(itemAtlas.createSprite("Glocke"))
+    }
+
+    override fun look() {
+        println("Wie ist die hier her gekommen?")
+    }
+
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
+        return Pair(Point(288, 154), Player.Companion.Looking.LEFT)
+    }
+}
