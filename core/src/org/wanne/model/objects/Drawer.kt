@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Schrank"))
     }
 
-    override fun look() {
-        println("Die Schubladen sind nur aufgemalt... lol.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Die Schubladen sind nur aufgemalt... lol.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {

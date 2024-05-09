@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Bett"))
     }
 
-    override fun look() {
-        println("Ist das ein SuperSchaf?")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Ist das ein SuperSchaf?")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Tuer"))
     }
 
-    override fun look() {
-        println("Sie ist verschlossen!")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Sie ist verschlossen!")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

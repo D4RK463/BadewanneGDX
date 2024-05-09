@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, pos
         return addPositionToSprite(itemAtlas.createSprite("BruceLee"))
     }
 
-    override fun look() {
-        println("Der Typ ist mein Held.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Der Typ ist mein Held.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

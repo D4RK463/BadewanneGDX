@@ -30,6 +30,7 @@ import org.wanne.model.objects.Box
 import org.wanne.model.objects.BrucePoster
 import org.wanne.model.objects.Cowbell
 import org.wanne.model.objects.DeanPoster
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Door
 import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
@@ -91,6 +92,9 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val pills = Pills()
     private val note = Note()
 
+    // Dialog System
+    private val dialogBoard = DialogBoard(skin = skin)
+
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
@@ -142,12 +146,13 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
                         // Aktion ausführen als Lambda
                         doTheAction = {
-                            currentAction.action()
+                            currentAction.action(dialogBoard)
                             currentAction.reset()
                         }
                     } else { // oder laufen
                         lookingAtTheEnd = null
                         doTheAction = {}
+                        dialogBoard.isVisible = false
 
                         // Raum Lauf-Limits
                         val limits = IntArray(4)
@@ -197,13 +202,16 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
         createGameObjects()
         createGameUI()
+
+        // Anfangs muss das Dialog-Brett nicht angezeigt werden
+        dialogBoard.isVisible = false
     }
 
     private fun createGameObjects() {
-        // Objekte hinzufügen (Reihenfolge ist wichtig)
+        // Objekte hinzufügen (println(Reihenfolge ist wichtig)
         bed.addListener(TextTooltip("Bett", skin))
         stage.addActor(bed)
-        drBear.addListener(TextTooltip("Arztbaer", skin))
+        drBear.addListener(TextTooltip("Arztbär", skin))
         stage.addActor(drBear)
         stethoscope.addListener(TextTooltip("Stethoskop", skin))
         stage.addActor(stethoscope)
@@ -221,7 +229,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
         stage.addActor(stickers)
         straw.addListener(TextTooltip("Stroh", skin))
         stage.addActor(straw)
-        door.addListener(TextTooltip("Tuer", skin))
+        door.addListener(TextTooltip("Tür", skin))
         stage.addActor(door)
         pa2Poster.addListener(TextTooltip("Poster", skin))
         stage.addActor(pa2Poster)
@@ -264,6 +272,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 5f,
                 45f,
             )
+        lookButton.addListener(TextTooltip("untersuchen", skin))
         lookButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -286,6 +295,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 65f,
                 45f,
             )
+        speakButton.addListener(TextTooltip("ansprechen", skin))
         speakButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -308,6 +318,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 120f,
                 45f,
             )
+        takeButton.addListener(TextTooltip("aufnehmen", skin))
         takeButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -330,6 +341,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 180f,
                 45f,
             )
+        useButton.addListener(TextTooltip("benutzen", skin))
         useButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -352,6 +364,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 240f,
                 40f,
             )
+        combineButton.addListener(TextTooltip("kombinieren", skin))
         combineButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -372,8 +385,8 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 createUIButton(
                     buttonAtlas.createSprite("Bademeister"),
                     buttonAtlas.createSprite("BademeisterPressed"),
-                    5f,
-                    705f,
+                    3f,
+                    707f,
                 )
             poolAttendantButton.isVisible = false
             val duckButton =
@@ -384,6 +397,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     705f,
                 )
 
+            duckButton.addListener(TextTooltip("wechsle zur Ente", skin))
             duckButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -406,6 +420,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     }
                 },
             )
+            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", skin))
             poolAttendantButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -443,6 +458,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 980f,
                 705f,
             )
+        exitButton.addListener(TextTooltip("raus hier", skin))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -524,6 +540,8 @@ class RoomScreen(private var game: WanneGame) : Screen {
             duckSprite.draw(batch)
         }
 
+        // Dialog-Brett
+        dialogBoard.draw(batch, 1F)
         batch.end()
     }
 
@@ -571,5 +589,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
         milkSucker.dispose()
         pills.dispose()
         note.dispose()
+        dialogBoard.dispose()
     }
 }

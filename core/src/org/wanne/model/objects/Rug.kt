@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Rug(posX: Float = 278F, posY: Float = 190F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Rug(posX: Float = 278F, posY: Float = 190F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Teppich"))
     }
 
-    override fun look() {
-        println("Funkytastisch! Vielleicht lässt er sich bewegen.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Funkytastisch! Vielleicht lässt er sich bewegen.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

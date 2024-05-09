@@ -1,16 +1,12 @@
 package org.wanne.model.objects
 
-import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.scenes.scene2d.Actor
+import org.wanne.model.AbstractObject
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 import java.util.*
 
-abstract class GameObject (var posX: Float, var posY: Float): Actor() {
-
-    val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
+abstract class GameObject (posX: Float, posY: Float): AbstractObject(posX, posY) {
 
     private val random = Random()
 
@@ -32,61 +28,24 @@ abstract class GameObject (var posX: Float, var posY: Float): Actor() {
         "LANGWEILIG!"
     )
 
-    abstract fun getSprite() : Sprite
+    abstract fun look(dialogBoard: DialogBoard)
 
-    abstract fun look()
-
-    fun use() {
-        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    open fun use(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
     }
 
-    fun combine() {
-        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    open fun combine(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
     }
 
-    fun talk() {
-        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    open fun talk(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
     }
 
-    fun take() {
-        println(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+    open fun take(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
     }
 
     abstract fun getInteractPosition() : Pair<Point,Player.Companion.Looking?>
-
-    fun addPositionToSprite(sprite: Sprite): Sprite {
-        sprite.x = posX
-        sprite.y = posY
-        return sprite
-    }
-
-    fun dispose() {
-        itemAtlas.dispose()
-    }
-
-    override fun getX(): Float {
-        return posX
-    }
-
-    override fun getY(): Float {
-        return posY
-    }
-
-    override fun setPosition(x: Float, y: Float) {
-        posX = x
-        posY = y
-    }
-
-    override fun draw(batch: Batch?, parentAlpha: Float) {
-        getSprite().draw(batch, parentAlpha)
-    }
-
-    override fun getWidth(): Float {
-        return getSprite().width
-    }
-
-    override fun getHeight(): Float {
-        return getSprite().height
-    }
 
 }

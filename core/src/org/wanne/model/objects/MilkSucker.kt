@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class MilkSucker(posX: Float = 302F, posY: Float = 270F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class MilkSucker(posX: Float = 302F, posY: Float = 270F) : GameObject(posX, posY
         return addPositionToSprite(itemAtlas.createSprite("Milchsauger"))
     }
 
-    override fun look() {
-        println("Netter Name für einen einfachen Eimer.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Netter Name für einen einfachen Eimer.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

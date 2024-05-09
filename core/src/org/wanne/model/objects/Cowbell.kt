@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Cowbell(posX: Float = 150F, posY: Float = 175F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Cowbell(posX: Float = 150F, posY: Float = 175F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Glocke"))
     }
 
-    override fun look() {
-        println("Wie ist die hier her gekommen?")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Wie ist die hier her gekommen?")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Stethoscope(posX: Float = 206F, posY: Float = 424F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Stethoscope(posX: Float = 206F, posY: Float = 424F) : GameObject(posX, pos
         return addPositionToSprite(itemAtlas.createSprite("Stethoskop"))
     }
 
-    override fun look() {
-        println("Alles was ein echter Arzt braucht.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Alles was ein echter Arzt braucht.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

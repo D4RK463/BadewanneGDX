@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Straw(posX: Float = 900F, posY: Float = 123F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Straw(posX: Float = 900F, posY: Float = 123F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Stroh"))
     }
 
-    override fun look() {
-        println("Stroh?")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Stroh?")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

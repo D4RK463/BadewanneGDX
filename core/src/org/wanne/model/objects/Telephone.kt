@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
         return addPositionToSprite(itemAtlas.createSprite("Telefon"))
     }
 
-    override fun look() {
-        println("Super...rosa Telefon!")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Super...rosa Telefon!")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

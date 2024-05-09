@@ -1,5 +1,6 @@
 package org.wanne.model
 
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.GameObject
 
 class Action(var type: ActionType) {
@@ -17,13 +18,13 @@ class Action(var type: ActionType) {
         clickedObject = null
     }
 
-    fun action() {
+    fun action(dialogBoard: DialogBoard) {
         when (type) {
-            ActionType.LOOK_AT -> clickedObject?.look()
-            ActionType.TALK_TO -> clickedObject?.talk()
-            ActionType.USE -> clickedObject?.use()
-            ActionType.COMBINE -> clickedObject?.combine()
-            ActionType.ADD_TO_INVENTORY -> clickedObject?.take()
+            ActionType.LOOK_AT -> clickedObject?.look(dialogBoard)
+            ActionType.TALK_TO -> clickedObject?.talk(dialogBoard)
+            ActionType.USE -> clickedObject?.use(dialogBoard)
+            ActionType.COMBINE -> clickedObject?.combine(dialogBoard)
+            ActionType.ADD_TO_INVENTORY -> clickedObject?.take(dialogBoard)
             ActionType.NOTHING -> return
         }
     }

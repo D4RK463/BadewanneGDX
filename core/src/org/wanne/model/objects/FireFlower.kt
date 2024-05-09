@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class FireFlower(posX: Float = 695F, posY: Float = 375F) : GameObject(posX, posY) {
@@ -22,8 +23,8 @@ class FireFlower(posX: Float = 695F, posY: Float = 375F) : GameObject(posX, posY
         }
     }
 
-    override fun look() {
-        println("Ganz schön heiß...aua!")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Ganz schön heiß...aua!")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

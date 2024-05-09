@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
@@ -22,8 +23,8 @@ class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
         }
     }
 
-    override fun look() {
-        println("Ich hätte gern einen Termin für Sonntag :-)")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Ich hätte gern einen Termin für Sonntag :-)")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

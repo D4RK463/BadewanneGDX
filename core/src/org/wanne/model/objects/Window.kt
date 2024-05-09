@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
@@ -16,8 +17,8 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
         return addPositionToSprite(itemAtlas.createSprite("Fenster"))
     }
 
-    override fun look() {
-        println("Es ist halb offen.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Es ist halb offen.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {

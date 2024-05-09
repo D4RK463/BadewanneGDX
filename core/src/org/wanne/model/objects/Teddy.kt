@@ -2,6 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
@@ -22,8 +23,8 @@ class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
         }
     }
 
-    override fun look() {
-        println("So süß das man fast Karies davon kriegt.")
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("So süß das man fast Karies davon kriegt.")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
