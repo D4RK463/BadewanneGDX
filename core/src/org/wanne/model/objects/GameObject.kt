@@ -1,51 +1,67 @@
 package org.wanne.model.objects
 
 import org.wanne.model.AbstractObject
+import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import java.util.*
+import java.util.Random
 
-abstract class GameObject (posX: Float, posY: Float): AbstractObject(posX, posY) {
-
+abstract class GameObject(posX: Float, posY: Float) : AbstractObject(posX, posY) {
     private val random = Random()
 
-    var stupidAnswers = listOf(
-        "Hääh?!?",
-        "Was zum Teufel?",
-        "Ich kann da nicht bauen!!",
-        "Das geht so nicht!",
-        "Belästige mich nicht!",
-        "Versteh ich nich!!",
-        "Wie solln das gehn?",
-        "w00t?",
-        "Bin doch net blöd!",
-        "Hör auf mich zu verwirren!",
-        "KLAR...",
-        "NATÜRLICH...",
-        "Denk doch ma nach!",
-        "Funst net!",
-        "LANGWEILIG!"
-    )
+    var stupidAnswers =
+        listOf(
+            "Hääh?!?",
+            "Was zum Teufel?",
+            "Ich kann da nicht bauen!!",
+            "Das geht so nicht!",
+            "Belästige mich nicht!",
+            "Versteh ich nich!!",
+            "Wie solln das gehn?",
+            "w00t?",
+            "Bin doch net blöd!",
+            "Hör auf mich zu verwirren!",
+            "KLAR...",
+            "NATÜRLICH...",
+            "Denk doch ma nach!",
+            "Funst net!",
+            "LANGWEILIG!",
+        )
 
     abstract fun look(dialogBoard: DialogBoard)
 
-    open fun use(dialogBoard: DialogBoard) {
+    open fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        action.reset()
     }
 
-    open fun combine(dialogBoard: DialogBoard) {
+    open fun combine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        action.reset()
     }
 
-    open fun talk(dialogBoard: DialogBoard) {
+    open fun talk(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        action.reset()
     }
 
-    open fun take(dialogBoard: DialogBoard) {
+    open fun take(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        action.reset()
     }
 
-    abstract fun getInteractPosition() : Pair<Point,Player.Companion.Looking?>
-
+    abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>
 }

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
@@ -25,12 +25,13 @@ import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.ActionType
 import org.wanne.model.Point
+import org.wanne.model.dialog.DialogAwareStage
+import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Bed
 import org.wanne.model.objects.Box
 import org.wanne.model.objects.BrucePoster
 import org.wanne.model.objects.Cowbell
 import org.wanne.model.objects.DeanPoster
-import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Door
 import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
@@ -56,7 +57,7 @@ import org.wanne.model.player.PoolAttendant
 import kotlin.system.exitProcess
 
 class RoomScreen(private var game: WanneGame) : Screen {
-    private lateinit var stage: Stage
+    private lateinit var stage: DialogAwareStage
     private lateinit var batch: SpriteBatch
     private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
@@ -100,8 +101,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
     private var currentPlayer: Player = poolAttendant
 
-    private var stateTime: Float = 0f
-
     private lateinit var viewport: FitViewport
 
     private var moveToPoint: Point? = null
@@ -116,8 +115,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
         viewport = FitViewport(1024f, 768f)
 
         batch = SpriteBatch()
-        stage = Stage(viewport)
+        stage = DialogAwareStage(viewport, poolAttendant, duck)
         Gdx.input.inputProcessor = stage
+
+        // Hintergrund setzen
+        if (game.isSingleplayer) {
+            stage.addActor(Image(roomBackgroundSingle))
+        } else {
+            stage.addActor(Image(roomBackgroundMulti))
+        }
 
         // Klick Steuerung der Charaktere
         stage.addListener(
@@ -135,24 +141,30 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
                         // Das Objekt holen, auf welches geklickt wurde
                         val hitObject = stage.hit(x, y, true)
+                        println(hitObject)
                         if (hitObject is GameObject) {
                             currentAction.clickedObject = hitObject
-                        }
 
-                        // Auf das Objekt zugehen und in die richtige Richtung schauen
-                        moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
-                        lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
-                        needToMove = true
+                            // Auf das Objekt zugehen und in die richtige Richtung schauen
+                            moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
+                            lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
+                            needToMove = true
 
-                        // Aktion ausführen als Lambda
-                        doTheAction = {
-                            currentAction.action(dialogBoard)
-                            currentAction.reset()
+                            // Aktion ausführen als Lambda
+                            doTheAction = {
+                                currentAction.action(dialogBoard)
+                            }
+                        } else if (hitObject is Image) { // Escape vom Dialog
+                            currentAction.type = ActionType.NOTHING
+
+                            lookingAtTheEnd = null
+                            doTheAction = {}
+                            dialogBoard.reset()
                         }
                     } else { // oder laufen
                         lookingAtTheEnd = null
                         doTheAction = {}
-                        dialogBoard.isVisible = false
+                        dialogBoard.reset()
 
                         // Raum Lauf-Limits
                         val limits = IntArray(4)
@@ -204,11 +216,12 @@ class RoomScreen(private var game: WanneGame) : Screen {
         createGameUI()
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
-        dialogBoard.isVisible = false
+        stage.addActor(dialogBoard)
+        dialogBoard.initialize(stage)
     }
 
     private fun createGameObjects() {
-        // Objekte hinzufügen (println(Reihenfolge ist wichtig)
+        // Objekte hinzufügen (Reihenfolge ist wichtig)
         bed.addListener(TextTooltip("Bett", skin))
         stage.addActor(bed)
         drBear.addListener(TextTooltip("Arztbär", skin))
@@ -510,38 +523,14 @@ class RoomScreen(private var game: WanneGame) : Screen {
             )
         }
 
-        // Animationen holen
-        stateTime += Gdx.graphics.deltaTime
-        val poolAttendantSprite: Sprite = poolAttendant.getSpriteOfCurrentState(Gdx.graphics.deltaTime)
-        val duckSprite: Sprite = duck.getSpriteOfCurrentState(stateTime)
-
         // Zeichnen
         batch.projectionMatrix = viewport.camera.combined
         batch.begin()
 
-        // Background
-        if (game.isSingleplayer) {
-            batch.draw(roomBackgroundSingle, 0f, 0f)
-        } else {
-            batch.draw(roomBackgroundMulti, 0f, 0f)
-        }
-
-        // Objekte und UI
-        stickers.getSprite().draw(batch)
+        // Stage zeichnen mit UI, Objekten, Spielern und dem Dialog-Brett
         stage.act()
         stage.draw()
 
-        // Players in der richtigen Reihenfolge, je nachdem wer gerade vorne steht
-        if (poolAttendant.posY < duck.posY) {
-            duckSprite.draw(batch)
-            poolAttendantSprite.draw(batch)
-        } else {
-            poolAttendantSprite.draw(batch)
-            duckSprite.draw(batch)
-        }
-
-        // Dialog-Brett
-        dialogBoard.draw(batch, 1F)
         batch.end()
     }
 

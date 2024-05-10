@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -21,11 +22,22 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
         } else {
             addPositionToSprite(itemAtlas.createSprite("Mario"))
         }
-
     }
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("It's a him, Mario!")
+    }
+
+    override fun talk(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        dialogBoard.prepTalkTo(
+            "Mario: Lass mich, ich bin gerad betrübt",
+            null,
+            "Was'n los ?",
+            action,
+        )
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

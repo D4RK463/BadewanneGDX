@@ -1,9 +1,8 @@
 package org.wanne.model.player
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.scenes.scene2d.Actor
 
-abstract class Player(var posX: Float, var posY: Float, var looking: Looking) : Actor() {
+abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
     var state: State = State.STANDING
 
     companion object {
@@ -24,7 +23,7 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) : 
         move2posX: Int,
         move2posY: Int,
         lookingAtTheEnd: Looking?,
-        action: () -> Unit
+        action: () -> Unit,
     ) {
         val sprite = getSprite()
 

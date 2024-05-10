@@ -4,7 +4,6 @@ import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.GameObject
 
 class Action(var type: ActionType) {
-
     companion object {
         fun createDefaultAction(): Action {
             return Action(ActionType.NOTHING)
@@ -20,11 +19,11 @@ class Action(var type: ActionType) {
 
     fun action(dialogBoard: DialogBoard) {
         when (type) {
-            ActionType.LOOK_AT -> clickedObject?.look(dialogBoard)
-            ActionType.TALK_TO -> clickedObject?.talk(dialogBoard)
-            ActionType.USE -> clickedObject?.use(dialogBoard)
-            ActionType.COMBINE -> clickedObject?.combine(dialogBoard)
-            ActionType.ADD_TO_INVENTORY -> clickedObject?.take(dialogBoard)
+            ActionType.LOOK_AT -> clickedObject?.look(dialogBoard).also { this.reset() }
+            ActionType.TALK_TO -> clickedObject?.talk(dialogBoard, this)
+            ActionType.USE -> clickedObject?.use(dialogBoard, this)
+            ActionType.COMBINE -> clickedObject?.combine(dialogBoard, this)
+            ActionType.ADD_TO_INVENTORY -> clickedObject?.take(dialogBoard, this)
             ActionType.NOTHING -> return
         }
     }
