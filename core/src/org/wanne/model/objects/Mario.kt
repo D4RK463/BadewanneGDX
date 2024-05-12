@@ -14,7 +14,9 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    var poweredUp = false
+    private var poweredUp = false
+
+    private var talkForTheFirstTime = true
 
     override fun getSprite(): Sprite {
         return if (poweredUp) {
@@ -32,12 +34,64 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        dialogBoard.prepTalkTo(
-            "Mario: Lass mich, ich bin gerad betrübt",
-            null,
-            "Was'n los ?",
-            action,
-        )
+        if (!poweredUp) {
+
+            if (talkForTheFirstTime) {
+
+                when (action.lastSentence) {
+                    "Was'n los ?" -> {
+                        dialogBoard.prepTalkTo(
+                            "Mario: Die Prinzessin hat mich verlassen, weil ich mein 'Feuer' verloren hab.",
+                            "Erzähl mir mehr.",
+                            "Mir doch egal",
+                            action,
+                        )
+                    }
+                    "Mir doch egal", "Erzähl mir mehr." -> {
+                        dialogBoard.prepTalkTo(
+                            "Mario: Seit dem der fiese Bowser weg ist, ist die Action aus der Beziehung raus.",
+                            null,
+                            "*laber* ...",
+                            action,
+                        )
+                    }
+                    "*laber* ..." -> {
+                        dialogBoard.prepTalkTo(
+                            "Mario: Sie sagt ich bin ein 'Gefühlsstein'. Dabei mag ich Steine nichtmal :(",
+                            null,
+                            "bla, bla, bla..." ,
+                            action,
+                        )
+                    }
+                    "bla, bla, bla..." -> {
+                        dialogBoard.prepTalkTo(
+                            "Mario: Weisst du vielleicht wie man das Feuer wieder entfachen kann?",
+                            null,
+                            null,
+                            action,
+                        )
+                        talkForTheFirstTime = false
+                        action.reset()
+                    }
+                    null -> {
+                        dialogBoard.prepTalkTo(
+                            "Mario: Lass mich, ich bin gerad betrübt.",
+                            null,
+                            "Was'n los ?",
+                            action,
+                        )
+                    }
+                }
+            } else {
+                dialogBoard.prepTalkTo(
+                    "Mario: Weisst du vielleicht wie man das Feuer wieder entfachen kann?",
+                    null,
+                    null,
+                    action,
+                )
+                action.reset()
+            }
+        }
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

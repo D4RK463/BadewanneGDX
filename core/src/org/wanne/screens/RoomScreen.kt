@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
@@ -160,6 +161,11 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             lookingAtTheEnd = null
                             doTheAction = {}
                             dialogBoard.reset()
+                        } else if (hitObject is Label) { // Im Dialog
+                            currentAction.lastSentence = hitObject.text.toString()
+                            doTheAction = {
+                                currentAction.action(dialogBoard)
+                            }
                         }
                     } else { // oder laufen
                         lookingAtTheEnd = null

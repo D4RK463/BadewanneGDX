@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -19,6 +20,15 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Super...rosa Telefon!")
+    }
+
+    override fun use(dialogBoard: DialogBoard, action: Action) {
+        dialogBoard.prepUseIt(
+            "Wen soll ich denn anrufen? Kenn keine Nummern.",
+            null,
+            action,
+        )
+        action.reset()
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {

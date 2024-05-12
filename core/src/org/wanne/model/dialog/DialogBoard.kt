@@ -118,6 +118,8 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
     ) {
         label1.setText(talkToSentence)
         label1.isVisible = true
+        label2.isVisible = false
+        label3.isVisible = false
 
         if (answer1 != null) {
             label2.setText(answer1)
@@ -131,6 +133,27 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
 
         action.type = ActionType.TALK_TO
         this.isVisible = true
+    }
+
+    fun prepUseIt(
+        explainSentence: String,
+        furtherDo: String?,
+        action: Action,
+    ) {
+        label1.setText(explainSentence)
+        label1.isVisible = true
+        label2.isVisible = false
+        label3.isVisible = false
+
+
+        if (furtherDo != null) {
+            label3.setText(furtherDo)
+            label3.isVisible = true
+        }
+
+        action.type = ActionType.USE
+        this.isVisible = true
+
     }
 
     override fun getSprite(): Sprite {

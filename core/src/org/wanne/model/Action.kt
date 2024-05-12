@@ -12,9 +12,17 @@ class Action(var type: ActionType) {
 
     var clickedObject: GameObject? = null
 
-    fun reset() {
+    var lastSentence: String? = null
+
+    var usedRug = false
+
+    fun reset(resetObjectToo : Boolean = true) {
         type = ActionType.NOTHING
-        clickedObject = null
+        lastSentence = null
+
+        if (resetObjectToo) {
+            clickedObject = null
+        }
     }
 
     fun action(dialogBoard: DialogBoard) {
