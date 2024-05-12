@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Touchable
+import com.badlogic.gdx.utils.Null
 
 abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
 
@@ -21,17 +23,12 @@ abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
         itemAtlas.dispose()
     }
 
-    override fun getX(): Float {
-        return posX
-    }
-
-    override fun getY(): Float {
-        return posY
-    }
-
-    override fun setPosition(x: Float, y: Float) {
-        posX = x
-        posY = y
+    fun setPositionToPoint(point: Point) {
+        posX = point.x.toFloat()
+        posY = point.y.toFloat()
+        x = posX
+        y = posY
+        positionChanged()
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {

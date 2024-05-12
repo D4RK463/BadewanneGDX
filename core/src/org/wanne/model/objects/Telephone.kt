@@ -19,7 +19,7 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
     }
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Super...rosa Telefon!")
+        dialogBoard.prepLookAt("Super... rosa Telefon!")
     }
 
     override fun use(dialogBoard: DialogBoard, action: Action) {
@@ -28,6 +28,11 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
             null,
             action,
         )
+        action.reset()
+    }
+
+    override fun take(dialogBoard: DialogBoard, action: Action) {
+        action.inventory.addGameObjectToInventory(this)
         action.reset()
     }
 

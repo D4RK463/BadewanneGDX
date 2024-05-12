@@ -31,6 +31,11 @@ class Pills(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
         action.reset()
     }
 
+    override fun take(dialogBoard: DialogBoard, action: Action) {
+        action.inventory.addGameObjectToInventory(this)
+        action.reset()
+    }
+
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
         return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
     }

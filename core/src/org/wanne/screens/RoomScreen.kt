@@ -107,7 +107,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private var moveToPoint: Point? = null
     private var needToMove = false
 
-    private var currentAction: Action = Action.createDefaultAction()
+    private var currentAction = Action.createDefaultAction()
     private var lookingAtTheEnd: Player.Companion.Looking? = null
     private var doTheAction: () -> Unit = {}
 
@@ -146,15 +146,24 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         if (hitObject is GameObject) {
                             currentAction.clickedObject = hitObject
 
-                            // Auf das Objekt zugehen und in die richtige Richtung schauen
-                            moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
-                            lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
-                            needToMove = true
+                            // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
+                            if (!currentAction.inventory.isObjectInInventory(hitObject)) {
+                                moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
+                                lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
+                                needToMove = true
 
-                            // Aktion ausführen als Lambda
-                            doTheAction = {
+                                // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
+                                doTheAction = {
+                                    currentAction.action(dialogBoard)
+                                }
+                            } else {
+                                doTheAction = {}
+                                needToMove = false
+
+                                // Aktion sofort ausführen
                                 currentAction.action(dialogBoard)
                             }
+
                         } else if (hitObject is Image) { // Escape vom Dialog
                             currentAction.type = ActionType.NOTHING
 

@@ -31,6 +31,11 @@ class Cowbell(posX: Float = 150F, posY: Float = 175F) : GameObject(posX, posY) {
         action.reset()
     }
 
+    override fun take(dialogBoard: DialogBoard, action: Action) {
+        action.inventory.addGameObjectToInventory(this)
+        action.reset()
+    }
+
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
         return Pair(Point(288, 154), Player.Companion.Looking.LEFT)
     }

@@ -24,7 +24,7 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
 
     override fun use(dialogBoard: DialogBoard, action: Action) {
         dialogBoard.prepUseIt(
-            "Ich kann sie nicht öffen. Sie ist fest verschlossen.",
+            "Ich kann sie nicht öffnen. Sie ist fest verschlossen.",
             null,
             action,
         )

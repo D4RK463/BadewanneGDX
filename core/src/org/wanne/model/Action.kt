@@ -12,6 +12,8 @@ class Action(var type: ActionType) {
 
     var clickedObject: GameObject? = null
 
+    val inventory = Inventory.getInstance()
+
     var lastSentence: String? = null
 
     var usedRug = false
