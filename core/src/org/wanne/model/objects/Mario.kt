@@ -41,7 +41,8 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                 when (action.lastSentence) {
                     "Was'n los ?" -> {
                         dialogBoard.prepTalkTo(
-                            "Mario: Die Prinzessin hat mich verlassen, weil ich mein 'Feuer' verloren hab.",
+                            "Mario: Die Prinzessin hat mich verlassen,",
+                            "weil ich mein 'Feuer' verloren hab.",
                             "Erzähl mir mehr.",
                             "Mir doch egal",
                             action,
@@ -49,7 +50,8 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                     }
                     "Mir doch egal", "Erzähl mir mehr." -> {
                         dialogBoard.prepTalkTo(
-                            "Mario: Seit dem der fiese Bowser weg ist, ist die Action aus der Beziehung raus.",
+                            "Mario: Seit dem der fiese Bowser weg ist,",
+                            "ist die Action aus der Beziehung raus.",
                             null,
                             "*laber* ...",
                             action,
@@ -57,7 +59,8 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                     }
                     "*laber* ..." -> {
                         dialogBoard.prepTalkTo(
-                            "Mario: Sie sagt ich bin ein 'Gefühlsstein'. Dabei mag ich Steine nichtmal :(",
+                            "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
+                            "Dabei mag ich Steine nichtmal :(",
                             null,
                             "bla, bla, bla..." ,
                             action,
@@ -65,7 +68,8 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                     }
                     "bla, bla, bla..." -> {
                         dialogBoard.prepTalkTo(
-                            "Mario: Weisst du vielleicht wie man das Feuer wieder entfachen kann?",
+                            "Mario: Weisst du vielleicht wie man ",
+                            "das Feuer wieder entfachen kann?",
                             null,
                             null,
                             action,
@@ -78,13 +82,15 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                             "Mario: Lass mich, ich bin gerad betrübt.",
                             null,
                             "Was'n los ?",
+                            null,
                             action,
                         )
                     }
                 }
             } else {
                 dialogBoard.prepTalkTo(
-                    "Mario: Weisst du vielleicht wie man das Feuer wieder entfachen kann?",
+                    "Mario: Weisst du vielleicht wie man ",
+                    "das Feuer wieder entfachen kann?",
                     null,
                     null,
                     action,

@@ -22,22 +22,27 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         width = getSprite().width
     }
 
-    private var label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", skin)
-    private var label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", skin)
-    private var label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", skin)
+    private var label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
+    private var label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", skin)
+    private var label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", skin)
+    private var label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", skin)
 
     fun initialize(stage: Stage) {
         reset()
 
         label1.toFront()
         label1.x = 5F
-        label1.y = 200F
+        label1.y = 205F
 
         label2.toFront()
         label2.x = 5F
-        label2.y = 175F
-        label2.color = Color.ORANGE
-        label2.addListener(
+        label2.y = 185F
+
+        label3.toFront()
+        label3.x = 5F
+        label3.y = 165F
+        label3.color = Color.ORANGE
+        label3.addListener(
             object : InputListener() {
                 override fun enter(
                     event: InputEvent?,
@@ -61,11 +66,11 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
             },
         )
 
-        label3.toFront()
-        label3.x = 5F
-        label3.y = 150F
-        label3.color = Color.ORANGE
-        label3.addListener(
+        label4.toFront()
+        label4.x = 5F
+        label4.y = 145F
+        label4.color = Color.ORANGE
+        label4.addListener(
             object : InputListener() {
                 override fun enter(
                     event: InputEvent?,
@@ -92,6 +97,7 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         stage.addActor(label1)
         stage.addActor(label2)
         stage.addActor(label3)
+        stage.addActor(label4)
     }
 
     fun reset() {
@@ -99,6 +105,7 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label1.isVisible = false
         label2.isVisible = false
         label3.isVisible = false
+        label4.isVisible = false
     }
 
     fun prepLookAt(lookAtSentence: String) {
@@ -106,12 +113,14 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label1.isVisible = true
         label2.isVisible = false
         label3.isVisible = false
+        label4.isVisible = false
 
         this.isVisible = true
     }
 
     fun prepTalkTo(
         talkToSentence: String,
+        talkToSentence2: String?,
         answer1: String?,
         answer2: String?,
         action: Action,
@@ -120,15 +129,21 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label1.isVisible = true
         label2.isVisible = false
         label3.isVisible = false
+        label4.isVisible = false
 
-        if (answer1 != null) {
-            label2.setText(answer1)
+        if (talkToSentence2 != null) {
+            label2.setText(talkToSentence2)
             label2.isVisible = true
         }
 
-        if (answer2 != null) {
-            label3.setText(answer2)
+        if (answer1 != null) {
+            label3.setText(answer1)
             label3.isVisible = true
+        }
+
+        if (answer2 != null) {
+            label4.setText(answer2)
+            label4.isVisible = true
         }
 
         action.type = ActionType.TALK_TO
@@ -144,6 +159,7 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label1.isVisible = true
         label2.isVisible = false
         label3.isVisible = false
+        label4.isVisible = false
 
 
         if (furtherDo != null) {

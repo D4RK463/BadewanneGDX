@@ -36,6 +36,7 @@ class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
             "Arztbär: Eeeehhhhhehehehe!!",
             null,
             null,
+            null,
             action,
         )
     }

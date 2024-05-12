@@ -39,6 +39,7 @@ class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
                         "Teddy: ... *zitter*",
                         null,
                         null,
+                        null,
                         action,
                     )
                     action.reset()
@@ -48,6 +49,7 @@ class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
                         "Hey Teddy!",
                         null,
                         "Wo bin ich hier?",
+                        null,
                         action,
                     )
                 }
