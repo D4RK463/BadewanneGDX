@@ -163,7 +163,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
                                 // Aktion sofort ausführen
                                 currentAction.action(dialogBoard)
                             }
-
                         } else if (hitObject is Image) { // Escape vom Dialog
                             currentAction.type = ActionType.NOTHING
 
@@ -188,15 +187,11 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         limits[2] = 934 // rechts
                         limits[3] = 312 // oben
 
-                        val clickLimits = IntArray(2)
-                        clickLimits[0] = 685 // oben
-                        clickLimits[1] = 129 // unten
-
                         var moveX = x.toInt()
                         var moveY = y.toInt()
 
                         // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-                        if (moveY < clickLimits[0] && moveY > clickLimits[1]) {
+                        if (moveY in 129..685) {
                             if (moveX < limits[0]) { // links
                                 moveX = limits[0]
                             } else if (moveX > limits[2]) { // rechts
@@ -215,6 +210,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             moveToPoint = Point(moveX, moveY)
                             needToMove = true
                         } else {
+                            currentPlayer.state = Player.Companion.State.STANDING
                             needToMove = false
                         }
                     }

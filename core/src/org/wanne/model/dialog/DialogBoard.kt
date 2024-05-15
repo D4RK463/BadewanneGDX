@@ -22,10 +22,10 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         width = getSprite().width
     }
 
-    private var label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
-    private var label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", skin)
-    private var label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", skin)
-    private var label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", skin)
+    private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
+    private val label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", skin)
+    private val label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", skin)
+    private val label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", skin)
 
     fun initialize(stage: Stage) {
         reset()
@@ -38,66 +38,46 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label2.x = 5F
         label2.y = 185F
 
-        label3.toFront()
+        initAnswerLabel(label3)
         label3.x = 5F
         label3.y = 165F
-        label3.color = Color.ORANGE
-        label3.addListener(
-            object : InputListener() {
-                override fun enter(
-                    event: InputEvent?,
-                    x: Float,
-                    y: Float,
-                    pointer: Int,
-                    fromActor: Actor?,
-                ) {
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand)
-                }
 
-                override fun exit(
-                    event: InputEvent?,
-                    x: Float,
-                    y: Float,
-                    pointer: Int,
-                    toActor: Actor?,
-                ) {
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
-                }
-            },
-        )
-
-        label4.toFront()
+        initAnswerLabel(label4)
         label4.x = 5F
         label4.y = 145F
-        label4.color = Color.ORANGE
-        label4.addListener(
-            object : InputListener() {
-                override fun enter(
-                    event: InputEvent?,
-                    x: Float,
-                    y: Float,
-                    pointer: Int,
-                    fromActor: Actor?,
-                ) {
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand)
-                }
-
-                override fun exit(
-                    event: InputEvent?,
-                    x: Float,
-                    y: Float,
-                    pointer: Int,
-                    toActor: Actor?,
-                ) {
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
-                }
-            },
-        )
 
         stage.addActor(label1)
         stage.addActor(label2)
         stage.addActor(label3)
         stage.addActor(label4)
+    }
+
+    private fun initAnswerLabel(label: Label) {
+        label.toFront()
+        label.color = Color.ORANGE
+        label.addListener(
+            object : InputListener() {
+                override fun enter(
+                    event: InputEvent?,
+                    x: Float,
+                    y: Float,
+                    pointer: Int,
+                    fromActor: Actor?,
+                ) {
+                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand)
+                }
+
+                override fun exit(
+                    event: InputEvent?,
+                    x: Float,
+                    y: Float,
+                    pointer: Int,
+                    toActor: Actor?,
+                ) {
+                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
+                }
+            },
+        )
     }
 
     fun reset() {
@@ -161,7 +141,6 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label3.isVisible = false
         label4.isVisible = false
 
-
         if (furtherDo != null) {
             label3.setText(furtherDo)
             label3.isVisible = true
@@ -169,7 +148,6 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
 
         action.type = ActionType.USE
         this.isVisible = true
-
     }
 
     override fun getSprite(): Sprite {
