@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class FireFlower(posX: Float = 695F, posY: Float = 375F) : GameObject(posX, posY) {
+class FireFlower(
+    posX: Float = 695F,
+    posY: Float = 375F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -16,24 +19,26 @@ class FireFlower(posX: Float = 695F, posY: Float = 375F) : GameObject(posX, posY
 
     var solved = false
 
-    override fun getSprite(): Sprite {
-        return if (solved) {
+    override fun getSprite(): Sprite =
+        if (solved) {
             addPositionToSprite(itemAtlas.createSprite("Feuerblume"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("FeuerblumeKaputt"))
         }
-    }
+
+    override fun getName(): String = "FireFlower"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Ganz schön heiß...aua!")
     }
 
-    override fun take(dialogBoard: DialogBoard, action: Action) {
+    override fun take(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
 }

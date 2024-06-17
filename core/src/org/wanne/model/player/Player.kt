@@ -46,9 +46,7 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
             } else if (posY == movePosY) { // stand
 
                 // Ändert die Blickrichtung, so das auf das Objekt geschaut wird
-                if (lookingAtTheEnd != null) {
-                    changeView(lookingAtTheEnd)
-                }
+                lookingAtTheEnd?.let { changeView(newView = it) }
                 state = State.STANDING
 
                 // Führt die Action aus, wenn man angekommen ist
@@ -65,6 +63,10 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
                 posY -= MOVE_PIXEL
             }
         }
+    }
+
+    fun justDoIt(action: () -> Unit) {
+        action()
     }
 
     open fun changeView(newView: Looking) {

@@ -14,15 +14,18 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Telefon"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Telefon"))
+
+    override fun getName(): String = "Telephone"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Super... rosa Telefon!")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepUseIt(
             "Wen soll ich denn anrufen? Kenn keine Nummern.",
             null,
@@ -31,12 +34,13 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
         action.reset()
     }
 
-    override fun take(dialogBoard: DialogBoard, action: Action) {
+    override fun take(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
 }

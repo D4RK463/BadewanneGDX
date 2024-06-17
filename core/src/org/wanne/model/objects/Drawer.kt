@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
+class Drawer(
+    posX: Float = 400F,
+    posY: Float = 359F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -14,15 +17,18 @@ class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Schrank"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Schrank"))
+
+    override fun getName(): String = "Drawer"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Die Schubladen sind nur aufgemalt... lol.")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepUseIt(
             "Da lässt sich nix öffnen. Die sind nicht echt.",
             null,
@@ -31,7 +37,5 @@ class Drawer(posX: Float = 400F, posY: Float = 359F) : GameObject(posX, posY) {
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
-        return Pair(Point(510, 308), null)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(Point(510, 308), null)
 }

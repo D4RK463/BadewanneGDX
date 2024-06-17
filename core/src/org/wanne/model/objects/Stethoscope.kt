@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Stethoscope(posX: Float = 206F, posY: Float = 424F) : GameObject(posX, posY) {
+class Stethoscope(
+    posX: Float = 206F,
+    posY: Float = 424F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -14,20 +17,21 @@ class Stethoscope(posX: Float = 206F, posY: Float = 424F) : GameObject(posX, pos
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Stethoskop"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Stethoskop"))
+
+    override fun getName(): String = "Stethoscope"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Alles was ein echter Arzt braucht.")
     }
 
-    override fun take(dialogBoard: DialogBoard, action: Action) {
+    override fun take(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 }

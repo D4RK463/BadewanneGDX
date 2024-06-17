@@ -3,7 +3,6 @@ package org.wanne.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -70,6 +69,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
 
     // Objects
+    private val pills = Pills()
     private val bed = Bed()
     private val roomWindow = Window()
     private val drawer = Drawer()
@@ -82,16 +82,15 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val straw = Straw()
     private val box = Box()
     private val safe = Safe()
-    private val drBear = DrBear()
+    private val drBear = DrBear(gameObjectToAppear = pills)
     private val stethoscope = Stethoscope()
-    private val scalpel = Scalpel()
+    private val scalpel = Scalpel(gameObjectToAppear = pills)
     private val mario = Mario()
     private val bell = Cowbell()
     private val teddy = Teddy()
     private val flower = FireFlower()
     private val telephone = Telephone()
     private val milkSucker = MilkSucker()
-    private val pills = Pills()
     private val note = Note()
 
     // Dialog System
@@ -214,9 +213,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             needToMove = false
                         }
                     }
-
-                    // Cursor reset
-                    Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
                     return true
                 }

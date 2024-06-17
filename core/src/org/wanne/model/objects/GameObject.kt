@@ -7,7 +7,10 @@ import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 import java.util.Random
 
-abstract class GameObject(posX: Float, posY: Float) : AbstractObject(posX, posY) {
+abstract class GameObject(
+    posX: Float,
+    posY: Float,
+) : AbstractObject(posX, posY) {
     private val random = Random()
 
     var stupidAnswers =
@@ -61,6 +64,12 @@ abstract class GameObject(posX: Float, posY: Float) : AbstractObject(posX, posY)
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
+    }
+
+    open fun doCombineAction(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>

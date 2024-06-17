@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
+class Bed(
+    posX: Float = 65F,
+    posY: Float = 210F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -14,15 +17,18 @@ class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Bett"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Bett"))
+
+    override fun getName(): String = "Bed"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Ist das ein SuperSchaf?")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepUseIt(
             "Ich bin nicht müde.",
             null,
@@ -31,7 +37,5 @@ class Bed(posX: Float = 65F, posY: Float = 210F) : GameObject(posX, posY) {
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 }

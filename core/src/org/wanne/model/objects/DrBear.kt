@@ -6,7 +6,7 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
+class DrBear(posX: Float = 187F, posY: Float = 388F, private val gameObjectToAppear: GameObject) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -16,13 +16,14 @@ class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
 
     var broken = false
 
-    override fun getSprite(): Sprite {
-        return if (broken) {
+    override fun getSprite(): Sprite =
+        if (broken) {
             addPositionToSprite(itemAtlas.createSprite("ArztbaerOffen"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Arztbaer"))
         }
-    }
+
+    override fun getName(): String = "DrBear"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Ich hätte gern einen Termin für Sonntag :-)")
@@ -41,7 +42,31 @@ class DrBear(posX: Float = 187F, posY: Float = 388F) : GameObject(posX, posY) {
         )
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
+
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        if (action.setCombineObject(this)) {
+            val combineObject = action.getCombineObjectByType("Scalpel")
+
+            if (combineObject != null) {
+                combineObject.doCombineAction(dialogBoard, action)
+                doCombineAction(dialogBoard, action)
+            } else {
+                action.reset()
+            }
+        }
+    }
+
+    override fun doCombineAction(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        broken = true
+        dialogBoard.prepLookAt("Arztbär: Uhhhhhh!!")
+        gameObjectToAppear.isVisible = true
+        action.reset()
     }
 }

@@ -16,13 +16,14 @@ class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
 
     private var sad = true
 
-    override fun getSprite(): Sprite {
-        return if (sad) {
+    override fun getSprite(): Sprite =
+        if (sad) {
             addPositionToSprite(itemAtlas.createSprite("TeddyTraurig"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Teddy"))
         }
-    }
+
+    override fun getName(): String = "Teddy"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("So süß das man fast Karies davon kriegt.")
@@ -57,7 +58,5 @@ class Teddy(posX: Float = 855F, posY: Float = 307F) : GameObject(posX, posY) {
         }
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(806, 238), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(806, 238), Player.Companion.Looking.RIGHT)
 }

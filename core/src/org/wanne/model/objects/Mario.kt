@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
+class Mario(
+    posX: Float = 82F,
+    posY: Float = 345F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -18,13 +21,14 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
 
     private var talkForTheFirstTime = true
 
-    override fun getSprite(): Sprite {
-        return if (poweredUp) {
+    override fun getSprite(): Sprite =
+        if (poweredUp) {
             addPositionToSprite(itemAtlas.createSprite("Feuermario"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Mario"))
         }
-    }
+
+    override fun getName(): String = "Mario"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("It's a him, Mario!")
@@ -35,9 +39,7 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
         action: Action,
     ) {
         if (!poweredUp) {
-
             if (talkForTheFirstTime) {
-
                 when (action.lastSentence) {
                     "Was'n los ?" -> {
                         dialogBoard.prepTalkTo(
@@ -62,7 +64,7 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
                             "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
                             "Dabei mag ich Steine nichtmal :(",
                             null,
-                            "bla, bla, bla..." ,
+                            "bla, bla, bla...",
                             action,
                         )
                     }
@@ -100,7 +102,5 @@ class Mario(posX: Float = 82F, posY: Float = 345F) : GameObject(posX, posY) {
         }
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(344, 264), Player.Companion.Looking.LEFT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 }

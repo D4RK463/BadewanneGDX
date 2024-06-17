@@ -14,15 +14,18 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Fenster"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Fenster"))
+
+    override fun getName(): String = "Window"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Es ist halb offen.")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         when (action.lastSentence) {
             "Hinaus sehen!" -> {
                 dialogBoard.prepUseIt(
@@ -32,11 +35,12 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
                 )
             }
             "Tonne ansehn" -> {
-                dialogBoard.prepUseIt(
-                    "Ohhh... es steht 'Criban' drauf?!?",
-                    null,
-                    action,
-                ).also { action.reset() }
+                dialogBoard
+                    .prepUseIt(
+                        "Ohhh... es steht 'Criban' drauf?!?",
+                        null,
+                        action,
+                    ).also { action.reset() }
             }
             null -> {
                 dialogBoard.prepUseIt(
@@ -48,7 +52,5 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
         }
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
-        return Pair(Point(510, 308), null)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(Point(510, 308), null)
 }

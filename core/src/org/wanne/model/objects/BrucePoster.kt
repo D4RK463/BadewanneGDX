@@ -5,7 +5,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, posY) {
+class BrucePoster(
+    posX: Float = 695F,
+    posY: Float = 510F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -13,15 +16,13 @@ class BrucePoster(posX: Float = 695F, posY: Float = 510F) : GameObject(posX, pos
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("BruceLee"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("BruceLee"))
+
+    override fun getName(): String = "BrucePoster"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Der Typ ist mein Held.")
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(638, 268), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(638, 268), Player.Companion.Looking.RIGHT)
 }

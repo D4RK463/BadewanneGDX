@@ -13,15 +13,13 @@ class Straw(posX: Float = 900F, posY: Float = 123F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Stroh"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Stroh"))
+
+    override fun getName(): String = "Straw"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Stroh?")
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(862, 216), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(862, 216), Player.Companion.Looking.RIGHT)
 }

@@ -26,11 +26,14 @@ class Inventory private constructor(){
     fun addGameObjectToInventory(gameObject: GameObject) {
         items.add(gameObject)
         gameObject.setPositionToPoint(positions[items.indexOf(gameObject)])
-        // println(items)
     }
 
-    fun removeGameObject(gameObject: GameObject) {
-        items.remove(gameObject)
+    fun removeGameObject(gameObjectToBeRemoved: GameObject) {
+        gameObjectToBeRemoved.isVisible = false
+        items.remove(gameObjectToBeRemoved)
+
+        // Position der übrigen Objekte anpassen
+        items.forEach{ it.setPositionToPoint(positions[items.indexOf(it)]) }
     }
 
     fun isObjectInInventory(gameObject: GameObject) : Boolean {

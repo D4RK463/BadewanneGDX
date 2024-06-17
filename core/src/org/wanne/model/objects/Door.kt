@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
+class Door(
+    posX: Float = 960F,
+    posY: Float = 154F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -14,15 +17,18 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Tuer"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Tuer"))
+
+    override fun getName(): String = "Door"
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt("Sie ist verschlossen!")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
         dialogBoard.prepUseIt(
             "Ich kann sie nicht öffnen. Sie ist fest verschlossen.",
             null,
@@ -31,7 +37,5 @@ class Door(posX: Float = 960F, posY: Float = 154F) : GameObject(posX, posY) {
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> {
-        return Pair(Point(862, 216), Player.Companion.Looking.RIGHT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(862, 216), Player.Companion.Looking.RIGHT)
 }
