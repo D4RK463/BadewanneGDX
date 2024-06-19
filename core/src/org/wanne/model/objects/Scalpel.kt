@@ -36,19 +36,10 @@ class Scalpel(posX: Float = 174F, posY: Float = 411F, private val gameObjectToAp
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        if (action.setCombineObject(this)) {
-            val combineObject = action.getCombineObjectByType("DrBear")
-
-            if (combineObject != null) {
-                combineObject.doCombineAction(dialogBoard, action)
-                doCombineAction(dialogBoard, action)
-            } else {
-                action.reset()
-            }
-        }
+        doCombine(dialogBoard, action, this, "DrBear")
     }
 
-    override fun doCombineAction(
+    override fun afterCombine(
         dialogBoard: DialogBoard,
         action: Action,
     ) {

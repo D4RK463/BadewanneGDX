@@ -145,25 +145,22 @@ class RoomScreen(private var game: WanneGame) : Screen {
                         if (hitObject is GameObject) {
                             currentAction.clickedObject = hitObject
 
-                            // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
-                            if (!currentAction.inventory.isObjectInInventory(hitObject)) {
-                                moveToPoint = currentAction.clickedObject?.getInteractPosition()?.first
-                                lookingAtTheEnd = currentAction.clickedObject?.getInteractPosition()?.second
-                                needToMove = true
+                            // Wenn es sich um eine Kombinieren-Aktion handelt, soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
+                            if (currentAction.type == ActionType.COMBINE) {
 
-                                // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
-                                doTheAction = {
+                                if (currentAction.combineObject1 != null) {
+                                    maybeMove(hitObject)
+                                } else {
+                                    // Nur die Action ausführen
+                                    needToMove = false
                                     currentAction.action(dialogBoard)
                                 }
                             } else {
-                                doTheAction = {}
-                                needToMove = false
-
-                                // Aktion sofort ausführen
-                                currentAction.action(dialogBoard)
+                                maybeMove(hitObject)
                             }
+
                         } else if (hitObject is Image) { // Escape vom Dialog
-                            currentAction.type = ActionType.NOTHING
+                            currentAction.reset()
 
                             lookingAtTheEnd = null
                             doTheAction = {}
@@ -174,6 +171,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                                 currentAction.action(dialogBoard)
                             }
                         }
+
                     } else { // oder laufen
                         lookingAtTheEnd = null
                         doTheAction = {}
@@ -215,6 +213,37 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     }
 
                     return true
+                }
+
+                fun maybeMove(hitObject: GameObject) {
+
+                    // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
+                    if (!currentAction.inventory.isObjectInInventory(hitObject)) {
+                        move(currentAction.clickedObject)
+
+                    // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
+                    // kombiniert, was noch angelaufen werden muss
+                    } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
+                        move(currentAction.combineObject1)
+
+                    } else {
+                        doTheAction = {}
+                        needToMove = false
+
+                        // Aktion sofort ausführen
+                        currentAction.action(dialogBoard)
+                    }
+                }
+
+                fun move(actionObject: GameObject?) {
+                    moveToPoint = actionObject?.getInteractPosition()?.first
+                    lookingAtTheEnd = actionObject?.getInteractPosition()?.second
+                    needToMove = true
+
+                    // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
+                    doTheAction = {
+                        currentAction.action(dialogBoard)
+                    }
                 }
             },
         )

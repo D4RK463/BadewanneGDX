@@ -14,7 +14,7 @@ class DrBear(posX: Float = 187F, posY: Float = 388F, private val gameObjectToApp
         width = getSprite().width
     }
 
-    var broken = false
+    private var broken = false
 
     override fun getSprite(): Sprite =
         if (broken) {
@@ -48,19 +48,10 @@ class DrBear(posX: Float = 187F, posY: Float = 388F, private val gameObjectToApp
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        if (action.setCombineObject(this)) {
-            val combineObject = action.getCombineObjectByType("Scalpel")
-
-            if (combineObject != null) {
-                combineObject.doCombineAction(dialogBoard, action)
-                doCombineAction(dialogBoard, action)
-            } else {
-                action.reset()
-            }
-        }
+        doCombine(dialogBoard, action, this, "Scalpel")
     }
 
-    override fun doCombineAction(
+    override fun afterCombine(
         dialogBoard: DialogBoard,
         action: Action,
     ) {

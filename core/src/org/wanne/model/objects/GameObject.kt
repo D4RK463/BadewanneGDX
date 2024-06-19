@@ -50,6 +50,33 @@ abstract class GameObject(
         action.reset()
     }
 
+    fun doCombine(
+        dialogBoard: DialogBoard,
+        action: Action,
+        gameObject: GameObject,
+        checkGameObjectClassName: String
+    ) {
+        if (action.setCombineObject(gameObject)) {
+            val combineObject = action.getCombineObjectByType(checkGameObjectClassName)
+
+            if (combineObject != null) {
+                combineObject.afterCombine(dialogBoard, action)
+                gameObject.afterCombine(dialogBoard, action)
+            } else {
+                action.reset()
+            }
+        }
+    }
+
+    /**
+     * Diese Funktion wird ausgelöst, nachdem 2 GameObjects miteinander kombiniert wurden
+     */
+    open fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+    }
+
     open fun talk(
         dialogBoard: DialogBoard,
         action: Action,
@@ -64,12 +91,6 @@ abstract class GameObject(
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
-    }
-
-    open fun doCombineAction(
-        dialogBoard: DialogBoard,
-        action: Action,
-    ) {
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>

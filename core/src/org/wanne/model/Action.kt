@@ -69,7 +69,4 @@ class Action(
         }
     }
 
-    fun areBothCombineObjectsFilled(): Boolean {
-        return combineObject1 != null && combineObject2 != null
-    }
 }
