@@ -9,6 +9,7 @@ import org.wanne.model.player.Player
 class Mario(
     posX: Float = 82F,
     posY: Float = 345F,
+    private val gameObjectToManipulate: GameObject
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -100,6 +101,26 @@ class Mario(
                 action.reset()
             }
         }
+    }
+
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        doCombine(dialogBoard, action, this, "FireFlower")
+    }
+
+    override fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        poweredUp = true
+
+        if (gameObjectToManipulate is Rug) {
+            gameObjectToManipulate.burned = true
+        }
+
+        action.reset()
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)

@@ -8,7 +8,7 @@ import org.wanne.model.player.Player
 
 class Rug(
     posX: Float = 278F,
-    posY: Float = 190F,
+    posY: Float = 190F
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -17,25 +17,40 @@ class Rug(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Teppich"))
+    var burned = false
+
+    override fun getSprite(): Sprite {
+        // ToDo: Asset für den verbrannten Teppich erstellen
+        return addPositionToSprite(itemAtlas.createSprite("Teppich"))
+    }
 
     override fun getName(): String = "Rug"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Funkytastisch! Vielleicht lässt er sich bewegen.")
+        if (burned) {
+            dialogBoard.prepLookAt("Der Teppich ist so verkohlt, der fällt fast auseinander!")
+        } else {
+            dialogBoard.prepLookAt("Funkytastisch! Vielleicht lässt er sich bewegen.")
+        }
     }
 
     override fun use(
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        dialogBoard.prepUseIt(
-            "Teppich lässt sich nicht bewegen!!",
-            null,
-            action,
-        )
 
-        action.usedRug = true
+        if (!burned) {
+            dialogBoard.prepUseIt(
+                "Teppich lässt sich nicht bewegen!!",
+                null,
+                action,
+            )
+
+            action.usedRug = true
+        } else {
+            this.isVisible = false
+        }
+
         action.reset()
     }
 
