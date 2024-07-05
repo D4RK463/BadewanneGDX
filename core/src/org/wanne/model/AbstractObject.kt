@@ -7,8 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 
 abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
 
-    val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
-
     abstract fun getSprite() : Sprite
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
@@ -17,8 +15,7 @@ abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
         return sprite
     }
 
-    fun dispose() {
-        itemAtlas.dispose()
+    open fun dispose() {
     }
 
     fun setPositionToPoint(point: Point) {

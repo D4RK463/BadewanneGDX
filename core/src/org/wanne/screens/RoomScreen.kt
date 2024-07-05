@@ -51,19 +51,13 @@ import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
 import kotlin.system.exitProcess
 
-class RoomScreen(
-    private var game: WanneGame,
-) : Screen {
+class RoomScreen(private var game: WanneGame) : Screen {
     private lateinit var stage: PointAndClickAwareStage
     private lateinit var batch: SpriteBatch
-    private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
     // Background
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
-
-    // Buttons
-    private val buttonAtlas: TextureAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
 
     // Objects
     private val pills = Pills()
@@ -87,11 +81,11 @@ class RoomScreen(
     private val mario = Mario(gameObjectToManipulate = rug, gameObjectToAppear = note)
     private val bell = Cowbell()
     private val teddy = Teddy(gameObjectToCheck = mario)
-    private val flower = FireFlower(gameObjectToManipulate = mario)
+    private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
     private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
 
     // Dialog System
-    private val dialogBoard = DialogBoard(skin = skin)
+    private val dialogBoard = DialogBoard(skin = game.skin)
 
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
@@ -127,55 +121,55 @@ class RoomScreen(
 
     private fun createGameObjects() {
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        bed.addListener(TextTooltip("Bett", skin))
+        bed.addListener(TextTooltip("Bett", game.skin))
         stage.addActor(bed)
-        drBear.addListener(TextTooltip("Arztbär", skin))
+        drBear.addListener(TextTooltip("Arztbär", game.skin))
         stage.addActor(drBear)
-        stethoscope.addListener(TextTooltip("Stethoskop", skin))
+        stethoscope.addListener(TextTooltip("Stethoskop", game.skin))
         stage.addActor(stethoscope)
-        scalpel.addListener(TextTooltip("Skalpell", skin))
+        scalpel.addListener(TextTooltip("Skalpell", game.skin))
         stage.addActor(scalpel)
-        mario.addListener(TextTooltip("Mario", skin))
+        mario.addListener(TextTooltip("Mario", game.skin))
         stage.addActor(mario)
-        bell.addListener(TextTooltip("Kuhglocke", skin))
+        bell.addListener(TextTooltip("Kuhglocke", game.skin))
         stage.addActor(bell)
-        roomWindow.addListener(TextTooltip("Kleines Fenster", skin))
+        roomWindow.addListener(TextTooltip("Kleines Fenster", game.skin))
         stage.addActor(roomWindow)
-        drawer.addListener(TextTooltip("Holzschrank", skin))
+        drawer.addListener(TextTooltip("Holzschrank", game.skin))
         stage.addActor(drawer)
-        stickers.addListener(TextTooltip("Aufkleber", skin))
+        stickers.addListener(TextTooltip("Aufkleber", game.skin))
         stage.addActor(stickers)
-        straw.addListener(TextTooltip("Stroh", skin))
+        straw.addListener(TextTooltip("Stroh", game.skin))
         stage.addActor(straw)
-        door.addListener(TextTooltip("Tür", skin))
+        door.addListener(TextTooltip("Tür", game.skin))
         stage.addActor(door)
-        pa2Poster.addListener(TextTooltip("Poster", skin))
+        pa2Poster.addListener(TextTooltip("Poster", game.skin))
         stage.addActor(pa2Poster)
-        brucePoster.addListener(TextTooltip("Bruce Lee", skin))
+        brucePoster.addListener(TextTooltip("Bruce Lee", game.skin))
         stage.addActor(brucePoster)
-        deanPoster.addListener(TextTooltip("James Dean Film", skin))
+        deanPoster.addListener(TextTooltip("James Dean Film", game.skin))
         stage.addActor(deanPoster)
-        safe.addListener(TextTooltip("Alter Safe", skin))
+        safe.addListener(TextTooltip("Alter Safe", game.skin))
         stage.addActor(safe)
-        rug.addListener(TextTooltip("Funky Teppich", skin))
+        rug.addListener(TextTooltip("Funky Teppich", game.skin))
         stage.addActor(rug)
-        flower.addListener(TextTooltip("Feuerblume", skin))
+        flower.addListener(TextTooltip("Feuerblume", game.skin))
         stage.addActor(flower)
-        telephone.addListener(TextTooltip("Rosa Telefon", skin))
+        telephone.addListener(TextTooltip("Rosa Telefon", game.skin))
         stage.addActor(telephone)
-        box.addListener(TextTooltip("Blaue Kiste", skin))
+        box.addListener(TextTooltip("Blaue Kiste", game.skin))
         stage.addActor(box)
-        teddy.addListener(TextTooltip("Teddy", skin))
+        teddy.addListener(TextTooltip("Teddy", game.skin))
         stage.addActor(teddy)
 
         // Objekte für später im Spiel
-        milkSucker.addListener(TextTooltip("Milchabsauger 2000", skin))
+        milkSucker.addListener(TextTooltip("Milchabsauger 2000", game.skin))
         milkSucker.isVisible = false
         stage.addActor(milkSucker)
-        pills.addListener(TextTooltip("Tabletten", skin))
+        pills.addListener(TextTooltip("Tabletten", game.skin))
         pills.isVisible = false
         stage.addActor(pills)
-        note.addListener(TextTooltip("Zettel mit Telefonnummer", skin))
+        note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
         note.isVisible = false
         stage.addActor(note)
     }
@@ -184,13 +178,13 @@ class RoomScreen(
         // Buttons
         val lookCursor = Pixmap(Gdx.files.internal("ui/cursor/Ansehen.png"))
         val lookButton =
-            createUIButton(
-                buttonAtlas.createSprite("Ansehen"),
-                buttonAtlas.createSprite("AnsehenPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("Ansehen"),
+                game.buttonAtlas.createSprite("AnsehenPressed"),
                 5f,
                 45f,
             )
-        lookButton.addListener(TextTooltip("untersuchen", skin))
+        lookButton.addListener(TextTooltip("untersuchen", game.skin))
         lookButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -207,13 +201,13 @@ class RoomScreen(
 
         val speakCursor = Pixmap(Gdx.files.internal("ui/cursor/Reden.png"))
         val speakButton =
-            createUIButton(
-                buttonAtlas.createSprite("Reden"),
-                buttonAtlas.createSprite("RedenPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("Reden"),
+                game.buttonAtlas.createSprite("RedenPressed"),
                 65f,
                 45f,
             )
-        speakButton.addListener(TextTooltip("ansprechen", skin))
+        speakButton.addListener(TextTooltip("ansprechen", game.skin))
         speakButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -230,13 +224,13 @@ class RoomScreen(
 
         val takeCursor = Pixmap(Gdx.files.internal("ui/cursor/Nehmen.png"))
         val takeButton =
-            createUIButton(
-                buttonAtlas.createSprite("Nehmen"),
-                buttonAtlas.createSprite("NehmenPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("Nehmen"),
+                game.buttonAtlas.createSprite("NehmenPressed"),
                 120f,
                 45f,
             )
-        takeButton.addListener(TextTooltip("aufnehmen", skin))
+        takeButton.addListener(TextTooltip("aufnehmen", game.skin))
         takeButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -253,13 +247,13 @@ class RoomScreen(
 
         val useCursor = Pixmap(Gdx.files.internal("ui/cursor/Benutzen.png"))
         val useButton =
-            createUIButton(
-                buttonAtlas.createSprite("Benutzen"),
-                buttonAtlas.createSprite("BenutzenPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("Benutzen"),
+                game.buttonAtlas.createSprite("BenutzenPressed"),
                 180f,
                 45f,
             )
-        useButton.addListener(TextTooltip("benutzen", skin))
+        useButton.addListener(TextTooltip("benutzen", game.skin))
         useButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -276,13 +270,13 @@ class RoomScreen(
 
         val combineCursor = Pixmap(Gdx.files.internal("ui/cursor/kombinieren.png"))
         val combineButton =
-            createUIButton(
-                buttonAtlas.createSprite("kombinieren"),
-                buttonAtlas.createSprite("kombinierenPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("kombinieren"),
+                game.buttonAtlas.createSprite("kombinierenPressed"),
                 240f,
                 40f,
             )
-        combineButton.addListener(TextTooltip("kombinieren", skin))
+        combineButton.addListener(TextTooltip("kombinieren", game.skin))
         combineButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -300,22 +294,22 @@ class RoomScreen(
         // Nur beim Single-Player sind die Buttons notwendig
         if (game.isSingleplayer) {
             val poolAttendantButton =
-                createUIButton(
-                    buttonAtlas.createSprite("Bademeister"),
-                    buttonAtlas.createSprite("BademeisterPressed"),
+                game.createUIButton(
+                    game.buttonAtlas.createSprite("Bademeister"),
+                    game.buttonAtlas.createSprite("BademeisterPressed"),
                     3f,
                     707f,
                 )
             poolAttendantButton.isVisible = false
             val duckButton =
-                createUIButton(
-                    buttonAtlas.createSprite("Ente"),
-                    buttonAtlas.createSprite("EntePressed"),
+                game.createUIButton(
+                    game.buttonAtlas.createSprite("Ente"),
+                    game.buttonAtlas.createSprite("EntePressed"),
                     5f,
                     705f,
                 )
 
-            duckButton.addListener(TextTooltip("wechsle zur Ente", skin))
+            duckButton.addListener(TextTooltip("wechsle zur Ente", game.skin))
             duckButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -338,7 +332,7 @@ class RoomScreen(
                     }
                 },
             )
-            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", skin))
+            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", game.skin))
             poolAttendantButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -370,13 +364,13 @@ class RoomScreen(
         }
 
         val exitButton =
-            createUIButton(
-                buttonAtlas.createSprite("exit"),
-                buttonAtlas.createSprite("exitPressed"),
+            game.createUIButton(
+                game.buttonAtlas.createSprite("exit"),
+                game.buttonAtlas.createSprite("exitPressed"),
                 980f,
                 705f,
             )
-        exitButton.addListener(TextTooltip("raus hier", skin))
+        exitButton.addListener(TextTooltip("raus hier", game.skin))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -396,22 +390,6 @@ class RoomScreen(
         stage.addActor(useButton)
         stage.addActor(combineButton)
         stage.addActor(exitButton)
-    }
-
-    private fun createUIButton(
-        texture: Sprite,
-        texturePressed: Sprite,
-        x: Float,
-        y: Float,
-    ): ImageButton {
-        val style = ImageButtonStyle()
-        style.imageUp = TextureRegionDrawable(texture)
-        style.imageDown = TextureRegionDrawable(texturePressed)
-        val button = ImageButton(style)
-        button.x = x
-        button.y = y
-
-        return button
     }
 
     override fun render(delta: Float) {
@@ -447,7 +425,6 @@ class RoomScreen(
 
     override fun dispose() {
         batch.dispose()
-        buttonAtlas.dispose()
         poolAttendant.dispose()
         duck.dispose()
         bed.dispose()

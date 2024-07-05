@@ -21,7 +21,7 @@ class PA2Poster(
     override fun getName(): String = "PA2Poster"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Es ist von Projekt Ananas 2.")
+        dialogBoard.prepLookAt("Es ist von Projekt Ananas 2.", "Der läuft doch aktuell im Kino oder?")
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)

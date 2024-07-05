@@ -30,7 +30,6 @@ class PointAndClickAwareStage(
     var doTheAction: () -> Unit = {}
 
     override fun draw() {
-
         // Bewegung ausrechnen
         if (moveToPoint != null && needToMove) {
             currentPlayer.walkToPoint(

@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.WanneGame
 import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
@@ -10,6 +11,7 @@ class FireFlower(
     posX: Float = 695F,
     posY: Float = 375F,
     private val gameObjectToManipulate: GameObject,
+    private val game: WanneGame
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -45,7 +47,10 @@ class FireFlower(
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        // ToDo: Feuerblumen Puzzle starten
+
+        // Bildschirm ändern
+        game.screen = game.puzzleScreen
+
         solved = true
         action.reset()
     }

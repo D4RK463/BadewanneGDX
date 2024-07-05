@@ -30,7 +30,11 @@ class DrBear(
     override fun getName(): String = "DrBear"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Ich hätte gern einen Termin für Sonntag :-)")
+        if (broken) {
+            dialogBoard.prepLookAt("Doktor Bär, 'leicht' lädiert.","Entschuldigung!")
+        } else {
+            dialogBoard.prepLookAt("Doktor Bär.","Ich hätte gern einen Termin für Sonntag :-)")
+        }
     }
 
     override fun talk(

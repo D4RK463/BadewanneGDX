@@ -16,7 +16,6 @@ import kotlin.system.exitProcess
 
 class MenuScreen(var game: WanneGame) : Screen {
     private lateinit var stage: Stage
-    private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
     private lateinit var batch: SpriteBatch
 
@@ -46,7 +45,7 @@ class MenuScreen(var game: WanneGame) : Screen {
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    game.screen = RoomScreen(game)
+                    game.screen = game.roomScreen
                     dispose()
                 }
             },
@@ -87,7 +86,7 @@ class MenuScreen(var game: WanneGame) : Screen {
         x: Float,
         y: Float,
     ): TextButton {
-        val button = TextButton(label, skin, "default")
+        val button = TextButton(label, game.skin, "default")
         button.setPosition(x, y)
         button.setSize(210f, 60f)
 

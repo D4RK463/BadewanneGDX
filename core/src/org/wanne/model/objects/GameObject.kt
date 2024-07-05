@@ -1,5 +1,6 @@
 package org.wanne.model.objects
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import org.wanne.model.AbstractObject
 import org.wanne.model.Action
 import org.wanne.model.Point
@@ -11,6 +12,8 @@ abstract class GameObject(
     posX: Float,
     posY: Float,
 ) : AbstractObject(posX, posY) {
+    val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
+
     private val random = Random()
 
     private var stupidAnswers =
@@ -91,6 +94,10 @@ abstract class GameObject(
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
+    }
+
+    override fun dispose() {
+        itemAtlas.dispose()
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>
