@@ -1,18 +1,16 @@
 package org.wanne.model.objects
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import org.wanne.model.AbstractObject
 import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import java.util.Random
+import java.util.*
 
 abstract class GameObject(
     posX: Float,
     posY: Float,
 ) : AbstractObject(posX, posY) {
-    val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
 
     private val random = Random()
 

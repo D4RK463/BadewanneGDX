@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
+import org.wanne.model.puzzle.PuzzlePiece
 import kotlin.system.exitProcess
 
 class PuzzleScreen(var game: WanneGame) : Screen {
@@ -26,6 +27,8 @@ class PuzzleScreen(var game: WanneGame) : Screen {
     private lateinit var batch: SpriteBatch
 
     private lateinit var viewport: FitViewport
+
+    val piece1 = PuzzlePiece(200F, 200F, 1)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
@@ -43,6 +46,8 @@ class PuzzleScreen(var game: WanneGame) : Screen {
         }
 
         createGameUI()
+
+        stage.addActor(piece1)
     }
 
     private fun createGameUI() {
