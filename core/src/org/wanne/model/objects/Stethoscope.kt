@@ -9,6 +9,7 @@ import org.wanne.model.player.Player
 class Stethoscope(
     posX: Float = 206F,
     posY: Float = 424F,
+    private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -30,6 +31,24 @@ class Stethoscope(
         action: Action,
     ) {
         action.inventory.addGameObjectToInventory(this)
+        action.reset()
+    }
+
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        doCombine(dialogBoard, action, this, "Safe")
+    }
+
+    override fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        isVisible = false
+        action.inventory.removeGameObject(this)
+
+        gameObjectToAppear.isVisible = true
         action.reset()
     }
 

@@ -22,7 +22,7 @@ class MilkSucker(
     override fun getName(): String = "MilkSucker"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Netter Name für einen einfachen Eimer.")
+        dialogBoard.prepLookAt("Der Milchabsauger 2000!", "Netter Name für einen einfachen Eimer.")
     }
 
     override fun take(

@@ -26,7 +26,7 @@ class Mario(
 
     var talkForTheFirstTime = true
 
-    var pissed = false
+    private var pissed = false
 
     private var talkForTheFirstTimeAfterPoweredUp = true
 
@@ -157,7 +157,7 @@ class Mario(
 
                         talkForTheFirstTimeAfterPoweredUp = false
 
-                        // Telefonnummer Zettel ins Inventar packen
+                        // Telefonnummer-Zettel ins Inventar packen
                         if (!gameObjectToAppear.isVisible) {
                             gameObjectToAppear.isVisible = true
                             action.inventory.addGameObjectToInventory(gameObjectToAppear)
@@ -274,12 +274,12 @@ class Mario(
                             dialogBoard.prepTalkTo(
                                 "Mario: Ich würde dir ja helfen aber ich will nicht.",
                                 null,
-                                "Du #*!%& !!! Ich hasse dich!!",
+                                "Du #*%&!!! Ich hasse dich!!",
                                 "*schnief* Bitte, bitte ich tu auch alles für dich!",
                                 action,
                             )
                         }
-                        "Du #*!%& !!! Ich hasse dich!!", "*schnief* Bitte, bitte ich tu auch alles für dich!" -> {
+                        "Du #*%&!!! Ich hasse dich!!", "*schnief* Bitte, bitte ich tu auch alles für dich!" -> {
                             dialogBoard.prepTalkTo(
                                 "Mario: Nagut, nagut, aber wehe du erzählst es ",
                                 "den anderen. Mehr werde ich nicht helfen!",
@@ -298,7 +298,7 @@ class Mario(
                         else -> {
                             if (pissed) {
                                 dialogBoard.prepTalkTo(
-                                    "Mario: Wir kennen uns nicht!",
+                                    "Mario: Das reicht jetzt! Wir kennen uns nicht!",
                                     null,
                                     null,
                                     null,
@@ -306,7 +306,7 @@ class Mario(
                                 )
                             } else {
                                 dialogBoard.prepTalkTo(
-                                    "Hi Mario !!",
+                                    "Hi Mario!!",
                                     null,
                                     "Warum lässt sich der Teppich nicht bewegen?",
                                     "Was riecht hier so komisch?",

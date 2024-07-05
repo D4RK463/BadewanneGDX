@@ -70,4 +70,11 @@ class Action(
             return null
         }
     }
+
+    fun isCombineObject1InTheInventory(): Boolean =
+        if (combineObject1 != null) {
+            inventory.isObjectInInventory(combineObject1!!)
+        } else {
+            false
+        }
 }

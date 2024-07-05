@@ -40,14 +40,5 @@ class Note(
         doCombine(dialogBoard, action, this, "Telephone")
     }
 
-    override fun afterCombine(
-        dialogBoard: DialogBoard,
-        action: Action,
-    ) {
-        // Todo: Kuh anrufen Screen zeigen
-        action.talkedToCow = true
-        action.reset()
-    }
-
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 }

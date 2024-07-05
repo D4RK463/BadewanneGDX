@@ -85,15 +85,15 @@ class RoomScreen(
     private val box = Box()
     private val safe = Safe()
     private val drBear = DrBear(gameObjectToAppear = pills)
-    private val stethoscope = Stethoscope()
+    private val milkSucker = MilkSucker()
+    private val stethoscope = Stethoscope(gameObjectToAppear = milkSucker)
     private val scalpel = Scalpel(gameObjectToAppear = pills)
     private val note = Note()
     private val mario = Mario(gameObjectToManipulate = rug, gameObjectToAppear = note)
     private val bell = Cowbell()
     private val teddy = Teddy(gameObjectToCheck = mario)
     private val flower = FireFlower(gameObjectToManipulate = mario)
-    private val telephone = Telephone()
-    private val milkSucker = MilkSucker()
+    private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
 
     // Dialog System
     private val dialogBoard = DialogBoard(skin = skin)
@@ -222,7 +222,18 @@ class RoomScreen(
                         // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
                         // kombiniert, was noch angelaufen werden muss
                     } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
-                        move(currentAction.combineObject1)
+                        // Wenn beide Objekte im Inventar sind, muss sich auch nicht bewegt werden
+                        if (currentAction.inventory.isObjectInInventory(hitObject) &&
+                            currentAction.isCombineObject1InTheInventory()
+                        ) {
+                            doTheAction = {}
+                            needToMove = false
+
+                            // Aktion sofort ausführen
+                            currentAction.action(dialogBoard)
+                        } else {
+                            move(currentAction.combineObject1)
+                        }
                     } else {
                         doTheAction = {}
                         needToMove = false
