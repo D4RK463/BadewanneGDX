@@ -88,7 +88,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val mario = Mario(gameObjectToManipulate =  rug)
     private val bell = Cowbell()
     private val teddy = Teddy()
-    private val flower = FireFlower(gameObjectToManipulate = rug)
+    private val flower = FireFlower(gameObjectToManipulate = mario)
     private val telephone = Telephone()
     private val milkSucker = MilkSucker()
     private val note = Note()

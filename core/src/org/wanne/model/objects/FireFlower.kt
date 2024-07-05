@@ -55,7 +55,12 @@ class FireFlower(
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-        doCombine(dialogBoard, action, this, "Mario")
+        if (solved && (gameObjectToManipulate is Mario) && !gameObjectToManipulate.talkForTheFirstTime) {
+            doCombine(dialogBoard, action, this, "Mario")
+        } else {
+            super.combine(dialogBoard, action)
+        }
+
     }
 
     override fun afterCombine(
@@ -63,12 +68,6 @@ class FireFlower(
         action: Action,
     ) {
         action.inventory.removeGameObject(this)
-
-        if (gameObjectToManipulate is Rug) {
-            gameObjectToManipulate.burned = true
-        }
-
-        action.reset()
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
