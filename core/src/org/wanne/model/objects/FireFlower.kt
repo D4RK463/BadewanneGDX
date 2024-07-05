@@ -1,7 +1,6 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.math.MathUtils.random
 import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
@@ -10,7 +9,7 @@ import org.wanne.model.player.Player
 class FireFlower(
     posX: Float = 695F,
     posY: Float = 375F,
-    private val gameObjectToManipulate: GameObject
+    private val gameObjectToManipulate: GameObject,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -60,7 +59,6 @@ class FireFlower(
         } else {
             super.combine(dialogBoard, action)
         }
-
     }
 
     override fun afterCombine(

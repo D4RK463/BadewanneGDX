@@ -14,7 +14,11 @@ import org.wanne.model.AbstractObject
 import org.wanne.model.Action
 import org.wanne.model.ActionType
 
-class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : AbstractObject(posX, posY) {
+class DialogBoard(
+    posX: Float = 0F,
+    posY: Float = 137F,
+    val skin: Skin,
+) : AbstractObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -88,10 +92,19 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         label4.isVisible = false
     }
 
-    fun prepLookAt(lookAtSentence: String) {
+    fun prepLookAt(
+        lookAtSentence: String,
+        lookAtSentence2: String? = null,
+    ) {
         label1.setText(lookAtSentence)
         label1.isVisible = true
         label2.isVisible = false
+
+        if (lookAtSentence2 != null) {
+            label2.setText(lookAtSentence2)
+            label2.isVisible = true
+        }
+
         label3.isVisible = false
         label4.isVisible = false
 
@@ -150,7 +163,5 @@ class DialogBoard(posX: Float = 0F, posY: Float = 137F, val skin: Skin) : Abstra
         this.isVisible = true
     }
 
-    override fun getSprite(): Sprite {
-        return addPositionToSprite(itemAtlas.createSprite("Brett"))
-    }
+    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Brett"))
 }

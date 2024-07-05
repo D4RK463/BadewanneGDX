@@ -6,7 +6,11 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class DrBear(posX: Float = 187F, posY: Float = 388F, private val gameObjectToAppear: GameObject) : GameObject(posX, posY) {
+class DrBear(
+    posX: Float = 187F,
+    posY: Float = 388F,
+    private val gameObjectToAppear: GameObject,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY

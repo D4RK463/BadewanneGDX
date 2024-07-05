@@ -56,7 +56,9 @@ import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
 import kotlin.system.exitProcess
 
-class RoomScreen(private var game: WanneGame) : Screen {
+class RoomScreen(
+    private var game: WanneGame,
+) : Screen {
     private lateinit var stage: DialogAwareStage
     private lateinit var batch: SpriteBatch
     private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
@@ -85,13 +87,13 @@ class RoomScreen(private var game: WanneGame) : Screen {
     private val drBear = DrBear(gameObjectToAppear = pills)
     private val stethoscope = Stethoscope()
     private val scalpel = Scalpel(gameObjectToAppear = pills)
-    private val mario = Mario(gameObjectToManipulate =  rug)
+    private val note = Note()
+    private val mario = Mario(gameObjectToManipulate = rug, gameObjectToAppear = note)
     private val bell = Cowbell()
-    private val teddy = Teddy()
+    private val teddy = Teddy(gameObjectToCheck = mario)
     private val flower = FireFlower(gameObjectToManipulate = mario)
     private val telephone = Telephone()
     private val milkSucker = MilkSucker()
-    private val note = Note()
 
     // Dialog System
     private val dialogBoard = DialogBoard(skin = skin)
@@ -147,7 +149,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
 
                             // Wenn es sich um eine Kombinieren-Aktion handelt, soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
                             if (currentAction.type == ActionType.COMBINE) {
-
                                 if (currentAction.combineObject1 != null) {
                                     maybeMove(hitObject)
                                 } else {
@@ -158,7 +159,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
                             } else {
                                 maybeMove(hitObject)
                             }
-
                         } else if (hitObject is Image) { // Escape vom Dialog
                             currentAction.reset()
 
@@ -171,7 +171,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
                                 currentAction.action(dialogBoard)
                             }
                         }
-
                     } else { // oder laufen
                         lookingAtTheEnd = null
                         doTheAction = {}
@@ -216,16 +215,14 @@ class RoomScreen(private var game: WanneGame) : Screen {
                 }
 
                 fun maybeMove(hitObject: GameObject) {
-
                     // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
                     if (!currentAction.inventory.isObjectInInventory(hitObject)) {
                         move(currentAction.clickedObject)
 
-                    // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
-                    // kombiniert, was noch angelaufen werden muss
+                        // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
+                        // kombiniert, was noch angelaufen werden muss
                     } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
                         move(currentAction.combineObject1)
-
                     } else {
                         doTheAction = {}
                         needToMove = false
@@ -331,7 +328,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
                     needToMove = false
                     currentPlayer.stopHammerTime()
-                    currentAction = Action(ActionType.LOOK_AT)
+                    currentAction.type = ActionType.LOOK_AT
                 }
             },
         )
@@ -354,7 +351,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
                     needToMove = false
                     currentPlayer.stopHammerTime()
-                    currentAction = Action(ActionType.TALK_TO)
+                    currentAction.type = ActionType.TALK_TO
                 }
             },
         )
@@ -377,7 +374,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
                     needToMove = false
                     currentPlayer.stopHammerTime()
-                    currentAction = Action(ActionType.ADD_TO_INVENTORY)
+                    currentAction.type = ActionType.ADD_TO_INVENTORY
                 }
             },
         )
@@ -400,7 +397,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
                     needToMove = false
                     currentPlayer.stopHammerTime()
-                    currentAction = Action(ActionType.USE)
+                    currentAction.type = ActionType.USE
                 }
             },
         )
@@ -423,7 +420,7 @@ class RoomScreen(private var game: WanneGame) : Screen {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
                     needToMove = false
                     currentPlayer.stopHammerTime()
-                    currentAction = Action(ActionType.COMBINE)
+                    currentAction.type = ActionType.COMBINE
                 }
             },
         )

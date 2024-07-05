@@ -54,7 +54,7 @@ abstract class GameObject(
         dialogBoard: DialogBoard,
         action: Action,
         gameObject: GameObject,
-        checkGameObjectClassName: String
+        checkGameObjectClassName: String,
     ) {
         if (action.setCombineObject(gameObject)) {
             val combineObject = action.getCombineObjectByType(checkGameObjectClassName)

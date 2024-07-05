@@ -8,7 +8,7 @@ import org.wanne.model.player.Player
 
 class Rug(
     posX: Float = 278F,
-    posY: Float = 190F
+    posY: Float = 190F,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -38,7 +38,6 @@ class Rug(
         dialogBoard: DialogBoard,
         action: Action,
     ) {
-
         if (!burned) {
             dialogBoard.prepUseIt(
                 "Teppich lässt sich nicht bewegen!!",

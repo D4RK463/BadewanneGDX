@@ -22,6 +22,8 @@ class Action(
     var lastSentence: String? = null
 
     var usedRug = false
+    var marioPoweredUp = false
+    var talkedToCow = false
 
     fun reset(resetObjectToo: Boolean = true) {
         type = ActionType.NOTHING
@@ -68,5 +70,4 @@ class Action(
             return null
         }
     }
-
 }

@@ -6,7 +6,10 @@ import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY) {
+class Telephone(
+    posX: Float = 745F,
+    posY: Float = 366F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -39,6 +42,22 @@ class Telephone(posX: Float = 745F, posY: Float = 366F) : GameObject(posX, posY)
         action: Action,
     ) {
         action.inventory.addGameObjectToInventory(this)
+        action.reset()
+    }
+
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        doCombine(dialogBoard, action, this, "Note")
+    }
+
+    override fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: Action,
+    ) {
+        // Todo: Kuh anrufen Screen zeigen
+        action.talkedToCow = true
         action.reset()
     }
 
