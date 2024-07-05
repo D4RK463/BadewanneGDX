@@ -1,4 +1,4 @@
-package org.wanne.model.dialog
+package org.wanne.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -6,10 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.Viewport
+import org.wanne.model.Action
+import org.wanne.model.Point
 import org.wanne.model.objects.GameObject
 import org.wanne.model.player.Player
 
-class DialogAwareStage(
+class PointAndClickAwareStage(
     viewport: Viewport,
     private val poolAttendant: Player,
     private val duck: Player,
@@ -18,7 +20,28 @@ class DialogAwareStage(
     ) {
     private var stateTime: Float = 0f
 
+    var currentPlayer: Player = poolAttendant
+
+    var moveToPoint: Point? = null
+    var needToMove = false
+
+    var currentAction = Action.createDefaultAction()
+    var lookingAtTheEnd: Player.Companion.Looking? = null
+    var doTheAction: () -> Unit = {}
+
     override fun draw() {
+
+        // Bewegung ausrechnen
+        if (moveToPoint != null && needToMove) {
+            currentPlayer.walkToPoint(
+                moveToPoint!!.x,
+                moveToPoint!!.y,
+                lookingAtTheEnd,
+                doTheAction,
+            )
+        }
+
+        // Kamera aktualisieren
         val camera = viewport.camera
         camera.update()
 
@@ -27,9 +50,6 @@ class DialogAwareStage(
         val batch = this.batch
         batch.projectionMatrix = camera.combined
         batch.begin()
-
-        // old school way to render everything at once
-//        root.draw(batch, 1f)
 
         // Objekte und Background rendern
         val children = root.children

@@ -9,23 +9,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.PointAndClickAwareStage
+import org.wanne.game.PointAndClickListener
 import org.wanne.game.WanneGame
-import org.wanne.model.Action
 import org.wanne.model.ActionType
-import org.wanne.model.Point
-import org.wanne.model.dialog.DialogAwareStage
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Bed
 import org.wanne.model.objects.Box
@@ -36,7 +32,6 @@ import org.wanne.model.objects.Door
 import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
 import org.wanne.model.objects.FireFlower
-import org.wanne.model.objects.GameObject
 import org.wanne.model.objects.Mario
 import org.wanne.model.objects.MilkSucker
 import org.wanne.model.objects.Note
@@ -59,7 +54,7 @@ import kotlin.system.exitProcess
 class RoomScreen(
     private var game: WanneGame,
 ) : Screen {
-    private lateinit var stage: DialogAwareStage
+    private lateinit var stage: PointAndClickAwareStage
     private lateinit var batch: SpriteBatch
     private var skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
 
@@ -101,23 +96,15 @@ class RoomScreen(
     // Players
     private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
     private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
-    private var currentPlayer: Player = poolAttendant
 
     private lateinit var viewport: FitViewport
-
-    private var moveToPoint: Point? = null
-    private var needToMove = false
-
-    private var currentAction = Action.createDefaultAction()
-    private var lookingAtTheEnd: Player.Companion.Looking? = null
-    private var doTheAction: () -> Unit = {}
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
         batch = SpriteBatch()
-        stage = DialogAwareStage(viewport, poolAttendant, duck)
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck)
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -128,133 +115,7 @@ class RoomScreen(
         }
 
         // Klick Steuerung der Charaktere
-        stage.addListener(
-            object : InputListener() {
-                override fun touchDown(
-                    event: InputEvent?,
-                    x: Float,
-                    y: Float,
-                    pointer: Int,
-                    button: Int,
-                ): Boolean {
-                    // Aktion
-                    if (currentAction.type != ActionType.NOTHING) {
-                        println("${currentAction.type} at $x:$y")
-
-                        // Das Objekt holen, auf welches geklickt wurde
-                        val hitObject = stage.hit(x, y, true)
-                        println(hitObject)
-                        if (hitObject is GameObject) {
-                            currentAction.clickedObject = hitObject
-
-                            // Wenn es sich um eine Kombinieren-Aktion handelt, soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
-                            if (currentAction.type == ActionType.COMBINE) {
-                                if (currentAction.combineObject1 != null) {
-                                    maybeMove(hitObject)
-                                } else {
-                                    // Nur die Action ausführen
-                                    needToMove = false
-                                    currentAction.action(dialogBoard)
-                                }
-                            } else {
-                                maybeMove(hitObject)
-                            }
-                        } else if (hitObject is Image) { // Escape vom Dialog
-                            currentAction.reset()
-
-                            lookingAtTheEnd = null
-                            doTheAction = {}
-                            dialogBoard.reset()
-                        } else if (hitObject is Label) { // Im Dialog
-                            currentAction.lastSentence = hitObject.text.toString()
-                            doTheAction = {
-                                currentAction.action(dialogBoard)
-                            }
-                        }
-                    } else { // oder laufen
-                        lookingAtTheEnd = null
-                        doTheAction = {}
-                        dialogBoard.reset()
-
-                        // Raum Lauf-Limits
-                        val limits = IntArray(4)
-                        limits[0] = 255 // links
-                        limits[1] = 129 // unten
-                        limits[2] = 934 // rechts
-                        limits[3] = 312 // oben
-
-                        var moveX = x.toInt()
-                        var moveY = y.toInt()
-
-                        // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-                        if (moveY in 129..685) {
-                            if (moveX < limits[0]) { // links
-                                moveX = limits[0]
-                            } else if (moveX > limits[2]) { // rechts
-                                moveX = limits[2]
-                            }
-                            if (moveY < limits[1]) { // unten
-                                moveY = limits[1]
-                            } else if (moveY > limits[3]) { // oben
-                                moveY = limits[3]
-                            }
-
-                            // Koordinaten am Raster ausrichten
-                            moveX = (moveX - (moveX % Player.MOVE_PIXEL))
-                            moveY = (moveY - (moveY % Player.MOVE_PIXEL))
-
-                            moveToPoint = Point(moveX, moveY)
-                            needToMove = true
-                        } else {
-                            currentPlayer.state = Player.Companion.State.STANDING
-                            needToMove = false
-                        }
-                    }
-
-                    return true
-                }
-
-                fun maybeMove(hitObject: GameObject) {
-                    // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
-                    if (!currentAction.inventory.isObjectInInventory(hitObject)) {
-                        move(currentAction.clickedObject)
-
-                        // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
-                        // kombiniert, was noch angelaufen werden muss
-                    } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
-                        // Wenn beide Objekte im Inventar sind, muss sich auch nicht bewegt werden
-                        if (currentAction.inventory.isObjectInInventory(hitObject) &&
-                            currentAction.isCombineObject1InTheInventory()
-                        ) {
-                            doTheAction = {}
-                            needToMove = false
-
-                            // Aktion sofort ausführen
-                            currentAction.action(dialogBoard)
-                        } else {
-                            move(currentAction.combineObject1)
-                        }
-                    } else {
-                        doTheAction = {}
-                        needToMove = false
-
-                        // Aktion sofort ausführen
-                        currentAction.action(dialogBoard)
-                    }
-                }
-
-                fun move(actionObject: GameObject?) {
-                    moveToPoint = actionObject?.getInteractPosition()?.first
-                    lookingAtTheEnd = actionObject?.getInteractPosition()?.second
-                    needToMove = true
-
-                    // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
-                    doTheAction = {
-                        currentAction.action(dialogBoard)
-                    }
-                }
-            },
-        )
+        stage.addListener(PointAndClickListener(dialogBoard))
 
         createGameObjects()
         createGameUI()
@@ -337,9 +198,9 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
-                    currentAction.type = ActionType.LOOK_AT
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
+                    stage.currentAction.type = ActionType.LOOK_AT
                 }
             },
         )
@@ -360,9 +221,9 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
-                    currentAction.type = ActionType.TALK_TO
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
+                    stage.currentAction.type = ActionType.TALK_TO
                 }
             },
         )
@@ -383,9 +244,9 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
-                    currentAction.type = ActionType.ADD_TO_INVENTORY
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
+                    stage.currentAction.type = ActionType.ADD_TO_INVENTORY
                 }
             },
         )
@@ -406,9 +267,9 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
-                    currentAction.type = ActionType.USE
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
+                    stage.currentAction.type = ActionType.USE
                 }
             },
         )
@@ -429,9 +290,9 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
-                    currentAction.type = ActionType.COMBINE
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
+                    stage.currentAction.type = ActionType.COMBINE
                 }
             },
         )
@@ -462,7 +323,7 @@ class RoomScreen(
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        currentPlayer = duck
+                        stage.currentPlayer = duck
 
                         poolAttendantButton.isVisible = true
                         duckButton.isVisible = false
@@ -472,8 +333,8 @@ class RoomScreen(
                         useButton.isVisible = false
                         combineButton.isVisible = true
 
-                        needToMove = false
-                        currentPlayer.stopHammerTime()
+                        stage.needToMove = false
+                        stage.currentPlayer.stopHammerTime()
                     }
                 },
             )
@@ -485,7 +346,7 @@ class RoomScreen(
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        currentPlayer = poolAttendant
+                        stage.currentPlayer = poolAttendant
 
                         poolAttendantButton.isVisible = false
                         duckButton.isVisible = true
@@ -495,8 +356,8 @@ class RoomScreen(
                         useButton.isVisible = true
                         combineButton.isVisible = false
 
-                        needToMove = false
-                        currentPlayer.stopHammerTime()
+                        stage.needToMove = false
+                        stage.currentPlayer.stopHammerTime()
                     }
                 },
             )
@@ -522,8 +383,8 @@ class RoomScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    needToMove = false
-                    currentPlayer.stopHammerTime()
+                    stage.needToMove = false
+                    stage.currentPlayer.stopHammerTime()
                     exitProcess(0)
                 }
             },
@@ -557,21 +418,11 @@ class RoomScreen(
         ScreenUtils.clear(Color.BLACK)
         viewport.apply()
 
-        // Movement
-        if (moveToPoint != null && needToMove) {
-            currentPlayer.walkToPoint(
-                moveToPoint!!.x,
-                moveToPoint!!.y,
-                lookingAtTheEnd,
-                doTheAction,
-            )
-        }
-
         // Zeichnen
         batch.projectionMatrix = viewport.camera.combined
         batch.begin()
 
-        // Stage zeichnen mit UI, Objekten, Spielern und dem Dialog-Brett
+        // Stage zeichnen mit UI, Objekten, Spielern, dem Dialog-Brett und Spieler Bewegung
         stage.act()
         stage.draw()
 

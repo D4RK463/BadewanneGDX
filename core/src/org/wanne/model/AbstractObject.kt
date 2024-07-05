@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.Touchable
-import com.badlogic.gdx.utils.Null
 
 abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
 

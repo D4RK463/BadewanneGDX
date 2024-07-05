@@ -13,7 +13,7 @@ abstract class GameObject(
 ) : AbstractObject(posX, posY) {
     private val random = Random()
 
-    var stupidAnswers =
+    private var stupidAnswers =
         listOf(
             "Hääh?!?",
             "Was zum Teufel?",
