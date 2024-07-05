@@ -1,5 +1,7 @@
 package org.wanne.model.objects
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.Action
 import org.wanne.model.ActionType
@@ -228,6 +230,7 @@ class Mario(
     ) {
         poweredUp = true
         action.type = ActionType.TALK_TO
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
