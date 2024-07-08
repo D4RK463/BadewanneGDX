@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.PuzzleClickListener
 import org.wanne.game.WanneGame
 import org.wanne.model.puzzle.PuzzlePiece
 
@@ -45,6 +46,8 @@ class PuzzleScreen(
         } else {
             stage.addActor(Image(puzzleBackgroundMulti))
         }
+
+        stage.addListener(PuzzleClickListener())
 
         createGameUI()
 
@@ -106,6 +109,7 @@ class PuzzleScreen(
     }
 
     override fun dispose() {
+        batch.dispose()
         stage.dispose()
     }
 }
