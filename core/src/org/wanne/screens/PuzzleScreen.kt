@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.model.puzzle.PuzzlePiece
-import kotlin.system.exitProcess
 
-class PuzzleScreen(var game: WanneGame) : Screen {
-
+class PuzzleScreen(
+    var game: WanneGame,
+) : Screen {
     // Background
     private val puzzleBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzle.png"))
     private val puzzleBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzleMultiplayer.png"))
@@ -37,6 +37,7 @@ class PuzzleScreen(var game: WanneGame) : Screen {
         batch = SpriteBatch()
 
         stage = Stage()
+        Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
         if (game.isSingleplayer) {
@@ -58,14 +59,14 @@ class PuzzleScreen(var game: WanneGame) : Screen {
                 980f,
                 705f,
             )
-        exitButton.addListener(TextTooltip("raus hier", game.skin))
+        exitButton.addListener(TextTooltip("bring mich zurück", game.skin))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    exitProcess(0)
+                    game.screen = game.roomScreen
                 }
             },
         )
@@ -88,7 +89,10 @@ class PuzzleScreen(var game: WanneGame) : Screen {
         batch.end()
     }
 
-    override fun resize(width: Int, height: Int) {
+    override fun resize(
+        width: Int,
+        height: Int,
+    ) {
         viewport.update(width, height, true)
     }
 
@@ -102,5 +106,6 @@ class PuzzleScreen(var game: WanneGame) : Screen {
     }
 
     override fun dispose() {
+        stage.dispose()
     }
 }

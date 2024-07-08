@@ -12,8 +12,7 @@ import org.wanne.screens.MenuScreen
 import org.wanne.screens.PuzzleScreen
 import org.wanne.screens.RoomScreen
 
-class WanneGame() : Game() {
-
+class WanneGame : Game() {
     lateinit var roomScreen: RoomScreen
     lateinit var puzzleScreen: PuzzleScreen
 

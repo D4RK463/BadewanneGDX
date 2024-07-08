@@ -5,17 +5,11 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.PointAndClickAwareStage
@@ -51,7 +45,9 @@ import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
 import kotlin.system.exitProcess
 
-class RoomScreen(private var game: WanneGame) : Screen {
+class RoomScreen(
+    private var game: WanneGame,
+) : Screen {
     private lateinit var stage: PointAndClickAwareStage
     private lateinit var batch: SpriteBatch
 
@@ -451,5 +447,6 @@ class RoomScreen(private var game: WanneGame) : Screen {
         pills.dispose()
         note.dispose()
         dialogBoard.dispose()
+        stage.dispose()
     }
 }

@@ -5,13 +5,12 @@ import org.wanne.model.Action
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import java.util.*
+import java.util.Random
 
 abstract class GameObject(
     posX: Float,
     posY: Float,
 ) : AbstractObject(posX, posY) {
-
     private val random = Random()
 
     private var stupidAnswers =
