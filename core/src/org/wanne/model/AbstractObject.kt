@@ -5,10 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 
-abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
+abstract class AbstractObject(
+    var posX: Float,
+    var posY: Float,
+) : Actor() {
     val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
 
-    abstract fun getSprite() : Sprite
+    abstract fun getSprite(): Sprite
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
         sprite.x = posX
@@ -27,15 +30,14 @@ abstract class AbstractObject(var posX: Float, var posY: Float): Actor() {
         positionChanged()
     }
 
-    override fun draw(batch: Batch?, parentAlpha: Float) {
+    override fun draw(
+        batch: Batch?,
+        parentAlpha: Float,
+    ) {
         getSprite().draw(batch, parentAlpha)
     }
 
-    override fun getWidth(): Float {
-        return getSprite().width
-    }
+    override fun getWidth(): Float = getSprite().width
 
-    override fun getHeight(): Float {
-        return getSprite().height
-    }
+    override fun getHeight(): Float = getSprite().height
 }

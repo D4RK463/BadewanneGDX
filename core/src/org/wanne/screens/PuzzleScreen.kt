@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.PuzzleClickListener
 import org.wanne.game.WanneGame
+import org.wanne.model.Point
 import org.wanne.model.puzzle.PuzzlePiece
 
 class PuzzleScreen(
@@ -29,7 +30,7 @@ class PuzzleScreen(
 
     private lateinit var viewport: FitViewport
 
-    val piece1 = PuzzlePiece(200F, 200F, 1)
+    val piece1 = PuzzlePiece(point = Point(200, 200), 1)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
