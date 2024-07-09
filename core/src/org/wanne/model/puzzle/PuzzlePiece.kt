@@ -19,8 +19,14 @@ class PuzzlePiece(
     private val random = Random()
 
     init {
+        x = posX
+        y = posY
+
         puzzleSprite = addPositionToSprite(puzzleAtlas.createSprite(pieceNumber.toString()))
         randomizeRotation()
+
+        height = getSprite().height
+        width = getSprite().width
     }
 
     override fun getSprite(): Sprite = puzzleSprite
