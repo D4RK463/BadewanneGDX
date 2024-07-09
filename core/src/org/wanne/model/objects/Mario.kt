@@ -3,7 +3,7 @@ package org.wanne.model.objects
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
@@ -53,7 +53,7 @@ class Mario(
 
     override fun talk(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         if (!poweredUp) {
             when (action.lastSentence) {
@@ -322,7 +322,7 @@ class Mario(
 
     override fun combine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         if (!talkForTheFirstTime) {
             doCombine(dialogBoard, action, this, "FireFlower")
@@ -333,7 +333,7 @@ class Mario(
 
     override fun afterCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         poweredUp = true
         action.marioPoweredUp = true

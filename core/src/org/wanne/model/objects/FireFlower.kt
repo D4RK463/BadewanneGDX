@@ -2,7 +2,7 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -37,7 +37,7 @@ class FireFlower(
 
     override fun take(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
@@ -45,7 +45,7 @@ class FireFlower(
 
     override fun use(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
 
         // Bildschirm ändern
@@ -57,7 +57,7 @@ class FireFlower(
 
     override fun combine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         if (solved && (gameObjectToManipulate is Mario) && !gameObjectToManipulate.talkForTheFirstTime) {
             doCombine(dialogBoard, action, this, "Mario")
@@ -68,7 +68,7 @@ class FireFlower(
 
     override fun afterCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         action.inventory.removeGameObject(this)
     }

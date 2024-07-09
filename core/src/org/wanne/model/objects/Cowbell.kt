@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -27,7 +27,7 @@ class Cowbell(
 
     override fun use(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
             "Erinnert mich an meinen Urlaub in den Bergen.",
@@ -39,7 +39,7 @@ class Cowbell(
 
     override fun take(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()

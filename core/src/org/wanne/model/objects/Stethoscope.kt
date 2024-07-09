@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -28,7 +28,7 @@ class Stethoscope(
 
     override fun take(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
@@ -36,14 +36,14 @@ class Stethoscope(
 
     override fun combine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         doCombine(dialogBoard, action, this, "Safe")
     }
 
     override fun afterCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         isVisible = false
         action.inventory.removeGameObject(this)

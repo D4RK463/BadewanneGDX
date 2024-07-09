@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.PuzzleClickListener
+import org.wanne.game.PuzzleStage
 import org.wanne.game.WanneGame
 import org.wanne.model.Point
 import org.wanne.model.puzzle.Puzzle
@@ -25,7 +26,7 @@ class PuzzleScreen(
     private val puzzleBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzle.png"))
     private val puzzleBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzleMultiplayer.png"))
 
-    private lateinit var stage: Stage
+    private lateinit var stage: PuzzleStage
 
     private lateinit var batch: SpriteBatch
 
@@ -39,7 +40,7 @@ class PuzzleScreen(
 
         batch = SpriteBatch()
 
-        stage = Stage()
+        stage = PuzzleStage(viewport, puzzle)
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -51,9 +52,9 @@ class PuzzleScreen(
 
         stage.addListener(PuzzleClickListener())
 
-        createGameUI()
-
         puzzle.initializePuzzle(stage)
+
+        createGameUI()
     }
 
     private fun createGameUI() {

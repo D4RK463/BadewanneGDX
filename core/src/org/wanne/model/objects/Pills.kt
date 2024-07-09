@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -22,7 +22,7 @@ class Pills(posX: Float = 190F, posY: Float = 395F) : GameObject(posX, posY) {
         dialogBoard.prepLookAt("Valium, hartes Zeug für'n Teddy.")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: Action) {
+    override fun use(dialogBoard: DialogBoard, action: PointAndClickAction) {
         dialogBoard.prepUseIt(
             "Gewinner nehmen keine Drogen!",
             null,
@@ -31,7 +31,7 @@ class Pills(posX: Float = 190F, posY: Float = 395F) : GameObject(posX, posY) {
         action.reset()
     }
 
-    override fun take(dialogBoard: DialogBoard, action: Action) {
+    override fun take(dialogBoard: DialogBoard, action: PointAndClickAction) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
     }

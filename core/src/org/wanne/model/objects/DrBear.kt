@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -39,7 +39,7 @@ class DrBear(
 
     override fun talk(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepTalkTo(
             "Arztbär: Eeeehhhhhehehehe!!",
@@ -54,14 +54,14 @@ class DrBear(
 
     override fun combine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         doCombine(dialogBoard, action, this, "Scalpel")
     }
 
     override fun afterCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         broken = true
         dialogBoard.prepLookAt("Arztbär: Uhhhhhh!!")

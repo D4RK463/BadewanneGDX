@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -27,7 +27,7 @@ class Door(
 
     override fun use(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
             "Ich kann sie nicht öffnen. Sie ist fest verschlossen.",

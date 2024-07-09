@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import org.wanne.model.AbstractObject
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -36,7 +36,7 @@ abstract class GameObject(
 
     open fun use(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
@@ -44,7 +44,7 @@ abstract class GameObject(
 
     open fun combine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
@@ -52,7 +52,7 @@ abstract class GameObject(
 
     fun doCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
         gameObject: GameObject,
         checkGameObjectClassName: String,
     ) {
@@ -73,13 +73,13 @@ abstract class GameObject(
      */
     open fun afterCombine(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
     }
 
     open fun talk(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()
@@ -87,7 +87,7 @@ abstract class GameObject(
 
     open fun take(
         dialogBoard: DialogBoard,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
         action.reset()

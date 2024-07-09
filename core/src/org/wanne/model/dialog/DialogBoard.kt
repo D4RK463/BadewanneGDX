@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import org.wanne.model.AbstractObject
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
 
 class DialogBoard(
@@ -116,7 +116,7 @@ class DialogBoard(
         talkToSentence2: String?,
         answer1: String?,
         answer2: String?,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         label1.setText(talkToSentence)
         label1.isVisible = true
@@ -146,7 +146,7 @@ class DialogBoard(
     fun prepUseIt(
         explainSentence: String,
         furtherDo: String?,
-        action: Action,
+        action: PointAndClickAction,
     ) {
         label1.setText(explainSentence)
         label1.isVisible = true

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.Viewport
-import org.wanne.model.Action
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.objects.GameObject
 import org.wanne.model.player.Player
@@ -25,7 +25,7 @@ class PointAndClickAwareStage(
     var moveToPoint: Point? = null
     var needToMove = false
 
-    var currentAction = Action.createDefaultAction()
+    var currentAction = PointAndClickAction.createDefaultAction()
     var lookingAtTheEnd: Player.Companion.Looking? = null
     var doTheAction: () -> Unit = {}
 

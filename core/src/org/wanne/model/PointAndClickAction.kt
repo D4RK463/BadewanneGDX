@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.Cursor
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.GameObject
 
-class Action(
+class PointAndClickAction(
     var type: ActionType,
 ) {
     companion object {
-        fun createDefaultAction(): Action = Action(ActionType.NOTHING)
+        fun createDefaultAction() = PointAndClickAction(ActionType.NOTHING)
     }
 
     var clickedObject: GameObject? = null
