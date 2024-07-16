@@ -10,8 +10,9 @@ import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.GameObject
 import org.wanne.model.player.Player
 
-class PointAndClickListener(val dialogBoard: DialogBoard): InputListener() {
-
+class PointAndClickListener(
+    val dialogBoard: DialogBoard,
+) : InputListener() {
     override fun touchDown(
         event: InputEvent?,
         x: Float,
@@ -23,7 +24,7 @@ class PointAndClickListener(val dialogBoard: DialogBoard): InputListener() {
 
         // Aktion
         if (stage.currentAction.type != ActionType.NOTHING) {
-            println("${stage.currentAction.type} at $x:$y")
+//            println("${stage.currentAction.type} at $x:$y")
 
             // Das Objekt holen, auf welches geklickt wurde
             val hitObject = stage.hit(x, y, true)
@@ -98,7 +99,10 @@ class PointAndClickListener(val dialogBoard: DialogBoard): InputListener() {
         return true
     }
 
-    private fun maybeMove(hitObject: GameObject, stage: PointAndClickAwareStage) {
+    private fun maybeMove(
+        hitObject: GameObject,
+        stage: PointAndClickAwareStage,
+    ) {
         // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
         if (!stage.currentAction.inventory.isObjectInInventory(hitObject)) {
             move(stage.currentAction.clickedObject, stage)
@@ -127,7 +131,10 @@ class PointAndClickListener(val dialogBoard: DialogBoard): InputListener() {
         }
     }
 
-    private fun move(actionObject: GameObject?, stage: PointAndClickAwareStage) {
+    private fun move(
+        actionObject: GameObject?,
+        stage: PointAndClickAwareStage,
+    ) {
         stage.moveToPoint = actionObject?.getInteractPosition()?.first
         stage.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
         stage.needToMove = true

@@ -3,7 +3,7 @@ package org.wanne.model.puzzle
 import com.badlogic.gdx.scenes.scene2d.Stage
 import org.wanne.model.Point
 
-class Puzzle() {
+class Puzzle {
     private val puzzle: MutableList<PuzzlePiece> = ArrayList()
 
     private val positions =
@@ -21,15 +21,19 @@ class Puzzle() {
 
     fun initializePuzzle(stage: Stage) {
         val randomNumberList: List<Int> = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9).shuffled()
-        randomNumberList.forEachIndexed { index, element -> puzzle.add(PuzzlePiece(
-            point = positions[index],
-            pieceNumber = element,
-            indexNumber = index
-        )) }
+        randomNumberList.forEachIndexed { index, element ->
+            puzzle.add(
+                PuzzlePiece(
+                    point = positions[index],
+                    pieceNumber = element,
+                    indexNumber = index,
+                ),
+            )
+        }
 
-        puzzle.forEach { println("${it.pieceNumber}|${it.indexNumber} -> ${it.posX}:${it.posY} R${it.currentRotation}") }
+        puzzle.forEach { println("$${it.pieceNumber}|#${it.indexNumber} -> ${it.posX}:${it.posY} R${it.currentRotation}") }
 
-        puzzle.forEach{ stage.addActor(it) }
+        puzzle.forEach { stage.addActor(it) }
     }
 
     fun exchangePieces(action: PuzzleAction) {
@@ -42,13 +46,18 @@ class Puzzle() {
             val piece1 = puzzle[indexPiece1]
             val piece2 = puzzle[indexPiece2]
 
+            val piece1Postion = piece1.getPositionAsPoint()
+            val piece2Postion = piece2.getPositionAsPoint()
+
             piece1.indexNumber = indexPiece2
-            piece1.setPositionToPoint(positions[indexPiece2])
+            piece1.setPositionToPoint(piece2Postion)
             piece2.indexNumber = indexPiece1
-            piece2.setPositionToPoint(positions[indexPiece1])
+            piece2.setPositionToPoint(piece1Postion)
 
             puzzle[indexPiece1] = piece2
             puzzle[indexPiece2] = piece1
+
+            puzzle.forEach { println("$${it.pieceNumber}|#${it.indexNumber} -> ${it.posX}:${it.posY} R${it.currentRotation}") }
         }
 
         action.reset()

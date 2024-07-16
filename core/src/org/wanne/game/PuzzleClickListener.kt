@@ -14,18 +14,18 @@ class PuzzleClickListener : ClickListener() {
 
         // Das Objekt holen, auf welches geklickt wurde
         val hitObject = stage.hit(x, y, true)
-        println(hitObject)
+//        println(hitObject)
 
         if (hitObject is PuzzlePiece) {
             if (tapCount == 2) {
-                println("double click")
+//                println("double click")
 
                 stage.action.reset()
                 hitObject.rotate90()
             } else {
-                println("single click")
+//                println("single click")
 
-                if(stage.action.setChangePieces(hitObject)) {
+                if (stage.action.setChangePieces(hitObject)) {
                     stage.puzzle.exchangePieces(stage.action)
                 }
             }

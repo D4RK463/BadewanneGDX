@@ -9,7 +9,7 @@ import java.util.Random
 class PuzzlePiece(
     point: Point,
     val pieceNumber: Int,
-    var indexNumber: Int
+    var indexNumber: Int,
 ) : AbstractObject(point.x.toFloat(), point.y.toFloat()) {
     private val puzzleAtlas: TextureAtlas = TextureAtlas("pictures/Puzzle/puzzle.atlas")
 
@@ -39,7 +39,7 @@ class PuzzlePiece(
         rotation -= spriteRotationSpeed
         currentRotation -= spriteRotationSpeed
 
-        if (rotation == 360F) {
+        if (rotation == 360F || rotation == -360F) {
             rotation = 0F
         }
         puzzleSprite.setRotation(rotation)
@@ -53,4 +53,6 @@ class PuzzlePiece(
             rotate90()
         }
     }
+
+    fun getPositionAsPoint(): Point = Point(posX.toInt(), posY.toInt())
 }
