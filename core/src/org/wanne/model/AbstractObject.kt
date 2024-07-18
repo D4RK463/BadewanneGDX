@@ -22,7 +22,7 @@ abstract class AbstractObject(
     open fun dispose() {
     }
 
-    fun setPositionToPoint(point: Point) {
+    open fun setPositionToPoint(point: Point) {
         posX = point.x.toFloat()
         posY = point.y.toFloat()
         x = posX

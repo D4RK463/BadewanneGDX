@@ -41,13 +41,14 @@ class PuzzlePiece(
 
         if (rotation == 360F || rotation == -360F) {
             rotation = 0F
+            currentRotation = 0
         }
         puzzleSprite.setRotation(rotation)
     }
 
     fun hasCorrectRotation(): Boolean = currentRotation == 0
 
-    fun randomizeRotation() {
+    private fun randomizeRotation() {
         val randomNumber = random.nextInt(3)
         for (i in 1..randomNumber) {
             rotate90()
@@ -55,4 +56,10 @@ class PuzzlePiece(
     }
 
     fun getPositionAsPoint(): Point = Point(posX.toInt(), posY.toInt())
+
+    override fun setPositionToPoint(point: Point) {
+        super.setPositionToPoint(point)
+        puzzleSprite.x = posX
+        puzzleSprite.y = posY
+    }
 }

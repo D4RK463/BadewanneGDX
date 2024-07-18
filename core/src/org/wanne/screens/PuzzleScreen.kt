@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
@@ -15,9 +14,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.PuzzleClickListener
 import org.wanne.game.PuzzleStage
 import org.wanne.game.WanneGame
-import org.wanne.model.Point
 import org.wanne.model.puzzle.Puzzle
-import org.wanne.model.puzzle.PuzzlePiece
+import org.wanne.model.puzzle.VictoryMessage
 
 class PuzzleScreen(
     var game: WanneGame,
@@ -34,13 +32,15 @@ class PuzzleScreen(
 
     private val puzzle = Puzzle()
 
+    private val victoryMessage = VictoryMessage()
+
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
         batch = SpriteBatch()
 
-        stage = PuzzleStage(viewport, puzzle)
+        stage = PuzzleStage(viewport, puzzle, victoryMessage, game)
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -53,6 +53,9 @@ class PuzzleScreen(
         stage.addListener(PuzzleClickListener())
 
         puzzle.initializePuzzle(stage)
+
+        victoryMessage.isVisible = false
+        stage.addActor(victoryMessage)
 
         createGameUI()
     }

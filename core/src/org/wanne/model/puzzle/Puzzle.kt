@@ -19,8 +19,11 @@ class Puzzle {
             Point(610, 110), // 9
         )
 
+    private val expectedPieceNumberSequence = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+
     fun initializePuzzle(stage: Stage) {
-        val randomNumberList: List<Int> = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9).shuffled()
+        // Teile für den Anfang zufällig durchmischen und drehen
+        val randomNumberList: List<Int> = expectedPieceNumberSequence.toMutableList().shuffled()
         randomNumberList.forEachIndexed { index, element ->
             puzzle.add(
                 PuzzlePiece(
@@ -30,15 +33,10 @@ class Puzzle {
                 ),
             )
         }
-
-        puzzle.forEach { println("$${it.pieceNumber}|#${it.indexNumber} -> ${it.posX}:${it.posY} R${it.currentRotation}") }
-
         puzzle.forEach { stage.addActor(it) }
     }
 
     fun exchangePieces(action: PuzzleAction) {
-        println("${action.changePiece1?.pieceNumber} mit ${action.changePiece2?.pieceNumber}")
-
         if (action.changePiece1?.pieceNumber != action.changePiece2?.pieceNumber) {
             val indexPiece1 = action.changePiece1!!.indexNumber
             val indexPiece2 = action.changePiece2!!.indexNumber
@@ -56,14 +54,20 @@ class Puzzle {
 
             puzzle[indexPiece1] = piece2
             puzzle[indexPiece2] = piece1
-
-            puzzle.forEach { println("$${it.pieceNumber}|#${it.indexNumber} -> ${it.posX}:${it.posY} R${it.currentRotation}") }
         }
 
         action.reset()
     }
 
     fun isPuzzleSolved(): Boolean {
-        TODO("Not yet implemented")
+        val pieceNumberSequence: List<Int> = puzzle.map { it.pieceNumber }
+
+        // Reihenfolge prüfen
+        val correctOrder = pieceNumberSequence == expectedPieceNumberSequence
+
+        // Ausrichtung prüfen
+        val correctRotation = puzzle.filter { it.hasCorrectRotation() }.size == 9
+
+        return correctRotation && correctOrder
     }
 }
