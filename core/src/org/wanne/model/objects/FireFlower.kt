@@ -47,9 +47,12 @@ class FireFlower(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        // Bildschirm ändern
+        // Wenn das Puzzle noch nicht gelöst wurde
         if (!game.puzzleSolved) {
+            // Bildschirm ändern
             game.screen = game.puzzleScreen
+        } else {
+            dialogBoard.prepLookAt("Damit bin ich schon fertig.", "War gar nicht so einfach!")
         }
 
         action.reset()

@@ -22,6 +22,8 @@ class Puzzle {
     private val expectedPieceNumberSequence = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
 
     fun initializePuzzle(stage: Stage) {
+        puzzle.clear()
+
         // Teile für den Anfang zufällig durchmischen und drehen
         val randomNumberList: List<Int> = expectedPieceNumberSequence.toMutableList().shuffled()
         randomNumberList.forEachIndexed { index, element ->
