@@ -1,7 +1,8 @@
-package org.wanne.game
+package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import org.wanne.game.stage.PuzzleStage
 import org.wanne.model.puzzle.PuzzlePiece
 import org.wanne.model.puzzle.VictoryMessage
 
@@ -32,7 +33,9 @@ class PuzzleClickListener : ClickListener() {
             if (stage.puzzle.isPuzzleSolved()) {
                 stage.victoryMessage.isVisible = true
             }
+
         } else if (hitObject is VictoryMessage) {
+            stage.game.puzzleSolved = true
             stage.game.screen = stage.game.roomScreen
         }
     }

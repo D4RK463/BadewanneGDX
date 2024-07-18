@@ -21,6 +21,8 @@ class WanneGame : Game() {
 
     var isSingleplayer = true
 
+    var puzzleSolved = false
+
     override fun create() {
         // Assets initialisieren
         buttonAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")

@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.PuzzleClickListener
-import org.wanne.game.PuzzleStage
+import org.wanne.game.listener.PuzzleClickListener
+import org.wanne.game.stage.PuzzleStage
 import org.wanne.game.WanneGame
 import org.wanne.model.puzzle.Puzzle
 import org.wanne.model.puzzle.VictoryMessage

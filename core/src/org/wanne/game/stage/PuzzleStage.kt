@@ -1,7 +1,8 @@
-package org.wanne.game
+package org.wanne.game.stage
 
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.Viewport
+import org.wanne.game.WanneGame
 import org.wanne.model.puzzle.Puzzle
 import org.wanne.model.puzzle.PuzzleAction
 import org.wanne.model.puzzle.VictoryMessage

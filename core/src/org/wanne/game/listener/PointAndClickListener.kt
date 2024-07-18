@@ -1,9 +1,10 @@
-package org.wanne.game
+package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.model.ActionType
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard

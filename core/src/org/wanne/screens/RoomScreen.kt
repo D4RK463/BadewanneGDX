@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.PointAndClickAwareStage
-import org.wanne.game.PointAndClickListener
+import org.wanne.game.stage.PointAndClickAwareStage
+import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.WanneGame
 import org.wanne.model.ActionType
 import org.wanne.model.dialog.DialogBoard
@@ -168,6 +168,10 @@ class RoomScreen(
         note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
         note.isVisible = false
         stage.addActor(note)
+
+        if (game.puzzleSolved) {
+            flower.solved = true
+        }
     }
 
     private fun createGameUI() {

@@ -1,4 +1,4 @@
-package org.wanne.game
+package org.wanne.game.stage
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite

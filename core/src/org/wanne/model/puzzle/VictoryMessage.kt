@@ -11,4 +11,12 @@ class VictoryMessage(
     private val puzzleAtlas: TextureAtlas = TextureAtlas("pictures/Puzzle/puzzle.atlas")
 
     override fun getSprite(): Sprite = addPositionToSprite(puzzleAtlas.createSprite("PuzzleSieg"))
+
+    init {
+        x = posX
+        y = posY
+        height = getSprite().height
+        width = getSprite().width
+    }
+
 }
