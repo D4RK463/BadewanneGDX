@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import org.wanne.utils.GifDecoder
 
-class FireAnimation(posX: Float, posY: Float, visible: Boolean): org.wanne.model.animation.Animation(posX, posY, visible)  {
+class CowCallAnimation(posX: Float, posY: Float, visible: Boolean = true): org.wanne.model.animation.Animation(posX, posY, visible) {
     private val fireAnimation = GifDecoder.loadGIFAnimation(
-        Animation.PlayMode.NORMAL,
-        Gdx.files.internal("pictures/Items/FeuerTeppich.gif").read()
+        Animation.PlayMode.LOOP,
+        Gdx.files.internal("pictures/Backgrounds/Telephonezelle.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {
@@ -18,11 +18,6 @@ class FireAnimation(posX: Float, posY: Float, visible: Boolean): org.wanne.model
             texture = fireAnimation.getKeyFrame(time)
         }
 
-        if (fireAnimation.isAnimationFinished(time)) {
-            visible = false
-        }
-
         return texture
     }
-
 }

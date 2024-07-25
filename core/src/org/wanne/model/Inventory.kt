@@ -31,6 +31,7 @@ class Inventory private constructor() {
     fun removeGameObject(gameObjectToBeRemoved: GameObject) {
         gameObjectToBeRemoved.isVisible = false
         items.remove(gameObjectToBeRemoved)
+        println("removed ${gameObjectToBeRemoved.name}")
 
         // Position der übrigen Objekte anpassen
         items.forEach { it.setPositionToPoint(positions[items.indexOf(it)]) }

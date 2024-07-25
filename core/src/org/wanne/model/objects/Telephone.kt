@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.WanneGame
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
@@ -11,6 +12,7 @@ class Telephone(
     posX: Float = 745F,
     posY: Float = 366F,
     val winningRequiredGameObjectList: List<GameObject>,
+    private val game: WanneGame
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -67,8 +69,6 @@ class Telephone(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        // Todo: Kuh anrufen Screen zeigen
-
         // Wenn wir schon zum 2ten Mal anrufen
         if (action.talkedToCow) {
             // Wenn alle Objekte die gefordert wurden, im Inventar sind
@@ -86,6 +86,9 @@ class Telephone(
                 action.reset()
             }
         } else {
+            // Bildschirm ändern
+            game.screen = game.cowPhoneScreen
+
             action.talkedToCow = true
             action.reset()
         }

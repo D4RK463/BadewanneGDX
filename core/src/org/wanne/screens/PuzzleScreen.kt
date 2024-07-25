@@ -4,16 +4,15 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
 import org.wanne.game.stage.PuzzleStage
-import org.wanne.game.WanneGame
 import org.wanne.model.puzzle.Puzzle
 import org.wanne.model.puzzle.VictoryMessage
 
@@ -26,8 +25,6 @@ class PuzzleScreen(
 
     private lateinit var stage: PuzzleStage
 
-    private lateinit var batch: SpriteBatch
-
     private lateinit var viewport: FitViewport
 
     private val puzzle = Puzzle()
@@ -37,8 +34,6 @@ class PuzzleScreen(
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
-
-        batch = SpriteBatch()
 
         stage = PuzzleStage(viewport, puzzle, victoryMessage, game)
         Gdx.input.inputProcessor = stage
@@ -88,14 +83,14 @@ class PuzzleScreen(
         viewport.apply()
 
         // Zeichnen
-        batch.projectionMatrix = viewport.camera.combined
-        batch.begin()
+        game.batch.projectionMatrix = viewport.camera.combined
+        game.batch.begin()
 
         // Stage zeichnen
         stage.act()
         stage.draw()
 
-        batch.end()
+        game.batch.end()
     }
 
     override fun resize(
@@ -115,7 +110,6 @@ class PuzzleScreen(
     }
 
     override fun dispose() {
-        batch.dispose()
         stage.dispose()
     }
 }

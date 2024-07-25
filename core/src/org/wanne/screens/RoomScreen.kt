@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
@@ -51,7 +50,6 @@ class RoomScreen(
     private var game: WanneGame,
 ) : Screen {
     private lateinit var stage: PointAndClickAwareStage
-    private lateinit var batch: SpriteBatch
 
     // Background
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
@@ -89,7 +87,7 @@ class RoomScreen(
     private val bell = Cowbell()
     private val teddy = Teddy(gameObjectToCheck = mario)
     private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
-    private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
+    private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
 
     // Dialog System
     private val dialogBoard = DialogBoard(skin = game.skin)
@@ -104,7 +102,6 @@ class RoomScreen(
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
-        batch = SpriteBatch()
         stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(fireAnimation, powerUpAnimation))
         Gdx.input.inputProcessor = stage
 
@@ -408,14 +405,14 @@ class RoomScreen(
         viewport.apply()
 
         // Zeichnen
-        batch.projectionMatrix = viewport.camera.combined
-        batch.begin()
+        game.batch.projectionMatrix = viewport.camera.combined
+        game.batch.begin()
 
         // Stage zeichnen mit UI, Objekten, Spielern, dem Dialog-Brett und Spieler Bewegung
         stage.act()
         stage.draw()
 
-        batch.end()
+        game.batch.end()
     }
 
     override fun resize(
@@ -435,7 +432,6 @@ class RoomScreen(
     }
 
     override fun dispose() {
-        batch.dispose()
         poolAttendant.dispose()
         duck.dispose()
         bed.dispose()

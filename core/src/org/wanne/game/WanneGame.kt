@@ -3,21 +3,32 @@ package org.wanne.game
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
 import org.wanne.screens.PuzzleScreen
 import org.wanne.screens.RoomScreen
 
 class WanneGame : Game() {
-    lateinit var roomScreen: RoomScreen
-    lateinit var puzzleScreen: PuzzleScreen
+    val roomScreen: RoomScreen by lazy {
+        RoomScreen(this)
+    }
+    val puzzleScreen: PuzzleScreen by lazy {
+        PuzzleScreen(this)
+    }
+    val cowPhoneScreen: CowPhoneScreen by lazy {
+        CowPhoneScreen(this)
+    }
 
     lateinit var buttonAtlas: TextureAtlas
     lateinit var skin: Skin
+
+    lateinit var batch: SpriteBatch
 
     var isSingleplayer = true
 
@@ -27,10 +38,7 @@ class WanneGame : Game() {
         // Assets initialisieren
         buttonAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
         skin = Skin(Gdx.files.internal("ui/uiskin.json"))
-
-        // Andere Screens initialisieren
-        roomScreen = RoomScreen(this)
-        puzzleScreen = PuzzleScreen(this)
+        batch = SpriteBatch()
 
         // Spiel mit Menü starten
         this.setScreen(MenuScreen(this))
@@ -43,6 +51,7 @@ class WanneGame : Game() {
     override fun dispose() {
         buttonAtlas.dispose()
         skin.dispose()
+        batch.dispose()
     }
 
     fun createUIButton(
