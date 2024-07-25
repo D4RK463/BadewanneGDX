@@ -65,10 +65,6 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
         }
     }
 
-    fun justDoIt(action: () -> Unit) {
-        action()
-    }
-
     open fun changeView(newView: Looking) {
         this.looking = newView
     }

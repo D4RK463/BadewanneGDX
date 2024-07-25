@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.stage.PointAndClickAwareStage
-import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.WanneGame
+import org.wanne.game.listener.PointAndClickListener
+import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.model.ActionType
+import org.wanne.model.animation.FireAnimation
+import org.wanne.model.animation.PowerUpAnimation
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Bed
 import org.wanne.model.objects.Box
@@ -55,6 +57,10 @@ class RoomScreen(
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
 
+    // Animations
+    private val fireAnimation = FireAnimation(82F, 198F, false)
+    private val powerUpAnimation = PowerUpAnimation(82F, 345F, false)
+
     // Objects
     private val pills = Pills()
     private val bed = Bed()
@@ -74,7 +80,12 @@ class RoomScreen(
     private val stethoscope = Stethoscope(gameObjectToAppear = milkSucker)
     private val scalpel = Scalpel(gameObjectToAppear = pills)
     private val note = Note()
-    private val mario = Mario(gameObjectToManipulate = rug, gameObjectToAppear = note)
+    private val mario = Mario(
+        gameObjectToManipulate = rug,
+        gameObjectToAppear = note,
+        fireAnimation = fireAnimation,
+        powerUpAnimation = powerUpAnimation
+    )
     private val bell = Cowbell()
     private val teddy = Teddy(gameObjectToCheck = mario)
     private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
@@ -84,8 +95,8 @@ class RoomScreen(
     private val dialogBoard = DialogBoard(skin = game.skin)
 
     // Players
-    private var poolAttendant: Player = PoolAttendant(200F, 200F, Player.Companion.Looking.RIGHT)
-    private var duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
+    private val poolAttendant: Player = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT)
+    private val duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
 
     private lateinit var viewport: FitViewport
 
@@ -94,7 +105,7 @@ class RoomScreen(
         viewport = FitViewport(1024f, 768f)
 
         batch = SpriteBatch()
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck)
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(fireAnimation, powerUpAnimation))
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen

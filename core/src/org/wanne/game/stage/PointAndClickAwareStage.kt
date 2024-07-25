@@ -6,8 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.Viewport
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
+import org.wanne.model.animation.Animation
 import org.wanne.model.objects.GameObject
 import org.wanne.model.player.Player
 
@@ -15,6 +16,7 @@ class PointAndClickAwareStage(
     viewport: Viewport,
     private val poolAttendant: Player,
     private val duck: Player,
+    private val additionalAnimations: List<Animation>
 ) : Stage(
         viewport,
     ) {
@@ -64,6 +66,11 @@ class PointAndClickAwareStage(
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
         actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F) }
 
+        // Zusätzliche Animationen rendern
+        additionalAnimations.forEach {
+            it.draw(batch, Gdx.graphics.deltaTime)
+        }
+
         // Spieler rendern
         // Animationen holen
         stateTime += Gdx.graphics.deltaTime
@@ -81,8 +88,8 @@ class PointAndClickAwareStage(
 
         // Den ganzen Rest rendern (Buttons, Tooltips und das Dialog-Brett mit Labels)
         actors.filterNot { renderedChildren.contains(it) }.filterNotNull().filter { it.isVisible }.forEach { it.draw(batch, 1F) }
-        children.end()
 
+        children.end()
         batch.end()
     }
 }

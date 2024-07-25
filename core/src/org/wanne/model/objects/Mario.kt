@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
 import org.wanne.model.Point
+import org.wanne.model.animation.FireAnimation
+import org.wanne.model.animation.PowerUpAnimation
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -14,6 +16,8 @@ class Mario(
     posY: Float = 345F,
     private val gameObjectToManipulate: GameObject,
     private val gameObjectToAppear: GameObject,
+    private val fireAnimation: FireAnimation,
+    private val powerUpAnimation: PowerUpAnimation,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -281,8 +285,8 @@ class Mario(
                         }
                         "Du #*%&!!! Ich hasse dich!!", "*schnief* Bitte, bitte ich tu auch alles für dich!" -> {
                             dialogBoard.prepTalkTo(
-                                "Mario: Nagut, nagut, aber wehe du erzählst es ",
-                                "den anderen. Mehr werde ich nicht helfen!",
+                                "Mario: Na gut, na gut, aber wehe du erzählst es ",
+                                "den Anderen. Mehr werde ich nicht helfen!",
                                 null,
                                 null,
                                 action,
@@ -290,6 +294,7 @@ class Mario(
 
                             if (gameObjectToManipulate is Rug) {
                                 gameObjectToManipulate.burned = true
+                                fireAnimation.visible = true
                             }
                             pissed = true
 
@@ -336,6 +341,7 @@ class Mario(
         action: PointAndClickAction,
     ) {
         poweredUp = true
+        powerUpAnimation.visible = true
         action.marioPoweredUp = true
         action.type = ActionType.TALK_TO
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)

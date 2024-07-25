@@ -9,8 +9,8 @@ gwt {
     project.webAppDirName = 'webapp'
 
     compiler {
-        strict = true;
-        disableCastChecking = true;
+        strict = true
+        disableCastChecking = true
     }
 }
 
@@ -21,6 +21,8 @@ gretty.httpPort = 8080
 gretty.resourceBase = project.buildDir.path + "/gwt/draftOut"
 gretty.contextPath = "/"
 gretty.portPropertiesFileName = "TEMP_PORTS.properties"
+
+sourceCompatibility = '11'
 
 tasks.register('startHttpServer') {
     dependsOn draftCompileGwt
