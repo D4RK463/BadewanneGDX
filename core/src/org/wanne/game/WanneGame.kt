@@ -9,12 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
 import org.wanne.screens.PuzzleScreen
 import org.wanne.screens.RoomScreen
+import kotlin.coroutines.EmptyCoroutineContext
 
 class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {
@@ -36,6 +39,10 @@ class WanneGame : Game() {
 
     var talkedToCow = false
 
+    var possessWinningObjects = false
+
+    var cowIsBusy = false
+
     override fun create() {
         // Assets initialisieren
         buttonAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
@@ -46,7 +53,10 @@ class WanneGame : Game() {
         this.setScreen(MenuScreen(this))
 
         val game = this
-        runBlocking { initializeCowScreen(game) }
+        runBlocking {
+            async { initializeCowScreen(game) }
+        }
+
     }
 
     private suspend fun initializeCowScreen(game: WanneGame) = coroutineScope {

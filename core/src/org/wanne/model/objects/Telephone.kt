@@ -2,11 +2,10 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import kotlin.system.exitProcess
 
 class Telephone(
     posX: Float = 745F,
@@ -80,13 +79,20 @@ class Telephone(
             }
 
             if (numberOfWinningObjectsInInventory == 3) {
-                println("Spiel vorbei!!")
-                exitProcess(0)
+                // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
+                if (game.cowIsBusy) {
+                    dialogBoard.prepLookAt("Piep, Piep, Piep...", "Scheint besetzt zu sein.")
+                } else {
+                    game.possessWinningObjects = true
+                    game.screen = game.cowPhoneScreen
+                }
             } else {
-                action.reset()
+                game.screen = game.cowPhoneScreen
             }
+
+            action.reset()
         } else {
-            // Bildschirm ändern
+            // Das erste Mal mit der Kuh reden
             game.screen = game.cowPhoneScreen
 
             game.talkedToCow = true

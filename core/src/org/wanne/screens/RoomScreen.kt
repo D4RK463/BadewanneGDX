@@ -169,21 +169,30 @@ class RoomScreen(
 
         // Objekte für später im Spiel
         milkSucker.addListener(TextTooltip("Milchabsauger 2000", game.skin))
-        milkSucker.isVisible = false
         stage.addActor(milkSucker)
         pills.addListener(TextTooltip("Tabletten", game.skin))
-        pills.isVisible = false
         stage.addActor(pills)
         note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
+        stage.addActor(note)
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
         if(!stage.currentAction.inventory.isObjectInInventory(note)) {
             note.isVisible = false
         }
-        stage.addActor(note)
+        if(!stage.currentAction.inventory.isObjectInInventory(milkSucker)) {
+            milkSucker.isVisible = false
+        }
+        if(!stage.currentAction.inventory.isObjectInInventory(pills)) {
+            pills.isVisible = false
+        }
+
 
         if (game.puzzleSolved) {
             flower.solved = true
+        }
+
+        if (game.cowIsBusy) {
+            door.isVisible = false
         }
     }
 
