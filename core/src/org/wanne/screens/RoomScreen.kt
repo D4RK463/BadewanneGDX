@@ -82,7 +82,8 @@ class RoomScreen(
         gameObjectToManipulate = rug,
         gameObjectToAppear = note,
         fireAnimation = fireAnimation,
-        powerUpAnimation = powerUpAnimation
+        powerUpAnimation = powerUpAnimation,
+        game = game
     )
     private val bell = Cowbell()
     private val teddy = Teddy(gameObjectToCheck = mario)
@@ -174,7 +175,11 @@ class RoomScreen(
         pills.isVisible = false
         stage.addActor(pills)
         note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
-        note.isVisible = false
+
+        // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
+        if(!stage.currentAction.inventory.isObjectInInventory(note)) {
+            note.isVisible = false
+        }
         stage.addActor(note)
 
         if (game.puzzleSolved) {

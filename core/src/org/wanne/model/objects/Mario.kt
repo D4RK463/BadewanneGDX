@@ -3,6 +3,7 @@ package org.wanne.model.objects
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.WanneGame
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
 import org.wanne.model.Point
@@ -18,6 +19,7 @@ class Mario(
     private val gameObjectToAppear: GameObject,
     private val fireAnimation: FireAnimation,
     private val powerUpAnimation: PowerUpAnimation,
+    private val game: WanneGame
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -121,7 +123,7 @@ class Mario(
                 }
             }
         } else {
-            if (!action.talkedToCow) {
+            if (!game.talkedToCow) {
                 when (action.lastSentence) {
                     "Wie sind wir hier her gekommen?" -> {
                         dialogBoard.prepTalkTo(

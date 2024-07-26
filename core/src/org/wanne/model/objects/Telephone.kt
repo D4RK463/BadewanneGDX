@@ -33,7 +33,7 @@ class Telephone(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (action.talkedToCow) {
+        if (game.talkedToCow) {
             dialogBoard.prepUseIt(
                 "Ich kenne die Nummer vom Wächter nicht auswendig.",
                 null,
@@ -70,7 +70,7 @@ class Telephone(
         action: PointAndClickAction,
     ) {
         // Wenn wir schon zum 2ten Mal anrufen
-        if (action.talkedToCow) {
+        if (game.talkedToCow) {
             // Wenn alle Objekte die gefordert wurden, im Inventar sind
             var numberOfWinningObjectsInInventory = 0
             for (gameObject in winningRequiredGameObjectList) {
@@ -89,7 +89,7 @@ class Telephone(
             // Bildschirm ändern
             game.screen = game.cowPhoneScreen
 
-            action.talkedToCow = true
+            game.talkedToCow = true
             action.reset()
         }
     }

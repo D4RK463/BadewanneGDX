@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
 import org.wanne.screens.PuzzleScreen
@@ -21,9 +23,7 @@ class WanneGame : Game() {
     val puzzleScreen: PuzzleScreen by lazy {
         PuzzleScreen(this)
     }
-    val cowPhoneScreen: CowPhoneScreen by lazy {
-        CowPhoneScreen(this)
-    }
+    lateinit var cowPhoneScreen: CowPhoneScreen
 
     lateinit var buttonAtlas: TextureAtlas
     lateinit var skin: Skin
@@ -34,6 +34,8 @@ class WanneGame : Game() {
 
     var puzzleSolved = false
 
+    var talkedToCow = false
+
     override fun create() {
         // Assets initialisieren
         buttonAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
@@ -42,6 +44,13 @@ class WanneGame : Game() {
 
         // Spiel mit Menü starten
         this.setScreen(MenuScreen(this))
+
+        val game = this
+        runBlocking { initializeCowScreen(game) }
+    }
+
+    private suspend fun initializeCowScreen(game: WanneGame) = coroutineScope {
+        cowPhoneScreen = CowPhoneScreen(game)
     }
 
     override fun render() {
