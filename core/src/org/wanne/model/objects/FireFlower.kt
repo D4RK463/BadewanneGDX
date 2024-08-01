@@ -2,8 +2,8 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -11,7 +11,7 @@ class FireFlower(
     posX: Float = 695F,
     posY: Float = 375F,
     private val gameObjectToManipulate: GameObject,
-    private val game: WanneGame
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -77,4 +77,6 @@ class FireFlower(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
+
+    override fun getInventoryScale(): Float = 0.73F
 }

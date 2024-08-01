@@ -42,4 +42,6 @@ abstract class AbstractObject(
     override fun getWidth(): Float = getSprite().width
 
     override fun getHeight(): Float = getSprite().height
+
+    open fun getInventoryScale(): Float = 1F
 }

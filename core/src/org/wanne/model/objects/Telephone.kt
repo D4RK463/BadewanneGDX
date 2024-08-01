@@ -11,7 +11,7 @@ class Telephone(
     posX: Float = 745F,
     posY: Float = 366F,
     val winningRequiredGameObjectList: List<GameObject>,
-    private val game: WanneGame
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -101,4 +101,6 @@ class Telephone(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
+
+    override fun getInventoryScale(): Float = 0.75F
 }

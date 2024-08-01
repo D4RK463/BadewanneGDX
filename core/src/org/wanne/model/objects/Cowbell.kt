@@ -1,8 +1,8 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -46,4 +46,6 @@ class Cowbell(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(288, 154), Player.Companion.Looking.LEFT)
+
+    override fun getInventoryScale(): Float = 1.15F
 }

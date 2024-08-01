@@ -1,8 +1,8 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -51,4 +51,6 @@ class Scalpel(
         gameObjectToAppear.isVisible = true
         action.reset()
     }
+
+    override fun getInventoryScale(): Float = 0.75F
 }

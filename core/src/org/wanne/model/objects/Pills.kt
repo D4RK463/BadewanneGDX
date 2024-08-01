@@ -1,12 +1,15 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Pills(posX: Float = 190F, posY: Float = 395F) : GameObject(posX, posY) {
+class Pills(
+    posX: Float = 190F,
+    posY: Float = 395F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -22,7 +25,10 @@ class Pills(posX: Float = 190F, posY: Float = 395F) : GameObject(posX, posY) {
         dialogBoard.prepLookAt("Valium, hartes Zeug für'n Teddy.")
     }
 
-    override fun use(dialogBoard: DialogBoard, action: PointAndClickAction) {
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
         dialogBoard.prepUseIt(
             "Gewinner nehmen keine Drogen!",
             null,
@@ -31,10 +37,15 @@ class Pills(posX: Float = 190F, posY: Float = 395F) : GameObject(posX, posY) {
         action.reset()
     }
 
-    override fun take(dialogBoard: DialogBoard, action: PointAndClickAction) {
+    override fun take(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
         action.inventory.addGameObjectToInventory(this)
         action.reset()
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
+
+    override fun getInventoryScale(): Float = 1.25F
 }
