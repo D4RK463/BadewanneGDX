@@ -29,7 +29,6 @@ class PointAndClickListener(
 
             // Das Objekt holen, auf welches geklickt wurde
             val hitObject = stage.hit(x, y, true)
-            println(hitObject)
             if (hitObject is GameObject) {
                 stage.currentAction.clickedObject = hitObject
 
