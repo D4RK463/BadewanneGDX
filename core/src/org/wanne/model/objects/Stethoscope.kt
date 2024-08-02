@@ -54,5 +54,5 @@ class Stethoscope(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 
-    override fun getInventoryScale(): Float = 1.25F
+    override fun getInventoryScale(): Float = 1.20F
 }

@@ -52,5 +52,5 @@ class Scalpel(
         action.reset()
     }
 
-    override fun getInventoryScale(): Float = 0.75F
+    override fun getInventoryScale(): Float = 0.70F
 }
