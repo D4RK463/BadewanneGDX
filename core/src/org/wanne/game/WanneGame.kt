@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
@@ -17,15 +16,12 @@ import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
 import org.wanne.screens.PuzzleScreen
 import org.wanne.screens.RoomScreen
-import kotlin.coroutines.EmptyCoroutineContext
 
 class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {
         RoomScreen(this)
     }
-    val puzzleScreen: PuzzleScreen by lazy {
-        PuzzleScreen(this)
-    }
+    lateinit var puzzleScreen: PuzzleScreen
     lateinit var cowPhoneScreen: CowPhoneScreen
 
     lateinit var buttonAtlas: TextureAtlas
@@ -49,19 +45,22 @@ class WanneGame : Game() {
         skin = Skin(Gdx.files.internal("ui/uiskin.json"))
         batch = SpriteBatch()
 
-        // Spiel mit Menü starten
-        this.setScreen(MenuScreen(this))
-
         val game = this
+
         runBlocking {
-            async { initializeCowScreen(game) }
+            initialize(game)
         }
-
     }
 
-    private suspend fun initializeCowScreen(game: WanneGame) = coroutineScope {
-        cowPhoneScreen = CowPhoneScreen(game)
-    }
+    private suspend fun initialize(game: WanneGame) =
+        coroutineScope {
+            async { cowPhoneScreen = CowPhoneScreen(game) }
+            async { puzzleScreen = PuzzleScreen(game) }
+            async {
+                // Spiel mit Menü starten
+                game.setScreen(MenuScreen(game))
+            }
+        }
 
     override fun render() {
         super.render() // important!
