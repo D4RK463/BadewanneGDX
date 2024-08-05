@@ -24,7 +24,6 @@ class Inventory private constructor() {
         )
 
     fun addGameObjectToInventory(gameObject: GameObject) {
-        //gameObject.setScale(gameObject.getInventoryScale())
         gameObject.isInInventory = true
         items.add(gameObject)
         gameObject.setPositionToPoint(positions[items.indexOf(gameObject)])

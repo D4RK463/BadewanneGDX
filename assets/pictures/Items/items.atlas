@@ -24,6 +24,13 @@ Aufkleber
   orig: 56, 39
   offset: 0, 0
   index: -1
+Ausgang
+  rotate: false
+  xy: 237, 964
+  size: 56, 470
+  orig: 56, 470
+  offset: 0, 0
+  index: -1
 Bett
   rotate: false
   xy: 0, 964
@@ -187,7 +194,7 @@ TeleZettel
   index: -1
 Teppich
   rotate: false
-  xy: 258, 567
+  xy: 260, 567
   size: 109, 183
   orig: 109, 183
   offset: 0, 0
@@ -195,13 +202,13 @@ Teppich
 TeppichBurned
   rotate: false
   xy: 154, 567
-  size: 104, 176
-  orig: 104, 176
+  size: 106, 182
+  orig: 106, 182
   offset: 0, 0
   index: -1
 Tuer
   rotate: false
-  xy: 237, 964
+  xy: 293, 964
   size: 67, 536
   orig: 67, 536
   offset: 0, 0

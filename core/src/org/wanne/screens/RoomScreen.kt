@@ -26,6 +26,7 @@ import org.wanne.model.objects.DeanPoster
 import org.wanne.model.objects.Door
 import org.wanne.model.objects.DrBear
 import org.wanne.model.objects.Drawer
+import org.wanne.model.objects.Exit
 import org.wanne.model.objects.FireFlower
 import org.wanne.model.objects.Mario
 import org.wanne.model.objects.MilkSucker
@@ -89,6 +90,7 @@ class RoomScreen(
     private val teddy = Teddy(gameObjectToCheck = mario)
     private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
     private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
+    private val exit = Exit()
 
     // Dialog System
     private val dialogBoard = DialogBoard(skin = game.skin)
@@ -144,6 +146,8 @@ class RoomScreen(
         stage.addActor(drawer)
         stickers.addListener(TextTooltip("Aufkleber", game.skin))
         stage.addActor(stickers)
+        exit.addListener(TextTooltip("Süße Freiheit!", game.skin))
+        stage.addActor(exit)
         straw.addListener(TextTooltip("Stroh", game.skin))
         stage.addActor(straw)
         door.addListener(TextTooltip("Tür", game.skin))
@@ -175,6 +179,9 @@ class RoomScreen(
         note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
         stage.addActor(note)
 
+        // Der Ausgang darf nur am Ende auf sein :)
+        exit.isVisible = false
+
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
         if(!stage.currentAction.inventory.isObjectInInventory(note)) {
             note.isVisible = false
@@ -193,6 +200,7 @@ class RoomScreen(
 
         if (game.cowIsBusy) {
             door.isVisible = false
+            exit.isVisible = true
         }
     }
 
