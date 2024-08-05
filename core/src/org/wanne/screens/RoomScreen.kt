@@ -225,6 +225,7 @@ class RoomScreen(
                     stage.needToMove = false
                     stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.LOOK_AT
+                    game.soundManager.stopSound()
                 }
             },
         )
@@ -248,6 +249,7 @@ class RoomScreen(
                     stage.needToMove = false
                     stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.TALK_TO
+                    game.soundManager.stopSound()
                 }
             },
         )
@@ -271,6 +273,7 @@ class RoomScreen(
                     stage.needToMove = false
                     stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.ADD_TO_INVENTORY
+                    game.soundManager.stopSound()
                 }
             },
         )
@@ -294,6 +297,7 @@ class RoomScreen(
                     stage.needToMove = false
                     stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.USE
+                    game.soundManager.stopSound()
                 }
             },
         )
@@ -317,6 +321,7 @@ class RoomScreen(
                     stage.needToMove = false
                     stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.COMBINE
+                    game.soundManager.stopSound()
                 }
             },
         )
@@ -359,6 +364,7 @@ class RoomScreen(
 
                         stage.needToMove = false
                         stage.currentPlayer.stopHammerTime()
+                        game.soundManager.stopSound()
                     }
                 },
             )
@@ -382,6 +388,7 @@ class RoomScreen(
 
                         stage.needToMove = false
                         stage.currentPlayer.stopHammerTime()
+                        game.soundManager.stopSound()
                     }
                 },
             )

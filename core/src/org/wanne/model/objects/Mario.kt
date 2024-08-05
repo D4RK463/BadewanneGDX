@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.sound.mario.MarioSoundCollection
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
 import org.wanne.model.Point
@@ -35,6 +36,8 @@ class Mario(
     private var pissed = false
 
     private var talkForTheFirstTimeAfterPoweredUp = true
+
+    private val soundCollection = MarioSoundCollection()
 
     override fun getSprite(): Sprite =
         if (poweredUp) {
@@ -71,6 +74,7 @@ class Mario(
                         "Mir doch egal",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 1)
                 }
                 "Mir doch egal", "Erzähl mir mehr." -> {
                     dialogBoard.prepTalkTo(
@@ -80,6 +84,7 @@ class Mario(
                         "*laber* ...",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 2)
                 }
                 "*laber* ..." -> {
                     dialogBoard.prepTalkTo(
@@ -89,6 +94,7 @@ class Mario(
                         "bla, bla, bla...",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 3)
                 }
                 "bla, bla, bla..." -> {
                     dialogBoard.prepTalkTo(
@@ -100,6 +106,7 @@ class Mario(
                     )
                     talkForTheFirstTime = false
                     action.reset()
+                    game.soundManager.playSound(soundCollection, 4)
                 }
                 else -> {
                     if (talkForTheFirstTime) {
@@ -110,6 +117,7 @@ class Mario(
                             null,
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 0)
                     } else {
                         dialogBoard.prepTalkTo(
                             "Mario: Weisst du vielleicht wie man ",
@@ -118,6 +126,7 @@ class Mario(
                             null,
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 4)
                         action.reset()
                     }
                 }
