@@ -17,7 +17,13 @@ class Note(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("TeleZettel"))
+    override fun getSprite(): Sprite {
+        return if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("TeleZettelInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("TeleZettel"))
+        }
+    }
 
     override fun getName(): String = "Note"
 
@@ -42,5 +48,4 @@ class Note(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 
-    override fun getInventoryScale(): Float = 0.75F
 }

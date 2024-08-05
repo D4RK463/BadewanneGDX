@@ -16,21 +16,23 @@ class Inventory private constructor() {
 
     private val positions =
         arrayOf(
-            Point(357, 20), // 1
-            Point(480, 20), // 2
-            Point(611, 20), // 3
-            Point(731, 20), // 4
-            Point(857, 20), // 5
+            Point(365, 22), // 1
+            Point(490, 18), // 2
+            Point(615, 16), // 3
+            Point(735, 16), // 4
+            Point(862, 16), // 5
         )
 
     fun addGameObjectToInventory(gameObject: GameObject) {
-        gameObject.setScale(gameObject.getInventoryScale())
+        //gameObject.setScale(gameObject.getInventoryScale())
+        gameObject.isInInventory = true
         items.add(gameObject)
         gameObject.setPositionToPoint(positions[items.indexOf(gameObject)])
     }
 
     fun removeGameObject(gameObjectToBeRemoved: GameObject) {
         gameObjectToBeRemoved.isVisible = false
+        gameObjectToBeRemoved.isInInventory = false
         items.remove(gameObjectToBeRemoved)
 
         // Position der übrigen Objekte anpassen

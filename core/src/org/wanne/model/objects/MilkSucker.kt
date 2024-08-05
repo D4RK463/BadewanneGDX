@@ -17,7 +17,13 @@ class MilkSucker(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Milchsauger"))
+    override fun getSprite(): Sprite {
+        return if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("MilchsaugerInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("Milchsauger"))
+        }
+    }
 
     override fun getName(): String = "MilkSucker"
 

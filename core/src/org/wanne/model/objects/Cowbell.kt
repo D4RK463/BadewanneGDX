@@ -17,7 +17,13 @@ class Cowbell(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Glocke"))
+    override fun getSprite(): Sprite {
+        return if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("GlockeInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("Glocke"))
+        }
+    }
 
     override fun getName(): String = "Cowbell"
 
@@ -47,5 +53,4 @@ class Cowbell(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(288, 154), Player.Companion.Looking.LEFT)
 
-    override fun getInventoryScale(): Float = 1.15F
 }

@@ -11,6 +11,8 @@ abstract class AbstractObject(
 ) : Actor() {
     val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
 
+    var isInInventory = false
+
     abstract fun getSprite(): Sprite
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
@@ -43,5 +45,4 @@ abstract class AbstractObject(
 
     override fun getHeight(): Float = getSprite().height
 
-    open fun getInventoryScale(): Float = 1F
 }

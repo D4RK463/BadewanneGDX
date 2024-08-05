@@ -18,7 +18,13 @@ class Scalpel(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Skalpell"))
+    override fun getSprite(): Sprite {
+        return if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("SkalpellInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("Skalpell"))
+        }
+    }
 
     override fun getName(): String = "Scalpel"
 
@@ -52,5 +58,4 @@ class Scalpel(
         action.reset()
     }
 
-    override fun getInventoryScale(): Float = 0.70F
 }

@@ -24,9 +24,17 @@ class FireFlower(
 
     override fun getSprite(): Sprite =
         if (solved) {
-            addPositionToSprite(itemAtlas.createSprite("Feuerblume"))
+            if (isInInventory) {
+                addPositionToSprite(inventoryAtlas.createSprite("FeuerblumeInv"))
+            } else {
+                addPositionToSprite(itemAtlas.createSprite("Feuerblume"))
+            }
         } else {
-            addPositionToSprite(itemAtlas.createSprite("FeuerblumeKaputt"))
+            if (isInInventory) {
+                addPositionToSprite(inventoryAtlas.createSprite("FeuerblumeKaputtInv"))
+            } else {
+                addPositionToSprite(itemAtlas.createSprite("FeuerblumeKaputt"))
+            }
         }
 
     override fun getName(): String = "FireFlower"
@@ -78,5 +86,4 @@ class FireFlower(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
 
-    override fun getInventoryScale(): Float = 0.70F
 }

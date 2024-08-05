@@ -18,7 +18,13 @@ class Stethoscope(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Stethoskop"))
+    override fun getSprite(): Sprite {
+        return if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("StethoskopInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("Stethoskop"))
+        }
+    }
 
     override fun getName(): String = "Stethoscope"
 
@@ -54,5 +60,4 @@ class Stethoscope(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 
-    override fun getInventoryScale(): Float = 1.20F
 }
