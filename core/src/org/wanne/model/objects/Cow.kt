@@ -2,14 +2,16 @@ package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.sound.collections.CowSoundCollection
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Cow(posX: Float = 1F,
-          posY: Float = 1F,
-          val game: WanneGame
+class Cow(
+    posX: Float = 1F,
+    posY: Float = 1F,
+    val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -17,6 +19,8 @@ class Cow(posX: Float = 1F,
         height = getSprite().height
         width = getSprite().width
     }
+
+    private val soundCollection = CowSoundCollection()
 
     private var talkForTheFirstTime = true
 
@@ -27,9 +31,8 @@ class Cow(posX: Float = 1F,
     override fun look(dialogBoard: DialogBoard) {
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> {
-        return Pair(Point(posX.toInt(), posY.toInt()), Player.Companion.Looking.LEFT)
-    }
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> =
+        Pair(Point(posX.toInt(), posY.toInt()), Player.Companion.Looking.LEFT)
 
     override fun talk(
         dialogBoard: DialogBoard,
@@ -58,6 +61,7 @@ class Cow(posX: Float = 1F,
                         "Mach hin. Wir wolln Eis essen gehn!",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 8)
                 }
                 else -> {
                     dialogBoard.prepTalkTo(
@@ -79,6 +83,7 @@ class Cow(posX: Float = 1F,
                         "Warum hast du uns entführt?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 1)
                 }
                 "Von welchen Regeln sprichst du?" -> {
                     dialogBoard.prepTalkTo(
@@ -88,6 +93,7 @@ class Cow(posX: Float = 1F,
                         "Gibt es nicht irgendeine andere Möglichkeit?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 2)
                 }
                 "Warum hast du uns entführt?" -> {
                     dialogBoard.prepTalkTo(
@@ -97,6 +103,7 @@ class Cow(posX: Float = 1F,
                         "Wie bitte?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 3)
                 }
                 "Wie bitte?" -> {
                     dialogBoard.prepTalkTo(
@@ -106,6 +113,7 @@ class Cow(posX: Float = 1F,
                         "Wer bezahlt dich?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 4)
                 }
                 "Wer bezahlt dich?" -> {
                     dialogBoard.prepTalkTo(
@@ -115,6 +123,7 @@ class Cow(posX: Float = 1F,
                         "Was können wir tun um hier rauszukommen?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 5)
                 }
                 "Was können wir tun um hier rauszukommen?", "Gibt es nicht irgendeine andere Möglichkeit?" -> {
                     dialogBoard.prepTalkTo(
@@ -124,6 +133,7 @@ class Cow(posX: Float = 1F,
                         "Und?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 6)
                 }
                 "Und?", "Was brauch ich noch ma?" -> {
                     dialogBoard.prepTalkTo(
@@ -133,6 +143,7 @@ class Cow(posX: Float = 1F,
                         "Na schön, wenn's sein muss.",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 7)
                 }
                 "Na schön, wenn's sein muss." -> {
                     talkForTheFirstTime = false
@@ -147,6 +158,7 @@ class Cow(posX: Float = 1F,
                             "uns verdammt nochma hier raus!!!",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 0)
                     } else {
                         dialogBoard.prepTalkTo(
                             "Kuh: Wäwächter hier!!",
@@ -155,6 +167,7 @@ class Cow(posX: Float = 1F,
                             "Was brauch ich noch ma?",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 0)
                     }
                 }
             }
