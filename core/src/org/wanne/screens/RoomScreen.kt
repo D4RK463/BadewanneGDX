@@ -56,6 +56,9 @@ class RoomScreen(
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
 
+    // Ambience Musik
+    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
+
     // Animations
     private val fireAnimation = FireAnimation(82F, 198F, false)
     private val powerUpAnimation = PowerUpAnimation(82F, 345F, false)
@@ -115,6 +118,10 @@ class RoomScreen(
         } else {
             stage.addActor(Image(roomBackgroundMulti))
         }
+
+        musicBackground.volume = 0.4F
+        musicBackground.isLooping = true
+        musicBackground.play()
 
         // Klick Steuerung der Charaktere
         stage.addListener(PointAndClickListener(dialogBoard))
@@ -449,6 +456,7 @@ class RoomScreen(
     }
 
     override fun hide() {
+        musicBackground.stop()
     }
 
     override fun dispose() {
