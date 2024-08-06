@@ -74,20 +74,21 @@ class RoomScreen(
     private val straw = Straw()
     private val box = Box()
     private val safe = Safe()
-    private val drBear = DrBear(gameObjectToAppear = pills)
+    private val drBear = DrBear(gameObjectToAppear = pills, game = game)
     private val milkSucker = MilkSucker()
     private val stethoscope = Stethoscope(gameObjectToAppear = milkSucker)
     private val scalpel = Scalpel(gameObjectToAppear = pills)
     private val note = Note()
-    private val mario = Mario(
-        gameObjectToManipulate = rug,
-        gameObjectToAppear = note,
-        fireAnimation = fireAnimation,
-        powerUpAnimation = powerUpAnimation,
-        game = game
-    )
+    private val mario =
+        Mario(
+            gameObjectToManipulate = rug,
+            gameObjectToAppear = note,
+            fireAnimation = fireAnimation,
+            powerUpAnimation = powerUpAnimation,
+            game = game,
+        )
     private val bell = Cowbell()
-    private val teddy = Teddy(gameObjectToCheck = mario)
+    private val teddy = Teddy(gameObjectToCheck = mario, game = game)
     private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
     private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
     private val exit = Exit()
@@ -183,16 +184,15 @@ class RoomScreen(
         exit.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
-        if(!stage.currentAction.inventory.isObjectInInventory(note)) {
+        if (!stage.currentAction.inventory.isObjectInInventory(note)) {
             note.isVisible = false
         }
-        if(!stage.currentAction.inventory.isObjectInInventory(milkSucker)) {
+        if (!stage.currentAction.inventory.isObjectInInventory(milkSucker)) {
             milkSucker.isVisible = false
         }
-        if(!stage.currentAction.inventory.isObjectInInventory(pills)) {
+        if (!stage.currentAction.inventory.isObjectInInventory(pills)) {
             pills.isVisible = false
         }
-
 
         if (game.puzzleSolved) {
             flower.solved = true
@@ -222,10 +222,8 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.LOOK_AT
-                    game.soundManager.stopSound()
+                    resetPlayerAndSound()
                 }
             },
         )
@@ -246,10 +244,8 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.TALK_TO
-                    game.soundManager.stopSound()
+                    resetPlayerAndSound()
                 }
             },
         )
@@ -270,10 +266,8 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.ADD_TO_INVENTORY
-                    game.soundManager.stopSound()
+                    resetPlayerAndSound()
                 }
             },
         )
@@ -294,10 +288,8 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.USE
-                    game.soundManager.stopSound()
+                    resetPlayerAndSound()
                 }
             },
         )
@@ -318,10 +310,8 @@ class RoomScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
                     stage.currentAction.type = ActionType.COMBINE
-                    game.soundManager.stopSound()
+                    resetPlayerAndSound()
                 }
             },
         )
@@ -362,9 +352,7 @@ class RoomScreen(
                         useButton.isVisible = false
                         combineButton.isVisible = true
 
-                        stage.needToMove = false
-                        stage.currentPlayer.stopHammerTime()
-                        game.soundManager.stopSound()
+                        resetPlayerAndSound()
                     }
                 },
             )
@@ -386,9 +374,7 @@ class RoomScreen(
                         useButton.isVisible = true
                         combineButton.isVisible = false
 
-                        stage.needToMove = false
-                        stage.currentPlayer.stopHammerTime()
-                        game.soundManager.stopSound()
+                        resetPlayerAndSound()
                     }
                 },
             )
@@ -414,8 +400,7 @@ class RoomScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    stage.needToMove = false
-                    stage.currentPlayer.stopHammerTime()
+                    resetPlayerAndSound()
                     exitProcess(0)
                 }
             },
@@ -427,6 +412,12 @@ class RoomScreen(
         stage.addActor(useButton)
         stage.addActor(combineButton)
         stage.addActor(exitButton)
+    }
+
+    private fun resetPlayerAndSound() {
+        stage.needToMove = false
+        stage.currentPlayer.stopHammerTime()
+        game.soundManager.stopSound()
     }
 
     override fun render(delta: Float) {

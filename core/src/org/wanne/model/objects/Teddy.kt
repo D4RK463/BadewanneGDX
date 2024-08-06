@@ -1,8 +1,10 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
+import org.wanne.game.WanneGame
+import org.wanne.game.sound.collections.TeddySoundCollection
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -10,6 +12,7 @@ class Teddy(
     posX: Float = 855F,
     posY: Float = 307F,
     private val gameObjectToCheck: GameObject,
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -17,6 +20,8 @@ class Teddy(
         height = getSprite().height
         width = getSprite().width
     }
+
+    private val soundCollection = TeddySoundCollection()
 
     override fun getSprite(): Sprite =
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {
@@ -49,6 +54,7 @@ class Teddy(
                         null,
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 0)
                     action.reset()
                 }
                 else -> {
@@ -71,6 +77,7 @@ class Teddy(
                         null,
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 1)
                     action.reset()
                 }
                 "Was is los mit dir?" -> {
@@ -81,6 +88,7 @@ class Teddy(
                         "Was ist mit dem Arztbär los?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 2)
                 }
                 "Warum?" -> {
                     dialogBoard.prepTalkTo(
@@ -90,6 +98,7 @@ class Teddy(
                         "Und was ist mit dem Arztbär los?",
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 3)
                 }
                 "Und was ist mit dem Arztbär los?", "Was ist mit dem Arztbär los?" -> {
                     dialogBoard.prepTalkTo(
@@ -99,6 +108,7 @@ class Teddy(
                         null,
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 4)
                     action.reset()
                 }
                 else -> {

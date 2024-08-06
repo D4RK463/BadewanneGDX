@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
-import org.wanne.game.sound.mario.MarioSoundCollection
-import org.wanne.model.PointAndClickAction
+import org.wanne.game.sound.collections.MarioSoundCollection
 import org.wanne.model.ActionType
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.animation.FireAnimation
 import org.wanne.model.animation.PowerUpAnimation
 import org.wanne.model.dialog.DialogBoard
@@ -20,7 +20,7 @@ class Mario(
     private val gameObjectToAppear: GameObject,
     private val fireAnimation: FireAnimation,
     private val powerUpAnimation: PowerUpAnimation,
-    private val game: WanneGame
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -142,6 +142,7 @@ class Mario(
                             "Und was mach ich nun?",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 6)
                     }
                     "Warum ist die Tür verschlossen?", "Geht net, die Tür ist zu." -> {
                         dialogBoard.prepTalkTo(
@@ -151,6 +152,7 @@ class Mario(
                             "Wer ist der Wächter?",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 7)
                     }
                     "Und was mach ich nun?" -> {
                         dialogBoard.prepTalkTo(
@@ -160,6 +162,7 @@ class Mario(
                             "Geht net, die Tür ist zu.",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 8)
                     }
                     "Wo ist der Wächter?", "Wo kann ich ihn finden?", "Wo ist nochma der Wächter?" -> {
                         dialogBoard.prepTalkTo(
@@ -169,6 +172,7 @@ class Mario(
                             null,
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 9)
 
                         talkForTheFirstTimeAfterPoweredUp = false
 
@@ -188,6 +192,7 @@ class Mario(
                             "Weiter...",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 10)
                     }
                     "Weiter..." -> {
                         dialogBoard.prepTalkTo(
@@ -197,6 +202,7 @@ class Mario(
                             "WOW!!!",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 11)
                     }
                     "WOW!!!" -> {
                         dialogBoard.prepTalkTo(
@@ -206,6 +212,7 @@ class Mario(
                             "Du laberst doch nur!",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 12)
                     }
                     "Du laberst doch nur!", "Übertrieben!", "Klar doch!" -> {
                         dialogBoard.prepTalkTo(
@@ -215,6 +222,7 @@ class Mario(
                             "Wo kann ich ihn finden?",
                             action,
                         )
+                        game.soundManager.playSound(soundCollection, 13)
                     }
                     else -> {
                         if (talkForTheFirstTimeAfterPoweredUp) {
@@ -225,6 +233,7 @@ class Mario(
                                 "Warum ist die Tür verschlossen?",
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 5)
                         } else {
                             dialogBoard.prepTalkTo(
                                 "Ich hab da was nicht mitbekommen.",
@@ -239,12 +248,13 @@ class Mario(
             } else {
                 if (!action.usedRug) {
                     dialogBoard.prepTalkTo(
-                        "Mario: Du kannst froh sein das man durchs Telefon ",
-                        "nix riecht!",
+                        "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
+                        "bloß froh das man durchs Telefon nichts riechen kann!",
                         null,
                         null,
                         action,
                     )
+                    game.soundManager.playSound(soundCollection, 21)
                     action.reset()
                 } else {
                     when (action.lastSentence) {
@@ -256,6 +266,7 @@ class Mario(
                                 null,
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 15)
                             action.reset()
                         }
                         "Warum lässt sich der Teppich nicht bewegen?" -> {
@@ -266,6 +277,7 @@ class Mario(
                                 "Bitte, bitte...",
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 16)
                         }
                         "Was riecht hier so komisch?" -> {
                             dialogBoard.prepTalkTo(
@@ -275,15 +287,17 @@ class Mario(
                                 "Warum lässt sich der Teppich nicht bewegen?",
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 17)
                         }
                         "Bitte, bitte..." -> {
                             dialogBoard.prepTalkTo(
-                                "Mario: Es wird erzählt das der Wächter ",
+                                "Mario: Na gut, es wird erzählt das der Wächter ",
                                 "den Teppich festgenagelt hat.",
                                 null,
                                 "Kannst du mir helfen den Teppich loszuwerden?",
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 18)
                         }
                         "Kannst du mir helfen den Teppich loszuwerden?" -> {
                             dialogBoard.prepTalkTo(
@@ -293,6 +307,7 @@ class Mario(
                                 "*schnief* Bitte, bitte ich tu auch alles für dich!",
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 19)
                         }
                         "Du #*%&!!! Ich hasse dich!!", "*schnief* Bitte, bitte ich tu auch alles für dich!" -> {
                             dialogBoard.prepTalkTo(
@@ -302,6 +317,7 @@ class Mario(
                                 null,
                                 action,
                             )
+                            game.soundManager.playSound(soundCollection, 20)
 
                             if (gameObjectToManipulate is Rug) {
                                 gameObjectToManipulate.burned = true
@@ -320,6 +336,7 @@ class Mario(
                                     null,
                                     action,
                                 )
+                                game.soundManager.playSound(soundCollection, 14)
                             } else {
                                 dialogBoard.prepTalkTo(
                                     "Hi Mario!!",
@@ -353,6 +370,7 @@ class Mario(
     ) {
         poweredUp = true
         powerUpAnimation.visible = true
+        game.soundManager.playSound(soundCollection, 22)
         action.marioPoweredUp = true
         action.type = ActionType.TALK_TO
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)

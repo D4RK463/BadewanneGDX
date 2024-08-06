@@ -1,8 +1,10 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
+import org.wanne.game.WanneGame
+import org.wanne.game.sound.collections.DrBearSoundCollection
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
@@ -10,6 +12,7 @@ class DrBear(
     posX: Float = 187F,
     posY: Float = 388F,
     private val gameObjectToAppear: GameObject,
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -17,6 +20,8 @@ class DrBear(
         height = getSprite().height
         width = getSprite().width
     }
+
+    private val soundCollection = DrBearSoundCollection()
 
     private var broken = false
 
@@ -31,9 +36,9 @@ class DrBear(
 
     override fun look(dialogBoard: DialogBoard) {
         if (broken) {
-            dialogBoard.prepLookAt("Doktor Bär, 'leicht' lädiert.","Entschuldigung!")
+            dialogBoard.prepLookAt("Doktor Bär, 'leicht' lädiert.", "Entschuldigung!")
         } else {
-            dialogBoard.prepLookAt("Doktor Bär.","Ich hätte gern einen Termin für Sonntag :-)")
+            dialogBoard.prepLookAt("Doktor Bär.", "Ich hätte gern einen Termin für Sonntag :-)")
         }
     }
 
@@ -41,13 +46,24 @@ class DrBear(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepTalkTo(
-            "Arztbär: Eeeehhhhhehehehe!!",
-            null,
-            null,
-            null,
-            action,
-        )
+        if (broken) {
+            dialogBoard.prepTalkTo(
+                "Arztbär: Ohhhhhhh!?!",
+                null,
+                null,
+                null,
+                action,
+            )
+        } else {
+            dialogBoard.prepTalkTo(
+                "Arztbär: Eeeehhhhhehehehe!!",
+                null,
+                null,
+                null,
+                action,
+            )
+            game.soundManager.playSound(soundCollection, 0)
+        }
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
@@ -65,6 +81,7 @@ class DrBear(
     ) {
         broken = true
         dialogBoard.prepLookAt("Arztbär: Uhhhhhh!!")
+        game.soundManager.playSound(soundCollection, 1)
         gameObjectToAppear.isVisible = true
         action.reset()
     }

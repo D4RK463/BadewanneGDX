@@ -2,16 +2,24 @@ package org.wanne.game.sound
 
 import com.badlogic.gdx.audio.Sound
 
-open class SoundCollection() {
+open class SoundCollection {
+    private val sounds =
+        mapOf(
+            Language.DE_ORIGINAL to mutableListOf<Sound>(),
+            Language.DE_NEU to mutableListOf<Sound>(),
+            Language.EN to mutableListOf<Sound>(),
+            Language.DROGL to mutableListOf<Sound>(),
+        )
 
-    private val sounds = mapOf(Language.DE to mutableListOf<Sound>())
-
-    fun addSound(language: Language, sound: Sound) {
+    fun addSound(
+        language: Language,
+        sound: Sound,
+    ) {
         sounds[language]?.add(sound)
     }
 
-    fun get(language: Language, index: Int): Sound? {
-        return sounds[language]?.get(index)
-    }
-
+    fun get(
+        language: Language,
+        index: Int,
+    ): Sound? = sounds[language]?.get(index)
 }

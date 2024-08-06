@@ -1,5 +1,8 @@
 package org.wanne.game.sound
 
 enum class Language {
-    DE, EN
+    DE_ORIGINAL,
+    DE_NEU,
+    EN,
+    DROGL,
 }
