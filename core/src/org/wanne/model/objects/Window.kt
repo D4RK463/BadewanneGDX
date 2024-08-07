@@ -29,15 +29,15 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
         when (action.lastSentence) {
             "Hinaus sehen!" -> {
                 dialogBoard.prepUseIt(
-                    "Ich seh den Eiswagen, neben einer Tonne stehn.",
-                    "Tonne ansehn",
+                    "Ich seh den Eiswagen, neben einem Graffiti stehen.",
+                    "Graffiti ansehn",
                     action,
                 )
             }
-            "Tonne ansehn" -> {
+            "Graffiti ansehn" -> {
                 dialogBoard
                     .prepUseIt(
-                        "Ohhh... es steht 'Criban' drauf?!?",
+                        "Ohhh... es steht 'el Barto' drauf?!?",
                         null,
                         action,
                     ).also { action.reset() }
