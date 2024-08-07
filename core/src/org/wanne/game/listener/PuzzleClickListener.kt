@@ -31,9 +31,9 @@ class PuzzleClickListener : ClickListener() {
             }
 
             if (stage.puzzle.isPuzzleSolved()) {
+                // ToDo: Play victory sound!
                 stage.victoryMessage.isVisible = true
             }
-
         } else if (hitObject is VictoryMessage) {
             stage.game.puzzleSolved = true
             stage.game.screen = stage.game.roomScreen

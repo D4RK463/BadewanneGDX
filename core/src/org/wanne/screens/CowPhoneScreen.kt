@@ -19,6 +19,9 @@ class CowPhoneScreen(
 
     private lateinit var viewport: FitViewport
 
+    // Ambience Musik
+    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
+
     // Animation
     private val cowCallAnimation = CowCallAnimation(0F, 0F)
 
@@ -31,6 +34,10 @@ class CowPhoneScreen(
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
+
+        musicBackground.volume = 0.4F
+        musicBackground.isLooping = true
+        musicBackground.play()
 
         stage = DialogOnlyStage(viewport, cowCallAnimation, dialogObject = cow)
         Gdx.input.inputProcessor = stage
@@ -59,7 +66,10 @@ class CowPhoneScreen(
         game.batch.end()
     }
 
-    override fun resize(width: Int, height: Int) {
+    override fun resize(
+        width: Int,
+        height: Int,
+    ) {
         viewport.update(width, height, true)
     }
 
@@ -70,11 +80,11 @@ class CowPhoneScreen(
     }
 
     override fun hide() {
+        musicBackground.stop()
     }
 
     override fun dispose() {
         dialogBoard.dispose()
         stage.dispose()
     }
-
 }

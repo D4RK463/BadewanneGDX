@@ -31,9 +31,17 @@ class PuzzleScreen(
 
     private val victoryMessage = VictoryMessage()
 
+    // ToDo: Durch Gema freie Version ersetzen
+    // Ambience Musik
+    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/jeopardy.mp3"))
+
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
+
+        musicBackground.volume = 0.4F
+        musicBackground.isLooping = true
+        musicBackground.play()
 
         stage = PuzzleStage(viewport, puzzle, victoryMessage, game)
         Gdx.input.inputProcessor = stage
@@ -107,6 +115,7 @@ class PuzzleScreen(
     }
 
     override fun hide() {
+        musicBackground.stop()
     }
 
     override fun dispose() {
