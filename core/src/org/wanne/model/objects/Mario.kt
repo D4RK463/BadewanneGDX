@@ -377,4 +377,6 @@ class Mario(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
+
+    override fun getToolTipDescription(): String = "Mario"
 }

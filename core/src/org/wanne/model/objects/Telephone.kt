@@ -20,13 +20,12 @@ class Telephone(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return if (isInInventory) {
+    override fun getSprite(): Sprite =
+        if (isInInventory) {
             addPositionToSprite(inventoryAtlas.createSprite("TelefonInv"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Telefon"))
         }
-    }
 
     override fun getName(): String = "Telephone"
 
@@ -108,4 +107,5 @@ class Telephone(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
 
+    override fun getToolTipDescription(): String = "Rosa Telefon"
 }

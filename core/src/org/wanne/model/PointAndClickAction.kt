@@ -48,27 +48,25 @@ class PointAndClickAction(
         }
     }
 
-    fun setCombineObject(combineObject: GameObject): Boolean {
+    fun setCombineObject(combineObject: GameObject): Boolean =
         if (combineObject1 == null) {
             combineObject1 = combineObject
-            return false
+            false
         } else if (combineObject2 == null) {
             combineObject2 = combineObject
-            return true
+            true
         } else {
-            return true
+            true
         }
-    }
 
-    fun getCombineObjectByType(className: String): GameObject? {
+    fun getCombineObjectByType(className: String): GameObject? =
         if (combineObject1?.name == className) {
-            return combineObject1
+            combineObject1
         } else if (combineObject2?.name == className) {
-            return combineObject2
+            combineObject2
         } else {
-            return null
+            null
         }
-    }
 
     fun isCombineObject1InTheInventory(): Boolean =
         if (combineObject1 != null) {

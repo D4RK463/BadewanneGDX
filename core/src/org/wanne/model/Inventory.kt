@@ -12,7 +12,7 @@ class Inventory private constructor() {
             }
     }
 
-    private val items = mutableSetOf<GameObject>()
+    val items = mutableSetOf<GameObject>()
 
     private val positions =
         arrayOf(

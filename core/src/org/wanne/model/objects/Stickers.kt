@@ -25,4 +25,6 @@ class Stickers(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(518, 308), Player.Companion.Looking.LEFT)
+
+    override fun getToolTipDescription(): String = "Aufkleber"
 }

@@ -1,23 +1,14 @@
 package org.wanne.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
-import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.stage.PointAndClickAwareStage
-import org.wanne.model.ActionType
 import org.wanne.model.animation.FireAnimation
 import org.wanne.model.animation.PowerUpAnimation
-import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.objects.Bed
 import org.wanne.model.objects.Box
 import org.wanne.model.objects.BrucePoster
@@ -45,16 +36,16 @@ import org.wanne.model.objects.Window
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
-import kotlin.system.exitProcess
 
 class RoomScreen(
     private var game: WanneGame,
-) : Screen {
-    private lateinit var stage: PointAndClickAwareStage
-
+) : AbstractWalkableScreen(game) {
     // Background
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
+
+    // Raum Lauf-Limits => links,unten,rechts,oben
+    private val limits = intArrayOf(255, 129, 934, 312)
 
     // Ambience Musik
     private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
@@ -94,16 +85,11 @@ class RoomScreen(
     private val teddy = Teddy(gameObjectToCheck = mario, game = game)
     private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
     private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
-    private val exit = Exit()
-
-    // Dialog System
-    private val dialogBoard = DialogBoard(skin = game.skin)
+    private val exit = Exit(game = game)
 
     // Players
-    private val poolAttendant: Player = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT)
-    private val duck: Player = Duck(600F, 200F, Player.Companion.Looking.LEFT)
-
-    private lateinit var viewport: FitViewport
+    private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT)
+    private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
@@ -124,10 +110,10 @@ class RoomScreen(
         musicBackground.play()
 
         // Klick Steuerung der Charaktere
-        stage.addListener(PointAndClickListener(dialogBoard))
+        stage.addListener(PointAndClickListener(dialogBoard, limits))
 
         createGameObjects()
-        createGameUI()
+        createGameUI(poolAttendant, duck)
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
@@ -136,59 +122,37 @@ class RoomScreen(
 
     private fun createGameObjects() {
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        bed.addListener(TextTooltip("Bett", game.skin))
-        stage.addActor(bed)
-        drBear.addListener(TextTooltip("Arztbär", game.skin))
-        stage.addActor(drBear)
-        stethoscope.addListener(TextTooltip("Stethoskop", game.skin))
-        stage.addActor(stethoscope)
-        scalpel.addListener(TextTooltip("Skalpell", game.skin))
-        stage.addActor(scalpel)
-        mario.addListener(TextTooltip("Mario", game.skin))
-        stage.addActor(mario)
-        bell.addListener(TextTooltip("Kuhglocke", game.skin))
-        stage.addActor(bell)
-        roomWindow.addListener(TextTooltip("Kleines Fenster", game.skin))
-        stage.addActor(roomWindow)
-        drawer.addListener(TextTooltip("Holzschrank", game.skin))
-        stage.addActor(drawer)
-        stickers.addListener(TextTooltip("Aufkleber", game.skin))
-        stage.addActor(stickers)
-        exit.addListener(TextTooltip("Süße Freiheit!", game.skin))
-        stage.addActor(exit)
-        straw.addListener(TextTooltip("Stroh", game.skin))
-        stage.addActor(straw)
-        door.addListener(TextTooltip("Tür", game.skin))
-        stage.addActor(door)
-        pa2Poster.addListener(TextTooltip("Poster", game.skin))
-        stage.addActor(pa2Poster)
-        brucePoster.addListener(TextTooltip("Bruce Lee", game.skin))
-        stage.addActor(brucePoster)
-        deanPoster.addListener(TextTooltip("James Dean Film", game.skin))
-        stage.addActor(deanPoster)
-        safe.addListener(TextTooltip("Alter Safe", game.skin))
-        stage.addActor(safe)
-        rug.addListener(TextTooltip("Funky Teppich", game.skin))
-        stage.addActor(rug)
-        flower.addListener(TextTooltip("Feuerblume", game.skin))
-        stage.addActor(flower)
-        telephone.addListener(TextTooltip("Rosa Telefon", game.skin))
-        stage.addActor(telephone)
-        box.addListener(TextTooltip("Blaue Kiste", game.skin))
-        stage.addActor(box)
-        teddy.addListener(TextTooltip("Teddy", game.skin))
-        stage.addActor(teddy)
+        bed.addToStage(stage, game.skin)
+        drBear.addToStage(stage, game.skin)
+        stethoscope.addToStage(stage, game.skin)
+        scalpel.addToStage(stage, game.skin)
+        mario.addToStage(stage, game.skin)
+        bell.addToStage(stage, game.skin)
+        roomWindow.addToStage(stage, game.skin)
+        drawer.addToStage(stage, game.skin)
+        stickers.addToStage(stage, game.skin)
+        exit.addToStage(stage, game.skin)
+        straw.addToStage(stage, game.skin)
+        door.addToStage(stage, game.skin)
+        pa2Poster.addToStage(stage, game.skin)
+        brucePoster.addToStage(stage, game.skin)
+        deanPoster.addToStage(stage, game.skin)
+        safe.addToStage(stage, game.skin)
+        rug.addToStage(stage, game.skin)
+        flower.addToStage(stage, game.skin)
+        telephone.addToStage(stage, game.skin)
+        box.addToStage(stage, game.skin)
+        teddy.addToStage(stage, game.skin)
 
         // Objekte für später im Spiel
-        milkSucker.addListener(TextTooltip("Milchabsauger 2000", game.skin))
-        stage.addActor(milkSucker)
-        pills.addListener(TextTooltip("Tabletten", game.skin))
-        stage.addActor(pills)
-        note.addListener(TextTooltip("Zettel mit Telefonnummer", game.skin))
-        stage.addActor(note)
+        milkSucker.addToStage(stage, game.skin)
+        pills.addToStage(stage, game.skin)
+        note.addToStage(stage, game.skin)
 
         // Der Ausgang darf nur am Ende auf sein :)
-        exit.isVisible = false
+//        exit.isVisible = false
+        exit.isVisible = true
+        door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
         if (!stage.currentAction.inventory.isObjectInInventory(note)) {
@@ -211,242 +175,10 @@ class RoomScreen(
         }
     }
 
-    private fun createGameUI() {
-        // Buttons
-        val lookCursor = Pixmap(Gdx.files.internal("ui/cursor/Ansehen.png"))
-        val lookButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("Ansehen"),
-                game.buttonAtlas.createSprite("AnsehenPressed"),
-                5f,
-                45f,
-            )
-        lookButton.addListener(TextTooltip("untersuchen", game.skin))
-        lookButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
-                    stage.currentAction.type = ActionType.LOOK_AT
-                    resetPlayerAndSound()
-                }
-            },
-        )
-
-        val speakCursor = Pixmap(Gdx.files.internal("ui/cursor/Reden.png"))
-        val speakButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("Reden"),
-                game.buttonAtlas.createSprite("RedenPressed"),
-                65f,
-                45f,
-            )
-        speakButton.addListener(TextTooltip("ansprechen", game.skin))
-        speakButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
-                    stage.currentAction.type = ActionType.TALK_TO
-                    resetPlayerAndSound()
-                }
-            },
-        )
-
-        val takeCursor = Pixmap(Gdx.files.internal("ui/cursor/Nehmen.png"))
-        val takeButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("Nehmen"),
-                game.buttonAtlas.createSprite("NehmenPressed"),
-                120f,
-                45f,
-            )
-        takeButton.addListener(TextTooltip("aufnehmen", game.skin))
-        takeButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
-                    stage.currentAction.type = ActionType.ADD_TO_INVENTORY
-                    resetPlayerAndSound()
-                }
-            },
-        )
-
-        val useCursor = Pixmap(Gdx.files.internal("ui/cursor/Benutzen.png"))
-        val useButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("Benutzen"),
-                game.buttonAtlas.createSprite("BenutzenPressed"),
-                180f,
-                45f,
-            )
-        useButton.addListener(TextTooltip("benutzen", game.skin))
-        useButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
-                    stage.currentAction.type = ActionType.USE
-                    resetPlayerAndSound()
-                }
-            },
-        )
-
-        val combineCursor = Pixmap(Gdx.files.internal("ui/cursor/kombinieren.png"))
-        val combineButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("kombinieren"),
-                game.buttonAtlas.createSprite("kombinierenPressed"),
-                240f,
-                40f,
-            )
-        combineButton.addListener(TextTooltip("kombinieren", game.skin))
-        combineButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
-                    stage.currentAction.type = ActionType.COMBINE
-                    resetPlayerAndSound()
-                }
-            },
-        )
-
-        // Nur beim Single-Player sind die Buttons notwendig
-        if (game.isSingleplayer) {
-            val poolAttendantButton =
-                game.createUIButton(
-                    game.buttonAtlas.createSprite("Bademeister"),
-                    game.buttonAtlas.createSprite("BademeisterPressed"),
-                    3f,
-                    707f,
-                )
-            poolAttendantButton.isVisible = false
-            val duckButton =
-                game.createUIButton(
-                    game.buttonAtlas.createSprite("Ente"),
-                    game.buttonAtlas.createSprite("EntePressed"),
-                    5f,
-                    705f,
-                )
-
-            duckButton.addListener(TextTooltip("wechsle zur Ente", game.skin))
-            duckButton.addListener(
-                object : ChangeListener() {
-                    override fun changed(
-                        event: ChangeEvent?,
-                        actor: Actor?,
-                    ) {
-                        poolAttendant.state = Player.Companion.State.STANDING
-                        stage.currentPlayer = duck
-
-                        poolAttendantButton.isVisible = true
-                        duckButton.isVisible = false
-
-                        speakButton.isVisible = true
-                        takeButton.isVisible = false
-                        useButton.isVisible = false
-                        combineButton.isVisible = true
-
-                        resetPlayerAndSound()
-                    }
-                },
-            )
-            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", game.skin))
-            poolAttendantButton.addListener(
-                object : ChangeListener() {
-                    override fun changed(
-                        event: ChangeEvent?,
-                        actor: Actor?,
-                    ) {
-                        duck.state = Player.Companion.State.STANDING
-                        stage.currentPlayer = poolAttendant
-
-                        poolAttendantButton.isVisible = false
-                        duckButton.isVisible = true
-
-                        speakButton.isVisible = false
-                        takeButton.isVisible = true
-                        useButton.isVisible = true
-                        combineButton.isVisible = false
-
-                        resetPlayerAndSound()
-                    }
-                },
-            )
-
-            speakButton.isVisible = false
-            combineButton.isVisible = false
-
-            stage.addActor(poolAttendantButton)
-            stage.addActor(duckButton)
-        }
-
-        val exitButton =
-            game.createUIButton(
-                game.buttonAtlas.createSprite("exit"),
-                game.buttonAtlas.createSprite("exitPressed"),
-                980f,
-                705f,
-            )
-        exitButton.addListener(TextTooltip("raus hier", game.skin))
-        exitButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    resetPlayerAndSound()
-                    exitProcess(0)
-                }
-            },
-        )
-
-        stage.addActor(lookButton)
-        stage.addActor(speakButton)
-        stage.addActor(takeButton)
-        stage.addActor(useButton)
-        stage.addActor(combineButton)
-        stage.addActor(exitButton)
-    }
-
-    private fun resetPlayerAndSound() {
+    override fun resetPlayerAndSound() {
         stage.needToMove = false
         stage.currentPlayer.stopHammerTime()
         game.soundManager.stopSound()
-    }
-
-    override fun render(delta: Float) {
-        ScreenUtils.clear(Color.BLACK)
-        viewport.apply()
-
-        // Zeichnen
-        game.batch.projectionMatrix = viewport.camera.combined
-        game.batch.begin()
-
-        // Stage zeichnen mit UI, Objekten, Spielern, dem Dialog-Brett und Spieler Bewegung
-        stage.act()
-        stage.draw()
-
-        game.batch.end()
-    }
-
-    override fun resize(
-        width: Int,
-        height: Int,
-    ) {
-        viewport.update(width, height, true)
     }
 
     override fun pause() {
@@ -460,32 +192,6 @@ class RoomScreen(
     }
 
     override fun dispose() {
-        poolAttendant.dispose()
-        duck.dispose()
-        bed.dispose()
-        roomWindow.dispose()
-        box.dispose()
-        brucePoster.dispose()
-        deanPoster.dispose()
-        door.dispose()
-        drawer.dispose()
-        pa2Poster.dispose()
-        rug.dispose()
-        stickers.dispose()
-        straw.dispose()
-        safe.dispose()
-        drBear.dispose()
-        stethoscope.dispose()
-        scalpel.dispose()
-        mario.dispose()
-        bell.dispose()
-        teddy.dispose()
-        flower.dispose()
-        telephone.dispose()
-        milkSucker.dispose()
-        pills.dispose()
-        note.dispose()
-        dialogBoard.dispose()
         stage.dispose()
     }
 }

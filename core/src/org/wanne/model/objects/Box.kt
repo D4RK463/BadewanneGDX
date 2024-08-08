@@ -25,4 +25,6 @@ class Box(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(638, 268), Player.Companion.Looking.RIGHT)
+
+    override fun getToolTipDescription(): String = "Blaue Kiste"
 }

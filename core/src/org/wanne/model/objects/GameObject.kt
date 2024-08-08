@@ -1,6 +1,9 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import org.wanne.model.AbstractObject
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
@@ -101,4 +104,17 @@ abstract class GameObject(
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>
+
+    abstract fun getToolTipDescription(): String
+
+    /**
+     * Fügt dieses Object der Stage hinzu und erzeugt einen ToolTip dafür
+     */
+    fun addToStage(
+        stage: Stage,
+        skin: Skin,
+    ) {
+        this.addListener(TextTooltip(getToolTipDescription(), skin))
+        stage.addActor(this)
+    }
 }

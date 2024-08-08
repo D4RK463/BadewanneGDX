@@ -16,7 +16,7 @@ class PointAndClickAwareStage(
     viewport: Viewport,
     private val poolAttendant: Player,
     private val duck: Player,
-    private val additionalAnimations: List<Animation>
+    private val additionalAnimations: List<Animation>?,
 ) : Stage(
         viewport,
     ) {
@@ -30,6 +30,11 @@ class PointAndClickAwareStage(
     var currentAction = PointAndClickAction.createDefaultAction()
     var lookingAtTheEnd: Player.Companion.Looking? = null
     var doTheAction: () -> Unit = {}
+
+    fun initializeInventoryItems() {
+        // Alle Objekt die im Inventar sind in die aktuelle Stage hinzufügen
+        currentAction.inventory.items.forEach { addActor(it) }
+    }
 
     override fun draw() {
         // Bewegung ausrechnen
@@ -67,7 +72,7 @@ class PointAndClickAwareStage(
         actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F) }
 
         // Zusätzliche Animationen rendern
-        additionalAnimations.forEach {
+        additionalAnimations?.forEach {
             it.draw(batch, Gdx.graphics.deltaTime)
         }
 
@@ -87,7 +92,11 @@ class PointAndClickAwareStage(
         }
 
         // Den ganzen Rest rendern (Buttons, Tooltips und das Dialog-Brett mit Labels)
-        actors.filterNot { renderedChildren.contains(it) }.filterNotNull().filter { it.isVisible }.forEach { it.draw(batch, 1F) }
+        actors
+            .filterNot { renderedChildren.contains(it) }
+            .filterNotNull()
+            .filter { it.isVisible }
+            .forEach { it.draw(batch, 1F) }
 
         children.end()
         batch.end()

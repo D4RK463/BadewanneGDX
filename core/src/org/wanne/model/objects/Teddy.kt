@@ -125,4 +125,6 @@ class Teddy(
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(806, 238), Player.Companion.Looking.RIGHT)
+
+    override fun getToolTipDescription(): String = "Teddy"
 }

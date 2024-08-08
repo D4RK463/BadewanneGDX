@@ -13,6 +13,7 @@ import org.wanne.model.player.Player
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
+    private val roomLimits: IntArray,
 ) : InputListener() {
     override fun touchDown(
         event: InputEvent?,
@@ -29,6 +30,7 @@ class PointAndClickListener(
 
             // Das Objekt holen, auf welches geklickt wurde
             val hitObject = stage.hit(x, y, true)
+//            println("Hit: $hitObject")
             if (hitObject is GameObject) {
                 stage.currentAction.clickedObject = hitObject
 
@@ -61,27 +63,20 @@ class PointAndClickListener(
             stage.doTheAction = {}
             dialogBoard.reset()
 
-            // Raum Lauf-Limits
-            val limits = IntArray(4)
-            limits[0] = 255 // links
-            limits[1] = 129 // unten
-            limits[2] = 934 // rechts
-            limits[3] = 312 // oben
-
             var moveX = x.toInt()
             var moveY = y.toInt()
 
             // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
             if (moveY in 129..685) {
-                if (moveX < limits[0]) { // links
-                    moveX = limits[0]
-                } else if (moveX > limits[2]) { // rechts
-                    moveX = limits[2]
+                if (moveX < roomLimits[0]) { // links
+                    moveX = roomLimits[0]
+                } else if (moveX > roomLimits[2]) { // rechts
+                    moveX = roomLimits[2]
                 }
-                if (moveY < limits[1]) { // unten
-                    moveY = limits[1]
-                } else if (moveY > limits[3]) { // oben
-                    moveY = limits[3]
+                if (moveY < roomLimits[1]) { // unten
+                    moveY = roomLimits[1]
+                } else if (moveY > roomLimits[3]) { // oben
+                    moveY = roomLimits[3]
                 }
 
                 // Koordinaten am Raster ausrichten

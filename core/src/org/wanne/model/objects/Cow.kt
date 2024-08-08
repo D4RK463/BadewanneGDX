@@ -34,6 +34,8 @@ class Cow(
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> =
         Pair(Point(posX.toInt(), posY.toInt()), Player.Companion.Looking.LEFT)
 
+    override fun getToolTipDescription(): String = "Der Wächter"
+
     override fun talk(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,

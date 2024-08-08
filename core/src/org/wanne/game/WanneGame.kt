@@ -12,10 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
-import org.wanne.game.sound.Language
 import org.wanne.game.sound.SoundManager
 import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
+import org.wanne.screens.OutsideScreen
 import org.wanne.screens.PuzzleScreen
 import org.wanne.screens.RoomScreen
 
@@ -25,6 +25,9 @@ class WanneGame : Game() {
     }
     lateinit var puzzleScreen: PuzzleScreen
     lateinit var cowPhoneScreen: CowPhoneScreen
+    val outsideScreen: OutsideScreen by lazy {
+        OutsideScreen(this)
+    }
 
     lateinit var buttonAtlas: TextureAtlas
     lateinit var skin: Skin

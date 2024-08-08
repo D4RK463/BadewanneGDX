@@ -86,4 +86,5 @@ class FireFlower(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(650, 266), Player.Companion.Looking.RIGHT)
 
+    override fun getToolTipDescription(): String = "Feuerblume"
 }

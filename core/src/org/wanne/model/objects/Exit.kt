@@ -1,15 +1,16 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
+import org.wanne.game.WanneGame
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import kotlin.system.exitProcess
 
 class Exit(
     posX: Float = 968F,
     posY: Float = 220F,
+    private val game: WanneGame,
 ) : GameObject(posX, posY) {
     init {
         x = posX
@@ -30,22 +31,21 @@ class Exit(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        // ToDo: Abspann einblenden
-        exitProcess(0)
+        game.screen = game.outsideScreen
     }
 
     override fun take(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        exitProcess(0)
+        game.screen = game.outsideScreen
     }
 
     override fun combine(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        exitProcess(0)
+        game.screen = game.outsideScreen
     }
 
     override fun talk(
@@ -54,9 +54,11 @@ class Exit(
     ) {
         dialogBoard.prepLookAt(
             "Wollen wir uns wirklich mit dem Ausgang unterhalten?",
-            "Ich würde vorschlagen, wir gehn einfach.."
+            "Ich würde vorschlagen, wir gehn einfach..",
         )
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(900, 216), Player.Companion.Looking.RIGHT)
+
+    override fun getToolTipDescription(): String = "Süße Freiheit!"
 }

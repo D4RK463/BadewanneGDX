@@ -18,13 +18,12 @@ class Scalpel(
         width = getSprite().width
     }
 
-    override fun getSprite(): Sprite {
-        return if (isInInventory) {
+    override fun getSprite(): Sprite =
+        if (isInInventory) {
             addPositionToSprite(inventoryAtlas.createSprite("SkalpellInv"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Skalpell"))
         }
-    }
 
     override fun getName(): String = "Scalpel"
 
@@ -42,6 +41,8 @@ class Scalpel(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
 
+    override fun getToolTipDescription(): String = "Skalpell"
+
     override fun combine(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
@@ -57,5 +58,4 @@ class Scalpel(
         gameObjectToAppear.isVisible = true
         action.reset()
     }
-
 }

@@ -1,12 +1,15 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.model.PointAndClickAction
 import org.wanne.model.Point
+import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
-class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
+class Window(
+    posX: Float = 400F,
+    posY: Float = 495F,
+) : GameObject(posX, posY) {
     init {
         x = posX
         y = posY
@@ -53,4 +56,6 @@ class Window(posX: Float = 400F, posY: Float = 495F) : GameObject(posX, posY) {
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(Point(510, 308), null)
+
+    override fun getToolTipDescription(): String = "Kleines Fenster"
 }
