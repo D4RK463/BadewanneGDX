@@ -39,7 +39,7 @@ class PuzzleScreen(
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
-        musicBackground.volume = 0.4F
+        musicBackground.volume = 0.2F
         musicBackground.isLooping = true
         musicBackground.play()
 

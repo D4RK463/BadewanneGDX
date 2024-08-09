@@ -84,15 +84,18 @@ class Telephone(
             }
 
             if (numberOfWinningObjectsInInventory == 3) {
+                game.possessWinningObjects = true
+                game.screen = game.cowPhoneScreen
+                action.inventory.removeGameObject(winningRequiredGameObjectList[0])
+                action.inventory.removeGameObject(winningRequiredGameObjectList[1])
+                action.inventory.removeGameObject(winningRequiredGameObjectList[2])
+            } else {
                 // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
                 if (game.cowIsBusy) {
                     dialogBoard.prepLookAt("Piep, Piep, Piep...", "Scheint besetzt zu sein.")
                 } else {
-                    game.possessWinningObjects = true
                     game.screen = game.cowPhoneScreen
                 }
-            } else {
-                game.screen = game.cowPhoneScreen
             }
 
             action.reset()

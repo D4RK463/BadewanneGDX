@@ -6,8 +6,8 @@ import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class IceMenuLeft(
-    posX: Float = 491F,
-    posY: Float = 472F,
+    posX: Float = 492F,
+    posY: Float = 473F,
 ) : GameObject(posX, posY) {
     init {
         x = posX

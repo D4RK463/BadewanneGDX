@@ -45,7 +45,10 @@ class Exit(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        game.screen = game.outsideScreen
+        dialogBoard.prepLookAt(
+            "Wie soll ich denn den Ausgang mit was kombinieren?",
+            "Probiers mal mit 'Benutzen' :) ",
+        )
     }
 
     override fun talk(
