@@ -9,7 +9,7 @@ import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import java.util.*
+import java.util.Random
 
 abstract class GameObject(
     posX: Float,

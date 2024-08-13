@@ -5,7 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import org.wanne.model.player.Player.Companion.Looking
 
-class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, looking) {
+class PoolAttendant(
+    posX: Float,
+    posY: Float,
+    looking: Looking,
+    scaleX: Float = 1f,
+    scaleY: Float = 1f,
+) : Player(posX, posY, looking, scaleX, scaleY) {
     private val scratchLeftTextureAtlas: TextureAtlas =
         TextureAtlas("pictures/Players/Bademeister/scratchLeft.atlas")
     private val scratchRightTextureAtlas: TextureAtlas =
@@ -88,12 +94,12 @@ class PoolAttendant(posX: Float, posY: Float, looking: Looking) : Player(posX, p
         sprite.x = posX
         sprite.y = posY
 
+        sprite.setScale(scaleX, scaleY)
+
         return sprite
     }
 
-    override fun getSprite(): Sprite {
-        return lookLeftTextureAtlas.createSprite("meisterlookL", 1)
-    }
+    override fun getSprite(): Sprite = lookLeftTextureAtlas.createSprite("meisterlookL", 1)
 
     override fun dispose() {
         scratchLeftTextureAtlas.dispose()

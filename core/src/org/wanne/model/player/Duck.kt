@@ -5,7 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import org.wanne.model.player.Player.Companion.Looking
 
-class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, looking) {
+class Duck(
+    posX: Float,
+    posY: Float,
+    looking: Looking,
+    scaleX: Float = 1f,
+    scaleY: Float = 1f,
+) : Player(posX, posY, looking, scaleX, scaleY) {
     private val lookLeftTextureAtlas: TextureAtlas =
         TextureAtlas("pictures/Players/Ente/lookLeft.atlas")
     private val lookRightTextureAtlas: TextureAtlas =
@@ -59,12 +65,12 @@ class Duck(posX: Float, posY: Float, looking: Looking) : Player(posX, posY, look
         sprite.x = posX
         sprite.y = posY
 
+        sprite.setScale(scaleX, scaleY)
+
         return sprite
     }
 
-    override fun getSprite(): Sprite {
-        return lookLeftTextureAtlas.createSprite("entelookL", 1)
-    }
+    override fun getSprite(): Sprite = lookLeftTextureAtlas.createSprite("entelookL", 1)
 
     override fun dispose() {
         lookLeftTextureAtlas.dispose()

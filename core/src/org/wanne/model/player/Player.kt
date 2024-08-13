@@ -1,8 +1,15 @@
 package org.wanne.model.player
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
 
-abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
+abstract class Player(
+    var posX: Float,
+    var posY: Float,
+    var looking: Looking,
+    var scaleX: Float,
+    var scaleY: Float,
+) {
     var state: State = State.STANDING
 
     companion object {
@@ -25,9 +32,13 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
         lookingAtTheEnd: Looking?,
         action: () -> Unit,
     ) {
-        val sprite = getSprite()
+        // Sprite Skalierung ausrechnen
+        val screenHeight = Gdx.graphics.height
+        val scalePercent = (posY / screenHeight) / 100
 
-        // Punkt sollte in der Mitte der Figur sein
+        // Bewegung rechnen
+        // Endpunkt sollte in der Mitte der Figur sein
+        val sprite = getSprite()
         val movePosX = move2posX - sprite.width / 2
         val movePosY = move2posY.toFloat() // - sprite.height / 2
 
@@ -37,12 +48,15 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
             posX += MOVE_PIXEL
             if (posY < movePosY) { // walks up-right
                 posY += MOVE_PIXEL
+                scaleDown(scalePercent)
             } else if (posY > movePosY) { // walks down-right
                 posY -= MOVE_PIXEL
+                scaleUp(scalePercent)
             }
         } else if (posX == movePosX) {
             if (posY < movePosY) { // walks up
                 posY += MOVE_PIXEL
+                scaleDown(scalePercent)
             } else if (posY == movePosY) { // stand
 
                 // Ändert die Blickrichtung, so das auf das Objekt geschaut wird
@@ -53,14 +67,17 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
                 action()
             } else { // if (posY > move2posY) // walks down
                 posY -= MOVE_PIXEL
+                scaleUp(scalePercent)
             }
         } else { // (posX > move2posX)
             changeView(Looking.LEFT)
             posX -= MOVE_PIXEL
             if (posY < movePosY) { // walks up-left
                 posY += MOVE_PIXEL
+                scaleDown(scalePercent)
             } else if (posY > movePosY) { // walks down-left
                 posY -= MOVE_PIXEL
+                scaleUp(scalePercent)
             }
         }
     }
@@ -75,6 +92,16 @@ abstract class Player(var posX: Float, var posY: Float, var looking: Looking) {
      */
     fun stopHammerTime() {
         state = State.STANDING
+    }
+
+    private fun scaleUp(scalePercent: Float) {
+        scaleX += (scalePercent * scaleX)
+        scaleY += (scalePercent * scaleY)
+    }
+
+    private fun scaleDown(scalePercent: Float) {
+        scaleX -= (scalePercent * scaleX)
+        scaleY -= (scalePercent * scaleY)
     }
 
     abstract fun getSpriteOfCurrentState(time: Float): Sprite
