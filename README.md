@@ -7,8 +7,11 @@ Dies ist die Portierung der Badewannenverschwörung in libGDX. Erstellt um
  3. libGDX auszuprobieren 
 
 ## Starten
-Im Moment lässt sich nur die Desktopvariante starten:
-org.wanne.DesktopLauncher.main
+Für die Desktop-Variante:
+org.wanne.lwjgl3.Lwjgl3Launcher.main
+
+Für die Android-Variante:
+org.wanne.android.AndroidLauncher.onCreate
 
 ## ToDos
 Sind im Github Projekt angegeben.
