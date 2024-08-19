@@ -8,10 +8,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.stage.PointAndClickAwareStage
+import org.wanne.model.animation.IcemanAnimation
 import org.wanne.model.objects.Graffiti
 import org.wanne.model.objects.HonkSign
 import org.wanne.model.objects.IceMenuLeft
 import org.wanne.model.objects.IceMenuRight
+import org.wanne.model.objects.Iceman
 import org.wanne.model.objects.Street
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
@@ -34,18 +36,22 @@ class OutsideScreen(
     private val poolAttendant = PoolAttendant(86F, 220F, Player.Companion.Looking.RIGHT)
     private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT)
 
+    // Animations
+    private val icemanAnimation = IcemanAnimation(200F, 200F, true)
+
     // Objects
     private val iceMenuLeft = IceMenuLeft()
     private val iceMenuRight = IceMenuRight()
     private val honkSign = HonkSign()
     private val street = Street()
     private val graffiti = Graffiti()
+    private val iceman = Iceman(icemanAnimation = icemanAnimation, game = game)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, null)
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(icemanAnimation))
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -81,6 +87,7 @@ class OutsideScreen(
         honkSign.addToStage(stage, skin = game.skin)
         street.addToStage(stage, skin = game.skin)
         graffiti.addToStage(stage, skin = game.skin)
+        iceman.addToStage(stage, skin = game.skin)
     }
 
     override fun resetPlayerAndSound() {
