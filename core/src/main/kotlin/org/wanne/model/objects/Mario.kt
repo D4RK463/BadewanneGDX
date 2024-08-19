@@ -25,8 +25,8 @@ class Mario(
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
     var poweredUp = false
@@ -39,7 +39,7 @@ class Mario(
 
     private val soundCollection = MarioSoundCollection()
 
-    override fun getSprite(): Sprite =
+    override fun getSprite(time: Float): Sprite =
         if (poweredUp) {
             addPositionToSprite(itemAtlas.createSprite("Feuermario"))
         } else {

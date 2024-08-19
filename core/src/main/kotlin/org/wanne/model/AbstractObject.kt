@@ -13,7 +13,7 @@ abstract class AbstractObject(
 
     var isInInventory = false
 
-    abstract fun getSprite(): Sprite
+    abstract fun getSprite(time: Float): Sprite
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
         sprite.x = posX
@@ -32,17 +32,28 @@ abstract class AbstractObject(
         positionChanged()
     }
 
-    override fun draw(
+    fun draw(
         batch: Batch?,
         parentAlpha: Float,
+        time: Float
     ) {
-        val sprite = getSprite()
+        val sprite = getSprite(time)
         sprite.setScale(scaleX, scaleY)
         sprite.draw(batch, parentAlpha)
     }
 
-    override fun getWidth(): Float = getSprite().width
+    override fun draw(batch: Batch?, parentAlpha: Float) {
+        val sprite = getSprite(0F)
+        sprite.setScale(scaleX, scaleY)
+        sprite.draw(batch, parentAlpha)
+    }
 
-    override fun getHeight(): Float = getSprite().height
+    override fun getWidth(): Float = getSprite(0F).width
 
+    override fun getHeight(): Float = getSprite(0F).height
+
+    override fun setScale(scaleX: Float, scaleY: Float) {
+        this.scaleX = scaleX
+        this.scaleY = scaleY
+    }
 }

@@ -16,15 +16,15 @@ class Cow(
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
     private val soundCollection = CowSoundCollection()
 
     private var talkForTheFirstTime = true
 
-    override fun getSprite(): Sprite = Sprite()
+    override fun getSprite(time: Float): Sprite = Sprite()
 
     override fun getName(): String = "Cow"
 

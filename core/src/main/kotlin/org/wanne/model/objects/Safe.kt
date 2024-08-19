@@ -13,11 +13,11 @@ class Safe(
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Safe"))
+    override fun getSprite(time: Float): Sprite = addPositionToSprite(itemAtlas.createSprite("Safe"))
 
     override fun getName(): String = "Safe"
 

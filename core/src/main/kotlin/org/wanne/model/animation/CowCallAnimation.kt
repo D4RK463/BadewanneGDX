@@ -2,11 +2,12 @@ package org.wanne.model.animation
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import org.wanne.utils.GifDecoder
 
 class CowCallAnimation(posX: Float, posY: Float, visible: Boolean = true): org.wanne.model.animation.Animation(posX, posY, visible) {
-    private val fireAnimation = GifDecoder.loadGIFAnimation(
+    private val cowAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.LOOP,
         Gdx.files.internal("pictures/Backgrounds/Telephonezelle.gif").read()
     )
@@ -15,7 +16,7 @@ class CowCallAnimation(posX: Float, posY: Float, visible: Boolean = true): org.w
         var texture: TextureRegion? = null
 
         if (visible) {
-            texture = fireAnimation.getKeyFrame(time)
+            texture = cowAnimation.getKeyFrame(time)
         }
 
         return texture

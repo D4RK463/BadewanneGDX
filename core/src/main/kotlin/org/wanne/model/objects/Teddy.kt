@@ -17,13 +17,13 @@ class Teddy(
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
     private val soundCollection = TeddySoundCollection()
 
-    override fun getSprite(): Sprite =
+    override fun getSprite(time: Float): Sprite =
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {
             addPositionToSprite(itemAtlas.createSprite("TeddyTraurig"))
         } else {

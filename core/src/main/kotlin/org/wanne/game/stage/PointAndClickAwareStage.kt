@@ -37,6 +37,8 @@ class PointAndClickAwareStage(
     }
 
     override fun draw() {
+        stateTime += Gdx.graphics.deltaTime
+
         // Bewegung ausrechnen
         if (moveToPoint != null && needToMove) {
             currentPlayer.walkToPoint(
@@ -69,7 +71,7 @@ class PointAndClickAwareStage(
             }
         }
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
-        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F) }
+        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, stateTime) }
 
         // Zusätzliche Animationen rendern
         additionalAnimations?.forEach {
@@ -78,7 +80,6 @@ class PointAndClickAwareStage(
 
         // Spieler rendern
         // Animationen holen
-        stateTime += Gdx.graphics.deltaTime
         val poolAttendantSprite: Sprite = poolAttendant.getSpriteOfCurrentState(Gdx.graphics.deltaTime)
         val duckSprite: Sprite = duck.getSpriteOfCurrentState(stateTime)
 

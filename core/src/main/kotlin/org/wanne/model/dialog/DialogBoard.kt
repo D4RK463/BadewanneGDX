@@ -22,8 +22,8 @@ class DialogBoard(
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
     private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
@@ -163,5 +163,5 @@ class DialogBoard(
         this.isVisible = true
     }
 
-    override fun getSprite(): Sprite = addPositionToSprite(itemAtlas.createSprite("Brett"))
+    override fun getSprite(time: Float): Sprite = addPositionToSprite(itemAtlas.createSprite("Brett"))
 }

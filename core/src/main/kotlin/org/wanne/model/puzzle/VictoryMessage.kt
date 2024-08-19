@@ -10,13 +10,13 @@ class VictoryMessage(
 ) : AbstractObject(posX, posY) {
     private val puzzleAtlas: TextureAtlas = TextureAtlas("pictures/Puzzle/puzzle.atlas")
 
-    override fun getSprite(): Sprite = addPositionToSprite(puzzleAtlas.createSprite("PuzzleSieg"))
+    override fun getSprite(time: Float): Sprite = addPositionToSprite(puzzleAtlas.createSprite("PuzzleSieg"))
 
     init {
         x = posX
         y = posY
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
 }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.stage.PointAndClickAwareStage
-import org.wanne.model.animation.IcemanAnimation
 import org.wanne.model.objects.Graffiti
 import org.wanne.model.objects.HonkSign
 import org.wanne.model.objects.IceMenuLeft
@@ -36,22 +35,19 @@ class OutsideScreen(
     private val poolAttendant = PoolAttendant(86F, 220F, Player.Companion.Looking.RIGHT)
     private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT)
 
-    // Animations
-    private val icemanAnimation = IcemanAnimation(200F, 200F, true)
-
     // Objects
     private val iceMenuLeft = IceMenuLeft()
     private val iceMenuRight = IceMenuRight()
     private val honkSign = HonkSign()
     private val street = Street()
     private val graffiti = Graffiti()
-    private val iceman = Iceman(icemanAnimation = icemanAnimation, game = game)
+    private val iceman = Iceman(game = game)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(icemanAnimation))
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, emptyList())
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen

@@ -28,11 +28,11 @@ class PuzzlePiece(
         puzzleSprite = addPositionToSprite(puzzleAtlas.createSprite(pieceNumber.toString()))
         randomizeRotation()
 
-        height = getSprite().height
-        width = getSprite().width
+        height = getSprite(0F).height
+        width = getSprite(0F).width
     }
 
-    override fun getSprite(): Sprite = puzzleSprite
+    override fun getSprite(time: Float): Sprite = puzzleSprite
 
     fun rotate90() {
         var rotation: Float = puzzleSprite.rotation

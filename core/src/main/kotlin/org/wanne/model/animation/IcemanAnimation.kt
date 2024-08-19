@@ -1,6 +1,7 @@
 package org.wanne.model.animation
 
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 
@@ -14,13 +15,11 @@ class IcemanAnimation(posX: Float, posY: Float, visible: Boolean): org.wanne.mod
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {
-        var texture: TextureRegion? = null
+        return icemanAnimation.getKeyFrame(time)
+    }
 
-        if (visible) {
-            texture = icemanAnimation.getKeyFrame(time)
-        }
-
-        return texture
+    fun getSpriteOfCurrentState(time: Float): Sprite {
+        return icemanAnimation.getKeyFrame(time)
     }
 
 }
