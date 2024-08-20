@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
@@ -19,6 +21,8 @@ import org.wanne.model.puzzle.VictoryMessage
 class PuzzleScreen(
     var game: WanneGame,
 ) : Screen {
+    private val skin: Skin = game.am.get("ui/uiskin.json")
+
     // Background
     private val puzzleBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzle.png"))
     private val puzzleBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzleMultiplayer.png"))
@@ -30,6 +34,8 @@ class PuzzleScreen(
     private val puzzle = Puzzle()
 
     private val victoryMessage = VictoryMessage()
+
+    private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
     // ToDo: Durch Gema freie Version ersetzen
     // Ambience Musik
@@ -66,12 +72,12 @@ class PuzzleScreen(
     private fun createGameUI() {
         val exitButton =
             game.createUIButton(
-                game.buttonAtlas.createSprite("exit"),
-                game.buttonAtlas.createSprite("exitPressed"),
+                buttonAtlas.createSprite("exit"),
+                buttonAtlas.createSprite("exitPressed"),
                 980f,
                 705f,
             )
-        exitButton.addListener(TextTooltip("bring mich zurück", game.skin))
+        exitButton.addListener(TextTooltip("bring mich zurück", skin))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(

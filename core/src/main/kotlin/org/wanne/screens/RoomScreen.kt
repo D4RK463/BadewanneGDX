@@ -3,6 +3,7 @@ package org.wanne.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
@@ -40,6 +41,8 @@ import org.wanne.model.player.PoolAttendant
 class RoomScreen(
     private var game: WanneGame,
 ) : AbstractWalkableScreen(game) {
+    private val skin: Skin = game.am.get("ui/uiskin.json")
+
     // Background
     private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
     private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
@@ -122,32 +125,32 @@ class RoomScreen(
 
     private fun createGameObjects() {
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        bed.addToStage(stage, game.skin)
-        drBear.addToStage(stage, game.skin)
-        stethoscope.addToStage(stage, game.skin)
-        scalpel.addToStage(stage, game.skin)
-        mario.addToStage(stage, game.skin)
-        bell.addToStage(stage, game.skin)
-        roomWindow.addToStage(stage, game.skin)
-        drawer.addToStage(stage, game.skin)
-        stickers.addToStage(stage, game.skin)
-        exit.addToStage(stage, game.skin)
-        straw.addToStage(stage, game.skin)
-        door.addToStage(stage, game.skin)
-        pa2Poster.addToStage(stage, game.skin)
-        brucePoster.addToStage(stage, game.skin)
-        deanPoster.addToStage(stage, game.skin)
-        safe.addToStage(stage, game.skin)
-        rug.addToStage(stage, game.skin)
-        flower.addToStage(stage, game.skin)
-        telephone.addToStage(stage, game.skin)
-        box.addToStage(stage, game.skin)
-        teddy.addToStage(stage, game.skin)
+        bed.addToStage(stage, skin)
+        drBear.addToStage(stage, skin)
+        stethoscope.addToStage(stage, skin)
+        scalpel.addToStage(stage, skin)
+        mario.addToStage(stage, skin)
+        bell.addToStage(stage, skin)
+        roomWindow.addToStage(stage, skin)
+        drawer.addToStage(stage, skin)
+        stickers.addToStage(stage, skin)
+        exit.addToStage(stage, skin)
+        straw.addToStage(stage, skin)
+        door.addToStage(stage, skin)
+        pa2Poster.addToStage(stage, skin)
+        brucePoster.addToStage(stage, skin)
+        deanPoster.addToStage(stage, skin)
+        safe.addToStage(stage, skin)
+        rug.addToStage(stage, skin)
+        flower.addToStage(stage, skin)
+        telephone.addToStage(stage, skin)
+        box.addToStage(stage, skin)
+        teddy.addToStage(stage, skin)
 
         // Objekte für später im Spiel
-        milkSucker.addToStage(stage, game.skin)
-        pills.addToStage(stage, game.skin)
-        note.addToStage(stage, game.skin)
+        milkSucker.addToStage(stage, skin)
+        pills.addToStage(stage, skin)
+        note.addToStage(stage, skin)
 
         // Der Ausgang darf nur am Ende auf sein :)
 //        exit.isVisible = false

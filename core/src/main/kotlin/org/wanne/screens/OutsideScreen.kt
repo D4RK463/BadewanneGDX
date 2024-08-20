@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
@@ -21,6 +22,8 @@ import org.wanne.model.player.PoolAttendant
 class OutsideScreen(
     private var game: WanneGame,
 ) : AbstractWalkableScreen(game) {
+    private val skin: Skin = game.am.get("ui/uiskin.json")
+
     // Background
     private val outsideBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/OutsideSingle.png"))
     private val outsideBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Outside.png"))
@@ -78,12 +81,12 @@ class OutsideScreen(
         stage.initializeInventoryItems()
 
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        iceMenuLeft.addToStage(stage, skin = game.skin)
-        iceMenuRight.addToStage(stage, skin = game.skin)
-        honkSign.addToStage(stage, skin = game.skin)
-        street.addToStage(stage, skin = game.skin)
-        graffiti.addToStage(stage, skin = game.skin)
-        iceman.addToStage(stage, skin = game.skin)
+        iceMenuLeft.addToStage(stage, skin = skin)
+        iceMenuRight.addToStage(stage, skin = skin)
+        honkSign.addToStage(stage, skin = skin)
+        street.addToStage(stage, skin = skin)
+        graffiti.addToStage(stage, skin = skin)
+        iceman.addToStage(stage, skin = skin)
     }
 
     override fun resetPlayerAndSound() {

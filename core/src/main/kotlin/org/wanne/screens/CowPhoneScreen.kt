@@ -3,6 +3,7 @@ package org.wanne.screens
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
@@ -25,8 +26,10 @@ class CowPhoneScreen(
     // Animation
     private val cowCallAnimation = CowCallAnimation(0F, 0F)
 
+    private val skin: Skin = game.am.get("ui/uiskin.json")
+
     // Dialog System
-    private val dialogBoard = DialogBoard(skin = game.skin)
+    private val dialogBoard = DialogBoard(skin = skin)
 
     // Objects
     private val cow = Cow(game = game)

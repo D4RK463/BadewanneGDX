@@ -2,6 +2,7 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -23,14 +24,18 @@ class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {
         RoomScreen(this)
     }
-    lateinit var puzzleScreen: PuzzleScreen
-    lateinit var cowPhoneScreen: CowPhoneScreen
+    val puzzleScreen: PuzzleScreen by lazy {
+        PuzzleScreen(this)
+    }
+    val cowPhoneScreen: CowPhoneScreen by lazy {
+        CowPhoneScreen(this)
+    }
     val outsideScreen: OutsideScreen by lazy {
         OutsideScreen(this)
     }
-
-    lateinit var buttonAtlas: TextureAtlas
-    lateinit var skin: Skin
+    val menuScreen: MenuScreen by lazy {
+        MenuScreen(this)
+    }
 
     lateinit var batch: SpriteBatch
 
@@ -46,36 +51,68 @@ class WanneGame : Game() {
 
     var cowIsBusy = false
 
+    private var initialLoadingDone = false
+    val am = AssetsManager()
+
     override fun create() {
+
         // Assets initialisieren
-        buttonAtlas = TextureAtlas("pictures/Buttons/buttons.atlas")
-        skin = Skin(Gdx.files.internal("ui/uiskin.json"))
+        am.loadMenuScreen()
+
         batch = SpriteBatch()
-
-        val game = this
-
-        runBlocking {
-            initialize(game)
-        }
     }
 
-    private suspend fun initialize(game: WanneGame) =
-        coroutineScope {
-            async { cowPhoneScreen = CowPhoneScreen(game) }
-            async { puzzleScreen = PuzzleScreen(game) }
-            async {
-                // Spiel mit Menü starten
-                game.setScreen(MenuScreen(game))
+    override fun render() {
+        /*
+        https://www.gamedevelopment.blog/asset-manager-libgdx-tutorial/
+
+        if (assMan.manager.update()) { // Load some, will return true if done loading
+            currentLoad+= 1;
+            switch(currentLoad){
+            case FONT:	assMan.loadFonts();
+                loadingLabel.setText("Loading Fonts");
+                break;
+            case PARTY:	assMan.loadParticleEffects();
+                loadingLabel.setText("Loading Particle Effects");
+                break;
+            case SOUND:	assMan.loadSounds();
+                loadingLabel.setText("Loading Sounds");
+                break;
+            case MUSIC:	assMan.loadMusic();
+                loadingLabel.setText("Loading Music");
+                break;
+            case 5:	assMan.loadMusic();
+                loadingLabel.setText("Loading Fonts");
+                break;
+            }
+            if (currentLoad >5){
+                loadingLabel.setText("");
+                percent = 1; // set bar to full
+                parent.changeScreen(BlockBreaker.MENU); //changes screen
+
+            }
+        }else{
+            percent = Interpolation.linear.apply(percent, assMan.manager.getProgress(), 0.05f);
+        }
+
+         */
+
+
+        if (am.update(17)) {
+            println("Loading complete")
+
+            if (!initialLoadingDone) {
+                setScreen(menuScreen)
+                initialLoadingDone = true
             }
         }
 
-    override fun render() {
+        println(am.progress())
+
         super.render() // important!
     }
 
     override fun dispose() {
-        buttonAtlas.dispose()
-        skin.dispose()
         batch.dispose()
     }
 

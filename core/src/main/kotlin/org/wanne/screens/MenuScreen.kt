@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.viewport.ScreenViewport
@@ -20,11 +21,13 @@ class MenuScreen(
 
     private lateinit var batch: SpriteBatch
 
-    private var logoHeadline: Texture = Texture(Gdx.files.internal("pictures/Menue/header.png"))
+    private val skin: Skin = game.am.get("ui/uiskin.json")
 
-    private var duck: Texture = Texture(Gdx.files.internal("pictures/Menue/ente.png"))
+    private var logoHeadline: Texture = game.am.get("pictures/Menue/header.png")
 
-    private var poolAttendant: Texture = Texture(Gdx.files.internal("pictures/Menue/bademeister.png"))
+    private var duck: Texture = game.am.get("pictures/Menue/ente.png")
+
+    private var poolAttendant: Texture = game.am.get("pictures/Menue/bademeister.png")
 
     private lateinit var viewport: ScreenViewport
 
@@ -87,7 +90,7 @@ class MenuScreen(
         x: Float,
         y: Float,
     ): TextButton {
-        val button = TextButton(label, game.skin, "default")
+        val button = TextButton(label, skin, "default")
         button.setPosition(x, y)
         button.setSize(210f, 60f)
 
