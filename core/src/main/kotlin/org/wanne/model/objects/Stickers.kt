@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.model.Point
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
@@ -8,7 +9,8 @@ import org.wanne.model.player.Player
 class Stickers(
     posX: Float = 418F,
     posY: Float = 432F,
-) : GameObject(posX, posY) {
+    am: AssetsManager
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY

@@ -29,7 +29,7 @@ abstract class AbstractWalkableScreen(
 
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
-    val dialogBoard = DialogBoard(skin = skin)
+    val dialogBoard = DialogBoard(skin = skin,  am = game.am)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
@@ -53,7 +53,7 @@ abstract class AbstractWalkableScreen(
         duck: Duck,
     ) {
         // Buttons
-        val lookCursor = Pixmap(Gdx.files.internal("ui/cursor/Ansehen.png"))
+        val lookCursor: Pixmap = game.am.get("ui/cursor/Ansehen.png")
         val lookButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Ansehen"),
@@ -75,7 +75,7 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val speakCursor = Pixmap(Gdx.files.internal("ui/cursor/Reden.png"))
+        val speakCursor: Pixmap = game.am.get("ui/cursor/Reden.png")
         val speakButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Reden"),
@@ -97,7 +97,7 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val takeCursor = Pixmap(Gdx.files.internal("ui/cursor/Nehmen.png"))
+        val takeCursor: Pixmap = game.am.get("ui/cursor/Nehmen.png")
         val takeButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Nehmen"),
@@ -119,7 +119,7 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val useCursor = Pixmap(Gdx.files.internal("ui/cursor/Benutzen.png"))
+        val useCursor: Pixmap = game.am.get("ui/cursor/Benutzen.png")
         val useButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Benutzen"),
@@ -141,7 +141,7 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val combineCursor = Pixmap(Gdx.files.internal("ui/cursor/kombinieren.png"))
+        val combineCursor: Pixmap = game.am.get("ui/cursor/kombinieren.png")
         val combineButton =
             game.createUIButton(
                 buttonAtlas.createSprite("kombinieren"),

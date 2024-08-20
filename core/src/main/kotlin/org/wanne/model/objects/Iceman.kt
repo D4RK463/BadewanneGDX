@@ -1,7 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.WanneGame
+import org.wanne.game.AssetsManager
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.animation.IcemanAnimation
@@ -11,9 +11,9 @@ import org.wanne.model.player.Player
 class Iceman(
     posX: Float = 559F,
     posY: Float = 426F,
-    private val game: WanneGame,
-) : GameObject(posX, posY) {
-    private val icemanAnimation: IcemanAnimation  = IcemanAnimation(posX, posY, true)
+    am: AssetsManager
+) : GameObject(posX, posY, am) {
+    private val icemanAnimation: IcemanAnimation  = IcemanAnimation(posX, posY, true, am)
 
     init {
         x = posX

@@ -1,6 +1,7 @@
 package org.wanne.screens
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -25,26 +26,26 @@ class OutsideScreen(
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Background
-    private val outsideBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/OutsideSingle.png"))
-    private val outsideBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Outside.png"))
+    private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")
+    private val outsideBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Outside.png")
 
     // Raum Lauf-Limits => links,unten,rechts,oben
     private val limits = intArrayOf(70, 129, 934, 235)
 
     // Ambience Musik
-    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Players
-    private val poolAttendant = PoolAttendant(86F, 220F, Player.Companion.Looking.RIGHT)
-    private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT)
+    private val poolAttendant = PoolAttendant(86F, 220F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
 
     // Objects
-    private val iceMenuLeft = IceMenuLeft()
-    private val iceMenuRight = IceMenuRight()
-    private val honkSign = HonkSign()
-    private val street = Street()
-    private val graffiti = Graffiti()
-    private val iceman = Iceman(game = game)
+    private val iceMenuLeft = IceMenuLeft(am = game.am)
+    private val iceMenuRight = IceMenuRight(am = game.am)
+    private val honkSign = HonkSign(am = game.am)
+    private val street = Street(am = game.am)
+    private val graffiti = Graffiti(am = game.am)
+    private val iceman = Iceman(am = game.am)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

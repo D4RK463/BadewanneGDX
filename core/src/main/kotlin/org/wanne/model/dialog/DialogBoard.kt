@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import org.wanne.game.AssetsManager
 import org.wanne.model.AbstractObject
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.ActionType
@@ -18,7 +19,8 @@ class DialogBoard(
     posX: Float = 0F,
     posY: Float = 137F,
     val skin: Skin,
-) : AbstractObject(posX, posY) {
+    am: AssetsManager
+) : AbstractObject(posX, posY, am) {
     init {
         x = posX
         y = posY

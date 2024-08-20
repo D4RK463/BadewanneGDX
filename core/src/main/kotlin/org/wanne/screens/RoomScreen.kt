@@ -1,6 +1,7 @@
 package org.wanne.screens
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
@@ -44,55 +45,56 @@ class RoomScreen(
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Background
-    private val roomBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/KinderzimmerSingle.png"))
-    private val roomBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/Kinderzimmer.png"))
+    private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
+    private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
 
     // Raum Lauf-Limits => links,unten,rechts,oben
     private val limits = intArrayOf(255, 129, 934, 312)
 
     // Ambience Musik
-    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Animations
-    private val fireAnimation = FireAnimation(82F, 198F, false)
-    private val powerUpAnimation = PowerUpAnimation(82F, 345F, false)
+    private val fireAnimation = FireAnimation(82F, 198F, false, game.am)
+    private val powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
 
     // Objects
-    private val pills = Pills()
-    private val bed = Bed()
-    private val roomWindow = Window()
-    private val drawer = Drawer()
-    private val door = Door()
-    private val pa2Poster = PA2Poster()
-    private val brucePoster = BrucePoster()
-    private val deanPoster = DeanPoster()
-    private val rug = Rug()
-    private val stickers = Stickers()
-    private val straw = Straw()
-    private val box = Box()
-    private val safe = Safe()
-    private val drBear = DrBear(gameObjectToAppear = pills, game = game)
-    private val milkSucker = MilkSucker()
-    private val stethoscope = Stethoscope(gameObjectToAppear = milkSucker)
-    private val scalpel = Scalpel(gameObjectToAppear = pills)
-    private val note = Note()
+    private val pills = Pills(am = game.am)
+    private val bed = Bed(am = game.am)
+    private val roomWindow = Window(am = game.am)
+    private val drawer = Drawer(am = game.am)
+    private val door = Door(am = game.am)
+    private val pa2Poster = PA2Poster(am = game.am)
+    private val brucePoster = BrucePoster(am = game.am)
+    private val deanPoster = DeanPoster(am = game.am)
+    private val rug = Rug(am = game.am)
+    private val stickers = Stickers(am = game.am)
+    private val straw = Straw(am = game.am)
+    private val box = Box(am = game.am)
+    private val safe = Safe(am = game.am)
+    private val drBear = DrBear(am = game.am, gameObjectToAppear = pills, game = game)
+    private val milkSucker = MilkSucker(am = game.am)
+    private val stethoscope = Stethoscope(am = game.am, gameObjectToAppear = milkSucker)
+    private val scalpel = Scalpel(am = game.am, gameObjectToAppear = pills)
+    private val note = Note(am = game.am)
     private val mario =
         Mario(
+            am = game.am,
             gameObjectToManipulate = rug,
             gameObjectToAppear = note,
             fireAnimation = fireAnimation,
             powerUpAnimation = powerUpAnimation,
             game = game,
         )
-    private val bell = Cowbell()
-    private val teddy = Teddy(gameObjectToCheck = mario, game = game)
-    private val flower = FireFlower(gameObjectToManipulate = mario, game = game)
-    private val telephone = Telephone(winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
-    private val exit = Exit(game = game)
+    private val bell = Cowbell(am = game.am)
+    private val teddy = Teddy(am = game.am, gameObjectToCheck = mario, game = game)
+    private val flower = FireFlower(am = game.am, gameObjectToManipulate = mario, game = game)
+    private val telephone = Telephone(am = game.am, winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
+    private val exit = Exit(am = game.am, game = game)
 
     // Players
-    private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT)
-    private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT)
+    private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

@@ -2,6 +2,7 @@ package org.wanne.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.ScreenUtils
@@ -21,18 +22,18 @@ class CowPhoneScreen(
     private lateinit var viewport: FitViewport
 
     // Ambience Musik
-    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/Kinderzimmer.mp3"))
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Animation
-    private val cowCallAnimation = CowCallAnimation(0F, 0F)
+    private val cowCallAnimation = CowCallAnimation(0F, 0F, am = game.am)
 
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Dialog System
-    private val dialogBoard = DialogBoard(skin = skin)
+    private val dialogBoard = DialogBoard(skin = skin, am = game.am)
 
     // Objects
-    private val cow = Cow(game = game)
+    private val cow = Cow(am = game.am, game = game)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

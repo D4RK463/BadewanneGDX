@@ -2,6 +2,7 @@ package org.wanne.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -24,22 +25,21 @@ class PuzzleScreen(
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Background
-    private val puzzleBackgroundSingle: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzle.png"))
-    private val puzzleBackgroundMulti: Texture = Texture(Gdx.files.internal("pictures/Backgrounds/puzzleMultiplayer.png"))
+    private val puzzleBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/puzzle.png")
+    private val puzzleBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/puzzleMultiplayer.png")
 
     private lateinit var stage: PuzzleStage
 
     private lateinit var viewport: FitViewport
 
-    private val puzzle = Puzzle()
+    private val puzzle = Puzzle(game.am)
 
-    private val victoryMessage = VictoryMessage()
+    private val victoryMessage = VictoryMessage(am = game.am)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
-    // ToDo: Durch Gema freie Version ersetzen
     // Ambience Musik
-    private val musicBackground = Gdx.audio.newMusic(Gdx.files.internal("soundsOriginal/Background/jeopardy.mp3"))
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/jeopardy.mp3")
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

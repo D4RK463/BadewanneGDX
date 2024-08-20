@@ -4,18 +4,20 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
+import org.wanne.game.AssetsManager
 import org.wanne.model.AbstractObject
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
-import java.util.Random
+import java.util.*
 
 abstract class GameObject(
     posX: Float,
     posY: Float,
-) : AbstractObject(posX, posY) {
-    val inventoryAtlas: TextureAtlas = TextureAtlas("pictures/Items/inventory.atlas")
+    am: AssetsManager
+) : AbstractObject(posX, posY, am) {
+    val inventoryAtlas: TextureAtlas = am.get("pictures/Items/inventory.atlas")
 
     private val random = Random()
 

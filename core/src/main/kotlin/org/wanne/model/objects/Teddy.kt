@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.game.sound.collections.TeddySoundCollection
 import org.wanne.model.Point
@@ -11,9 +12,10 @@ import org.wanne.model.player.Player
 class Teddy(
     posX: Float = 855F,
     posY: Float = 307F,
+    am: AssetsManager,
     private val gameObjectToCheck: GameObject,
     private val game: WanneGame,
-) : GameObject(posX, posY) {
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY
@@ -21,7 +23,7 @@ class Teddy(
         width = getSprite(0F).width
     }
 
-    private val soundCollection = TeddySoundCollection()
+    private val soundCollection = TeddySoundCollection(am)
 
     override fun getSprite(time: Float): Sprite =
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {

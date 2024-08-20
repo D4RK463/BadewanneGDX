@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.game.sound.collections.CowSoundCollection
 import org.wanne.model.Point
@@ -11,8 +12,9 @@ import org.wanne.model.player.Player
 class Cow(
     posX: Float = 1F,
     posY: Float = 1F,
-    val game: WanneGame,
-) : GameObject(posX, posY) {
+    am: AssetsManager,
+    private val game: WanneGame
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY
@@ -20,7 +22,7 @@ class Cow(
         width = getSprite(0F).width
     }
 
-    private val soundCollection = CowSoundCollection()
+    private val soundCollection = CowSoundCollection(am)
 
     private var talkForTheFirstTime = true
 

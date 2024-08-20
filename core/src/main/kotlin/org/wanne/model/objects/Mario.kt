@@ -3,6 +3,7 @@ package org.wanne.model.objects
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.game.sound.collections.MarioSoundCollection
 import org.wanne.model.ActionType
@@ -16,12 +17,13 @@ import org.wanne.model.player.Player
 class Mario(
     posX: Float = 82F,
     posY: Float = 345F,
+    am: AssetsManager,
     private val gameObjectToManipulate: GameObject,
     private val gameObjectToAppear: GameObject,
     private val fireAnimation: FireAnimation,
     private val powerUpAnimation: PowerUpAnimation,
     private val game: WanneGame,
-) : GameObject(posX, posY) {
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY
@@ -37,7 +39,7 @@ class Mario(
 
     private var talkForTheFirstTimeAfterPoweredUp = true
 
-    private val soundCollection = MarioSoundCollection()
+    private val soundCollection = MarioSoundCollection(am)
 
     override fun getSprite(time: Float): Sprite =
         if (poweredUp) {

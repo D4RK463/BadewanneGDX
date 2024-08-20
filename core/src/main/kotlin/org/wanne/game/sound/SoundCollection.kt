@@ -1,8 +1,9 @@
 package org.wanne.game.sound
 
 import com.badlogic.gdx.audio.Sound
+import org.wanne.game.AssetsManager
 
-open class SoundCollection {
+open class SoundCollection(val am: AssetsManager) {
     private val sounds =
         mapOf(
             Language.DE_ORIGINAL to mutableListOf<Sound>(),

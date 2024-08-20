@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
+import org.wanne.game.AssetsManager
 
 abstract class AbstractObject(
     var posX: Float,
     var posY: Float,
+    val am: AssetsManager
 ) : Actor() {
-    val itemAtlas: TextureAtlas = TextureAtlas("pictures/Items/items.atlas")
+    val itemAtlas: TextureAtlas = am.get("pictures/Items/items.atlas")
 
     var isInInventory = false
 

@@ -3,6 +3,7 @@ package org.wanne.model.player
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import org.wanne.game.AssetsManager
 import org.wanne.model.player.Player.Companion.Looking
 
 class PoolAttendant(
@@ -11,19 +12,14 @@ class PoolAttendant(
     looking: Looking,
     scaleX: Float = 1f,
     scaleY: Float = 1f,
-) : Player(posX, posY, looking, scaleX, scaleY) {
-    private val scratchLeftTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/scratchLeft.atlas")
-    private val scratchRightTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/scratchRight.atlas")
-    private val lookLeftTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas =
-        TextureAtlas("pictures/Players/Bademeister/walkRight.atlas")
+    am: AssetsManager
+) : Player(posX, posY, looking, scaleX, scaleY, am) {
+    private val scratchLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/scratchLeft.atlas")
+    private val scratchRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/scratchRight.atlas")
+    private val lookLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/lookLeft.atlas")
+    private val lookRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/lookRight.atlas")
+    private val walkLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/walkLeft.atlas")
+    private val walkRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/walkRight.atlas")
 
     private var scratchLeftAnimation: Animation<Sprite> =
         Animation(

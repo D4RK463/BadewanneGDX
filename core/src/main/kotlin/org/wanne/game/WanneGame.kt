@@ -1,18 +1,12 @@
 package org.wanne.game
 
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
 import org.wanne.game.sound.SoundManager
 import org.wanne.screens.CowPhoneScreen
 import org.wanne.screens.MenuScreen
@@ -27,9 +21,9 @@ class WanneGame : Game() {
     val puzzleScreen: PuzzleScreen by lazy {
         PuzzleScreen(this)
     }
-    val cowPhoneScreen: CowPhoneScreen by lazy {
-        CowPhoneScreen(this)
-    }
+
+    lateinit var cowPhoneScreen: CowPhoneScreen
+
     val outsideScreen: OutsideScreen by lazy {
         OutsideScreen(this)
     }
@@ -52,62 +46,58 @@ class WanneGame : Game() {
     var cowIsBusy = false
 
     private var initialLoadingDone = false
+    private var currentLoad = 0
+    private var percent = 0F
     val am = AssetsManager()
 
     override fun create() {
-
-        // Assets initialisieren
-        am.loadMenuScreen()
-
         batch = SpriteBatch()
     }
 
     override fun render() {
-        /*
-        https://www.gamedevelopment.blog/asset-manager-libgdx-tutorial/
 
-        if (assMan.manager.update()) { // Load some, will return true if done loading
-            currentLoad+= 1;
-            switch(currentLoad){
-            case FONT:	assMan.loadFonts();
-                loadingLabel.setText("Loading Fonts");
-                break;
-            case PARTY:	assMan.loadParticleEffects();
-                loadingLabel.setText("Loading Particle Effects");
-                break;
-            case SOUND:	assMan.loadSounds();
-                loadingLabel.setText("Loading Sounds");
-                break;
-            case MUSIC:	assMan.loadMusic();
-                loadingLabel.setText("Loading Music");
-                break;
-            case 5:	assMan.loadMusic();
-                loadingLabel.setText("Loading Fonts");
-                break;
-            }
-            if (currentLoad >5){
-                loadingLabel.setText("");
-                percent = 1; // set bar to full
-                parent.changeScreen(BlockBreaker.MENU); //changes screen
+        // Assets initialisieren
+        if (am.update(17)) { // Load some, will return true if done loading
+            currentLoad+= 1
+            when (currentLoad) {
+                1 -> {
+                    am.loadUI()
+                    println("loading ui ($percent%)")
+                }
+                2 -> {
+                    am.loadTextures()
+                    println("loading textures ($percent%)")
+                }
+                3 -> {
+                    am.loadSprites()
+                    println("loading sprites ($percent%)")
+                }
+                4 -> {
+                    am.loadMusic()
+                    println("loading music ($percent%)")
+                }
+                5 -> {
+                    am.loadSounds()
+                    println("loading sounds ($percent%)")
+                }
+                else -> {
+                    if (currentLoad > 6){
+                        percent = 1F // set bar to full
 
+                        if (!initialLoadingDone) {
+                            println("loading complete ($percent%)")
+                            setScreen(menuScreen)
+
+                            cowPhoneScreen = CowPhoneScreen(this)
+                            initialLoadingDone = true
+                        }
+                    }
+                }
             }
-        }else{
-            percent = Interpolation.linear.apply(percent, assMan.manager.getProgress(), 0.05f);
+
+        } else{
+            percent = Interpolation.linear.apply(percent, am.progress(), 0.05f)
         }
-
-         */
-
-
-        if (am.update(17)) {
-            println("Loading complete")
-
-            if (!initialLoadingDone) {
-                setScreen(menuScreen)
-                initialLoadingDone = true
-            }
-        }
-
-        println(am.progress())
 
         super.render() // important!
     }

@@ -1,9 +1,10 @@
 package org.wanne.model.puzzle
 
 import com.badlogic.gdx.scenes.scene2d.Stage
+import org.wanne.game.AssetsManager
 import org.wanne.model.Point
 
-class Puzzle {
+class Puzzle(private val am: AssetsManager) {
     private val puzzle: MutableList<PuzzlePiece> = ArrayList()
 
     private val positions =
@@ -32,6 +33,7 @@ class Puzzle {
                     point = positions[index],
                     pieceNumber = element,
                     indexNumber = index,
+                    am = am
                 ),
             )
         }

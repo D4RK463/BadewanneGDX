@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.game.sound.collections.DrBearSoundCollection
 import org.wanne.model.Point
@@ -11,9 +12,10 @@ import org.wanne.model.player.Player
 class DrBear(
     posX: Float = 187F,
     posY: Float = 388F,
+    am: AssetsManager,
     private val gameObjectToAppear: GameObject,
     private val game: WanneGame,
-) : GameObject(posX, posY) {
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY
@@ -21,7 +23,7 @@ class DrBear(
         width = getSprite(0F).width
     }
 
-    private val soundCollection = DrBearSoundCollection()
+    private val soundCollection = DrBearSoundCollection(am)
 
     private var broken = false
 

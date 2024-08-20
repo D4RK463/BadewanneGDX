@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
@@ -10,9 +11,10 @@ import org.wanne.model.player.Player
 class FireFlower(
     posX: Float = 695F,
     posY: Float = 375F,
+    am: AssetsManager,
     private val gameObjectToManipulate: GameObject,
     private val game: WanneGame,
-) : GameObject(posX, posY) {
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY

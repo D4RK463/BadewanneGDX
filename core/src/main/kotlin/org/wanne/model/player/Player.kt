@@ -2,6 +2,7 @@ package org.wanne.model.player
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 
 abstract class Player(
     var posX: Float,
@@ -9,6 +10,7 @@ abstract class Player(
     var looking: Looking,
     var scaleX: Float,
     var scaleY: Float,
+    val am: AssetsManager
 ) {
     var state: State = State.STANDING
 

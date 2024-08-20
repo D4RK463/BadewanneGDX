@@ -1,6 +1,7 @@
 package org.wanne.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
@@ -10,8 +11,9 @@ import org.wanne.model.player.Player
 class Exit(
     posX: Float = 968F,
     posY: Float = 220F,
+    am: AssetsManager,
     private val game: WanneGame,
-) : GameObject(posX, posY) {
+) : GameObject(posX, posY, am) {
     init {
         x = posX
         y = posY
