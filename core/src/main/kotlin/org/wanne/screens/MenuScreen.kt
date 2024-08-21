@@ -42,7 +42,7 @@ class MenuScreen(
     }
 
     private fun buildMenu() {
-        val startButton = createTextButton("Singleplayer", 220f, 300f)
+        val startButton = createTextButton("Singleplayer", 400f, 450f)
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -55,7 +55,7 @@ class MenuScreen(
             },
         )
 
-        val multiButton = createTextButton("Multiplayer", 220f, 200f)
+        val multiButton = createTextButton("Multiplayer", 400f, 350f)
         multiButton.isDisabled = true
         multiButton.addListener(
             object : ChangeListener() {
@@ -68,7 +68,7 @@ class MenuScreen(
             },
         )
 
-        val exitButton = createTextButton("Beenden", 220f, 100f)
+        val exitButton = createTextButton("Beenden", 400f, 250f)
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -107,9 +107,9 @@ class MenuScreen(
 
         batch.projectionMatrix = viewport.camera.combined
         batch.begin()
-        batch.draw(logoHeadline, 220f, 400f)
-        batch.draw(duck, 450f, 20f)
-        batch.draw(poolAttendant, 10f, 20f)
+        batch.draw(logoHeadline, 400f, 600f)
+        batch.draw(duck, 715f, 243f)
+        batch.draw(poolAttendant, 110f, 243f)
         batch.end()
     }
 

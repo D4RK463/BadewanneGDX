@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import org.wanne.game.sound.SoundManager
 import org.wanne.screens.CowPhoneScreen
+import org.wanne.screens.LoadingScreen
 import org.wanne.screens.MenuScreen
 import org.wanne.screens.OutsideScreen
 import org.wanne.screens.PuzzleScreen
@@ -34,71 +35,21 @@ class WanneGame : Game() {
     lateinit var batch: SpriteBatch
 
     val soundManager = SoundManager()
+    val am = AssetsManager()
 
     var isSingleplayer = true
-
     var puzzleSolved = false
-
     var talkedToCow = false
-
     var possessWinningObjects = false
-
     var cowIsBusy = false
-
-    private var initialLoadingDone = false
-    private var currentLoad = 0
-    private var percent = 0F
-    val am = AssetsManager()
 
     override fun create() {
         batch = SpriteBatch()
+
+        setScreen(LoadingScreen(this))
     }
 
     override fun render() {
-
-        // Assets initialisieren
-        if (am.update(17)) { // Load some, will return true if done loading
-            currentLoad+= 1
-            when (currentLoad) {
-                1 -> {
-                    am.loadUI()
-                    println("loading ui ($percent%)")
-                }
-                2 -> {
-                    am.loadTextures()
-                    println("loading textures ($percent%)")
-                }
-                3 -> {
-                    am.loadSprites()
-                    println("loading sprites ($percent%)")
-                }
-                4 -> {
-                    am.loadMusic()
-                    println("loading music ($percent%)")
-                }
-                5 -> {
-                    am.loadSounds()
-                    println("loading sounds ($percent%)")
-                }
-                else -> {
-                    if (currentLoad > 6){
-                        percent = 1F // set bar to full
-
-                        if (!initialLoadingDone) {
-                            println("loading complete ($percent%)")
-                            setScreen(menuScreen)
-
-                            cowPhoneScreen = CowPhoneScreen(this)
-                            initialLoadingDone = true
-                        }
-                    }
-                }
-            }
-
-        } else{
-            percent = Interpolation.linear.apply(percent, am.progress(), 0.05f)
-        }
-
         super.render() // important!
     }
 
