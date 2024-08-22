@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import org.wanne.game.WanneGame
 import kotlin.system.exitProcess
@@ -29,20 +30,22 @@ class MenuScreen(
 
     private var poolAttendant: Texture = game.am.get("pictures/Menue/bademeister.png")
 
-    private lateinit var viewport: ScreenViewport
+    private lateinit var viewport: FitViewport
 
     override fun show() {
+        Gdx.graphics.setWindowedMode(1024, 768)
+        viewport = FitViewport(1024f, 768f)
+
         batch = SpriteBatch()
-        stage = Stage()
+        stage = Stage(viewport)
 
         Gdx.input.inputProcessor = stage
-        viewport = ScreenViewport()
 
         buildMenu()
     }
 
     private fun buildMenu() {
-        val startButton = createTextButton("Singleplayer", 400f, 450f)
+        val startButton = createTextButton("Singleplayer", 350f, 500f)
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -55,7 +58,7 @@ class MenuScreen(
             },
         )
 
-        val multiButton = createTextButton("Multiplayer", 400f, 350f)
+        val multiButton = createTextButton("Multiplayer", 350f, 300f)
         multiButton.isDisabled = true
         multiButton.addListener(
             object : ChangeListener() {
@@ -68,7 +71,7 @@ class MenuScreen(
             },
         )
 
-        val exitButton = createTextButton("Beenden", 400f, 250f)
+        val exitButton = createTextButton("Beenden", 350f, 100f)
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -92,7 +95,7 @@ class MenuScreen(
     ): TextButton {
         val button = TextButton(label, skin, "default")
         button.setPosition(x, y)
-        button.setSize(210f, 60f)
+        button.setSize(300f, 150f)
 
         return button
     }
@@ -107,7 +110,7 @@ class MenuScreen(
 
         batch.projectionMatrix = viewport.camera.combined
         batch.begin()
-        batch.draw(logoHeadline, 400f, 600f)
+        batch.draw(logoHeadline, 400f, 650f)
         batch.draw(duck, 715f, 243f)
         batch.draw(poolAttendant, 110f, 243f)
         batch.end()

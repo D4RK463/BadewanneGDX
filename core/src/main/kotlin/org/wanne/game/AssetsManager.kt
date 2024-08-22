@@ -46,11 +46,13 @@ class AssetsManager {
         assetManager.load("pictures/Items/items.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Items/inventory.atlas", TextureAtlas::class.java)
 
+        // Duck
         assetManager.load("pictures/Players/Ente/lookLeft.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Players/Ente/lookRight.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Players/Ente/walkLeft.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Players/Ente/walkRight.atlas", TextureAtlas::class.java)
 
+        // PoolAttendant
         assetManager.load("pictures/Players/Bademeister/scratchLeft.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Players/Bademeister/scratchRight.atlas", TextureAtlas::class.java)
         assetManager.load("pictures/Players/Bademeister/lookLeft.atlas", TextureAtlas::class.java)
@@ -70,9 +72,11 @@ class AssetsManager {
     }
 
     fun loadSounds() {
+        // DrBear
         assetManager.load("soundsOriginal/Arztbaer/arztbaerLachen.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Arztbaer/aufschneiden.mp3", Sound::class.java)
 
+        // Mario
         assetManager.load("soundsOriginal/Mario/lassmich.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Mario/feuerverloren.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Mario/bowserweg.mp3", Sound::class.java)
@@ -97,12 +101,14 @@ class AssetsManager {
         assetManager.load("soundsOriginal/Mario/angstindenaugensehn.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Mario/Mariotransform.mp3", Sound::class.java)
 
+        // Teddy
         assetManager.load("soundsOriginal/Teddy/zitter.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Teddy/ahhhhh.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Teddy/habangst.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Teddy/habangstdassichdenwaechtersehe.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Teddy/achder.mp3", Sound::class.java)
 
+        // Cow
         assetManager.load("soundsOriginal/Kuh/waechterhier.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Kuh/daskannichnichregeln.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Kuh/15jahre.mp3", Sound::class.java)
