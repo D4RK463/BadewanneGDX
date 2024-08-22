@@ -155,9 +155,9 @@ class RoomScreen(
         note.addToStage(stage, skin)
 
         // Der Ausgang darf nur am Ende auf sein :)
-        exit.isVisible = false
-//        exit.isVisible = true
-//        door.isVisible = false
+//        exit.isVisible = false
+        exit.isVisible = true
+        door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
         if (!stage.currentAction.inventory.isObjectInInventory(note)) {

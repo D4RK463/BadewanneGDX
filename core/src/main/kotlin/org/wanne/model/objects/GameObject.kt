@@ -97,7 +97,12 @@ abstract class GameObject(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        if (isInInventory) {
+            dialogBoard.prepLookAt("Das hab ich doch schon!")
+        } else {
+            dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        }
+
         action.reset()
     }
 

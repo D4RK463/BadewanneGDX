@@ -1,7 +1,10 @@
 package org.wanne.model.objects
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.AssetsManager
+import org.wanne.model.ActionType
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.animation.IcemanAnimation
@@ -11,7 +14,8 @@ import org.wanne.model.player.Player
 class Iceman(
     posX: Float = 559F,
     posY: Float = 426F,
-    am: AssetsManager
+    am: AssetsManager,
+    private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY, am) {
     private val icemanAnimation: IcemanAnimation  = IcemanAnimation(posX, posY, true, am)
 
@@ -23,6 +27,8 @@ class Iceman(
     }
 
     private var chosenWay: Way = Way.NONE
+
+    private var iceGiven = false
 
     override fun getSprite(time: Float): Sprite {
         val sprite = icemanAnimation.getSpriteOfCurrentState(time)
@@ -63,6 +69,14 @@ class Iceman(
                             action,
                         )
                         chosenWay = Way.GOOD
+
+                        // Eis ins Inventar packen
+                        if (!gameObjectToAppear.isVisible) {
+                            gameObjectToAppear.isVisible = true
+                            action.inventory.addGameObjectToInventory(gameObjectToAppear)
+                            iceGiven = true
+                        }
+
                         action.reset()
                     }
 
@@ -123,19 +137,58 @@ class Iceman(
                 }
             }
             else -> {
-                dialogBoard.prepTalkTo(
-                    "Eismann: Jo man, got the moneys?",
-                    null,
-                    "Ich such noch!",
-                    null,
-                    action,
-                )
+
+                if (iceGiven) {
+                    dialogBoard.prepTalkTo(
+                        "Eismann: Jo man, mehr gibs nicht!",
+                        null,
+                        null,
+                        null,
+                        action,
+                    )
+                } else {
+                    dialogBoard.prepTalkTo(
+                        "Eismann: Jo man, got the moneys?",
+                        null,
+                        null,
+                        null,
+                        action,
+                    )
+                }
+
                 action.reset()
             }
         }
 
     }
 
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+        if (chosenWay == Way.BAD) {
+            doCombine(dialogBoard, action, this, "GoldBag")
+        } else {
+            super.combine(dialogBoard, action)
+        }
+    }
+
+    override fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+
+        dialogBoard.prepLookAt("Jo man, nimmt das Ice und lass mich chilln, Duck-Boy!")
+
+        // Eis ins Inventar packen
+        if (!gameObjectToAppear.isVisible) {
+            gameObjectToAppear.isVisible = true
+            action.inventory.addGameObjectToInventory(gameObjectToAppear)
+            iceGiven = true
+        }
+
+        action.reset()
+    }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(524, 234), Player.Companion.Looking.RIGHT)
 

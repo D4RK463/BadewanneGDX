@@ -10,8 +10,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.stage.PointAndClickAwareStage
+import org.wanne.model.objects.GoldBag
 import org.wanne.model.objects.Graffiti
 import org.wanne.model.objects.HonkSign
+import org.wanne.model.objects.Ice
 import org.wanne.model.objects.IceMenuLeft
 import org.wanne.model.objects.IceMenuRight
 import org.wanne.model.objects.Iceman
@@ -40,12 +42,14 @@ class OutsideScreen(
     private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
 
     // Objects
+    private val ice = Ice(am = game.am)
     private val iceMenuLeft = IceMenuLeft(am = game.am)
     private val iceMenuRight = IceMenuRight(am = game.am)
     private val honkSign = HonkSign(am = game.am)
     private val street = Street(am = game.am)
     private val graffiti = Graffiti(am = game.am)
-    private val iceman = Iceman(am = game.am)
+    private val iceman = Iceman(am = game.am, gameObjectToAppear = ice)
+    private val goldBag = GoldBag(am = game.am)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
@@ -82,12 +86,16 @@ class OutsideScreen(
         stage.initializeInventoryItems()
 
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        iceMenuLeft.addToStage(stage, skin = skin)
-        iceMenuRight.addToStage(stage, skin = skin)
-        honkSign.addToStage(stage, skin = skin)
-        street.addToStage(stage, skin = skin)
-        graffiti.addToStage(stage, skin = skin)
-        iceman.addToStage(stage, skin = skin)
+        iceMenuLeft.addToStage(stage, skin)
+        iceMenuRight.addToStage(stage, skin)
+        honkSign.addToStage(stage, skin)
+        street.addToStage(stage, skin)
+        graffiti.addToStage(stage, skin)
+        iceman.addToStage(stage, skin)
+        goldBag.addToStage(stage, skin)
+
+        ice.isVisible = false
+        ice.addToStage(stage, skin)
     }
 
     override fun resetPlayerAndSound() {

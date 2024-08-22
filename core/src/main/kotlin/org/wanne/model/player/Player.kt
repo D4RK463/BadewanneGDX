@@ -36,7 +36,7 @@ abstract class Player(
     ) {
         // Sprite Skalierung ausrechnen
         val screenHeight = Gdx.graphics.height
-        val scalePercent = (posY / screenHeight) / 100
+        val scalePercent = (posY / screenHeight) / 150
 
         // Bewegung rechnen
         // Endpunkt sollte in der Mitte der Figur sein
