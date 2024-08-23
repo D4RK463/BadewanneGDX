@@ -8,8 +8,8 @@ import org.wanne.model.dialog.DialogBoard
 import org.wanne.model.player.Player
 
 class GoldBag(
-    posX: Float = 695F,
-    posY: Float = 375F,
+    posX: Float = 850F,
+    posY: Float = 290F,
     am: AssetsManager
 ) : GameObject(posX, posY, am) {
     init {
@@ -19,7 +19,7 @@ class GoldBag(
         width = getSprite(0F).width
     }
 
-    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(344, 264), Player.Companion.Looking.LEFT)
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(Point(800, 234), Player.Companion.Looking.RIGHT)
 
     override fun getToolTipDescription(): String = "Ein Sack voll Geld"
 
