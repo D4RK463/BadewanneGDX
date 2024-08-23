@@ -1,10 +1,7 @@
 package org.wanne.model.objects
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.AssetsManager
-import org.wanne.model.ActionType
 import org.wanne.model.Point
 import org.wanne.model.PointAndClickAction
 import org.wanne.model.animation.IcemanAnimation
@@ -76,7 +73,16 @@ class Iceman(
                             action.inventory.addGameObjectToInventory(gameObjectToAppear)
                             iceGiven = true
                         }
+                    }
 
+                    "Mega gut, Danke." -> {
+                        dialogBoard.prepTalkTo(
+                            "Eismann: Jo man, Eis in the sunshine!",
+                            null,
+                            null,
+                            null,
+                            action,
+                        )
                         action.reset()
                     }
 
@@ -99,6 +105,16 @@ class Iceman(
                             action,
                         )
                         chosenWay = Way.BAD
+                    }
+
+                    "Ich schau mal in meiner Hose nach." -> {
+                        dialogBoard.prepTalkTo(
+                            "Eismann: Jo Ducky, whatever!",
+                            null,
+                            null,
+                            null,
+                            action,
+                        )
                         action.reset()
                     }
 
@@ -119,7 +135,7 @@ class Iceman(
                         dialogBoard.prepTalkTo(
                             "Eismann: Jo man, Eis in the sunshine!",
                             null,
-                            "... klar, was sonst?",
+                            null,
                             null,
                             action,
                         )
@@ -178,13 +194,17 @@ class Iceman(
         action: PointAndClickAction,
     ) {
 
-        dialogBoard.prepLookAt("Jo man, nimmt das Ice und lass mich chilln, Duck-Boy!")
+        if (iceGiven) {
+            dialogBoard.prepLookAt("Eismann: Jo man, mehr gibs nicht!")
+        } else {
+            dialogBoard.prepLookAt("Jo man, nimmt das Ice und lass mich chilln, Duck-Boy!")
 
-        // Eis ins Inventar packen
-        if (!gameObjectToAppear.isVisible) {
-            gameObjectToAppear.isVisible = true
-            action.inventory.addGameObjectToInventory(gameObjectToAppear)
-            iceGiven = true
+            // Eis ins Inventar packen
+            if (!gameObjectToAppear.isVisible) {
+                gameObjectToAppear.isVisible = true
+                action.inventory.addGameObjectToInventory(gameObjectToAppear)
+                iceGiven = true
+            }
         }
 
         action.reset()
