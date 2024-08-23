@@ -27,7 +27,7 @@ abstract class AbstractWalkableScreen(
 
     lateinit var viewport: FitViewport
 
-    private val skin: Skin = game.am.get("ui/uiskin.json")
+    val skin: Skin = game.am.get("ui/uiskin.json")
 
     val dialogBoard = DialogBoard(skin = skin,  am = game.am)
 

@@ -1,28 +1,20 @@
-package org.wanne.screens
+package org.wanne.screens.menu
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.badlogic.gdx.utils.viewport.ScreenViewport
 import org.wanne.game.WanneGame
+import org.wanne.screens.AbstractMenuScreen
 import kotlin.system.exitProcess
 
 class MenuScreen(
     var game: WanneGame,
-) : Screen {
+) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
-
-    private lateinit var batch: SpriteBatch
-
-    private val skin: Skin = game.am.get("ui/uiskin.json")
 
     private var logoHeadline: Texture = game.am.get("pictures/Menue/header.png")
 
@@ -30,13 +22,11 @@ class MenuScreen(
 
     private var poolAttendant: Texture = game.am.get("pictures/Menue/bademeister.png")
 
-    private lateinit var viewport: FitViewport
-
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)
         viewport = FitViewport(1024f, 768f)
 
-        batch = SpriteBatch()
+        batch = game.batch
         stage = Stage(viewport)
 
         Gdx.input.inputProcessor = stage
@@ -45,7 +35,7 @@ class MenuScreen(
     }
 
     private fun buildMenu() {
-        val startButton = createTextButton("Singleplayer", 350f, 500f)
+        val startButton = createTextButton("Singleplayer", 350f, 550f)
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -58,15 +48,28 @@ class MenuScreen(
             },
         )
 
-        val multiButton = createTextButton("Multiplayer", 350f, 300f)
-        multiButton.isDisabled = true
+        val multiButton = createTextButton("Multiplayer", 350f, 400f)
         multiButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Not Implemented... yet :)")
+                    game.screen = game.networkScreen
+                    dispose()
+                }
+            },
+        )
+
+        val optionsButton = createTextButton("Optionen", 350f, 250f)
+        optionsButton.isDisabled = true
+        optionsButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    println("Not yet implemented!")
                 }
             },
         )
@@ -85,19 +88,8 @@ class MenuScreen(
 
         stage.addActor(startButton)
         stage.addActor(multiButton)
+        stage.addActor(optionsButton)
         stage.addActor(exitButton)
-    }
-
-    private fun createTextButton(
-        label: String,
-        x: Float,
-        y: Float,
-    ): TextButton {
-        val button = TextButton(label, skin, "default")
-        button.setPosition(x, y)
-        button.setSize(300f, 150f)
-
-        return button
     }
 
     override fun render(delta: Float) {
@@ -110,7 +102,7 @@ class MenuScreen(
 
         batch.projectionMatrix = viewport.camera.combined
         batch.begin()
-        batch.draw(logoHeadline, 400f, 650f)
+        batch.draw(logoHeadline, 400f, 700f)
         batch.draw(duck, 715f, 243f)
         batch.draw(poolAttendant, 110f, 243f)
         batch.end()
@@ -130,7 +122,6 @@ class MenuScreen(
     }
 
     override fun dispose() {
-        batch.dispose()
         stage.dispose()
     }
 

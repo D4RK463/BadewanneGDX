@@ -1,11 +1,10 @@
-package org.wanne.screens
+package org.wanne.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
@@ -21,11 +20,11 @@ import org.wanne.model.objects.Street
 import org.wanne.model.player.Duck
 import org.wanne.model.player.Player
 import org.wanne.model.player.PoolAttendant
+import org.wanne.screens.AbstractWalkableScreen
 
 class OutsideScreen(
     private var game: WanneGame,
 ) : AbstractWalkableScreen(game) {
-    private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Background
     private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")

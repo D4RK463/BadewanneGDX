@@ -3,17 +3,19 @@ package org.wanne.game
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import org.wanne.game.network.Client
+import org.wanne.game.network.Server
 import org.wanne.game.sound.SoundManager
-import org.wanne.screens.CowPhoneScreen
+import org.wanne.screens.game.CowPhoneScreen
 import org.wanne.screens.LoadingScreen
-import org.wanne.screens.MenuScreen
-import org.wanne.screens.OutsideScreen
-import org.wanne.screens.PuzzleScreen
-import org.wanne.screens.RoomScreen
+import org.wanne.screens.menu.MenuScreen
+import org.wanne.screens.game.OutsideScreen
+import org.wanne.screens.game.PuzzleScreen
+import org.wanne.screens.game.RoomScreen
+import org.wanne.screens.menu.NetworkScreen
 
 class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {
@@ -31,11 +33,16 @@ class WanneGame : Game() {
     val menuScreen: MenuScreen by lazy {
         MenuScreen(this)
     }
+    val networkScreen: NetworkScreen by lazy {
+        NetworkScreen(this)
+    }
 
     lateinit var batch: SpriteBatch
 
     val soundManager = SoundManager()
     val am = AssetsManager()
+    lateinit var client: Client
+    lateinit var server: Server
 
     var isSingleplayer = true
     var puzzleSolved = false
