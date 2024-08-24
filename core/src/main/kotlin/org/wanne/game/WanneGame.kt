@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
+import org.wanne.screens.menu.NetworkScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.screens.game.CowPhoneScreen
 import org.wanne.screens.LoadingScreen
@@ -15,7 +16,6 @@ import org.wanne.screens.menu.MenuScreen
 import org.wanne.screens.game.OutsideScreen
 import org.wanne.screens.game.PuzzleScreen
 import org.wanne.screens.game.RoomScreen
-import org.wanne.screens.menu.NetworkScreen
 
 class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {
@@ -43,6 +43,8 @@ class WanneGame : Game() {
     val am = AssetsManager()
     lateinit var client: Client
     lateinit var server: Server
+
+    val config = Config()
 
     var isSingleplayer = true
     var puzzleSolved = false

@@ -78,8 +78,9 @@ class NetworkScreen(
             },
         )
 
-        val serverButton = createTextButton("Server starten", 350f, 200f)
-        serverButton.addListener(
+        val stopServerButton = createTextButton("Server stoppen", 350f, 200f)
+        val startServerButton = createTextButton("Server starten", 350f, 200f)
+        startServerButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
@@ -90,12 +91,29 @@ class NetworkScreen(
 
                         println("Starte...")
                         game.server.start()
+
+                        startServerButton.isVisible = false
+                        stopServerButton.isVisible = true
                     } else {
                         println("Port nicht valide")
                     }
                 }
             },
         )
+        stopServerButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    println("Stoppe...")
+                    game.server.stop()
+                    startServerButton.isVisible = true
+                    stopServerButton.isVisible = false
+                }
+            },
+        )
+        stopServerButton.isVisible = false
 
         val backButton = createTextButton("Zurück", 350f, 80f)
         backButton.addListener(
@@ -117,7 +135,8 @@ class NetworkScreen(
         stage.addActor(ipField)
         stage.addActor(portField)
         stage.addActor(connectButton)
-        stage.addActor(serverButton)
+        stage.addActor(startServerButton)
+        stage.addActor(stopServerButton)
         stage.addActor(backButton)
     }
 

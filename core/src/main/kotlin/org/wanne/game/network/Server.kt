@@ -16,4 +16,12 @@ class Server(private val port: Int) {
             println(e.message)
         }
     }
+
+    fun stop() {
+        try {
+            serverSocket.dispose()
+        } catch (e: Exception) {
+            println(e.message)
+        }
+    }
 }
