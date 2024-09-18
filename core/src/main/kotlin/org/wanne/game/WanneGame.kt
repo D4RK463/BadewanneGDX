@@ -39,12 +39,12 @@ class WanneGame : Game() {
 
     lateinit var batch: SpriteBatch
 
-    val soundManager = SoundManager()
+    lateinit var config: Config
+    lateinit var soundManager: SoundManager
     val am = AssetsManager()
+
     lateinit var client: Client
     lateinit var server: Server
-
-    val config = Config()
 
     var isSingleplayer = true
     var puzzleSolved = false
@@ -54,6 +54,8 @@ class WanneGame : Game() {
 
     override fun create() {
         batch = SpriteBatch()
+        config = Config()
+        soundManager = SoundManager(config)
 
         setScreen(LoadingScreen(this))
     }

@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Net
 import com.badlogic.gdx.net.Socket
 import com.badlogic.gdx.net.SocketHints
+import org.wanne.game.Config
 import java.io.InputStream
 import java.io.OutputStream
 
-class Client(private val ipAddress: String, private val port: Int) {
+class Client(private val config: Config) {
 
     companion object {
         private val ipRegex = Regex("((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}")
@@ -19,7 +20,7 @@ class Client(private val ipAddress: String, private val port: Int) {
         private val integerChars = '0'..'9'
 
         fun checkPort(port: String): Boolean {
-            return port.all { it in integerChars }
+            return port != "" && port.all { it in integerChars }
         }
     }
 
@@ -30,7 +31,7 @@ class Client(private val ipAddress: String, private val port: Int) {
 
     fun connect() {
         try {
-            socket = Gdx.net.newClientSocket(Net.Protocol.TCP, ipAddress, port, SocketHints())
+            socket = Gdx.net.newClientSocket(Net.Protocol.TCP, config.ipAddress, config.clientPort, SocketHints())
         } catch (e: Exception) {
             println(e.message)
         }

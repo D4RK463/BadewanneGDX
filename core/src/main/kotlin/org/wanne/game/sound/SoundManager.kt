@@ -1,8 +1,9 @@
 package org.wanne.game.sound
 
 import com.badlogic.gdx.audio.Sound
+import org.wanne.game.Config
 
-class SoundManager {
+class SoundManager(private val config: Config) {
     private var playingSound: Sound? = null
 
     private var aboutToPlayingSound: Sound? = null
@@ -12,7 +13,7 @@ class SoundManager {
     fun playSound(
         collection: SoundCollection,
         index: Int,
-        volume: Float = 1.0F,
+        volume: Float = config.soundVolume,
     ) {
         aboutToPlayingSound = collection.get(language, index)
 

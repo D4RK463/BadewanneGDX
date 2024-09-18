@@ -46,6 +46,7 @@ class NetworkScreen(
                 return true
             }
         })
+        ipField.text = game.config.ipAddress
 
         val portField = TextField("Port eingeben", skin)
         portField.x = 350f
@@ -58,6 +59,7 @@ class NetworkScreen(
                 return true
             }
         })
+        portField.text = game.config.serverPort.toString()
 
         val connectButton = createTextButton("Verbinden", 350f, 320f)
         connectButton.addListener(
@@ -67,7 +69,11 @@ class NetworkScreen(
                     actor: Actor?,
                 ) {
                     if (Client.checkIPAddress(ipField.text) && Client.checkPort(portField.text)) {
-                        game.client = Client(ipField.text, portField.text.toInt())
+                        game.config.ipAddress = ipField.text
+                        game.config.clientPort = portField.text.toInt()
+                        game.config.saveSettings()
+
+                        game.client = Client(game.config)
 
                         println("Verbinde...")
                         game.client.connect()
@@ -87,7 +93,10 @@ class NetworkScreen(
                     actor: Actor?,
                 ) {
                     if (Client.checkPort(portField.text)) {
-                        game.server = Server(portField.text.toInt())
+                        game.config.serverPort = portField.text.toInt()
+                        game.config.saveSettings()
+
+                        game.server = Server(game.config)
 
                         println("Starte...")
                         game.server.start()
