@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.stage.DialogOnlyStage
-import org.wanne.model.ActionType
-import org.wanne.model.dialog.DialogBoard
+import org.wanne.game.model.ActionType
+import org.wanne.game.model.dialog.DialogBoard
 
 class DialogOnlyClickListener(
     val dialogBoard: DialogBoard

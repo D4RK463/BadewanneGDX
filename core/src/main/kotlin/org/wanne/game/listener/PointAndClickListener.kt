@@ -5,11 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.stage.PointAndClickAwareStage
-import org.wanne.model.ActionType
-import org.wanne.model.Point
-import org.wanne.model.dialog.DialogBoard
-import org.wanne.model.objects.GameObject
-import org.wanne.model.player.Player
+import org.wanne.game.model.ActionType
+import org.wanne.game.model.Point
+import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.model.objects.GameObject
+import org.wanne.game.model.player.Player
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
@@ -83,7 +83,7 @@ class PointAndClickListener(
                 moveX = (moveX - (moveX % Player.MOVE_PIXEL))
                 moveY = (moveY - (moveY % Player.MOVE_PIXEL))
 
-                stage.moveToPoint = Point(moveX, moveY)
+                stage.moveToPoint = org.wanne.game.model.Point(moveX, moveY)
                 stage.needToMove = true
             } else {
                 stage.currentPlayer.state = Player.Companion.State.STANDING

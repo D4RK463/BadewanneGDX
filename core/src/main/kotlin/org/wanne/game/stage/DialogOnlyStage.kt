@@ -3,10 +3,10 @@ package org.wanne.game.stage
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.Viewport
-import org.wanne.model.ActionType
-import org.wanne.model.PointAndClickAction
-import org.wanne.model.animation.CowCallAnimation
-import org.wanne.model.objects.GameObject
+import org.wanne.game.model.ActionType
+import org.wanne.game.model.PointAndClickAction
+import org.wanne.game.model.animation.CowCallAnimation
+import org.wanne.game.model.objects.GameObject
 
 class DialogOnlyStage(
     viewport: Viewport,

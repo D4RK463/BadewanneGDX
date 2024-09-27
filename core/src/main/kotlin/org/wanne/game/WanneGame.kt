@@ -8,14 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
-import org.wanne.screens.menu.NetworkScreen
+import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.sound.SoundManager
-import org.wanne.screens.game.CowPhoneScreen
-import org.wanne.screens.LoadingScreen
-import org.wanne.screens.menu.MenuScreen
-import org.wanne.screens.game.OutsideScreen
-import org.wanne.screens.game.PuzzleScreen
-import org.wanne.screens.game.RoomScreen
+import org.wanne.game.screens.game.CowPhoneScreen
+import org.wanne.game.screens.LoadingScreen
+import org.wanne.game.screens.menu.MenuScreen
+import org.wanne.game.screens.game.OutsideScreen
+import org.wanne.game.screens.game.PuzzleScreen
+import org.wanne.game.screens.game.RoomScreen
 
 class WanneGame : Game() {
     val roomScreen: RoomScreen by lazy {

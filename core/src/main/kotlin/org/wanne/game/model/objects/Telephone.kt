@@ -1,0 +1,120 @@
+package org.wanne.game.model.objects
+
+import com.badlogic.gdx.graphics.g2d.Sprite
+import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
+import org.wanne.game.model.Point
+import org.wanne.game.model.PointAndClickAction
+import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.model.player.Player
+
+class Telephone(
+    posX: Float = 745F,
+    posY: Float = 366F,
+    am: AssetsManager,
+    val winningRequiredGameObjectList: List<GameObject>,
+    private val game: WanneGame,
+) : GameObject(posX, posY, am) {
+    init {
+        x = posX
+        y = posY
+        height = getSprite(0F).height
+        width = getSprite(0F).width
+    }
+
+    override fun getSprite(time: Float): Sprite =
+        if (isInInventory) {
+            addPositionToSprite(inventoryAtlas.createSprite("TelefonInv"))
+        } else {
+            addPositionToSprite(itemAtlas.createSprite("Telefon"))
+        }
+
+    override fun getName(): String = "Telephone"
+
+    override fun look(dialogBoard: DialogBoard) {
+        dialogBoard.prepLookAt("Super... rosa Telefon!")
+    }
+
+    override fun use(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+        if (game.talkedToCow) {
+            dialogBoard.prepUseIt(
+                "Ich kenne die Nummer vom Wächter nicht auswendig.",
+                null,
+                action,
+            )
+        } else {
+            dialogBoard.prepUseIt(
+                "Wen soll ich denn anrufen? Kenn keine Nummern.",
+                null,
+                action,
+            )
+        }
+
+        action.reset()
+    }
+
+    override fun take(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+        action.inventory.addGameObjectToInventory(this)
+        action.reset()
+    }
+
+    override fun combine(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+        doCombine(dialogBoard, action, this, "Note")
+    }
+
+    override fun afterCombine(
+        dialogBoard: DialogBoard,
+        action: PointAndClickAction,
+    ) {
+        // Wenn wir schon zum 2ten Mal anrufen
+        if (game.talkedToCow) {
+            // Wenn alle Objekte die gefordert wurden, im Inventar sind
+            var numberOfWinningObjectsInInventory = 0
+            for (gameObject in winningRequiredGameObjectList) {
+                if (action.inventory.isObjectInInventory(gameObject)) {
+                    numberOfWinningObjectsInInventory++
+                }
+            }
+
+            if (numberOfWinningObjectsInInventory == 3) {
+                game.possessWinningObjects = true
+                game.screen = game.cowPhoneScreen
+                action.inventory.removeGameObject(winningRequiredGameObjectList[0])
+                action.inventory.removeGameObject(winningRequiredGameObjectList[1])
+                action.inventory.removeGameObject(winningRequiredGameObjectList[2])
+            } else {
+                // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
+                if (game.cowIsBusy) {
+                    dialogBoard.prepLookAt("Piep, Piep, Piep...", "Scheint besetzt zu sein.")
+                } else {
+                    game.screen = game.cowPhoneScreen
+                }
+            }
+
+            action.reset()
+        } else {
+            // Das erste Mal mit der Kuh reden
+            game.screen = game.cowPhoneScreen
+
+            game.talkedToCow = true
+            action.reset()
+        }
+    }
+
+    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
+        org.wanne.game.model.Point(
+            650,
+            266
+        ), Player.Companion.Looking.RIGHT)
+
+    override fun getToolTipDescription(): String = "Rosa Telefon"
+}
