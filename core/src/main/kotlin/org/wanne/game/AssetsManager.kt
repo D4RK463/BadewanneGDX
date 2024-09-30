@@ -26,9 +26,8 @@ class AssetsManager {
     }
 
     fun loadTextures() {
-        assetManager.load("pictures/Menue/header.png", Texture::class.java)
-        assetManager.load("pictures/Menue/ente.png", Texture::class.java)
-        assetManager.load("pictures/Menue/bademeister.png", Texture::class.java)
+        assetManager.load("pictures/Menue/title.png", Texture::class.java)
+        assetManager.load("pictures/Menue/background.png", Texture::class.java)
 
         assetManager.load("pictures/Backgrounds/OutsideSingle.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/Outside.png", Texture::class.java)

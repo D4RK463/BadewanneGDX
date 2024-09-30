@@ -55,12 +55,12 @@ class RoomScreen(
 
     // Animations
     private val fireAnimation = FireAnimation(82F, 198F, false, game.am)
-    private val powerUpAnimation = org.wanne.game.model.animation.PowerUpAnimation(82F, 345F, false, game.am)
+    private val powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
 
     // Objects
     private val pills = Pills(am = game.am)
     private val bed = Bed(am = game.am)
-    private val roomWindow = org.wanne.game.model.objects.Window(am = game.am)
+    private val roomWindow = Window(am = game.am)
     private val drawer = Drawer(am = game.am)
     private val door = Door(am = game.am)
     private val pa2Poster = PA2Poster(am = game.am)
@@ -68,10 +68,10 @@ class RoomScreen(
     private val deanPoster = DeanPoster(am = game.am)
     private val rug = Rug(am = game.am)
     private val stickers = Stickers(am = game.am)
-    private val straw = org.wanne.game.model.objects.Straw(am = game.am)
+    private val straw = Straw(am = game.am)
     private val box = Box(am = game.am)
-    private val safe = org.wanne.game.model.objects.Safe(am = game.am)
-    private val drBear = org.wanne.game.model.objects.DrBear(am = game.am, gameObjectToAppear = pills, game = game)
+    private val safe = Safe(am = game.am)
+    private val drBear = DrBear(am = game.am, gameObjectToAppear = pills, game = game)
     private val milkSucker = MilkSucker(am = game.am)
     private val stethoscope = Stethoscope(am = game.am, gameObjectToAppear = milkSucker)
     private val scalpel = Scalpel(am = game.am, gameObjectToAppear = pills)
@@ -89,7 +89,7 @@ class RoomScreen(
     private val teddy = Teddy(am = game.am, gameObjectToCheck = mario, game = game)
     private val flower = FireFlower(am = game.am, gameObjectToManipulate = mario, game = game)
     private val telephone = Telephone(am = game.am, winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
-    private val exit = org.wanne.game.model.objects.Exit(am = game.am, game = game)
+    private val exit = Exit(am = game.am, game = game)
 
     // Players
     private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)

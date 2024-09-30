@@ -96,12 +96,12 @@ abstract class Player(
         state = State.STANDING
     }
 
-    private fun scaleUp(scalePercent: Float) {
+    fun scaleUp(scalePercent: Float) {
         scaleX += (scalePercent * scaleX)
         scaleY += (scalePercent * scaleY)
     }
 
-    private fun scaleDown(scalePercent: Float) {
+    fun scaleDown(scalePercent: Float) {
         scaleX -= (scalePercent * scaleX)
         scaleY -= (scalePercent * scaleY)
     }

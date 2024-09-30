@@ -28,8 +28,8 @@ class LoadingScreen (
     private var percent = 0F
 
     override fun show() {
-        Gdx.graphics.setWindowedMode(1024, 768)
-        viewport = FitViewport(1024f, 768f)
+        Gdx.graphics.setWindowedMode(1280, 720)
+        viewport = FitViewport(1280f, 720f)
 
         stage = Stage(viewport)
 
