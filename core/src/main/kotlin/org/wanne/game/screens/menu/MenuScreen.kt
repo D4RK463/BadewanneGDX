@@ -22,7 +22,7 @@ class MenuScreen(
 ) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
 
-    private var logoHeadline: Texture = game.am.get("pictures/Menue/title.png")
+    private var logoHeadline: Image = Image(game.am.get("pictures/Menue/title.png") as Texture)
 
     private var background: Texture = game.am.get("pictures/Menue/background.png")
 
@@ -44,12 +44,11 @@ class MenuScreen(
         batch = game.batch
         stage = MainMenuStage(viewport, poolAttendant, duck, emptyList())
 
-        val logoImage = Image(logoHeadline)
-        logoImage.x = 140f
-        logoImage.y = 80f
+        logoHeadline.x = 140f
+        logoHeadline.y = 80f
 
         stage.addActor(Image(background))
-        stage.addActor(logoImage)
+        stage.addActor(logoHeadline)
 
         Gdx.input.inputProcessor = stage
 
