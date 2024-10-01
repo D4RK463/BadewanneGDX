@@ -13,7 +13,7 @@ fun main() {
         return
     } else {
 
-        Lwjgl3Application(WanneGame(), Lwjgl3ApplicationConfiguration().apply {
+        Lwjgl3Application(WanneGame(false), Lwjgl3ApplicationConfiguration().apply {
             setTitle("Die Badewannen-Verschwörung GDX")
 //        setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setForegroundFPS(60)

@@ -17,7 +17,7 @@ import org.wanne.game.screens.game.OutsideScreen
 import org.wanne.game.screens.game.PuzzleScreen
 import org.wanne.game.screens.game.RoomScreen
 
-class WanneGame : Game() {
+class WanneGame(val android: Boolean): Game() {
     val roomScreen: RoomScreen by lazy {
         RoomScreen(this)
     }

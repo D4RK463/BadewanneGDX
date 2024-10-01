@@ -3,6 +3,7 @@ package org.wanne.game.screens.menu
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -22,19 +23,22 @@ class MenuScreen(
 ) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
 
-    private var logoHeadline: Image = Image(game.am.get("pictures/Menue/title.png") as Texture)
+    private var logoHeadline: Image = Image(game.am.get("pictures/Menue/title3.png") as Texture)
+    private var edge: Image = Image(game.am.get("pictures/Menue/ecke.png") as Texture)
 
     private var background: Texture = game.am.get("pictures/Menue/background.png")
 
-    private val duck = Duck(180F, 90F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(485F, 90F, Player.Companion.Looking.RIGHT, am = game.am)
     private val poolAttendant = PoolAttendant(700F, 95F, Player.Companion.Looking.RIGHT, am = game.am)
+
+    private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
     init {
         duck.scaleX *= 1.2F
         duck.scaleY *= 1.2F
 
-        poolAttendant.scaleX *= 1.2F
-        poolAttendant.scaleY *= 1.2F
+        poolAttendant.scaleX *= 1.4F
+        poolAttendant.scaleY *= 1.4F
     }
 
     override fun show() {
@@ -44,11 +48,18 @@ class MenuScreen(
         batch = game.batch
         stage = MainMenuStage(viewport, poolAttendant, duck, emptyList())
 
-        logoHeadline.x = 140f
-        logoHeadline.y = 80f
+        logoHeadline.x = 100f
+        logoHeadline.y = 550f
+
+        edge.x = 1158F
+        edge.y = 573F
 
         stage.addActor(Image(background))
         stage.addActor(logoHeadline)
+
+        if (!game.android) {
+            stage.addActor(edge)
+        }
 
         Gdx.input.inputProcessor = stage
 
@@ -56,7 +67,7 @@ class MenuScreen(
     }
 
     private fun buildMenu() {
-        val startButton = createTextButton("Singleplayer", 500f, 400f)
+        val startButton = createTextButton("Singleplayer", 100f, 400f)
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -69,7 +80,7 @@ class MenuScreen(
             },
         )
 
-        val multiButton = createTextButton("Multiplayer", 325f, 250f)
+        val multiButton = createTextButton("Multiplayer", 100f, 250f)
         multiButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -82,7 +93,7 @@ class MenuScreen(
             },
         )
 
-        val optionsButton = createTextButton("Optionen", 675f, 250f)
+        val optionsButton = createTextButton("Optionen", 100f, 100f)
         optionsButton.isDisabled = true
         optionsButton.addListener(
             object : ChangeListener() {
@@ -95,7 +106,13 @@ class MenuScreen(
             },
         )
 
-        val exitButton = createTextButton("Beenden", 500f, 50f)
+        val exitButton =
+            game.createUIButton(
+                buttonAtlas.createSprite("exit"),
+                buttonAtlas.createSprite("exitPressed"),
+                1235f,
+                655f,
+            )
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -110,7 +127,10 @@ class MenuScreen(
         stage.addActor(startButton)
         stage.addActor(multiButton)
         stage.addActor(optionsButton)
-        stage.addActor(exitButton)
+
+        if (!game.android) {
+            stage.addActor(exitButton)
+        }
     }
 
     override fun render(delta: Float) {

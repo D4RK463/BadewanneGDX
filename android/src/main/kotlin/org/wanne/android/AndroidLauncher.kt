@@ -9,7 +9,7 @@ import org.wanne.game.WanneGame
 class AndroidLauncher : AndroidApplication() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initialize(WanneGame(), AndroidApplicationConfiguration().apply {
+        initialize(WanneGame(true), AndroidApplicationConfiguration().apply {
             // Configure your application here.
             useImmersiveMode = true // Recommended, but not required.
         })

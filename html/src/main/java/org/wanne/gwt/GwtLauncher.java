@@ -15,6 +15,6 @@ public class GwtLauncher extends GwtApplication {
     @Override
     public ApplicationListener createApplicationListener () {
 //        throw new GdxRuntimeException("Kotlin is currently not supported by GWT.");
-         return new WanneGame();
+         return new WanneGame(true);
     }
 }
