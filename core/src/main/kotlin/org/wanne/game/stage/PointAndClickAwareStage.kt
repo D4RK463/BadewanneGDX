@@ -13,7 +13,7 @@ class PointAndClickAwareStage(
     additionalAnimations: List<Animation>?,
 ) : AbstractAnimationStage(
     viewport, poolAttendant, duck, additionalAnimations
-    ) {
+) {
 
     var currentPlayer: Player = poolAttendant
 

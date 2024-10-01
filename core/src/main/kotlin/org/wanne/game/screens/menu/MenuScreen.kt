@@ -26,15 +26,15 @@ class MenuScreen(
 
     private var background: Texture = game.am.get("pictures/Menue/background.png")
 
-    private val duck = Duck(200F, 100F, Player.Companion.Looking.RIGHT, am = game.am)
-    private val poolAttendant = PoolAttendant(600F, 150F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(180F, 90F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val poolAttendant = PoolAttendant(700F, 95F, Player.Companion.Looking.RIGHT, am = game.am)
 
     init {
-        duck.scaleX *= 1.3F
-        duck.scaleY *= 1.3F
+        duck.scaleX *= 1.2F
+        duck.scaleY *= 1.2F
 
-        poolAttendant.scaleX *= 1.3F
-        poolAttendant.scaleY *= 1.3F
+        poolAttendant.scaleX *= 1.2F
+        poolAttendant.scaleY *= 1.2F
     }
 
     override fun show() {
