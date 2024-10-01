@@ -1,18 +1,20 @@
 package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.screens.AbstractMenuScreen
+import org.wanne.game.stage.MainMenuStage
 import kotlin.system.exitProcess
 
 class MenuScreen(
@@ -20,18 +22,19 @@ class MenuScreen(
 ) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
 
-    private var stateTime: Float = 0f
-
     private var logoHeadline: Texture = game.am.get("pictures/Menue/title.png")
 
     private var background: Texture = game.am.get("pictures/Menue/background.png")
 
     private val duck = Duck(200F, 100F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val poolAttendant = PoolAttendant(600F, 150F, Player.Companion.Looking.RIGHT, am = game.am)
 
     init {
-        duck.scaleUp(0.4F)
-        duck.scaleX *= 1.1F
-        duck.scaleY *= 1.1F
+        duck.scaleX *= 1.3F
+        duck.scaleY *= 1.3F
+
+        poolAttendant.scaleX *= 1.3F
+        poolAttendant.scaleY *= 1.3F
     }
 
     override fun show() {
@@ -39,9 +42,14 @@ class MenuScreen(
         viewport = FitViewport(1280f, 720f)
 
         batch = game.batch
-        stage = Stage(viewport)
+        stage = MainMenuStage(viewport, poolAttendant, duck, emptyList())
+
+        val logoImage = Image(logoHeadline)
+        logoImage.x = 140f
+        logoImage.y = 80f
 
         stage.addActor(Image(background))
+        stage.addActor(logoImage)
 
         Gdx.input.inputProcessor = stage
 
@@ -107,23 +115,18 @@ class MenuScreen(
     }
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(84 / 255f, 88 / 255f, 92 / 255f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        ScreenUtils.clear(Color.BLACK)
         viewport.apply()
 
-        batch.projectionMatrix = viewport.camera.combined
-        batch.begin()
+        // Zeichnen
+        game.batch.projectionMatrix = viewport.camera.combined
+        game.batch.begin()
 
-        stateTime += Gdx.graphics.deltaTime
-        val duckSprite: Sprite = duck.getSpriteOfCurrentState(stateTime)
-        duckSprite.draw(batch)
-
+        // Stage zeichnen mit UI, Objekten
         stage.act()
         stage.draw()
 
-        batch.draw(logoHeadline, 140f, 80f)
-
-        batch.end()
+        game.batch.end()
     }
 
     override fun resize(
