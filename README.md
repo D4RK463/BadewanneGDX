@@ -1,5 +1,4 @@
-# Die Badewannenverschwörung
-_Der Dicke und das gelbe Stück Gummi_
+![alt text](assets/pictures/Menue/title3.png)
 
 Dies ist die Portierung der Badewannenverschwörung in libGDX. Erstellt um
  1. Das Spiel vielleicht mal auf neuen Systemen zum Laufen zu bringen
