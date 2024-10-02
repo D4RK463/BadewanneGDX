@@ -2,10 +2,12 @@ package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
@@ -21,14 +23,18 @@ class NetworkScreen(
 ) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
 
+    private var background: Texture = game.am.get("pictures/Menue/options.png")
+
     override fun show() {
-        Gdx.graphics.setWindowedMode(1024, 768)
-        viewport = FitViewport(1024f, 768f)
+        Gdx.graphics.setWindowedMode(1280, 720)
+        viewport = FitViewport(1280f, 720f)
 
         batch = game.batch
         stage = Stage(viewport)
 
         Gdx.input.inputProcessor = stage
+
+        stage.addActor(Image(background))
 
         buildMenu()
     }

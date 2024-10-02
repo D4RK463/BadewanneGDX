@@ -29,6 +29,7 @@ class AssetsManager {
         assetManager.load("pictures/Menue/title3.png", Texture::class.java)
         assetManager.load("pictures/Menue/background.png", Texture::class.java)
         assetManager.load("pictures/Menue/ecke.png", Texture::class.java)
+        assetManager.load("pictures/Menue/options.png", Texture::class.java)
 
         assetManager.load("pictures/Backgrounds/OutsideSingle.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/Outside.png", Texture::class.java)
