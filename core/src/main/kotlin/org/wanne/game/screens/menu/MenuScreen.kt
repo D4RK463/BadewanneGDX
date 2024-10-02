@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
+import org.wanne.game.model.animation.WaterAnimation
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
@@ -33,6 +34,8 @@ class MenuScreen(
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
+    private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
+
     init {
         duck.scaleX *= 1.2F
         duck.scaleY *= 1.2F
@@ -46,7 +49,7 @@ class MenuScreen(
         viewport = FitViewport(1280f, 720f)
 
         batch = game.batch
-        stage = MainMenuStage(viewport, poolAttendant, duck, emptyList())
+        stage = MainMenuStage(viewport, poolAttendant, duck, listOf(waterAnimation))
 
         logoHeadline.x = 100f
         logoHeadline.y = 550f
