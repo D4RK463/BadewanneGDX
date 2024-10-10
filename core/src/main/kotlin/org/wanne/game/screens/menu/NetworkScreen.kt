@@ -1,45 +1,23 @@
 package org.wanne.game.screens.menu
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
-import org.wanne.game.screens.AbstractMenuScreen
 import java.net.NetworkInterface
 
 class NetworkScreen(
-    var game: WanneGame,
-) : AbstractMenuScreen(game) {
-    private lateinit var stage: Stage
+    game: WanneGame,
+) : AbstractOptionsScreen(game) {
 
-    private var background: Texture = game.am.get("pictures/Menue/options.png")
 
-    override fun show() {
-        Gdx.graphics.setWindowedMode(1280, 720)
-        viewport = FitViewport(1280f, 720f)
-
-        batch = game.batch
-        stage = Stage(viewport)
-
-        Gdx.input.inputProcessor = stage
-
-        stage.addActor(Image(background))
-
-        buildMenu()
-    }
-
-    private fun buildMenu() {
+    override fun buildMenu() {
 
         val ipField = TextField("IP Adresse eingeben", skin)
         ipField.x = 350f
@@ -137,14 +115,16 @@ class NetworkScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    game.screen = game.menuScreen
+                    game.screen = game.mainMenuScreen
+                    game.config.saveSettings()
                     dispose()
                 }
             },
         )
 
         val ipLabel = Label("Eigene IP-Adresse: ${getIpAddress()}", skin)
-        ipLabel.setPosition(350f,550f)
+        ipLabel.setPosition(350f, 550f)
+        ipLabel.color = Color.BLACK
 
         stage.addActor(ipLabel)
         stage.addActor(ipField)
@@ -160,33 +140,7 @@ class NetworkScreen(
             .getNetworkInterfaces()
             .toList()
             .flatMap { it.inetAddresses.toList() }
-            .firstOrNull { it.isSiteLocalAddress && (it.hostAddress.startsWith("192.") || it.hostAddress.startsWith("10.") ) }
+            .firstOrNull { it.isSiteLocalAddress && (it.hostAddress.startsWith("192.") || it.hostAddress.startsWith("10.")) }
             ?.hostAddress
-
-    override fun render(delta: Float) {
-        Gdx.gl.glClearColor(84 / 255f, 88 / 255f, 92 / 255f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        viewport.apply()
-
-        stage.act()
-        stage.draw()
-    }
-
-    override fun resize(width: Int, height: Int) {
-        viewport.update(width, height, true)
-    }
-
-    override fun pause() {
-    }
-
-    override fun resume() {
-    }
-
-    override fun hide() {
-    }
-
-    override fun dispose() {
-        stage.dispose()
-    }
 
 }

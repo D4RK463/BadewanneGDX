@@ -8,7 +8,7 @@ class SoundManager(private val config: Config) {
 
     private var aboutToPlayingSound: Sound? = null
 
-    var language: Language = Language.DE_ORIGINAL
+    private var language: Language = Language.fromSaveString(config.language)
 
     fun playSound(
         collection: SoundCollection,

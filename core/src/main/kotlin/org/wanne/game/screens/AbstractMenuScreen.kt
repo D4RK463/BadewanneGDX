@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 
 abstract class AbstractMenuScreen (
-    private val game: WanneGame,
+    val game: WanneGame,
 ) : Screen {
 
     val skin: Skin = game.am.get("ui/uiskin.json")

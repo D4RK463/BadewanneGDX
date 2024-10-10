@@ -19,8 +19,8 @@ import org.wanne.game.screens.AbstractMenuScreen
 import org.wanne.game.stage.MainMenuStage
 import kotlin.system.exitProcess
 
-class MenuScreen(
-    var game: WanneGame,
+class MainMenuScreen(
+    game: WanneGame,
 ) : AbstractMenuScreen(game) {
     private lateinit var stage: Stage
 
@@ -97,14 +97,14 @@ class MenuScreen(
         )
 
         val optionsButton = createTextButton("Optionen", 100f, 100f)
-        optionsButton.isDisabled = true
         optionsButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    println("Not yet implemented!")
+                    game.screen = game.optionsScreen
+                    dispose()
                 }
             },
         )
