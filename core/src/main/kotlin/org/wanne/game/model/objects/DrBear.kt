@@ -1,21 +1,18 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
-import org.wanne.game.sound.collections.DrBearSoundCollection
-import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
+import org.wanne.game.sound.collections.DrBearSoundCollection
 
 class DrBear(
     posX: Float = 187F,
     posY: Float = 388F,
-    am: AssetsManager,
-    private val gameObjectToAppear: org.wanne.game.model.objects.GameObject,
-    private val game: WanneGame,
-) : org.wanne.game.model.objects.GameObject(posX, posY, am) {
+    private val gameObjectToAppear: GameObject,
+    game: WanneGame,
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY

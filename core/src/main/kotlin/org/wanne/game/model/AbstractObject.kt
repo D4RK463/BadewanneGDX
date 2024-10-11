@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 
 abstract class AbstractObject(
     var posX: Float,
     var posY: Float,
-    val am: AssetsManager
+    val game: WanneGame
 ) : Actor() {
+    val am: AssetsManager = game.am
+
     val itemAtlas: TextureAtlas = am.get("pictures/Items/items.atlas")
 
     var isInInventory = false
@@ -26,7 +29,7 @@ abstract class AbstractObject(
     open fun dispose() {
     }
 
-    open fun setPositionToPoint(point: org.wanne.game.model.Point) {
+    open fun setPositionToPoint(point: Point) {
         posX = point.x.toFloat()
         posY = point.y.toFloat()
         x = posX

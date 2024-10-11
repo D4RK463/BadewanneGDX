@@ -1,7 +1,7 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
@@ -9,8 +9,8 @@ import org.wanne.game.model.player.Player
 class Graffiti(
     posX: Float = 450F,
     posY: Float = 674F,
-    am: AssetsManager
-) : GameObject(posX, posY, am) {
+    game: WanneGame
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY
@@ -26,8 +26,8 @@ class Graffiti(
         dialogBoard.prepLookAt("Der Name kommt mir bekannt vor...")
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
+        Point(
             200,
             220
         ), Player.Companion.Looking.RIGHT)

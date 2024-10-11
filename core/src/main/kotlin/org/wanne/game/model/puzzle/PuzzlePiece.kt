@@ -2,17 +2,17 @@ package org.wanne.game.model.puzzle
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
-import java.util.Random
+import java.util.*
 
 class PuzzlePiece(
-    point: org.wanne.game.model.Point,
+    point: Point,
     val pieceNumber: Int,
     var indexNumber: Int,
-    am: AssetsManager
-) : AbstractObject(point.x.toFloat(), point.y.toFloat(), am) {
+    game: WanneGame
+) : AbstractObject(point.x.toFloat(), point.y.toFloat(), game) {
     private val puzzleAtlas: TextureAtlas = am.get("pictures/Puzzle/puzzle.atlas")
 
     private val spriteRotationSpeed = 90
@@ -57,9 +57,9 @@ class PuzzlePiece(
         }
     }
 
-    fun getPositionAsPoint(): org.wanne.game.model.Point = org.wanne.game.model.Point(posX.toInt(), posY.toInt())
+    fun getPositionAsPoint(): Point = Point(posX.toInt(), posY.toInt())
 
-    override fun setPositionToPoint(point: org.wanne.game.model.Point) {
+    override fun setPositionToPoint(point: Point) {
         super.setPositionToPoint(point)
         puzzleSprite.x = posX
         puzzleSprite.y = posY

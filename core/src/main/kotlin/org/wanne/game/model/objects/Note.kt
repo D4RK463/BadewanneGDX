@@ -1,7 +1,7 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
@@ -10,8 +10,8 @@ import org.wanne.game.model.player.Player
 class Note(
     posX: Float = 200F,
     posY: Float = 200F,
-    am: AssetsManager
-) : GameObject(posX, posY, am) {
+    game: WanneGame
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY
@@ -47,8 +47,8 @@ class Note(
         doCombine(dialogBoard, action, this, "Telephone")
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
+        Point(
             344,
             264
         ), Player.Companion.Looking.LEFT)

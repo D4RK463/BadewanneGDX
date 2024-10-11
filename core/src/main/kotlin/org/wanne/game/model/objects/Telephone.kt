@@ -1,7 +1,6 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
@@ -11,10 +10,9 @@ import org.wanne.game.model.player.Player
 class Telephone(
     posX: Float = 745F,
     posY: Float = 366F,
-    am: AssetsManager,
     val winningRequiredGameObjectList: List<GameObject>,
-    private val game: WanneGame,
-) : GameObject(posX, posY, am) {
+    game: WanneGame,
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY
@@ -110,8 +108,8 @@ class Telephone(
         }
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
+        Point(
             650,
             266
         ), Player.Companion.Looking.RIGHT)

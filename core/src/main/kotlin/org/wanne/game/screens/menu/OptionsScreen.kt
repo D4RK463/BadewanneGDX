@@ -17,11 +17,15 @@ class OptionsScreen(
 
     override fun buildMenu() {
 
+        val languageLabel = Label("Sprache auswählen:", skin)
+        languageLabel.setPosition(350f, 520f)
+        languageLabel.color = Color.BLACK
+
         val languageSelectBox = SelectBox<String>(skin)
         languageSelectBox.setPosition(350F, 500F)
-        languageSelectBox.setItems("DE_ORIGINAL", "DE_NEU", "EN", "DROGL")
+        languageSelectBox.setItems("DE_ORIGINAL") //, "DE_NEU", "EN", "DROGL")
         languageSelectBox.selected = game.config.language
-        languageSelectBox.width = 250F;
+        languageSelectBox.width = 250F
         languageSelectBox.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 game.config.language = languageSelectBox.selected
@@ -44,11 +48,11 @@ class OptionsScreen(
         })
 
         val musicVolumeLabel = Label("${musicVolumeLabelText}${game.config.musicVolume}", skin)
-        musicVolumeLabel.setPosition(350f, 220f)
+        musicVolumeLabel.setPosition(350f, 320f)
         musicVolumeLabel.color = Color.BLACK
 
         val musicSlider = Slider(0F, 1F, 0.05F, false, skin)
-        musicSlider.setPosition(350F, 200F)
+        musicSlider.setPosition(350F, 300F)
         musicSlider.value = game.config.musicVolume
         musicSlider.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
@@ -72,6 +76,7 @@ class OptionsScreen(
             },
         )
 
+        stage.addActor(languageLabel)
         stage.addActor(languageSelectBox)
         stage.addActor(soundVolumeLabel)
         stage.addActor(soundSlider)

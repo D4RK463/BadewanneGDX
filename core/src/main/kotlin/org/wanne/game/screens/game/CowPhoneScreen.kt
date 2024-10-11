@@ -30,10 +30,10 @@ class CowPhoneScreen(
     private val skin: Skin = game.am.get("ui/uiskin.json")
 
     // Dialog System
-    private val dialogBoard = DialogBoard(skin = skin, am = game.am)
+    private val dialogBoard = DialogBoard(skin = skin, game = game)
 
     // Objects
-    private val cow = Cow(am = game.am, game = game)
+    private val cow = Cow(game = game)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
@@ -15,8 +15,8 @@ import java.util.*
 abstract class GameObject(
     posX: Float,
     posY: Float,
-    am: AssetsManager
-) : AbstractObject(posX, posY, am) {
+    game: WanneGame
+) : AbstractObject(posX, posY, game) {
     val inventoryAtlas: TextureAtlas = am.get("pictures/Items/inventory.atlas")
 
     private val random = Random()
@@ -110,7 +110,7 @@ abstract class GameObject(
         itemAtlas.dispose()
     }
 
-    abstract fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?>
+    abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>
 
     abstract fun getToolTipDescription(): String
 

@@ -1,7 +1,7 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
@@ -9,8 +9,8 @@ import org.wanne.game.model.player.Player
 class IceMenuLeft(
     posX: Float = 492F,
     posY: Float = 473F,
-    am: AssetsManager
-) : GameObject(posX, posY, am) {
+    game: WanneGame
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY
@@ -26,8 +26,8 @@ class IceMenuLeft(
         dialogBoard.prepLookAt("So viele leckere Sorten. Wow!")
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
+        Point(
             400,
             308
         ), Player.Companion.Looking.RIGHT)

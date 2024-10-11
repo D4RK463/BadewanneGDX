@@ -16,11 +16,11 @@ class Inventory private constructor() {
 
     private val positions =
         arrayOf(
-            org.wanne.game.model.Point(365, 22), // 1
-            org.wanne.game.model.Point(490, 18), // 2
-            org.wanne.game.model.Point(615, 16), // 3
-            org.wanne.game.model.Point(735, 16), // 4
-            org.wanne.game.model.Point(862, 16), // 5
+            Point(365, 22), // 1
+            Point(490, 18), // 2
+            Point(615, 16), // 3
+            Point(735, 16), // 4
+            Point(862, 16), // 5
         )
 
     fun addGameObjectToInventory(gameObject: GameObject) {

@@ -16,7 +16,6 @@ class NetworkScreen(
     game: WanneGame,
 ) : AbstractOptionsScreen(game) {
 
-
     override fun buildMenu() {
 
         val ipField = TextField("IP Adresse eingeben", skin)

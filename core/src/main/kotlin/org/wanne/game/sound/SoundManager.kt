@@ -8,14 +8,12 @@ class SoundManager(private val config: Config) {
 
     private var aboutToPlayingSound: Sound? = null
 
-    private var language: Language = Language.fromSaveString(config.language)
-
     fun playSound(
         collection: SoundCollection,
         index: Int,
         volume: Float = config.soundVolume,
     ) {
-        aboutToPlayingSound = collection.get(language, index)
+        aboutToPlayingSound = collection.get(Language.fromSaveString(config.language), index)
 
         // Stellt sicher, dass der Sound nur einmal gespielt wird
         if (playingSound != aboutToPlayingSound) {

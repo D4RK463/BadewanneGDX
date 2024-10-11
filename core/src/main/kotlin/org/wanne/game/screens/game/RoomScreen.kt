@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
-import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.game.model.animation.FireAnimation
 import org.wanne.game.model.animation.PowerUpAnimation
 import org.wanne.game.model.objects.Bed
@@ -38,6 +37,7 @@ import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.screens.AbstractWalkableScreen
+import org.wanne.game.stage.PointAndClickAwareStage
 
 class RoomScreen(
     private var game: WanneGame,
@@ -58,38 +58,37 @@ class RoomScreen(
     private val powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
 
     // Objects
-    private val pills = Pills(am = game.am)
-    private val bed = Bed(am = game.am)
-    private val roomWindow = Window(am = game.am)
-    private val drawer = Drawer(am = game.am)
-    private val door = Door(am = game.am)
-    private val pa2Poster = PA2Poster(am = game.am)
-    private val brucePoster = BrucePoster(am = game.am)
-    private val deanPoster = DeanPoster(am = game.am)
-    private val rug = Rug(am = game.am)
-    private val stickers = Stickers(am = game.am)
-    private val straw = Straw(am = game.am)
-    private val box = Box(am = game.am)
-    private val safe = Safe(am = game.am)
-    private val drBear = DrBear(am = game.am, gameObjectToAppear = pills, game = game)
-    private val milkSucker = MilkSucker(am = game.am)
-    private val stethoscope = Stethoscope(am = game.am, gameObjectToAppear = milkSucker)
-    private val scalpel = Scalpel(am = game.am, gameObjectToAppear = pills)
-    private val note = Note(am = game.am)
+    private val pills = Pills(game = game)
+    private val bed = Bed(game = game)
+    private val roomWindow = Window(game = game)
+    private val drawer = Drawer(game = game)
+    private val door = Door(game = game)
+    private val pa2Poster = PA2Poster(game = game)
+    private val brucePoster = BrucePoster(game = game)
+    private val deanPoster = DeanPoster(game = game)
+    private val rug = Rug(game = game)
+    private val stickers = Stickers(game = game)
+    private val straw = Straw(game = game)
+    private val box = Box(game = game)
+    private val safe = Safe(game = game)
+    private val drBear = DrBear(game = game, gameObjectToAppear = pills)
+    private val milkSucker = MilkSucker(game = game)
+    private val stethoscope = Stethoscope(game = game, gameObjectToAppear = milkSucker)
+    private val scalpel = Scalpel(game = game, gameObjectToAppear = pills)
+    private val note = Note(game = game)
     private val mario =
         Mario(
-            am = game.am,
+            game = game,
             gameObjectToManipulate = rug,
             gameObjectToAppear = note,
             fireAnimation = fireAnimation,
-            powerUpAnimation = powerUpAnimation,
-            game = game,
+            powerUpAnimation = powerUpAnimation
         )
-    private val bell = Cowbell(am = game.am)
-    private val teddy = Teddy(am = game.am, gameObjectToCheck = mario, game = game)
-    private val flower = FireFlower(am = game.am, gameObjectToManipulate = mario, game = game)
-    private val telephone = Telephone(am = game.am, winningRequiredGameObjectList = listOf(milkSucker, pills, bell), game = game)
-    private val exit = Exit(am = game.am, game = game)
+    private val bell = Cowbell(game = game)
+    private val teddy = Teddy(game = game, gameObjectToCheck = mario)
+    private val flower = FireFlower(game = game, gameObjectToManipulate = mario)
+    private val telephone = Telephone(game = game, winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
+    private val exit = Exit(game = game)
 
     // Players
     private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)

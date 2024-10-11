@@ -32,9 +32,9 @@ class PuzzleScreen(
 
     private lateinit var viewport: FitViewport
 
-    private val puzzle = Puzzle(game.am)
+    private val puzzle = Puzzle(game)
 
-    private val victoryMessage = org.wanne.game.model.puzzle.VictoryMessage(am = game.am)
+    private val victoryMessage = VictoryMessage(game = game)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 

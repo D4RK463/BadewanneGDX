@@ -1,23 +1,23 @@
 package org.wanne.game.model.puzzle
 
 import com.badlogic.gdx.scenes.scene2d.Stage
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 
-class Puzzle(private val am: AssetsManager) {
+class Puzzle (private val game: WanneGame) {
     private val puzzle: MutableList<PuzzlePiece> = ArrayList()
 
     private val positions =
         arrayOf(
-            org.wanne.game.model.Point(210, 510), // 1
-            org.wanne.game.model.Point(410, 510), // 2
-            org.wanne.game.model.Point(610, 510), // 3
-            org.wanne.game.model.Point(210, 310), // 4
-            org.wanne.game.model.Point(410, 310), // 5
-            org.wanne.game.model.Point(610, 310), // 6
-            org.wanne.game.model.Point(210, 110), // 7
-            org.wanne.game.model.Point(410, 110), // 8
-            org.wanne.game.model.Point(610, 110), // 9
+            Point(210, 510), // 1
+            Point(410, 510), // 2
+            Point(610, 510), // 3
+            Point(210, 310), // 4
+            Point(410, 310), // 5
+            Point(610, 310), // 6
+            Point(210, 110), // 7
+            Point(410, 110), // 8
+            Point(610, 110), // 9
         )
 
     private val expectedPieceNumberSequence = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
@@ -33,7 +33,7 @@ class Puzzle(private val am: AssetsManager) {
                     point = positions[index],
                     pieceNumber = element,
                     indexNumber = index,
-                    am = am
+                    game = game
                 ),
             )
         }

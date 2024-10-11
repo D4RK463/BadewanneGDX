@@ -1,7 +1,7 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
+import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.IcemanAnimation
@@ -11,9 +11,9 @@ import org.wanne.game.model.player.Player
 class Iceman(
     posX: Float = 559F,
     posY: Float = 426F,
-    am: AssetsManager,
-    private val gameObjectToAppear: org.wanne.game.model.objects.GameObject,
-) : org.wanne.game.model.objects.GameObject(posX, posY, am) {
+    game: WanneGame,
+    private val gameObjectToAppear: GameObject,
+) : GameObject(posX, posY, game) {
     private val icemanAnimation: IcemanAnimation  = IcemanAnimation(posX, posY, true, am)
 
     init {
@@ -23,7 +23,7 @@ class Iceman(
         width = getSprite(0F).width
     }
 
-    private var chosenWay: org.wanne.game.model.objects.Iceman.Way = org.wanne.game.model.objects.Iceman.Way.NONE
+    private var chosenWay: Way = Way.NONE
 
     private var iceGiven = false
 
@@ -45,7 +45,7 @@ class Iceman(
     ) {
 
         when (chosenWay) {
-            org.wanne.game.model.objects.Iceman.Way.NONE -> {
+            Way.NONE -> {
                 when (action.lastSentence) {
                     "Hell und funkelt! Und bei dir?" -> {
                         dialogBoard.prepTalkTo(
@@ -65,7 +65,7 @@ class Iceman(
                             null,
                             action,
                         )
-                        chosenWay = org.wanne.game.model.objects.Iceman.Way.GOOD
+                        chosenWay = Way.GOOD
 
                         // Eis ins Inventar packen
                         if (!gameObjectToAppear.isVisible) {
@@ -104,7 +104,7 @@ class Iceman(
                             null,
                             action,
                         )
-                        chosenWay = org.wanne.game.model.objects.Iceman.Way.BAD
+                        chosenWay = Way.BAD
                     }
 
                     "Ich schau mal in meiner Hose nach." -> {
@@ -129,7 +129,7 @@ class Iceman(
                     }
                 }
             }
-            org.wanne.game.model.objects.Iceman.Way.GOOD -> {
+            Way.GOOD -> {
                 when (action.lastSentence) {
                     "Danke, wir haben genug!" -> {
                         dialogBoard.prepTalkTo(
@@ -182,7 +182,7 @@ class Iceman(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (chosenWay == org.wanne.game.model.objects.Iceman.Way.BAD) {
+        if (chosenWay == Way.BAD) {
             doCombine(dialogBoard, action, this, "GoldBag")
         } else {
             super.combine(dialogBoard, action)
@@ -210,8 +210,8 @@ class Iceman(
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
+        Point(
             524,
             234
         ), Player.Companion.Looking.RIGHT)

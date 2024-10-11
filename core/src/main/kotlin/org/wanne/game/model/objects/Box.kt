@@ -1,16 +1,15 @@
 package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
-import org.wanne.game.model.Point
+import org.wanne.game.WanneGame
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
 
 class Box(
     posX: Float = 678F,
     posY: Float = 272F,
-    am: AssetsManager
-) : GameObject(posX, posY, am) {
+    game: WanneGame
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY

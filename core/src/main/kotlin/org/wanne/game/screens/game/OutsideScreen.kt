@@ -41,14 +41,14 @@ class OutsideScreen(
     private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
 
     // Objects
-    private val ice = Ice(am = game.am)
-    private val iceMenuLeft = IceMenuLeft(am = game.am)
-    private val iceMenuRight = IceMenuRight(am = game.am)
-    private val honkSign = HonkSign(am = game.am)
-    private val street = org.wanne.game.model.objects.Street(am = game.am)
-    private val graffiti = Graffiti(am = game.am)
-    private val iceman = org.wanne.game.model.objects.Iceman(am = game.am, gameObjectToAppear = ice)
-    private val goldBag = GoldBag(am = game.am)
+    private val ice = Ice(game = game)
+    private val iceMenuLeft = IceMenuLeft(game = game)
+    private val iceMenuRight = IceMenuRight(game = game)
+    private val honkSign = HonkSign(game = game)
+    private val street = Street(game = game)
+    private val graffiti = Graffiti(game = game)
+    private val iceman = Iceman(game = game, gameObjectToAppear = ice)
+    private val goldBag = GoldBag(game = game)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1024, 768)

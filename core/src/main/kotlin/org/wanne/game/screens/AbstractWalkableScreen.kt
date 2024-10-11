@@ -12,13 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
-import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
-import kotlin.system.exitProcess
+import org.wanne.game.stage.PointAndClickAwareStage
 
 abstract class AbstractWalkableScreen(
     private var game: WanneGame,
@@ -29,7 +28,7 @@ abstract class AbstractWalkableScreen(
 
     val skin: Skin = game.am.get("ui/uiskin.json")
 
-    val dialogBoard = DialogBoard(skin = skin,  am = game.am)
+    val dialogBoard = DialogBoard(skin = skin,  game = game)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
@@ -235,12 +234,12 @@ abstract class AbstractWalkableScreen(
 
         val exitButton =
             game.createUIButton(
-                buttonAtlas.createSprite("exit"),
-                buttonAtlas.createSprite("exitPressed"),
-                980f,
+                buttonAtlas.createSprite("Passen"),
+                buttonAtlas.createSprite("PassenPressed"),
+                978f,
                 705f,
             )
-        exitButton.addListener(TextTooltip("raus hier", skin))
+        exitButton.addListener(TextTooltip("zurück zum Hauptmenü", skin))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -248,7 +247,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     resetPlayerAndSound()
-                    exitProcess(0)
+                    game.screen = game.mainMenuScreen
                 }
             },
         )

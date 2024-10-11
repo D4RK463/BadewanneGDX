@@ -3,27 +3,24 @@ package org.wanne.game.model.objects
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
-import org.wanne.game.AssetsManager
 import org.wanne.game.WanneGame
-import org.wanne.game.sound.collections.MarioSoundCollection
 import org.wanne.game.model.ActionType
-import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.FireAnimation
 import org.wanne.game.model.animation.PowerUpAnimation
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
+import org.wanne.game.sound.collections.MarioSoundCollection
 
 class Mario(
     posX: Float = 82F,
     posY: Float = 345F,
-    am: AssetsManager,
     private val gameObjectToManipulate: GameObject,
     private val gameObjectToAppear: GameObject,
     private val fireAnimation: FireAnimation,
-    private val powerUpAnimation: org.wanne.game.model.animation.PowerUpAnimation,
-    private val game: WanneGame,
-) : GameObject(posX, posY, am) {
+    private val powerUpAnimation: PowerUpAnimation,
+    game: WanneGame,
+) : GameObject(posX, posY, game) {
     init {
         x = posX
         y = posY
