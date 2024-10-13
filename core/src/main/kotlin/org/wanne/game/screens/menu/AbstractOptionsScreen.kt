@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
+import org.wanne.game.model.animation.WaterAboveAnimation
 import org.wanne.game.screens.AbstractMenuScreen
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
@@ -14,6 +15,8 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
     lateinit var stage: Stage
 
     var background: Texture = game.am.get("pictures/Menue/options.png")
+
+    private val waterAnimation = WaterAboveAnimation(230F, 220F, true, game.am)
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1280, 720)
@@ -38,6 +41,10 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
 
         stage.act()
         stage.draw()
+
+        batch.begin()
+        waterAnimation.draw(batch, Gdx.graphics.deltaTime)
+        batch.end()
     }
 
     override fun resize(width: Int, height: Int) {

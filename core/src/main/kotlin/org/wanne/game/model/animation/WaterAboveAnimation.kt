@@ -5,17 +5,17 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import org.wanne.game.AssetsManager
 
-class WaterAnimation(
+class WaterAboveAnimation(
     posX: Float,
     posY: Float,
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
-    private val waterFlowing: TextureAtlas = am.get("pictures/Menue/water.atlas")
+    private val waterFlowing: TextureAtlas = am.get("pictures/Menue/water_above.atlas")
 
     private val waterAnimation = Animation(
         0.099f,
-        waterFlowing.createSprites("water"),
+        waterFlowing.createSprites("water_above"),
         Animation.PlayMode.LOOP,
     )
 

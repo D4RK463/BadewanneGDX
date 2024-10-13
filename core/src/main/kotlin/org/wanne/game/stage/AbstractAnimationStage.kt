@@ -28,7 +28,6 @@ abstract class AbstractAnimationStage(
 
         if (!root.isVisible) return
 
-        val batch = this.batch
         batch.projectionMatrix = camera.combined
         batch.begin()
 

@@ -66,6 +66,7 @@ class AssetsManager {
         assetManager.load("pictures/Items/iceman.atlas", TextureAtlas::class.java)
 
         assetManager.load("pictures/Menue/water.atlas", TextureAtlas::class.java)
+        assetManager.load("pictures/Menue/water_above.atlas", TextureAtlas::class.java)
     }
 
     fun loadMusic() {
