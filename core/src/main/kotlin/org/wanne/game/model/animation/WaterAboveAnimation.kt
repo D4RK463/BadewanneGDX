@@ -13,7 +13,7 @@ class WaterAboveAnimation(
 ): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
     private val waterFlowing: TextureAtlas = am.get("pictures/Menue/water_above.atlas")
 
-    private val waterAnimation = Animation(
+    val waterAnimation = Animation(
         0.099f,
         waterFlowing.createSprites("water_above"),
         Animation.PlayMode.LOOP,
