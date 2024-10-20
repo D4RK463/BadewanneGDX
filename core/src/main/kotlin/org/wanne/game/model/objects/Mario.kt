@@ -4,11 +4,18 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.collections.MarioDialogCollection
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.FireAnimation
 import org.wanne.game.model.animation.PowerUpAnimation
 import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.model.objects.MarioState.AFTER_RUG_USAGE
+import org.wanne.game.model.objects.MarioState.NORMAL
+import org.wanne.game.model.objects.MarioState.NORMAL_END
+import org.wanne.game.model.objects.MarioState.PISSED
+import org.wanne.game.model.objects.MarioState.POWERED_UP
+import org.wanne.game.model.objects.MarioState.POWERED_UP_END
 import org.wanne.game.model.player.Player
 import org.wanne.game.sound.collections.MarioSoundCollection
 
@@ -28,18 +35,27 @@ class Mario(
         width = getSprite(0F).width
     }
 
-    var poweredUp = false
-
-    var talkForTheFirstTime = true
-
-    private var pissed = false
-
-    private var talkForTheFirstTimeAfterPoweredUp = true
+    private var state = NORMAL
 
     private val soundCollection = MarioSoundCollection(am)
 
+    private val dialogCollection = MarioDialogCollection(am)
+
+    fun poweredUp():Boolean {
+        return state in arrayOf(
+            POWERED_UP,
+            POWERED_UP_END,
+            AFTER_RUG_USAGE,
+            PISSED
+        )
+    }
+
+    fun didntTalkForTheFirstTime() : Boolean {
+        return state == NORMAL_END
+    }
+
     override fun getSprite(time: Float): Sprite =
-        if (poweredUp) {
+        if (poweredUp()) {
             addPositionToSprite(itemAtlas.createSprite("Feuermario"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Mario"))
@@ -48,14 +64,16 @@ class Mario(
     override fun getName(): String = "Mario"
 
     override fun look(dialogBoard: DialogBoard) {
-        if (poweredUp) {
-            if (pissed) {
-                dialogBoard.prepLookAt("It's a him, pissed off Feuermario!")
-            } else {
+        when (state) {
+            POWERED_UP, POWERED_UP_END, AFTER_RUG_USAGE -> {
                 dialogBoard.prepLookAt("It's a him, Feuermario!")
             }
-        } else {
-            dialogBoard.prepLookAt("It's a him, Mario!")
+            PISSED -> {
+                dialogBoard.prepLookAt("It's a him, pissed off Feuermario!")
+            }
+            else -> {
+                dialogBoard.prepLookAt("It's a him, Mario!")
+            }
         }
     }
 
@@ -63,117 +81,24 @@ class Mario(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (!poweredUp) {
-            when (action.lastSentence) {
-                "Was'n los ?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Mario: Die Prinzessin hat mich verlassen,",
-                        "weil ich mein 'Feuer' verloren hab.",
-                        "Erzähl mir mehr.",
-                        "Mir doch egal",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 1)
-                }
-                "Mir doch egal", "Erzähl mir mehr." -> {
-                    dialogBoard.prepTalkTo(
-                        "Mario: Seit dem der fiese Bowser weg ist,",
-                        "ist die Action aus der Beziehung raus.",
-                        null,
-                        "*laber* ...",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 2)
-                }
-                "*laber* ..." -> {
-                    dialogBoard.prepTalkTo(
-                        "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
-                        "Dabei mag ich Steine nichtmal :(",
-                        null,
-                        "bla, bla, bla...",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 3)
-                }
-                "bla, bla, bla..." -> {
-                    dialogBoard.prepTalkTo(
-                        "Mario: Weisst du vielleicht wie man ",
-                        "das Feuer wieder entfachen kann?",
-                        null,
-                        null,
-                        action,
-                    )
-                    talkForTheFirstTime = false
-                    action.reset()
-                    game.soundManager.playSound(soundCollection, 4)
-                }
-                else -> {
-                    if (talkForTheFirstTime) {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Lass mich, ich bin gerad betrübt.",
-                            null,
-                            "Was'n los ?",
-                            null,
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 0)
-                    } else {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Weisst du vielleicht wie man ",
-                            "das Feuer wieder entfachen kann?",
-                            null,
-                            null,
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 4)
+        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(correctSentence(action.lastSentence, action), dialogCollection)
+        dialogBoard.prepTalkTo(dialog, action)
+
+        if (!game.talkedToCow) {
+            when (state) {
+                NORMAL -> {
+                    if (dialog?.stateChange == true) {
+                        state = NORMAL_END
                         action.reset()
                     }
                 }
-            }
-        } else {
-            if (!game.talkedToCow) {
-                when (action.lastSentence) {
-                    "Wie sind wir hier her gekommen?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Hier landen alle Leute die ",
-                            "sich im Ausguss verirren.",
-                            "Warum ist die Tür verschlossen?",
-                            "Und was mach ich nun?",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 6)
-                    }
-                    "Warum ist die Tür verschlossen?", "Geht net, die Tür ist zu." -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Der Wächter hat sie versiegelt.",
-                            null,
-                            "Wo ist der Wächter?",
-                            "Wer ist der Wächter?",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 7)
-                    }
-                    "Und was mach ich nun?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Vielleicht solltest du versuchen ",
-                            "aus dem Raum zu entkommen?",
-                            null,
-                            "Geht net, die Tür ist zu.",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 8)
-                    }
-                    "Wo ist der Wächter?", "Wo kann ich ihn finden?", "Wo ist nochma der Wächter?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Ich hab keine Ahnung wo er ist.",
-                            "Aber ich hab seine Telefonnummer.",
-                            null,
-                            null,
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 9)
+                NORMAL_END -> {
+                    action.reset()
+                }
 
-                        talkForTheFirstTimeAfterPoweredUp = false
+                POWERED_UP -> {
+                    if (dialog?.stateChange == true) {
+                        state = POWERED_UP_END
 
                         // Telefonnummer-Zettel ins Inventar packen
                         if (!gameObjectToAppear.isVisible) {
@@ -183,180 +108,81 @@ class Mario(
 
                         action.reset()
                     }
-                    "Wer ist der Wächter?", "Wer ist nochma der Wächter?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Das ist eine abgrundtief böse Kreatur.",
-                            "Es gibt niemand der sie gesehen hat und noch lebt.",
-                            "Klar doch!",
-                            "Weiter...",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 10)
-                    }
-                    "Weiter..." -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Es wird gemunkelt das der Wächter die ",
-                            "Seelen derer erntet die sich im Ausguss verirren.",
-                            "Übertrieben!",
-                            "WOW!!!",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 11)
-                    }
-                    "WOW!!!" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Er soll riesig groß sein mit ",
-                            "fürchterlichen Klauen und Eiter triefendem Maul.",
-                            "Wo kann ich ihn finden?",
-                            "Du laberst doch nur!",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 12)
-                    }
-                    "Du laberst doch nur!", "Übertrieben!", "Klar doch!" -> {
-                        dialogBoard.prepTalkTo(
-                            "Mario: Wenn du meinst aber ich hab dich gewarnt.",
-                            null,
-                            null,
-                            "Wo kann ich ihn finden?",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 13)
-                    }
-                    else -> {
-                        if (talkForTheFirstTimeAfterPoweredUp) {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Klasse, Danke. Damit kann ich ",
-                                "die Prinzessin bestimmt wieder zurückgewinnen.",
-                                "Wie sind wir hier her gekommen?",
-                                "Warum ist die Tür verschlossen?",
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 5)
-                        } else {
-                            dialogBoard.prepTalkTo(
-                                "Ich hab da was nicht mitbekommen.",
-                                null,
-                                "Wer ist nochma der Wächter?",
-                                "Wo ist nochma der Wächter?",
-                                action,
-                            )
-                        }
-                    }
                 }
+                POWERED_UP_END -> {
+                }
+                else -> {
+                    throw IllegalStateException("Unmöglichen Dialog-Status erreicht")
+                }
+            }
+        } else {
+            if (!action.usedRug) {
+                action.reset()
             } else {
-                if (!action.usedRug) {
-                    dialogBoard.prepTalkTo(
-                        "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
-                        "bloß froh das man durchs Telefon nichts riechen kann!",
-                        null,
-                        null,
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 21)
-                    action.reset()
-                } else {
-                    when (action.lastSentence) {
-                        "Warum liegt hier eigentlich Stroh?" -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Warum hast du ne Maske auf?",
-                                null,
-                                null,
-                                null,
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 15)
-                            action.reset()
-                        }
-                        "Warum lässt sich der Teppich nicht bewegen?" -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Langsam hab ich keine Lust mehr dir ",
-                                "zu helfen. Wir sind schon quitt.",
-                                null,
-                                "Bitte, bitte...",
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 16)
-                        }
-                        "Was riecht hier so komisch?" -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Frag ma deinen dicken Freund da drüben. XD",
-                                null,
-                                "Warum liegt hier eigentlich Stroh?",
-                                "Warum lässt sich der Teppich nicht bewegen?",
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 17)
-                        }
-                        "Bitte, bitte..." -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Na gut, es wird erzählt das der Wächter ",
-                                "den Teppich festgenagelt hat.",
-                                null,
-                                "Kannst du mir helfen den Teppich loszuwerden?",
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 18)
-                        }
-                        "Kannst du mir helfen den Teppich loszuwerden?" -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Ich würde dir ja helfen aber ich will nicht.",
-                                null,
-                                "Du #*%&!!! Ich hasse dich!!",
-                                "*schnief* Bitte, bitte ich tu auch alles für dich!",
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 19)
-                        }
-                        "Du #*%&!!! Ich hasse dich!!", "*schnief* Bitte, bitte ich tu auch alles für dich!" -> {
-                            dialogBoard.prepTalkTo(
-                                "Mario: Na gut, na gut, aber wehe du erzählst es ",
-                                "den Anderen. Mehr werde ich nicht helfen!",
-                                null,
-                                null,
-                                action,
-                            )
-                            game.soundManager.playSound(soundCollection, 20)
+                when (state) {
+                    POWERED_UP_END -> {
+                        state = AFTER_RUG_USAGE
+                    }
+                    AFTER_RUG_USAGE -> {
+                        if (dialog?.stateChange == true) {
+                            state = PISSED
 
                             if (gameObjectToManipulate is Rug) {
                                 gameObjectToManipulate.burned = true
                                 fireAnimation.visible = true
                             }
-                            pissed = true
 
                             action.reset()
                         }
-                        else -> {
-                            if (pissed) {
-                                dialogBoard.prepTalkTo(
-                                    "Mario: Das reicht jetzt! Wir kennen uns nicht!",
-                                    null,
-                                    null,
-                                    null,
-                                    action,
-                                )
-                                game.soundManager.playSound(soundCollection, 14)
-                            } else {
-                                dialogBoard.prepTalkTo(
-                                    "Hi Mario!!",
-                                    null,
-                                    "Warum lässt sich der Teppich nicht bewegen?",
-                                    "Was riecht hier so komisch?",
-                                    action,
-                                )
-                            }
-                        }
+                    }
+                    PISSED -> {
+                        action.reset()
+                    }
+                    else -> {
+                        throw IllegalStateException("Unmöglichen Dialog-Status erreicht")
                     }
                 }
             }
         }
     }
 
+    private fun correctSentence(sentence: String, action: PointAndClickAction) : String {
+        if (sentence == "Start") {
+            if (!game.talkedToCow) {
+                if (state == NORMAL) {
+                    return "Start1"
+                }
+                if (state == NORMAL_END) {
+                    return "Start2"
+                }
+                if (state == POWERED_UP) {
+                    return "Start3"
+                }
+                if (state == POWERED_UP_END) {
+                    return "Start4"
+                }
+            } else {
+                if (!action.usedRug) {
+                    return "Start5"
+                } else {
+                    if (state == POWERED_UP_END || state == AFTER_RUG_USAGE) {
+                        return "Start7"
+                    }
+                    if (state == PISSED) {
+                        return "Start6"
+                    }
+                }
+            }
+        }
+
+        return sentence
+    }
+
     override fun combine(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (!talkForTheFirstTime) {
+        if (state == NORMAL_END) {
             doCombine(dialogBoard, action, this, "FireFlower")
         } else {
             super.combine(dialogBoard, action)
@@ -367,7 +193,8 @@ class Mario(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        poweredUp = true
+        state = POWERED_UP
+
         powerUpAnimation.visible = true
         game.soundManager.playSound(soundCollection, 22)
         action.marioPoweredUp = true
@@ -382,4 +209,13 @@ class Mario(
         ), Player.Companion.Looking.LEFT)
 
     override fun getToolTipDescription(): String = "Mario"
+}
+
+enum class MarioState {
+    NORMAL,
+    NORMAL_END,
+    POWERED_UP,
+    POWERED_UP_END,
+    AFTER_RUG_USAGE,
+    PISSED
 }

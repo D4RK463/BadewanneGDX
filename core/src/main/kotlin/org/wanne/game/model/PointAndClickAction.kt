@@ -19,14 +19,14 @@ class PointAndClickAction(
 
     val inventory = Inventory.getInstance()
 
-    var lastSentence: String? = null
+    var lastSentence: String = "Start"
 
     var usedRug = false
     var marioPoweredUp = false
 
     fun reset(resetObjectToo: Boolean = true) {
         type = ActionType.NOTHING
-        lastSentence = null
+        lastSentence = "Start"
 
         if (resetObjectToo) {
             clickedObject = null

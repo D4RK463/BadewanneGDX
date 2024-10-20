@@ -121,6 +121,8 @@ class RoomScreen(
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+
+        game.startedGame = true
     }
 
     private fun createGameObjects() {

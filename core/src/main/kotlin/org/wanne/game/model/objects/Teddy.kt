@@ -24,7 +24,7 @@ class Teddy(
     private val soundCollection = TeddySoundCollection(am)
 
     override fun getSprite(time: Float): Sprite =
-        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {
+        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
             addPositionToSprite(itemAtlas.createSprite("TeddyTraurig"))
         } else {
             addPositionToSprite(itemAtlas.createSprite("Teddy"))
@@ -33,7 +33,7 @@ class Teddy(
     override fun getName(): String = "Teddy"
 
     override fun look(dialogBoard: DialogBoard) {
-        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {
+        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
             dialogBoard.prepLookAt("Ein trauriger Teddy.", "So süß das man fast Karies davon kriegt.")
         } else {
             dialogBoard.prepLookAt("Ein Teddy.", "Er sieht schon etwas mutiger aus.")
@@ -44,7 +44,7 @@ class Teddy(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp) {
+        if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
             when (action.lastSentence) {
                 "Wo bin ich hier?" -> {
                     dialogBoard.prepTalkTo(

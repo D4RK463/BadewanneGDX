@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.Dialog
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.PointAndClickAction
@@ -111,6 +112,16 @@ class DialogBoard(
         label4.isVisible = false
 
         this.isVisible = true
+    }
+
+    fun prepTalkTo(dialog: Dialog?, action: PointAndClickAction) {
+        dialog?.let { prepTalkTo(
+            it.talkToSentence,
+            it.talkToSentence2,
+            it.answer1,
+            it.answer2,
+            action
+        ) }
     }
 
     fun prepTalkTo(

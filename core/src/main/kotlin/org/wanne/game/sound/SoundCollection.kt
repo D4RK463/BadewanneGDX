@@ -6,21 +6,21 @@ import org.wanne.game.AssetsManager
 open class SoundCollection(val am: AssetsManager) {
     private val sounds =
         mapOf(
-            Language.DE_ORIGINAL to mutableListOf<Sound>(),
-            Language.DE_NEU to mutableListOf<Sound>(),
-            Language.EN to mutableListOf<Sound>(),
-            Language.DROGL to mutableListOf<Sound>(),
+            Speech.DE_ORIGINAL to mutableListOf<Sound>(),
+            Speech.DE_NEU to mutableListOf<Sound>(),
+            Speech.EN to mutableListOf<Sound>(),
+            Speech.DROGL to mutableListOf<Sound>(),
         )
 
     fun addSound(
-        language: Language,
+        speech: Speech,
         sound: Sound,
     ) {
-        sounds[language]?.add(sound)
+        sounds[speech]?.add(sound)
     }
 
     fun get(
-        language: Language,
+        speech: Speech,
         index: Int,
-    ): Sound? = sounds[language]?.get(index)
+    ): Sound? = sounds[speech]?.get(index)
 }

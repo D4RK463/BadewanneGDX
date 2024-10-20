@@ -70,7 +70,13 @@ class MainMenuScreen(
     }
 
     private fun buildMenu() {
-        val startButton = createTextButton("Singleplayer", 100f, 400f)
+        val singlePlayerButtonText = if (game.startedGame) {
+            "Continue"
+        } else {
+            "Singleplayer"
+        }
+
+        val startButton = createTextButton(singlePlayerButtonText, 100f, 400f)
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(

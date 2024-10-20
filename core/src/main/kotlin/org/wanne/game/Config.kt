@@ -3,7 +3,7 @@ package org.wanne.game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Preferences
 import ktx.preferences.set
-import org.wanne.game.sound.Language
+import org.wanne.game.sound.Speech
 
 class Config {
 
@@ -21,7 +21,7 @@ class Config {
 
     var extrasUnlocked: Boolean = prefs.getBoolean("extrasUnlocked", false)
 
-    var language: String = Language.DE_ORIGINAL.language
+    var speech: String = Speech.DE_ORIGINAL.speech
 
     fun saveSettings() {
         prefs["ipAddress"] = ipAddress
@@ -30,7 +30,7 @@ class Config {
         prefs["soundVolume"] = soundVolume
         prefs["musicVolume"] = musicVolume
         prefs["extrasUnlocked"] = extrasUnlocked
-        prefs["language"] = language
+        prefs["language"] = speech
 
         prefs.flush()
     }

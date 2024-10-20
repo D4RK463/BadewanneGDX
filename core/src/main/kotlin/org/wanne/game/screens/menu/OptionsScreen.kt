@@ -24,11 +24,11 @@ class OptionsScreen(
         val languageSelectBox = SelectBox<String>(skin)
         languageSelectBox.setPosition(350F, 500F)
         languageSelectBox.setItems("DE_ORIGINAL") //, "DE_NEU", "EN", "DROGL")
-        languageSelectBox.selected = game.config.language
+        languageSelectBox.selected = game.config.speech
         languageSelectBox.width = 250F
         languageSelectBox.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
-                game.config.language = languageSelectBox.selected
+                game.config.speech = languageSelectBox.selected
             }
         })
 

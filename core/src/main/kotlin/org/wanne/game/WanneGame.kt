@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import org.wanne.game.dialog.DialogManager
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
 import org.wanne.game.screens.menu.NetworkScreen
@@ -45,10 +46,13 @@ class WanneGame(val android: Boolean): Game() {
 
     lateinit var config: Config
     lateinit var soundManager: SoundManager
+    lateinit var dialogManager: DialogManager
     val am = AssetsManager()
 
     lateinit var client: Client
     lateinit var server: Server
+
+    var startedGame = false
 
     var isSingleplayer = true
     var puzzleSolved = false
@@ -60,6 +64,7 @@ class WanneGame(val android: Boolean): Game() {
         batch = SpriteBatch()
         config = Config()
         soundManager = SoundManager(config)
+        dialogManager = DialogManager(config, soundManager)
 
         setScreen(LoadingScreen(this))
     }
