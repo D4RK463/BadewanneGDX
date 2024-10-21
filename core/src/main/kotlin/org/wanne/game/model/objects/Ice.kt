@@ -6,7 +6,6 @@ import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
-import kotlin.system.exitProcess
 
 class Ice(
     posX: Float = 695F,
@@ -44,7 +43,9 @@ class Ice(
     ) {
         // ToDo: Endvideo einfügen
         println("Game Over")
-        exitProcess(0)
+
+        game.startedGame = false
+        game.screen = game.mainMenuScreen
     }
 
 }

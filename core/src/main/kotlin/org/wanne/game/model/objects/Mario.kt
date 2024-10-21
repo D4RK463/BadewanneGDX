@@ -17,7 +17,6 @@ import org.wanne.game.model.objects.MarioState.PISSED
 import org.wanne.game.model.objects.MarioState.POWERED_UP
 import org.wanne.game.model.objects.MarioState.POWERED_UP_END
 import org.wanne.game.model.player.Player
-import org.wanne.game.sound.collections.MarioSoundCollection
 
 class Mario(
     posX: Float = 82F,
@@ -37,11 +36,9 @@ class Mario(
 
     private var state = NORMAL
 
-    private val soundCollection = MarioSoundCollection(am)
-
     private val dialogCollection = MarioDialogCollection(am)
 
-    fun poweredUp():Boolean {
+    fun poweredUp(): Boolean {
         return state in arrayOf(
             POWERED_UP,
             POWERED_UP_END,
@@ -50,7 +47,7 @@ class Mario(
         )
     }
 
-    fun didntTalkForTheFirstTime() : Boolean {
+    fun didntTalkForTheFirstTime(): Boolean {
         return state == NORMAL_END
     }
 
@@ -68,9 +65,11 @@ class Mario(
             POWERED_UP, POWERED_UP_END, AFTER_RUG_USAGE -> {
                 dialogBoard.prepLookAt("It's a him, Feuermario!")
             }
+
             PISSED -> {
                 dialogBoard.prepLookAt("It's a him, pissed off Feuermario!")
             }
+
             else -> {
                 dialogBoard.prepLookAt("It's a him, Mario!")
             }
@@ -81,23 +80,27 @@ class Mario(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(correctSentence(action.lastSentence, action), dialogCollection)
+        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+            setStartSentenceAccordingToState(action.lastSentence, action),
+            dialogCollection
+        )
         dialogBoard.prepTalkTo(dialog, action)
 
         if (!game.talkedToCow) {
             when (state) {
                 NORMAL -> {
-                    if (dialog?.stateChange == true) {
+                    if (dialog?.isStateChanged() == true) {
                         state = NORMAL_END
                         action.reset()
                     }
                 }
+
                 NORMAL_END -> {
                     action.reset()
                 }
 
                 POWERED_UP -> {
-                    if (dialog?.stateChange == true) {
+                    if (dialog?.isStateChanged() == true) {
                         state = POWERED_UP_END
 
                         // Telefonnummer-Zettel ins Inventar packen
@@ -109,8 +112,10 @@ class Mario(
                         action.reset()
                     }
                 }
+
                 POWERED_UP_END -> {
                 }
+
                 else -> {
                     throw IllegalStateException("Unmöglichen Dialog-Status erreicht")
                 }
@@ -123,8 +128,9 @@ class Mario(
                     POWERED_UP_END -> {
                         state = AFTER_RUG_USAGE
                     }
+
                     AFTER_RUG_USAGE -> {
-                        if (dialog?.stateChange == true) {
+                        if (dialog?.isStateChanged() == true) {
                             state = PISSED
 
                             if (gameObjectToManipulate is Rug) {
@@ -135,9 +141,11 @@ class Mario(
                             action.reset()
                         }
                     }
+
                     PISSED -> {
                         action.reset()
                     }
+
                     else -> {
                         throw IllegalStateException("Unmöglichen Dialog-Status erreicht")
                     }
@@ -146,7 +154,7 @@ class Mario(
         }
     }
 
-    private fun correctSentence(sentence: String, action: PointAndClickAction) : String {
+    private fun setStartSentenceAccordingToState(sentence: String, action: PointAndClickAction): String {
         if (sentence == "Start") {
             if (!game.talkedToCow) {
                 if (state == NORMAL) {
@@ -196,7 +204,7 @@ class Mario(
         state = POWERED_UP
 
         powerUpAnimation.visible = true
-        game.soundManager.playSound(soundCollection, 22)
+        game.soundManager.playSound(dialogCollection.soundCollection, 22)
         action.marioPoweredUp = true
         action.type = ActionType.TALK_TO
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
@@ -206,7 +214,8 @@ class Mario(
         org.wanne.game.model.Point(
             344,
             264
-        ), Player.Companion.Looking.LEFT)
+        ), Player.Companion.Looking.LEFT
+    )
 
     override fun getToolTipDescription(): String = "Mario"
 }

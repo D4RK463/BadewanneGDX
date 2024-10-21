@@ -4,283 +4,350 @@ import org.wanne.game.AssetsManager
 import org.wanne.game.Language
 import org.wanne.game.dialog.Dialog
 import org.wanne.game.dialog.DialogCollection
+import org.wanne.game.dialog.StateChange
 import org.wanne.game.sound.collections.MarioSoundCollection
 
-class MarioDialogCollection(am: AssetsManager): DialogCollection(am, MarioSoundCollection(am)) {
+class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSoundCollection(am)) {
 
     init {
 
         // Deutsch
-        addDialog("Start1", Language.DE, Dialog(
-            "Mario: Lass mich, ich bin gerad betrübt.",
-            null,
-            "Was'n los ?",
-            null,
-            0
-            ))
+        addDialog(
+            "Start1", Language.DE, Dialog(
+                "Mario: Lass mich, ich bin gerad betrübt.",
+                null,
+                "Was'n los ?",
+                null,
+                0
+            )
+        )
 
-        addDialog("Start2", Language.DE, Dialog(
-            "Mario: Weisst du vielleicht wie man ",
-            "das Feuer wieder entfachen kann?",
-            null,
-            null,
-            4
-        ))
+        addDialog(
+            "Start2", Language.DE, Dialog(
+                "Mario: Weisst du vielleicht wie man ",
+                "das Feuer wieder entfachen kann?",
+                null,
+                null,
+                4
+            )
+        )
 
-        addDialog("Was'n los ?", Language.DE, Dialog(
-            "Mario: Die Prinzessin hat mich verlassen,",
-            "weil ich mein 'Feuer' verloren hab.",
-            "Erzähl mir mehr.",
-            "Mir doch egal",
-            1
-        ))
+        addDialog(
+            "Was'n los ?", Language.DE, Dialog(
+                "Mario: Die Prinzessin hat mich verlassen,",
+                "weil ich mein 'Feuer' verloren hab.",
+                "Erzähl mir mehr.",
+                "Mir doch egal",
+                1
+            )
+        )
 
-        addDialog("Mir doch egal", Language.DE, Dialog(
-            "Mario: Seit dem der fiese Bowser weg ist,",
-            "ist die Action aus der Beziehung raus.",
-            null,
-            "*laber* ...",
-            2
-        ))
+        addDialog(
+            "Mir doch egal", Language.DE, Dialog(
+                "Mario: Seit dem der fiese Bowser weg ist,",
+                "ist die Action aus der Beziehung raus.",
+                null,
+                "*laber* ...",
+                2
+            )
+        )
 
-        addDialog("Erzähl mir mehr.", Language.DE, Dialog(
-            "Mario: Seit dem der fiese Bowser weg ist,",
-            "ist die Action aus der Beziehung raus.",
-            null,
-            "*laber* ...",
-            2
-        ))
+        addDialog(
+            "Erzähl mir mehr.", Language.DE, Dialog(
+                "Mario: Seit dem der fiese Bowser weg ist,",
+                "ist die Action aus der Beziehung raus.",
+                null,
+                "*laber* ...",
+                2
+            )
+        )
 
-        addDialog("*laber* ...", Language.DE, Dialog(
-            "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
-            "Dabei mag ich Steine nichtmal :(",
-            null,
-            "bla, bla, bla...",
-            3
-        ))
+        addDialog(
+            "*laber* ...", Language.DE, Dialog(
+                "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
+                "Dabei mag ich Steine nichtmal :(",
+                null,
+                "bla, bla, bla...",
+                3
+            )
+        )
 
-        addDialog("bla, bla, bla...", Language.DE, Dialog(
-            "Mario: Weisst du vielleicht wie man ",
-            "das Feuer wieder entfachen kann?",
-            null,
-            null,
-            4,
-            true
-        ))
+        addDialog(
+            "bla, bla, bla...", Language.DE, Dialog(
+                "Mario: Weisst du vielleicht wie man ",
+                "das Feuer wieder entfachen kann?",
+                null,
+                null,
+                4,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Wie sind wir hier her gekommen?", Language.DE, Dialog(
-            "Mario: Hier landen alle Leute die ",
-            "sich im Ausguss verirren.",
-            "Warum ist die Tür verschlossen?",
-            "Und was mach ich nun?",
-            6
-        ))
+        addDialog(
+            "Wie sind wir hier her gekommen?", Language.DE, Dialog(
+                "Mario: Hier landen alle Leute die ",
+                "sich im Ausguss verirren.",
+                "Warum ist die Tür verschlossen?",
+                "Und was mach ich nun?",
+                6
+            )
+        )
 
-        addDialog("Warum ist die Tür verschlossen?", Language.DE, Dialog(
-            "Mario: Der Wächter hat sie versiegelt.",
-            null,
-            "Wo ist der Wächter?",
-            "Wer ist der Wächter?",
-            7
-        ))
+        addDialog(
+            "Warum ist die Tür verschlossen?", Language.DE, Dialog(
+                "Mario: Der Wächter hat sie versiegelt.",
+                null,
+                "Wo ist der Wächter?",
+                "Wer ist der Wächter?",
+                7
+            )
+        )
 
-        addDialog("Geht net, die Tür ist zu.", Language.DE, Dialog(
-            "Mario: Der Wächter hat sie versiegelt.",
-            null,
-            "Wo ist der Wächter?",
-            "Wer ist der Wächter?",
-            7
-        ))
+        addDialog(
+            "Geht net, die Tür ist zu.", Language.DE, Dialog(
+                "Mario: Der Wächter hat sie versiegelt.",
+                null,
+                "Wo ist der Wächter?",
+                "Wer ist der Wächter?",
+                7
+            )
+        )
 
-        addDialog("Und was mach ich nun?", Language.DE, Dialog(
-            "Mario: Vielleicht solltest du versuchen ",
-            "aus dem Raum zu entkommen?",
-            null,
-            "Geht net, die Tür ist zu.",
-            8
-        ))
+        addDialog(
+            "Und was mach ich nun?", Language.DE, Dialog(
+                "Mario: Vielleicht solltest du versuchen ",
+                "aus dem Raum zu entkommen?",
+                null,
+                "Geht net, die Tür ist zu.",
+                8
+            )
+        )
 
-        addDialog("Wo ist der Wächter?", Language.DE, Dialog(
-            "Mario: Ich hab keine Ahnung wo er ist.",
-            "Aber ich hab seine Telefonnummer.",
-            null,
-            null,
-            9,
-            true
-        ))
+        addDialog(
+            "Wo ist der Wächter?", Language.DE, Dialog(
+                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Aber ich hab seine Telefonnummer.",
+                null,
+                null,
+                9,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Wo kann ich ihn finden?", Language.DE, Dialog(
-            "Mario: Ich hab keine Ahnung wo er ist.",
-            "Aber ich hab seine Telefonnummer.",
-            null,
-            null,
-            9,
-            true
-        ))
+        addDialog(
+            "Wo kann ich ihn finden?", Language.DE, Dialog(
+                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Aber ich hab seine Telefonnummer.",
+                null,
+                null,
+                9,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Wo ist nochma der Wächter?", Language.DE, Dialog(
-            "Mario: Ich hab keine Ahnung wo er ist.",
-            "Aber ich hab seine Telefonnummer.",
-            null,
-            null,
-            9,
-            true
-        ))
+        addDialog(
+            "Wo ist nochma der Wächter?", Language.DE, Dialog(
+                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Aber ich hab seine Telefonnummer.",
+                null,
+                null,
+                9,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Wer ist der Wächter?", Language.DE, Dialog(
-            "Mario: Das ist eine abgrundtief böse Kreatur.",
-            "Es gibt niemand der sie gesehen hat und noch lebt.",
-            "Klar doch!",
-            "Weiter...",
-            10
-        ))
+        addDialog(
+            "Wer ist der Wächter?", Language.DE, Dialog(
+                "Mario: Das ist eine abgrundtief böse Kreatur.",
+                "Es gibt niemand der sie gesehen hat und noch lebt.",
+                "Klar doch!",
+                "Weiter...",
+                10
+            )
+        )
 
-        addDialog("Wer ist nochma der Wächter?", Language.DE, Dialog(
-            "Mario: Das ist eine abgrundtief böse Kreatur.",
-            "Es gibt niemand der sie gesehen hat und noch lebt.",
-            "Klar doch!",
-            "Weiter...",
-            10
-        ))
+        addDialog(
+            "Wer ist nochma der Wächter?", Language.DE, Dialog(
+                "Mario: Das ist eine abgrundtief böse Kreatur.",
+                "Es gibt niemand der sie gesehen hat und noch lebt.",
+                "Klar doch!",
+                "Weiter...",
+                10
+            )
+        )
 
-        addDialog("Weiter...", Language.DE, Dialog(
-            "Mario: Es wird gemunkelt das der Wächter die ",
-            "Seelen derer erntet die sich im Ausguss verirren.",
-            "Übertrieben!",
-            "WOW!!!",
-            11
-        ))
+        addDialog(
+            "Weiter...", Language.DE, Dialog(
+                "Mario: Es wird gemunkelt das der Wächter die ",
+                "Seelen derer erntet die sich im Ausguss verirren.",
+                "Übertrieben!",
+                "WOW!!!",
+                11
+            )
+        )
 
-        addDialog("WOW!!!", Language.DE, Dialog(
-            "Mario: Er soll riesig groß sein mit ",
-            "fürchterlichen Klauen und Eiter triefendem Maul.",
-            "Wo kann ich ihn finden?",
-            "Du laberst doch nur!",
-            12
-        ))
+        addDialog(
+            "WOW!!!", Language.DE, Dialog(
+                "Mario: Er soll riesig groß sein mit ",
+                "fürchterlichen Klauen und Eiter triefendem Maul.",
+                "Wo kann ich ihn finden?",
+                "Du laberst doch nur!",
+                12
+            )
+        )
 
-        addDialog("Du laberst doch nur!", Language.DE, Dialog(
-            "Mario: Wenn du meinst aber ich hab dich gewarnt.",
-            null,
-            null,
-            "Wo kann ich ihn finden?",
-            13
-        ))
+        addDialog(
+            "Du laberst doch nur!", Language.DE, Dialog(
+                "Mario: Wenn du meinst aber ich hab dich gewarnt.",
+                null,
+                null,
+                "Wo kann ich ihn finden?",
+                13
+            )
+        )
 
-        addDialog("Übertrieben!", Language.DE, Dialog(
-            "Mario: Wenn du meinst aber ich hab dich gewarnt.",
-            null,
-            null,
-            "Wo kann ich ihn finden?",
-            13
-        ))
+        addDialog(
+            "Übertrieben!", Language.DE, Dialog(
+                "Mario: Wenn du meinst aber ich hab dich gewarnt.",
+                null,
+                null,
+                "Wo kann ich ihn finden?",
+                13
+            )
+        )
 
-        addDialog("Klar doch!", Language.DE, Dialog(
-            "Mario: Wenn du meinst aber ich hab dich gewarnt.",
-            null,
-            null,
-            "Wo kann ich ihn finden?",
-            13
-        ))
+        addDialog(
+            "Klar doch!", Language.DE, Dialog(
+                "Mario: Wenn du meinst aber ich hab dich gewarnt.",
+                null,
+                null,
+                "Wo kann ich ihn finden?",
+                13
+            )
+        )
 
-        addDialog("Start3", Language.DE, Dialog(
-            "Mario: Klasse, Danke. Damit kann ich ",
-            "die Prinzessin bestimmt wieder zurückgewinnen.",
-            "Wie sind wir hier her gekommen?",
-            "Warum ist die Tür verschlossen?",
-            5
-        ))
+        addDialog(
+            "Start3", Language.DE, Dialog(
+                "Mario: Klasse, Danke. Damit kann ich ",
+                "die Prinzessin bestimmt wieder zurückgewinnen.",
+                "Wie sind wir hier her gekommen?",
+                "Warum ist die Tür verschlossen?",
+                5
+            )
+        )
 
-        addDialog("Start4", Language.DE, Dialog(
-            "Ich hab da was nicht mitbekommen.",
-            null,
-            "Wer ist nochma der Wächter?",
-            "Wo ist nochma der Wächter?",
-            null,
-            true
-        ))
+        addDialog(
+            "Start4", Language.DE, Dialog(
+                "Ich hab da was nicht mitbekommen.",
+                null,
+                "Wer ist nochma der Wächter?",
+                "Wo ist nochma der Wächter?",
+                null,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Start5", Language.DE, Dialog(
-            "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
-            "bloß froh das man durchs Telefon nichts riechen kann!",
-            null,
-            null,
-            21
-        ))
+        addDialog(
+            "Start5", Language.DE, Dialog(
+                "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
+                "bloß froh das man durchs Telefon nichts riechen kann!",
+                null,
+                null,
+                21
+            )
+        )
 
-        addDialog("Warum liegt hier eigentlich Stroh?", Language.DE, Dialog(
-            "Mario: Warum hast du ne Maske auf?",
-            null,
-            null,
-            null,
-            15
-        ))
+        addDialog(
+            "Warum liegt hier eigentlich Stroh?", Language.DE, Dialog(
+                "Mario: Warum hast du ne Maske auf?",
+                null,
+                null,
+                null,
+                15
+            )
+        )
 
-        addDialog("Warum lässt sich der Teppich nicht bewegen?", Language.DE, Dialog(
-            "Mario: Langsam hab ich keine Lust mehr dir ",
-            "zu helfen. Wir sind schon quitt.",
-            null,
-            "Bitte, bitte...",
-            16
-        ))
+        addDialog(
+            "Warum lässt sich der Teppich nicht bewegen?", Language.DE, Dialog(
+                "Mario: Langsam hab ich keine Lust mehr dir ",
+                "zu helfen. Wir sind schon quitt.",
+                null,
+                "Bitte, bitte...",
+                16
+            )
+        )
 
-        addDialog("Was riecht hier so komisch?", Language.DE, Dialog(
-            "Mario: Frag ma deinen dicken Freund da drüben. XD",
-            null,
-            "Warum liegt hier eigentlich Stroh?",
-            "Warum lässt sich der Teppich nicht bewegen?",
-            17
-        ))
+        addDialog(
+            "Was riecht hier so komisch?", Language.DE, Dialog(
+                "Mario: Frag ma deinen dicken Freund da drüben. XD",
+                null,
+                "Warum liegt hier eigentlich Stroh?",
+                "Warum lässt sich der Teppich nicht bewegen?",
+                17
+            )
+        )
 
-        addDialog("Bitte, bitte...", Language.DE, Dialog(
-            "Mario: Na gut, es wird erzählt das der Wächter ",
-            "den Teppich festgenagelt hat.",
-            null,
-            "Kannst du mir helfen den Teppich loszuwerden?",
-            18
-        ))
+        addDialog(
+            "Bitte, bitte...", Language.DE, Dialog(
+                "Mario: Na gut, es wird erzählt das der Wächter ",
+                "den Teppich festgenagelt hat.",
+                null,
+                "Kannst du mir helfen den Teppich loszuwerden?",
+                18
+            )
+        )
 
-        addDialog("Kannst du mir helfen den Teppich loszuwerden?", Language.DE, Dialog(
-            "Mario: Ich würde dir ja helfen aber ich will nicht.",
-            null,
-            "Du #*%&!!! Ich hasse dich!!",
-            "*schnief* Bitte, bitte ich tu auch alles für dich!",
-            19
-        ))
+        addDialog(
+            "Kannst du mir helfen den Teppich loszuwerden?", Language.DE, Dialog(
+                "Mario: Ich würde dir ja helfen aber ich will nicht.",
+                null,
+                "Du #*%&!!! Ich hasse dich!!",
+                "*schnief* Bitte, bitte ich tu auch alles für dich!",
+                19
+            )
+        )
 
-        addDialog("Du #*%&!!! Ich hasse dich!!", Language.DE, Dialog(
-            "Mario: Na gut, na gut, aber wehe du erzählst es ",
-            "den Anderen. Mehr werde ich nicht helfen!",
-            null,
-            null,
-            20,
-            true
-        ))
+        addDialog(
+            "Du #*%&!!! Ich hasse dich!!", Language.DE, Dialog(
+                "Mario: Na gut, na gut, aber wehe du erzählst es ",
+                "den Anderen. Mehr werde ich nicht helfen!",
+                null,
+                null,
+                20,
+                StateChange.YES
+            )
+        )
 
-        addDialog("*schnief* Bitte, bitte ich tu auch alles für dich!", Language.DE, Dialog(
-            "Mario: Na gut, na gut, aber wehe du erzählst es ",
-            "den Anderen. Mehr werde ich nicht helfen!",
-            null,
-            null,
-            20,
-            true
-        ))
+        addDialog(
+            "*schnief* Bitte, bitte ich tu auch alles für dich!", Language.DE, Dialog(
+                "Mario: Na gut, na gut, aber wehe du erzählst es ",
+                "den Anderen. Mehr werde ich nicht helfen!",
+                null,
+                null,
+                20,
+                StateChange.YES
+            )
+        )
 
-        addDialog("Start6", Language.DE, Dialog(
-            "Mario: Das reicht jetzt! Wir kennen uns nicht!",
-            null,
-            null,
-            null,
-            14
-        ))
+        addDialog(
+            "Start6", Language.DE, Dialog(
+                "Mario: Das reicht jetzt! Wir kennen uns nicht!",
+                null,
+                null,
+                null,
+                14
+            )
+        )
 
-        addDialog("Start7", Language.DE, Dialog(
-            "Hi Mario!!",
-            null,
-            "Warum lässt sich der Teppich nicht bewegen?",
-            "Was riecht hier so komisch?",
-            null
-        ))
+        addDialog(
+            "Start7", Language.DE, Dialog(
+                "Hi Mario!!",
+                null,
+                "Warum lässt sich der Teppich nicht bewegen?",
+                "Was riecht hier so komisch?",
+                null
+            )
+        )
     }
 
 }

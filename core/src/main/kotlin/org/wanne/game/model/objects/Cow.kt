@@ -2,10 +2,12 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.collections.CowDialogCollection
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.model.objects.CowState.NORMAL
+import org.wanne.game.model.objects.CowState.NORMAL_END
 import org.wanne.game.model.player.Player
-import org.wanne.game.sound.collections.CowSoundCollection
 
 class Cow(
     posX: Float = 1F,
@@ -19,9 +21,9 @@ class Cow(
         width = getSprite(0F).width
     }
 
-    private val soundCollection = CowSoundCollection(am)
+    private val dialogCollection = CowDialogCollection(am)
 
-    private var talkForTheFirstTime = true
+    private var state = NORMAL
 
     override fun getSprite(time: Float): Sprite = Sprite()
 
@@ -39,139 +41,67 @@ class Cow(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        if (game.possessWinningObjects) {
-            when (action.lastSentence) {
-                "Alles klar..." -> {
-                    game.cowIsBusy = true
-                    game.screen = game.roomScreen
+        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+            setStartSentenceAccordingToState(action.lastSentence),
+            dialogCollection
+        )
+        dialogBoard.prepTalkTo(dialog, action)
+
+        if (!game.possessWinningObjects) {
+            when (state) {
+                NORMAL -> {
+                    if (dialog?.isStateChanged() == true) {
+                        state = NORMAL_END
+                        game.screen = game.roomScreen
+                        action.reset()
+                    }
                 }
-                "Mach hin. Wir wolln Eis essen gehn!" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Ey jetzzt nicht frech werdenn.",
-                        "Wehe ihr saagt jemand daas ich euch raus lasse!",
-                        null,
-                        "Alles klar...",
-                        action,
-                    )
-                }
-                "Wir haben dein ganzes Zeug gesammelt." -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Sehr guuuut. Daann mach ich euch",
-                        "gleich die Tüür auf.",
-                        null,
-                        "Mach hin. Wir wolln Eis essen gehn!",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 8)
-                }
-                else -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Wawas willst duu schon wieder?",
-                        null,
-                        null,
-                        "Wir haben dein ganzes Zeug gesammelt.",
-                        action,
-                    )
+
+                NORMAL_END -> {
+                    if (dialog?.isStateChanged() == true) {
+                        game.screen = game.roomScreen
+                        action.reset()
+                    }
                 }
             }
         } else {
-            when (action.lastSentence) {
-                "Hi...Ente hier, lass", "uns verdammt nochma hier raus!!!" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Dadas kann ich nicht,",
-                        "auauch ich muss mich an didie Regeln halten.",
-                        "Von welchen Regeln sprichst du?",
-                        "Warum hast du uns entführt?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 1)
-                }
-                "Von welchen Regeln sprichst du?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Ichch soll euch 15 Jajahre gefangen haltenn.",
-                        "Warum dadarf ich nicht sasagen!",
-                        null,
-                        "Gibt es nicht irgendeine andere Möglichkeit?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 2)
-                }
-                "Warum hast du uns entführt?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Ichch hole jejeden der im Abfluss",
-                        "landet und brringe ihn ins Zzimmer.",
-                        null,
-                        "Wie bitte?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 3)
-                }
-                "Wie bitte?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Ichch werde dafühür bezahhlt! Frage",
-                        "dich lieber warum dudu im Abfluss gelandet bist.",
-                        "Was können wir tun um hier rauszukommen?",
-                        "Wer bezahlt dich?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 4)
-                }
-                "Wer bezahlt dich?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Wewen ich dir das ssage",
-                        "mümüsste ich dich tötöten.",
-                        null,
-                        "Was können wir tun um hier rauszukommen?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 5)
-                }
-                "Was können wir tun um hier rauszukommen?", "Gibt es nicht irgendeine andere Möglichkeit?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Dudu hast Glück, ich bibin sehr gut gelaunt.",
-                        null,
-                        null,
-                        "Und?",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 6)
-                }
-                "Und?", "Was brauch ich noch ma?" -> {
-                    dialogBoard.prepTalkTo(
-                        "Kuh: Bebesorge mir Valium, memeine",
-                        "Kuhglocke und den Milchabsauger 2000. 'Klick'",
-                        null,
-                        "Na schön, wenn's sein muss.",
-                        action,
-                    )
-                    game.soundManager.playSound(soundCollection, 7)
-                }
-                "Na schön, wenn's sein muss." -> {
-                    talkForTheFirstTime = false
-                    game.screen = game.roomScreen
-                }
-                else -> {
-                    if (talkForTheFirstTime) {
-                        dialogBoard.prepTalkTo(
-                            "Kuh: Wäwächter hier!!",
-                            null,
-                            "Hi...Ente hier, lass",
-                            "uns verdammt nochma hier raus!!!",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 0)
-                    } else {
-                        dialogBoard.prepTalkTo(
-                            "Kuh: Wäwächter hier!!",
-                            null,
-                            null,
-                            "Was brauch ich noch ma?",
-                            action,
-                        )
-                        game.soundManager.playSound(soundCollection, 0)
+            when (state) {
+                NORMAL_END -> {
+                    if (dialog?.isStateChanged() == true) {
+                        game.cowIsBusy = true
+                        game.screen = game.roomScreen
+                        action.reset()
                     }
+                }
+
+                else -> {
+                    throw IllegalStateException("Unmöglichen Dialog-Status erreicht")
                 }
             }
         }
     }
+
+    private fun setStartSentenceAccordingToState(sentence: String): String {
+        if (sentence == "Start") {
+            if (!game.possessWinningObjects) {
+                if (state == NORMAL) {
+                    return "Start1"
+                }
+                if (state == NORMAL_END) {
+                    return "Start2"
+                }
+            } else {
+                if (state == NORMAL_END) {
+                    return "Start3"
+                }
+            }
+        }
+
+        return sentence
+    }
+}
+
+enum class CowState {
+    NORMAL,
+    NORMAL_END
 }

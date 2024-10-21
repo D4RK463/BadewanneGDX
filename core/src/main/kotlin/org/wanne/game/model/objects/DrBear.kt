@@ -2,10 +2,11 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.Dialog
+import org.wanne.game.dialog.collections.DrBearDialogCollection
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
-import org.wanne.game.sound.collections.DrBearSoundCollection
 
 class DrBear(
     posX: Float = 187F,
@@ -20,7 +21,7 @@ class DrBear(
         width = getSprite(0F).width
     }
 
-    private val soundCollection = DrBearSoundCollection(am)
+    private val dialogCollection = DrBearDialogCollection(am)
 
     private var broken = false
 
@@ -45,23 +46,21 @@ class DrBear(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
+
+        val dialog: Dialog?
+
         if (broken) {
-            dialogBoard.prepTalkTo(
-                "Arztbär: Ohhhhhhh!?!",
-                null,
-                null,
-                null,
-                action,
+            dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+                "Start1",
+                dialogCollection
             )
+            dialogBoard.prepTalkTo(dialog, action)
         } else {
-            dialogBoard.prepTalkTo(
-                "Arztbär: Eeeehhhhhehehehe!!",
-                null,
-                null,
-                null,
-                action,
+            dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+                "Start2",
+                dialogCollection
             )
-            game.soundManager.playSound(soundCollection, 0)
+            dialogBoard.prepTalkTo(dialog, action)
         }
     }
 
@@ -86,7 +85,7 @@ class DrBear(
     ) {
         broken = true
         dialogBoard.prepLookAt("Arztbär: Uhhhhhh!!")
-        game.soundManager.playSound(soundCollection, 1)
+        game.soundManager.playSound(dialogCollection.soundCollection, 1)
         gameObjectToAppear.isVisible = true
         action.reset()
     }

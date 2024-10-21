@@ -29,7 +29,8 @@ class Box(
         org.wanne.game.model.Point(
             638,
             268
-        ), Player.Companion.Looking.RIGHT)
+        ), Player.Companion.Looking.RIGHT
+    )
 
     override fun getToolTipDescription(): String = "Blaue Kiste"
 }

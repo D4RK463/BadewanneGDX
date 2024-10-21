@@ -2,6 +2,8 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.StateChange
+import org.wanne.game.dialog.collections.IcemanDialogCollection
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.IcemanAnimation
@@ -14,7 +16,7 @@ class Iceman(
     game: WanneGame,
     private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY, game) {
-    private val icemanAnimation: IcemanAnimation  = IcemanAnimation(posX, posY, true, am)
+    private val icemanAnimation: IcemanAnimation = IcemanAnimation(posX, posY, true, am)
 
     init {
         x = posX
@@ -24,6 +26,8 @@ class Iceman(
     }
 
     private var chosenWay: Way = Way.NONE
+
+    private val dialogCollection = IcemanDialogCollection(am)
 
     private var iceGiven = false
 
@@ -44,27 +48,18 @@ class Iceman(
         action: PointAndClickAction,
     ) {
 
+        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+            setStartSentenceAccordingToState(action.lastSentence),
+            dialogCollection
+        )
+        dialogBoard.prepTalkTo(dialog, action)
+
         when (chosenWay) {
             Way.NONE -> {
-                when (action.lastSentence) {
-                    "Hell und funkelt! Und bei dir?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man nice und shiny!",
-                            null,
-                            "Nice, kannst'e Eis entbehren?",
-                            null,
-                            action,
-                        )
-                    }
+                if (dialog?.isStateChanged() == true) {
 
-                    "Nice, kannst'e Eis entbehren?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo sure man! Take soviel,",
-                            "wie ihr wollt, Bros, No need anyway!",
-                            "Mega gut, Danke.",
-                            null,
-                            action,
-                        )
+                    // Freundlich sein
+                    if (dialog.stateChange == StateChange.LEFT) {
                         chosenWay = Way.GOOD
 
                         // Eis ins Inventar packen
@@ -75,107 +70,50 @@ class Iceman(
                         }
                     }
 
-                    "Mega gut, Danke." -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man, Eis in the sunshine!",
-                            null,
-                            null,
-                            null,
-                            action,
-                        )
-                        action.reset()
-                    }
-
-                    "Wie steht die Sonne? Echt jetz?" -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man chill!",
-                            "Was wollt ihr?",
-                            "Ich hätte gerne 1 großes Eis für meinen Freund hier.",
-                            null,
-                            action,
-                        )
-                    }
-
-                    "Ich hätte gerne 1 großes Eis für meinen Freund hier." -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man klar!",
-                            "Got the money?",
-                            "Ich schau mal in meiner Hose nach.",
-                            null,
-                            action,
-                        )
+                    // Unfreundlich sein
+                    if (dialog.stateChange == StateChange.RIGHT) {
                         chosenWay = Way.BAD
                     }
 
-                    "Ich schau mal in meiner Hose nach." -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo Ducky, whatever!",
-                            null,
-                            null,
-                            null,
-                            action,
-                        )
-                        action.reset()
-                    }
-
-                    else -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo Duckboy und Bath-mann, ",
-                            "wie steht die Sonne?",
-                            "Wie steht die Sonne? Echt jetz?",
-                            "Hell und funkelt! Und bei dir?",
-                            action,
-                        )
-                    }
+                    action.reset()
                 }
             }
+
             Way.GOOD -> {
-                when (action.lastSentence) {
-                    "Danke, wir haben genug!" -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man, Eis in the sunshine!",
-                            null,
-                            null,
-                            null,
-                            action,
-                        )
-                        action.reset()
-                    }
-                    else -> {
-                        dialogBoard.prepTalkTo(
-                            "Eismann: Jo man, mehr Eis, Duckyboy?",
-                            null,
-                            "Danke, wir haben genug!",
-                            null,
-                            action,
-                        )
-                    }
+                if (dialog?.isStateChanged() == true) {
+                    action.reset()
                 }
             }
-            else -> {
 
-                if (iceGiven) {
-                    dialogBoard.prepTalkTo(
-                        "Eismann: Jo man, mehr gibs nicht!",
-                        null,
-                        null,
-                        null,
-                        action,
-                    )
-                } else {
-                    dialogBoard.prepTalkTo(
-                        "Eismann: Jo man, got the moneys?",
-                        null,
-                        null,
-                        null,
-                        action,
-                    )
-                }
-
+            Way.BAD -> {
                 action.reset()
             }
         }
 
+    }
+
+    private fun setStartSentenceAccordingToState(sentence: String): String {
+        if (sentence == "Start") {
+            return when (chosenWay) {
+                Way.NONE -> {
+                    "Start1"
+                }
+
+                Way.GOOD -> {
+                    "Start2"
+                }
+
+                Way.BAD -> {
+                    if (iceGiven) {
+                        "Start4"
+                    } else {
+                        "Start3"
+                    }
+                }
+            }
+        }
+
+        return sentence
     }
 
     override fun combine(
@@ -214,7 +152,8 @@ class Iceman(
         Point(
             524,
             234
-        ), Player.Companion.Looking.RIGHT)
+        ), Player.Companion.Looking.RIGHT
+    )
 
     override fun getToolTipDescription(): String = "Funky Eismann!"
 

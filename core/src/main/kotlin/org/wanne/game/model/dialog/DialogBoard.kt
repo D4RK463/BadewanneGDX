@@ -115,13 +115,17 @@ class DialogBoard(
     }
 
     fun prepTalkTo(dialog: Dialog?, action: PointAndClickAction) {
-        dialog?.let { prepTalkTo(
-            it.talkToSentence,
-            it.talkToSentence2,
-            it.answer1,
-            it.answer2,
-            action
-        ) }
+        dialog?.let {
+            if (it.isFilled()) {
+                prepTalkTo(
+                    it.talkToSentence,
+                    it.talkToSentence2,
+                    it.answer1,
+                    it.answer2,
+                    action
+                )
+            }
+        }
     }
 
     fun prepTalkTo(

@@ -47,7 +47,7 @@ class Window(
                         action,
                     ).also { action.reset() }
             }
-            null -> {
+            "Start" -> {
                 dialogBoard.prepUseIt(
                     "Ich pass net durch.",
                     "Hinaus sehen!",

@@ -65,7 +65,8 @@ class Exit(
         Point(
             900,
             216
-        ), Player.Companion.Looking.RIGHT)
+        ), Player.Companion.Looking.RIGHT
+    )
 
     override fun getToolTipDescription(): String = "Süße Freiheit!"
 }

@@ -47,7 +47,7 @@ class RoomScreen(
     private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
     private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
 
-    // Raum Lauf-Limits => links,unten,rechts,oben
+    // Raum Lauf-Limits => links, unten, rechts, oben
     private val limits = intArrayOf(255, 129, 934, 312)
 
     // Ambience Musik

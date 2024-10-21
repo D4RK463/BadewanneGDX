@@ -77,6 +77,12 @@ class WanneGame(val android: Boolean): Game() {
         batch.dispose()
     }
 
+    fun reset() {
+        // ToDo: Alle Bildschirme zurücksetzen
+
+        //roomScreen = RoomScreen(this)
+    }
+
     fun createUIButton(
         texture: Sprite,
         texturePressed: Sprite,
