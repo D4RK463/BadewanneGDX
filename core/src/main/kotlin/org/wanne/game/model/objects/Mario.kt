@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.collections.MarioDialogCollection
 import org.wanne.game.model.ActionType
+import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.FireAnimation
 import org.wanne.game.model.animation.PowerUpAnimation
@@ -210,8 +211,8 @@ class Mario(
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
+        Point(
             344,
             264
         ), Player.Companion.Looking.LEFT

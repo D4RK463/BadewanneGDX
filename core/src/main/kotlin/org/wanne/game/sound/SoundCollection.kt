@@ -7,9 +7,9 @@ open class SoundCollection(val am: AssetsManager) {
     private val sounds =
         mapOf(
             Speech.DE_ORIGINAL to mutableListOf<Sound>(),
-            Speech.DE_NEU to mutableListOf<Sound>(),
-            Speech.EN to mutableListOf<Sound>(),
-            Speech.DROGL to mutableListOf<Sound>(),
+            Speech.DE_NEU to null,
+            Speech.EN to null,
+            Speech.DROGL to null,
         )
 
     fun addSound(

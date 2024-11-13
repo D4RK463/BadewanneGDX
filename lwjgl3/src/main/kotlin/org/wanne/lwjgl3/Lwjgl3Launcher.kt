@@ -19,6 +19,9 @@ fun main() {
             setForegroundFPS(60)
             setResizable(false)
 
+            //val primaryMode: DisplayMode = Lwjgl3ApplicationConfiguration.getDisplayMode()
+            //setFullscreenMode(primaryMode)
+
         })
     }
 

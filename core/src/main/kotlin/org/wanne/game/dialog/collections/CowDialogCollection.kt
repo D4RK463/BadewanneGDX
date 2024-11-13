@@ -10,8 +10,11 @@ import org.wanne.game.sound.collections.CowSoundCollection
 class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundCollection(am)) {
 
     init {
+        addGermanDialog()
+        addEnglishDialog()
+    }
 
-        // Deutsch
+    private fun addGermanDialog() {
         addDialog(
             "Start1", Language.DE, Dialog(
                 "Kuh: Wäwächter hier!!",
@@ -173,7 +176,170 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 StateChange.YES
             )
         )
+    }
 
+    private fun addEnglishDialog() {
+        addDialog(
+            "Start1", Language.EN, Dialog(
+                "Cow: Guaguardian speeaking!!",
+                null,
+                "Hi... I'm Duck,",
+                "let us out!!!",
+                0
+            )
+        )
+
+        addDialog(
+            "Start2", Language.EN, Dialog(
+                "Cow: Guaguardian speeaking!!",
+                null,
+                null,
+                "What do I need again?",
+                0
+            )
+        )
+
+        addDialog(
+            "Hi... I'm Duck,", Language.EN, Dialog(
+                "Cow: I I can't do do that.",
+                "I have to abide by thethe ruules too.",
+                "What rules do you mean?",
+                "Why did you kidnap us?",
+                1
+            )
+        )
+
+        addDialog(
+            "let us out!!!", Language.EN, Dialog(
+                "Cow: I I can't do do that.",
+                "I have to abide by thethe ruules too.",
+                "What rules do you mean?",
+                "Why did you kidnap us?",
+                1
+            )
+        )
+
+        addDialog(
+            "What rules do you mean?", Language.EN, Dialog(
+                "Cow: I I have to detain you you for 15 years.",
+                "Can't telll you why!",
+                null,
+                "Isn't there any other possibility?",
+                2
+            )
+        )
+
+        addDialog(
+            "Why did you kidnap us?", Language.EN, Dialog(
+                "Cow: I I kidnap everyone who ge-gets sucked",
+                "in and dro-drop them into the roooom.",
+                null,
+                "Excuse me?",
+                3
+            )
+        )
+
+        addDialog(
+            "Excuse me?", Language.EN, Dialog(
+                "Cow: I I'm getting payed fooor this! Better",
+                "thiink about, why yooouu are here.",
+                "What can we do, to get out of here?",
+                "Who is paying you?",
+                4
+            )
+        )
+
+        addDialog(
+            "Who is paying you?", Language.EN, Dialog(
+                "Cow: If I I tell you,",
+                "I have tooo kill you.",
+                null,
+                "What can we do, to get out of here?",
+                5
+            )
+        )
+
+        addDialog(
+            "What can we do, to get out of here?", Language.EN, Dialog(
+                "Cow: Youuu're in luck, I'm in a very good moooood.",
+                null,
+                null,
+                "So?",
+                6
+            )
+        )
+
+        addDialog(
+            "Isn't there any other possibility?", Language.EN, Dialog(
+                "Kuh: Youuu're in luck, I'm in a very good moooood.",
+                null,
+                null,
+                "So?",
+                6
+            )
+        )
+
+        addDialog(
+            "So?", Language.EN, Dialog(
+                "Cow: Ge-get me Valium, my",
+                "Cowbell and the Milksucker 2000. 'Click'",
+                null,
+                "Fine, if that's what it takes.",
+                7
+            )
+        )
+
+        addDialog(
+            "What do I need again?", Language.EN, Dialog(
+                "Cow: Ge-get me Valium, my",
+                "Cowbell and the Milksucker 2000. 'Click'",
+                null,
+                "Fine, if that's what it takes.",
+                7
+            )
+        )
+
+        addDialog(
+            "Fine, if that's what it takes.", Language.EN, Dialog(
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start3", Language.EN, Dialog(
+                "Cow: What dooooo you want?",
+                null,
+                null,
+                "We've collected all your stuff.",
+                null
+            )
+        )
+
+        addDialog(
+            "We've collected all your stuff.", Language.EN, Dialog(
+                "Cow: Very niiice. Then I'll open the",
+                "dooooor for you straight awaaaay.",
+                null,
+                "Go on. We want to go out for ice cream!",
+                8
+            )
+        )
+
+        addDialog(
+            "Go on. We want to go out for ice cream!", Language.EN, Dialog(
+                "Cow: Do-Don't be cheeky nooooow. Don't you",
+                "da-dare tell anyone that I'm letting you ooout!",
+                null,
+                "All right...",
+                null
+            )
+        )
+
+        addDialog(
+            "All right...", Language.EN, Dialog(
+                StateChange.YES
+            )
+        )
     }
 
 }

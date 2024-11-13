@@ -27,6 +27,24 @@ class DrBearDialogCollection(am: AssetsManager): DialogCollection(am, DrBearSoun
             0
         ))
 
+
+        // Englisch
+        addDialog("Start1", Language.EN, Dialog(
+            "Dr. Bear: Ohhhhhhh!?!",
+            null,
+            null,
+            null,
+            null
+        ))
+
+        addDialog("Start2", Language.EN, Dialog(
+            "Dr. Bear: Eeeehhhhhehehehe!!",
+            null,
+            null,
+            null,
+            0
+        ))
+
     }
 
 }

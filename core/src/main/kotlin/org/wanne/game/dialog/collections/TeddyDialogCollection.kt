@@ -10,8 +10,11 @@ import org.wanne.game.sound.collections.TeddySoundCollection
 class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySoundCollection(am)) {
 
     init {
+        getGermanDialog()
+        getEnglishDialog()
+    }
 
-        // Deutsch
+    private fun getGermanDialog() {
         addDialog(
             "Start1", Language.DE, Dialog(
                 "Hey Teddy!",
@@ -86,7 +89,7 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
         )
 
         addDialog(
-            "Was ist mit dem Arztbär los?", Language.DE, Dialog(
+            "And what's up with Dr. Bear?", Language.DE, Dialog(
                 "Teddy: Ach... Der hat zuviel von seiner ",
                 "eigenen Medizin genommen.",
                 null,
@@ -96,6 +99,7 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
             )
         )
 
+        /*
         addDialog(
             "Start2", Language.DE, Dialog(
                 "Kannste mir jetzt helfen?",
@@ -105,7 +109,94 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
                 null
             )
         )
-
+         */
     }
 
+
+    private fun getEnglishDialog() {
+        addDialog(
+            "Start1", Language.EN, Dialog(
+                "Hey Teddy!",
+                null,
+                "Where am I?",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Where am I?", Language.EN, Dialog(
+                "Teddy: ... *shiver*",
+                null,
+                null,
+                null,
+                0,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start2", Language.EN, Dialog(
+                "Can you help me now?",
+                null,
+                "What's wrong with you?",
+                "What do you know about the guardian?",
+                0
+            )
+        )
+
+        addDialog(
+            "What do you know about the guardian?", Language.EN, Dialog(
+                "Teddy: AAAHHHHHH!!!!",
+                null,
+                null,
+                null,
+                1,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "What's wrong with you?", Language.EN, Dialog(
+                "Teddy: I'm scared!",
+                null,
+                "Why?",
+                "And what's up with Dr. Bear?",
+                2
+            )
+        )
+
+        addDialog(
+            "Why?", Language.EN, Dialog(
+                "Teddy: I'm afraid that I see the guardian.",
+                null,
+                null,
+                "And what's up with Dr. Bear?",
+                3
+            )
+        )
+
+        addDialog(
+            "And what's up with Dr. Bear?", Language.EN, Dialog(
+                "Teddy: Well... He's taken",
+                "too much of his own medicine.",
+                null,
+                null,
+                4,
+                StateChange.YES
+            )
+        )
+
+        /*
+        addDialog(
+            "Start2", Language.EN, Dialog(
+                "Can you help me now?",
+                null,
+                "What's wrong with you?",
+                "What do you know about the guardian?",
+                null
+            )
+        )
+         */
+    }
 }

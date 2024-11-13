@@ -10,8 +10,11 @@ import org.wanne.game.sound.collections.IcemanSoundCollection
 class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSoundCollection(am)) {
 
     init {
+        addGermanDialog()
+        addEnglishDialog()
+    }
 
-        // Deutsch
+    private fun addGermanDialog() {
         addDialog(
             "Start1", Language.DE, Dialog(
                 "Eismann: Jo Duckboy und Bath-mann, ",
@@ -123,7 +126,120 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null
             )
         )
+    }
 
+    private fun addEnglishDialog() {
+        addDialog(
+            "Start1", Language.EN, Dialog(
+                "Iceman: Jo Duckboy and Bath-mann, ",
+                "how is the sun hanging?",
+                "How is the sun hanging? Seriously?",
+                "Bright and sparkling! And yours?",
+                null
+            )
+        )
+
+        addDialog(
+            "Bright and sparkling! And yours?", Language.EN, Dialog(
+                "Iceman: Jo man nice and shiny!",
+                null,
+                "Nice, can you spare some ice cream?",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Nice, can you spare some ice cream?", Language.EN, Dialog(
+                "Iceman: Jo sure man! Take as much,",
+                "as you like, Bros, No need anyway!",
+                "Awesome, thank you.",
+                null,
+                null,
+                StateChange.LEFT
+            )
+        )
+
+        addDialog(
+            "Awesome, thank you.", Language.EN, Dialog(
+                "Iceman: Jo man, ice in the sunshine!",
+                null,
+                null,
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "How is the sun hanging? Seriously?", Language.EN, Dialog(
+                "Iceman: Jo man chill!",
+                "What do you want?",
+                "I would like 1 large ice cream for my friend here.",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "I would like 1 large ice cream for my friend here.", Language.EN, Dialog(
+                "Iceman: Jo man sure!",
+                "Got the money?",
+                "Let me check my wallet.",
+                null,
+                null,
+                StateChange.RIGHT
+            )
+        )
+
+        addDialog(
+            "Let me check my wallet.", Language.EN, Dialog(
+                "Iceman: Jo Ducky, whatever!",
+                null,
+                null,
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Start2", Language.EN, Dialog(
+                "Iceman: Jo man, more ice, Duckyboy?",
+                null,
+                "Thanks, we've had enough!",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Thanks, we've had enough!", Language.EN, Dialog(
+                "Eismann: Jo man, ice in the sunshine!",
+                null,
+                null,
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Start3", Language.EN, Dialog(
+                "Iceman: Jo man, got the moneys?",
+                null,
+                null,
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Start4", Language.EN, Dialog(
+                "Iceman: Jo man, that's all you get!",
+                null,
+                null,
+                null,
+                null
+            )
+        )
     }
 
 }
