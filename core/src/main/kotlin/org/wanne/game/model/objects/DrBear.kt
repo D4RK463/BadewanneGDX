@@ -36,9 +36,15 @@ class DrBear(
 
     override fun look(dialogBoard: DialogBoard) {
         if (broken) {
-            dialogBoard.prepLookAt("Doktor Bär, 'leicht' lädiert.", "Entschuldigung!")
+            dialogBoard.prepLookAt(
+                choose("Doktor Bär, 'leicht' lädiert.", "Dr. Bear, 'slightly' damaged."),
+                choose("Entschuldigung!", "Sorry!")
+            )
         } else {
-            dialogBoard.prepLookAt("Doktor Bär.", "Ich hätte gern einen Termin für Sonntag :-)")
+            dialogBoard.prepLookAt(
+                choose("Doktor Bär.", "Dr. Bear."),
+                choose("Ich hätte gern einen Termin für Sonntag :-)", "I'd like to make an appointment for Sunday :-)")
+            )
         }
     }
 
@@ -70,7 +76,7 @@ class DrBear(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Arztbär"
+    override fun getToolTipDescription(): String = choose("Arztbär", "Dr. Bear")
 
     override fun combine(
         dialogBoard: DialogBoard,
@@ -84,8 +90,8 @@ class DrBear(
         action: PointAndClickAction,
     ) {
         broken = true
-        dialogBoard.prepLookAt("Arztbär: Uhhhhhh!!")
-        game.soundManager.playSound(dialogCollection.soundCollection, 1)
+        dialogBoard.prepLookAt(choose("Arztbär: Uhhhhhh!!", "Dr. Bear: Uhhhhhh!!"))
+        game.soundManager.playSound(dialogCollection.soundCollection!!, 1)
         gameObjectToAppear.isVisible = true
         action.reset()
     }

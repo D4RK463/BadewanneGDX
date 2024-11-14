@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
+import org.wanne.game.Language
 import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
@@ -21,7 +22,7 @@ abstract class GameObject(
 
     private val random = Random()
 
-    private var stupidAnswers =
+    private val stupidAnswersDE =
         listOf(
             "Hääh?!?",
             "Was zum Teufel?",
@@ -40,13 +41,34 @@ abstract class GameObject(
             "LANGWEILIG!",
         )
 
+    private val stupidAnswersEN =
+        listOf(
+            "Huh?!?",
+            "What the hell?",
+            "I can't build there!",
+            "That's not possible!",
+            "Don't bother me!",
+            "I don't understand!!!",
+            "How is that supposed to work?",
+            "w00t?",
+            "I'm not stupid!",
+            "Stop confusing me!",
+            "CLEAR...",
+            "OF COURSE...",
+            "Think about it!",
+            "Doesn't work!",
+            "BORING!",
+        )
+
+    private lateinit var tooltip: TextTooltip
+
     abstract fun look(dialogBoard: DialogBoard)
 
     open fun use(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        dialogBoard.prepLookAt(getAStupidAnswer())
         action.reset()
     }
 
@@ -54,7 +76,7 @@ abstract class GameObject(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        dialogBoard.prepLookAt(getAStupidAnswer())
         action.reset()
     }
 
@@ -89,7 +111,7 @@ abstract class GameObject(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+        dialogBoard.prepLookAt(getAStupidAnswer())
         action.reset()
     }
 
@@ -100,10 +122,18 @@ abstract class GameObject(
         if (isInInventory) {
             dialogBoard.prepLookAt("Das hab ich doch schon!")
         } else {
-            dialogBoard.prepLookAt(stupidAnswers[random.nextInt(stupidAnswers.size - 1)])
+            dialogBoard.prepLookAt(getAStupidAnswer())
         }
 
         action.reset()
+    }
+
+    private fun getAStupidAnswer(): String {
+        return when(game.currentLang().language) {
+            Language.DE -> stupidAnswersDE[random.nextInt(stupidAnswersDE.size - 1)]
+            Language.EN -> stupidAnswersEN[random.nextInt(stupidAnswersEN.size - 1)]
+            Language.DROGL -> "Droglbecher"
+        }
     }
 
     override fun dispose() {
@@ -115,13 +145,32 @@ abstract class GameObject(
     abstract fun getToolTipDescription(): String
 
     /**
-     * Fügt dieses Object der Stage hinzu und erzeugt einen ToolTip dafür
+     * Fügt dieses Object der Stage hinzu und erzeugt einen ToolTip in der passenden Sprache dafür
      */
     fun addToStage(
         stage: Stage,
         skin: Skin,
     ) {
-        this.addListener(TextTooltip(getToolTipDescription(), skin))
+        // alten Tooltip löschen, wichtig für den Sprachwechsel
+        try {
+            this.removeListener(tooltip)
+        } catch (_: Exception) {
+        }
+
+        tooltip = TextTooltip(getToolTipDescription(), skin)
+        this.addListener(tooltip)
         stage.addActor(this)
+    }
+
+    /**
+     * Entscheidet welches der richtige String ist, anhand der aktuell
+     * eingestellten Sprache
+     */
+    fun choose(german: String, english: String): String {
+        return when(game.currentLang().language) {
+            Language.DE -> german
+            Language.EN -> english
+            Language.DROGL -> "Droglbecher"
+        }
     }
 }

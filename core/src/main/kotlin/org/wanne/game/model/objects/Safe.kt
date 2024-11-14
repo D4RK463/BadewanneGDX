@@ -24,7 +24,10 @@ class Safe(
     override fun getName(): String = "Safe"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Ein alter Safe mit einem Zahlenschloß...seltsam.")
+        dialogBoard.prepLookAt(choose(
+            "Ein alter Safe mit einem Zahlenschloß...seltsam.",
+            "An old safe with a combination lock...strange."
+        ))
     }
 
     override fun use(
@@ -32,7 +35,7 @@ class Safe(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            "Ich kenn die Zahlen nicht.",
+            choose("Ich kenn die Zahlen nicht.", "I don't know the combination."),
             null,
             action,
         )
@@ -60,5 +63,5 @@ class Safe(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Alter Safe"
+    override fun getToolTipDescription(): String = choose("Alter Safe", "Old safe")
 }

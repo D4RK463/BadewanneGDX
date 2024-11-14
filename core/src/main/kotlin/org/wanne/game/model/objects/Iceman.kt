@@ -40,7 +40,7 @@ class Iceman(
     override fun getName(): String = "Iceman"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Chilliger Dude!")
+        dialogBoard.prepLookAt(choose("Chilliger Dude!", "Cool dude!"))
     }
 
     override fun talk(
@@ -133,9 +133,12 @@ class Iceman(
     ) {
 
         if (iceGiven) {
-            dialogBoard.prepLookAt("Eismann: Jo man, mehr gibs nicht!")
+            dialogBoard.prepLookAt(choose("Eismann: Jo man, mehr gibs nicht!", "Iceman: Jo man, thats all!"))
         } else {
-            dialogBoard.prepLookAt("Jo man, nimmt das Ice und lass mich chilln, Duck-Boy!")
+            dialogBoard.prepLookAt(choose(
+                "Jo man, nimmt das Ice und lass mich chilln, Duck-Boy!",
+                "Jo man, take that and let me chill, Duck-Boy!"
+            ))
 
             // Eis ins Inventar packen
             if (!gameObjectToAppear.isVisible) {
@@ -155,7 +158,7 @@ class Iceman(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = "Funky Eismann!"
+    override fun getToolTipDescription(): String = choose("Funky Eismann!", "Funky iceman!")
 
     private enum class Way {
         GOOD, BAD, NONE

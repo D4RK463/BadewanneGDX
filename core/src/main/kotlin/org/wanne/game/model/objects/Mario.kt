@@ -205,7 +205,7 @@ class Mario(
         state = POWERED_UP
 
         powerUpAnimation.visible = true
-        game.soundManager.playSound(dialogCollection.soundCollection, 22)
+        game.soundManager.playSound(dialogCollection.soundCollection!!, 22)
         action.marioPoweredUp = true
         action.type = ActionType.TALK_TO
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)

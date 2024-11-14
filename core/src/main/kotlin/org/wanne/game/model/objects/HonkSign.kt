@@ -24,14 +24,20 @@ class HonkSign(
     override fun getName(): String = "HonkSign"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("'Honk, if you're horny'? ", "Ich bin ehr hungry!")
+        dialogBoard.prepLookAt(
+            "'Honk, if you're horny'? ",
+            choose("Ich bin ehr hungry!", "I am more like hungry!")
+        )
     }
 
     override fun take(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt("Ne, ich glaub nicht das wir den brauchen. ")
+        dialogBoard.prepLookAt(choose(
+            "Ne, ich glaub nicht das wir den brauchen.",
+            "Nah, I don't think we gonna need that."
+        ))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
@@ -40,5 +46,5 @@ class HonkSign(
             170
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = "Aufkleber"
+    override fun getToolTipDescription(): String = choose("Aufkleber", "Sticker")
 }

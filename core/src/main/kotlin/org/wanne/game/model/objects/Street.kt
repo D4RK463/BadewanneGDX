@@ -24,7 +24,10 @@ class Street(
     override fun getName(): String = "Street"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Wir können noch nicht gehen.", "Ich will Eis!")
+        dialogBoard.prepLookAt(
+            choose("Wir können noch nicht gehen.", "We can't go now."),
+            choose("Wir wollen Eis!", "We want ice!")
+        )
     }
 
     override fun use(
@@ -32,7 +35,7 @@ class Street(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            "Nein, ich will Eis!",
+            choose("Nein, ich will Eis!", "No, I want ice cream!"),
             null,
             action,
         )
@@ -45,5 +48,5 @@ class Street(
             220
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Straßenkreuzung"
+    override fun getToolTipDescription(): String = choose("Straßenkreuzung", "Street corner")
 }

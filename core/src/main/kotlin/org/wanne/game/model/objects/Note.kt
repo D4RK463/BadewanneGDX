@@ -29,7 +29,10 @@ class Note(
     override fun getName(): String = "Note"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Oh, eine Telefonnummer: 0190/******.")
+        dialogBoard.prepLookAt(choose(
+            "Oh, eine Telefonnummer: 0190/******.",
+            "Oh, it's a phone number: 0500/******."
+        ))
     }
 
     override fun take(
@@ -53,5 +56,5 @@ class Note(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Zettel mit Telefonnummer"
+    override fun getToolTipDescription(): String = choose("Zettel mit Telefonnummer", "A Note with a number on it")
 }

@@ -23,7 +23,10 @@ class Drawer(
     override fun getName(): String = "Drawer"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Die Schubladen sind nur aufgemalt... lol.")
+        dialogBoard.prepLookAt(choose(
+            "Die Schubladen sind nur aufgemalt... lol.",
+            "The drawers are only painted on... lol."
+        ))
     }
 
     override fun use(
@@ -31,7 +34,7 @@ class Drawer(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            "Da lässt sich nix öffnen. Die sind nicht echt.",
+            choose("Da lässt sich nix öffnen. Die sind nicht echt.", "Can't open anything. They are not real."),
             null,
             action,
         )
@@ -44,5 +47,5 @@ class Drawer(
             308
         ), null)
 
-    override fun getToolTipDescription(): String = "Holzschrank"
+    override fun getToolTipDescription(): String = choose("Holzschrank", "Drawer")
 }

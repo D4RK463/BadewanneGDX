@@ -23,7 +23,7 @@ class IceMenuLeft(
     override fun getName(): String = "IceMenuLeft"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("So viele leckere Sorten. Wow!")
+        dialogBoard.prepLookAt(choose("So viele leckere Sorten. Wow!", "So many flavours. Wow!"))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
@@ -32,5 +32,5 @@ class IceMenuLeft(
             308
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = "Eiskarte"
+    override fun getToolTipDescription(): String = choose("Eiskarte", "Ice cream menu")
 }

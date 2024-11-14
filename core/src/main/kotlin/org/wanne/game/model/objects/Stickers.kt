@@ -23,7 +23,7 @@ class Stickers(
     override fun getName(): String = "Stickers"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Wow, SpongeBob Aufkleber!")
+        dialogBoard.prepLookAt(choose("Wow, SpongeBob Aufkleber!", "Wow, SpongeBob Stickers!"))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
@@ -32,5 +32,5 @@ class Stickers(
             308
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Aufkleber"
+    override fun getToolTipDescription(): String = choose("Aufkleber", "Stickers")
 }

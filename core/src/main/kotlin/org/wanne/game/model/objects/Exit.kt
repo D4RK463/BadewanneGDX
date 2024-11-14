@@ -24,7 +24,7 @@ class Exit(
     override fun getName(): String = "Exit"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Da gehts nach draußen!")
+        dialogBoard.prepLookAt(choose("Da gehts nach draußen!", "That's the way out!"))
     }
 
     override fun use(
@@ -46,8 +46,8 @@ class Exit(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(
-            "Wie soll ich denn den Ausgang mit was kombinieren?",
-            "Probiers mal mit 'Benutzen' :) ",
+            choose("Wie soll ich denn den Ausgang mit was kombinieren?", "How am I supposed to combine something with the exit?"),
+            choose("Probiers mal mit 'Benutzen' :) ", "Try 'use' :)")
         )
     }
 
@@ -56,8 +56,8 @@ class Exit(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(
-            "Wollen wir uns wirklich mit dem Ausgang unterhalten?",
-            "Ich würde vorschlagen, wir gehn einfach..",
+            choose("Wollen wir uns wirklich mit dem Ausgang unterhalten?", "You really want me to talk to the exit?"),
+            choose("Ich würde vorschlagen, wir gehn einfach..", "I suggest, we just leave.."),
         )
     }
 
@@ -68,5 +68,5 @@ class Exit(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = "Süße Freiheit!"
+    override fun getToolTipDescription(): String = choose("Süße Freiheit!", "Sweet freedom!")
 }

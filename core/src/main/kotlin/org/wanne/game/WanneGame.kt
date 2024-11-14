@@ -18,6 +18,7 @@ import org.wanne.game.screens.game.OutsideScreen
 import org.wanne.game.screens.game.PuzzleScreen
 import org.wanne.game.screens.game.RoomScreen
 import org.wanne.game.screens.menu.OptionsScreen
+import org.wanne.game.sound.Speech
 
 class WanneGame(val android: Boolean): Game() {
     val roomScreen: RoomScreen by lazy {
@@ -98,4 +99,6 @@ class WanneGame(val android: Boolean): Game() {
 
         return button
     }
+
+    fun currentLang() = Speech.fromSaveString(config.speech)
 }

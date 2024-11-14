@@ -30,7 +30,7 @@ class Telephone(
     override fun getName(): String = "Telephone"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Super... rosa Telefon!")
+        dialogBoard.prepLookAt(choose("Super... rosa Telefon!", "Super... pink phone!"))
     }
 
     override fun use(
@@ -39,13 +39,19 @@ class Telephone(
     ) {
         if (game.talkedToCow) {
             dialogBoard.prepUseIt(
-                "Ich kenne die Nummer vom Wächter nicht auswendig.",
+                choose(
+                    "Ich kenne die Nummer vom Wächter nicht auswendig.",
+                    "I don't know the number of the guardian."
+                ),
                 null,
                 action,
             )
         } else {
             dialogBoard.prepUseIt(
-                "Wen soll ich denn anrufen? Kenn keine Nummern.",
+                choose(
+                    "Wen soll ich denn anrufen? Kenn keine Nummern.",
+                    "Who am I supposed to call? I don't know any numbers."
+                ),
                 null,
                 action,
             )
@@ -92,7 +98,10 @@ class Telephone(
             } else {
                 // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
                 if (game.cowIsBusy) {
-                    dialogBoard.prepLookAt("Piep, Piep, Piep...", "Scheint besetzt zu sein.")
+                    dialogBoard.prepLookAt(choose(
+                        choose("Piep, Piep, Piep...", "Tut, Tut, Tut..."),
+                        choose("Scheint besetzt zu sein.", "Seems to be busy.")
+                    ))
                 } else {
                     game.screen = game.cowPhoneScreen
                 }
@@ -114,5 +123,5 @@ class Telephone(
             266
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = "Rosa Telefon"
+    override fun getToolTipDescription(): String = choose("Rosa Telefon", "Pink phone")
 }

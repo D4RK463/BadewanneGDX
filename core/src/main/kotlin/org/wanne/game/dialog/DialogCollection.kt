@@ -6,7 +6,7 @@ import org.wanne.game.sound.SoundCollection
 
 typealias StartSentence = String
 
-open class DialogCollection(am: AssetsManager, val soundCollection: SoundCollection) {
+open class DialogCollection(am: AssetsManager, val soundCollection: SoundCollection?) {
     private val dialogs = mapOf(
         Language.DE to mutableMapOf<StartSentence, Dialog>(),
         Language.EN to mutableMapOf<StartSentence, Dialog>(),

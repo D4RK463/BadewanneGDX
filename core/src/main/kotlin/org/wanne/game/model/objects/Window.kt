@@ -2,6 +2,8 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.dialog.collections.WindowDialogCollection
+import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
@@ -23,37 +25,30 @@ class Window(
 
     override fun getName(): String = "Window"
 
+    private val dialogCollection = WindowDialogCollection(am)
+
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Es ist halb offen.")
+        dialogBoard.prepLookAt(choose("Es ist halb offen.", "It's half open."))
     }
 
     override fun use(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        when (action.lastSentence) {
-            "Hinaus sehen!" -> {
-                dialogBoard.prepUseIt(
-                    "Ich seh den Eiswagen, neben einem Graffiti stehen.",
-                    "Graffiti ansehn",
-                    action,
-                )
-            }
-            "Graffiti ansehn" -> {
-                dialogBoard
-                    .prepUseIt(
-                        "Ohhh... es steht 'el Barto' drauf?!?",
-                        null,
-                        action,
-                    ).also { action.reset() }
-            }
-            "Start" -> {
-                dialogBoard.prepUseIt(
-                    "Ich pass net durch.",
-                    "Hinaus sehen!",
-                    action,
-                )
-            }
+        var sentence = action.lastSentence
+        if (sentence == "Start") {
+            sentence = "Start1"
+        }
+
+        val dialog = game.dialogManager.getFurtherDialogAndPlaySound(
+            sentence,
+            dialogCollection
+        )
+        dialogBoard.prepTalkTo(dialog, action)
+        action.type = ActionType.USE // a little cheat
+
+        if (dialog?.isStateChanged() == true) {
+            action.reset()
         }
     }
 
@@ -63,5 +58,5 @@ class Window(
             308
         ), null)
 
-    override fun getToolTipDescription(): String = "Kleines Fenster"
+    override fun getToolTipDescription(): String = choose("Kleines Fenster", "Little window")
 }

@@ -29,7 +29,7 @@ class Pills(
     override fun getName(): String = "Pills"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Valium, hartes Zeug für'n Teddy.")
+        dialogBoard.prepLookAt(choose("Valium, hartes Zeug für'n Teddy.", "Valium, hard stuff for that small bear."))
     }
 
     override fun use(
@@ -37,7 +37,7 @@ class Pills(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            "Gewinner nehmen keine Drogen!",
+            choose("Gewinner nehmen keine Drogen!", "Winner don't do drugs!"),
             null,
             action,
         )
@@ -58,5 +58,5 @@ class Pills(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Tabletten"
+    override fun getToolTipDescription(): String = choose("Tabletten", "Pills")
 }

@@ -48,9 +48,7 @@ abstract class AbstractObject(
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
-        val sprite = getSprite(0F)
-        sprite.setScale(scaleX, scaleY)
-        sprite.draw(batch, parentAlpha)
+        this.draw(batch, parentAlpha, 0F)
     }
 
     override fun getWidth(): Float = getSprite(0F).width

@@ -35,7 +35,7 @@ class Cow(
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?> =
         Pair(org.wanne.game.model.Point(posX.toInt(), posY.toInt()), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Der Wächter"
+    override fun getToolTipDescription(): String = choose("Der Wächter", "The guardian")
 
     override fun talk(
         dialogBoard: DialogBoard,

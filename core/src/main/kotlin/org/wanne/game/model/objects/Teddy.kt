@@ -34,9 +34,15 @@ class Teddy(
 
     override fun look(dialogBoard: DialogBoard) {
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
-            dialogBoard.prepLookAt("Ein trauriger Teddy.", "So süß das man fast Karies davon kriegt.")
+            dialogBoard.prepLookAt(
+                choose("Ein trauriger Teddy.", "One sad teddy."),
+                choose("So süß das man fast Karies davon kriegt.", "So cute that it almost gives you tooth decay.")
+            )
         } else {
-            dialogBoard.prepLookAt("Ein Teddy.", "Er sieht schon etwas mutiger aus.")
+            dialogBoard.prepLookAt(
+                choose("Ein Teddy.", "A teddy."),
+                choose("Sie sieht schon etwas mutiger aus.", "She looks much braver now.")
+            )
         }
     }
 

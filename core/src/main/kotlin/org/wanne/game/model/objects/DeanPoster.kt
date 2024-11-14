@@ -23,14 +23,17 @@ class DeanPoster(
     override fun getName(): String = "DeanPoster"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Anspruchsvoll!")
+        dialogBoard.prepLookAt(choose("Anspruchsvoll!", "Demanding!"))
     }
 
     override fun take(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt("Geht nicht, das ist ein ", "tragendes Poster!")
+        dialogBoard.prepLookAt(
+            choose("Geht nicht, das ist ein ", "I can't, that is a"),
+            choose("tragendes Poster!", "load-bearing poster!")
+        )
         action.reset()
     }
 
@@ -40,5 +43,5 @@ class DeanPoster(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "James Dean Film"
+    override fun getToolTipDescription(): String = choose("James Dean Film", "James Dean Movie")
 }

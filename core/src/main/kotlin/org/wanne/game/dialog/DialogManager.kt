@@ -11,7 +11,7 @@ class DialogManager(private val config: Config, private val soundManager: SoundM
         val language: Language = Speech.fromSaveString(config.speech).language
 
         val dialog = sentence?.let { collection.get(language, it) }
-        soundManager.playSound(collection.soundCollection, dialog?.soundIndex)
+        collection.soundCollection?.let { soundManager.playSound(it, dialog?.soundIndex) }
 
         return dialog
     }

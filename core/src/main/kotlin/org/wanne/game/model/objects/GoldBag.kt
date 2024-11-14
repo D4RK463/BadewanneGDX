@@ -25,14 +25,14 @@ class GoldBag(
             234
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = "Ein Sack voll Geld"
+    override fun getToolTipDescription(): String = choose("Ein Sack voll Geld", "A bag of money")
 
     override fun getSprite(time: Float): Sprite {
         return addPositionToSprite(inventoryAtlas.createSprite("GoldInv"))
     }
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt("Kann das wirklich echtes Geld sein?")
+        dialogBoard.prepLookAt(choose("Kann das wirklich echtes Geld sein?", "Can this really be real money?"))
     }
 
     override fun getName(): String = "GoldBag"
@@ -56,7 +56,7 @@ class GoldBag(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        dialogBoard.prepLookAt("Lecker, es ist Schoko-Geld!")
+        dialogBoard.prepLookAt(choose("Lecker, es ist Schoko-Geld!", "Mhhh, chocolate coins!"))
         action.reset()
     }
 
