@@ -132,7 +132,7 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> stupidAnswersDE[random.nextInt(stupidAnswersDE.size - 1)]
             Language.EN -> stupidAnswersEN[random.nextInt(stupidAnswersEN.size - 1)]
-            Language.DROGL -> "Droglbecher"
+            Language.DROGL -> "Droglbecher?"
         }
     }
 
@@ -170,7 +170,7 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> german
             Language.EN -> english
-            Language.DROGL -> "Droglbecher"
+            Language.DROGL -> "Droglbecher!"
         }
     }
 }
