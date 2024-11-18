@@ -73,5 +73,37 @@ class WindowDialogCollection(am: AssetsManager) : DialogCollection(am, null) {
                 StateChange.YES
             )
         )
+
+        // Drogl
+        addDialog(
+            "Start1", Language.DROGL, Dialog(
+                "Droglbecher.",
+                null,
+                "Droglbecher!",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Droglbecher!", Language.DROGL, Dialog(
+                "Droglbecher.",
+                null,
+                "Droglbecher",
+                null,
+                null
+            )
+        )
+
+        addDialog(
+            "Droglbecher", Language.DROGL, Dialog(
+                "Droglbecher?!?",
+                null,
+                null,
+                null,
+                null,
+                StateChange.YES
+            )
+        )
     }
 }

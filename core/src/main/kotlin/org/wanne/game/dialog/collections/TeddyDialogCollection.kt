@@ -12,6 +12,7 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
     init {
         getGermanDialog()
         getEnglishDialog()
+        getDroglDialog()
     }
 
     private fun getGermanDialog() {
@@ -89,7 +90,7 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
         )
 
         addDialog(
-            "And what's up with Dr. Bear?", Language.DE, Dialog(
+            "Was ist mit dem Arztbär los?", Language.DE, Dialog(
                 "Teddy: Ach... Der hat zuviel von seiner ",
                 "eigenen Medizin genommen.",
                 null,
@@ -98,18 +99,6 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
                 StateChange.YES
             )
         )
-
-        /*
-        addDialog(
-            "Start2", Language.DE, Dialog(
-                "Kannste mir jetzt helfen?",
-                null,
-                "Was is los mit dir?",
-                "Was weißt du über den Wächter?",
-                null
-            )
-        )
-         */
     }
 
 
@@ -186,17 +175,81 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
                 StateChange.YES
             )
         )
+    }
 
-        /*
+    private fun getDroglDialog() {
         addDialog(
-            "Start2", Language.EN, Dialog(
-                "Can you help me now?",
+            "Start1", Language.DROGL, Dialog(
+                "Droglbecher!",
                 null,
-                "What's wrong with you?",
-                "What do you know about the guardian?",
+                "Droglbecher?",
+                null,
                 null
             )
         )
-         */
+
+        addDialog(
+            "Droglbecher?", Language.DROGL, Dialog(
+                "Droglbecher: ... *drogl*",
+                null,
+                null,
+                null,
+                0,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start2", Language.DROGL, Dialog(
+                "Droglbecher?",
+                null,
+                "Droglbecher??",
+                "Droglbecher???",
+                0
+            )
+        )
+
+        addDialog(
+            "Droglbecher???", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher!!!!",
+                null,
+                null,
+                null,
+                1,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Droglbecher??", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher!",
+                null,
+                "Drogl becher?",
+                "Droglbecher Droglbecher?",
+                2
+            )
+        )
+
+        addDialog(
+            "Drogl becher?", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                null,
+                "DroglBecher?",
+                3
+            )
+        )
+
+        addDialog(
+            "DroglBecher?", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher, Droglbecher. ",
+                null,
+                null,
+                null,
+                4,
+                StateChange.YES
+            )
+        )
+
     }
 }

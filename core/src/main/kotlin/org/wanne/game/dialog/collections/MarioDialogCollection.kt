@@ -12,6 +12,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
     init {
         getGermanDialog()
         getEnglishDialog()
+        getDroglDialog()
     }
 
     private fun getGermanDialog() {
@@ -181,7 +182,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Weiter...", Language.DE, Dialog(
-                "Mario: It is rumoured that the guardian harvests",
+                "Mario: Es wird gemunkelt, das der Wächter die",
                 "Seelen derer erntet die sich im Ausguss verirren.",
                 "Übertrieben!",
                 "WOW!!!",
@@ -687,6 +688,192 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
                 null,
                 "Why can't the carpet be moved?",
                 "What's that funny smell?",
+                null
+            )
+        )
+    }
+
+    private fun getDroglDialog() {
+        addDialog(
+            "Start1", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                "Droglbecher?",
+                null,
+                0
+            )
+        )
+
+        addDialog(
+            "Start2", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher?",
+                null,
+                null,
+                null,
+                4
+            )
+        )
+
+        addDialog(
+            "Droglbecher?", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher,",
+                "Droglbecher.",
+                "Droglbecher.",
+                null,
+                1
+            )
+        )
+
+        addDialog(
+            "Droglbecher.", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                null,
+                "*drogl* ...",
+                2
+            )
+        )
+
+        addDialog(
+            "*drogl* ...", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher. :(",
+                null,
+                null,
+                "Droglbecher...",
+                3
+            )
+        )
+
+        addDialog(
+            "Droglbecher...", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher?",
+                null,
+                null,
+                null,
+                4,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Droglbecher??", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher ",
+                "Droglbecher.",
+                "Droglbecher???",
+                null,
+                6
+            )
+        )
+
+        addDialog(
+            "Droglbecher???", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                "Droglbecher!?",
+                null,
+                7
+            )
+        )
+
+        addDialog(
+            "Droglbecher!?", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher!!",
+                null,
+                null,
+                null,
+                9,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start3", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher :) ",
+                null,
+                "Droglbecher??",
+                "Droglbecher???",
+                5
+            )
+        )
+
+        addDialog(
+            "Start4", Language.DROGL, Dialog(
+                "Droglbecher?",
+                null,
+                "Droglbecher??",
+                "Droglbecher???",
+                null,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start5", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                null,
+                null,
+                21
+            )
+        )
+
+        addDialog(
+            "Drogl becher??", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher...! ",
+                null,
+                null,
+                "Droglbecher, Droglbecher...",
+                16
+            )
+        )
+
+        addDialog(
+            "Droglbecher, Droglbecher...", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher.",
+                null,
+                null,
+                "Droglbecher!??",
+                18
+            )
+        )
+
+        addDialog(
+            "Droglbecher!??", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher...",
+                null,
+                "Droglbecher!!!!",
+                null,
+                19
+            )
+        )
+
+        addDialog(
+            "Droglbecher!!!!", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher,",
+                "Droglbecher!",
+                null,
+                null,
+                20,
+                StateChange.YES
+            )
+        )
+
+        addDialog(
+            "Start6", Language.DROGL, Dialog(
+                "Droglbecher: Droglbecher! Droglbecher!",
+                null,
+                null,
+                null,
+                14
+            )
+        )
+
+        addDialog(
+            "Start7", Language.DROGL, Dialog(
+                "Droglbecher!!",
+                null,
+                "Drogl becher??",
+                null,
                 null
             )
         )

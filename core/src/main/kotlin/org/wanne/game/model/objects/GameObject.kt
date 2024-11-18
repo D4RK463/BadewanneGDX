@@ -132,7 +132,7 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> stupidAnswersDE[random.nextInt(stupidAnswersDE.size - 1)]
             Language.EN -> stupidAnswersEN[random.nextInt(stupidAnswersEN.size - 1)]
-            Language.DROGL -> "Droglbecher?"
+            Language.DROGL -> randomizeDroglbecher()
         }
     }
 
@@ -170,7 +170,19 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> german
             Language.EN -> english
-            Language.DROGL -> "Droglbecher!"
+            Language.DROGL -> randomizeDroglbecher()
         }
+    }
+
+    private fun randomizeDroglbecher(): String {
+        val sign: String = when(random.nextInt(5)) {
+            0 -> ""
+            1 -> "!"
+            2 -> "?"
+            3 -> "!?"
+            4 -> "!!"
+            else -> ""
+        }
+        return "Droglbecher$sign"
     }
 }

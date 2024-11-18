@@ -218,7 +218,7 @@ class Mario(
         ), Player.Companion.Looking.LEFT
     )
 
-    override fun getToolTipDescription(): String = "Mario"
+    override fun getToolTipDescription(): String = choose("Mario", "Mario")
 }
 
 enum class MarioState {

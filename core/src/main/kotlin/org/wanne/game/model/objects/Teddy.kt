@@ -80,5 +80,5 @@ class Teddy(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = "Teddy"
+    override fun getToolTipDescription(): String = choose("Teddy", "Teddy")
 }

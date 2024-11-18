@@ -35,5 +35,5 @@ class PA2Poster(
             264
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = "Poster"
+    override fun getToolTipDescription(): String = choose("Poster", "Poster")
 }

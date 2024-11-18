@@ -31,5 +31,5 @@ class BrucePoster(
             268
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = "Bruce Lee"
+    override fun getToolTipDescription(): String = choose("Bruce Lee", "Bruce Lee")
 }

@@ -45,6 +45,23 @@ class DrBearDialogCollection(am: AssetsManager): DialogCollection(am, DrBearSoun
             0
         ))
 
+        // Drogl
+        addDialog("Start1", Language.DROGL, Dialog(
+            "Droglbecher: Droglbecher!?!",
+            null,
+            null,
+            null,
+            null
+        ))
+
+        addDialog("Start2", Language.DROGL, Dialog(
+            "Droglbecher: Droooooglbecher!!",
+            null,
+            null,
+            null,
+            0
+        ))
+
     }
 
 }
