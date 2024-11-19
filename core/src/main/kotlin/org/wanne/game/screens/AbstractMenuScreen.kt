@@ -2,6 +2,7 @@ package org.wanne.game.screens
 
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.viewport.FitViewport
@@ -12,6 +13,8 @@ abstract class AbstractMenuScreen (
 ) : Screen {
 
     val skin: Skin = game.am.get("ui/uiskin.json")
+
+    val mainButtonAtlas: TextureAtlas = game.am.get("pictures/Menue/mainbuttons.atlas")
 
     lateinit var viewport: FitViewport
 

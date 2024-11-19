@@ -34,7 +34,6 @@ class MainMenuScreen(
     private val poolAttendant = PoolAttendant(700F, 95F, Player.Companion.Looking.RIGHT, am = game.am)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
-    private val mainButtonAtlas: TextureAtlas = game.am.get("pictures/Menue/mainbuttons.atlas")
 
     private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
 

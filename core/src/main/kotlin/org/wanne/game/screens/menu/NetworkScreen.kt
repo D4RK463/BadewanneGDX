@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
@@ -17,9 +18,12 @@ class NetworkScreen(
 ) : AbstractOptionsScreen(game) {
 
     override fun buildMenu() {
+        val multiTitle = Image(mainButtonAtlas.createSprite("multiplayer"))
+        multiTitle.x = 100f
+        multiTitle.y = 550f
 
         val ipField = TextField("IP Adresse eingeben", skin)
-        ipField.x = 350f
+        ipField.x = 500f
         ipField.y = 500f
         ipField.width = 300f
         ipField.height = 50f
@@ -32,7 +36,7 @@ class NetworkScreen(
         ipField.text = game.config.ipAddress
 
         val portField = TextField("Port eingeben", skin)
-        portField.x = 350f
+        portField.x = 500f
         portField.y = 450f
         portField.width = 300f
         portField.height = 50f
@@ -44,7 +48,7 @@ class NetworkScreen(
         })
         portField.text = game.config.serverPort.toString()
 
-        val connectButton = createTextButton("Verbinden", 350f, 320f)
+        val connectButton = createTextButton("Verbinden", 500f, 320f)
         connectButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -67,8 +71,8 @@ class NetworkScreen(
             },
         )
 
-        val stopServerButton = createTextButton("Server stoppen", 350f, 200f)
-        val startServerButton = createTextButton("Server starten", 350f, 200f)
+        val stopServerButton = createTextButton("Server stoppen", 500f, 200f)
+        val startServerButton = createTextButton("Server starten", 500f, 200f)
         startServerButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -107,7 +111,7 @@ class NetworkScreen(
         )
         stopServerButton.isVisible = false
 
-        val backButton = createTextButton("Zurück", 350f, 80f)
+        val backButton = createTextButton("Zurück", 500f, 80f)
         backButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -122,7 +126,7 @@ class NetworkScreen(
         )
 
         val ipLabel = Label("Eigene IP-Adresse: ${getIpAddress()}", skin)
-        ipLabel.setPosition(350f, 550f)
+        ipLabel.setPosition(500f, 550f)
         ipLabel.color = Color.BLACK
 
         stage.addActor(ipLabel)
@@ -132,6 +136,7 @@ class NetworkScreen(
         stage.addActor(startServerButton)
         stage.addActor(stopServerButton)
         stage.addActor(backButton)
+        stage.addActor(multiTitle)
     }
 
     private fun getIpAddress() =

@@ -2,10 +2,12 @@ package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox
 import com.badlogic.gdx.scenes.scene2d.ui.Slider
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import org.wanne.game.Language
 import org.wanne.game.WanneGame
 
 class OptionsScreen(
@@ -16,13 +18,20 @@ class OptionsScreen(
     private val soundVolumeLabelText = "Sound Volume: "
 
     override fun buildMenu() {
+        val optionsTitle = if (game.currentLang().language == Language.DE) {
+            Image(mainButtonAtlas.createSprite("optionen"))
+        } else {
+            Image(mainButtonAtlas.createSprite("options"))
+        }
+        optionsTitle.x = 100f
+        optionsTitle.y = 550f
 
         val languageLabel = Label("Sprache auswählen:", skin)
-        languageLabel.setPosition(350f, 520f)
+        languageLabel.setPosition(500f, 520f)
         languageLabel.color = Color.BLACK
 
         val languageSelectBox = SelectBox<String>(skin)
-        languageSelectBox.setPosition(350F, 500F)
+        languageSelectBox.setPosition(500f, 500F)
         languageSelectBox.setItems("DE_ORIGINAL", "EN", "DROGL") //, "DE_NEU")
         languageSelectBox.selected = game.config.speech
         languageSelectBox.width = 250F
@@ -33,11 +42,11 @@ class OptionsScreen(
         })
 
         val soundVolumeLabel = Label("${soundVolumeLabelText}${game.config.soundVolume}", skin)
-        soundVolumeLabel.setPosition(350f, 420f)
+        soundVolumeLabel.setPosition(500f, 420f)
         soundVolumeLabel.color = Color.BLACK
 
         val soundSlider = Slider(0F, 1F, 0.05F, false, skin)
-        soundSlider.setPosition(350F, 400F)
+        soundSlider.setPosition(500f, 400f)
         soundSlider.value = game.config.soundVolume
         soundSlider.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
@@ -48,11 +57,11 @@ class OptionsScreen(
         })
 
         val musicVolumeLabel = Label("${musicVolumeLabelText}${game.config.musicVolume}", skin)
-        musicVolumeLabel.setPosition(350f, 320f)
+        musicVolumeLabel.setPosition(500f, 320f)
         musicVolumeLabel.color = Color.BLACK
 
         val musicSlider = Slider(0F, 1F, 0.05F, false, skin)
-        musicSlider.setPosition(350F, 300F)
+        musicSlider.setPosition(500f, 300F)
         musicSlider.value = game.config.musicVolume
         musicSlider.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
@@ -62,7 +71,7 @@ class OptionsScreen(
             }
         })
 
-        val backButton = createTextButton("Zurück und Speichern", 350f, 80f)
+        val backButton = createTextButton("Zurück und Speichern", 500f, 80f)
         backButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -83,5 +92,6 @@ class OptionsScreen(
         stage.addActor(musicVolumeLabel)
         stage.addActor(musicSlider)
         stage.addActor(backButton)
+        stage.addActor(optionsTitle)
     }
 }
