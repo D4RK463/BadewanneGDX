@@ -1,0 +1,103 @@
+mainbuttons.png
+size: 918, 339
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+continue
+  rotate: false
+  xy: 372, 100
+  size: 287, 79
+  orig: 287, 79
+  offset: 0, 0
+  index: -1
+continue_pressed
+  rotate: false
+  xy: 0, 0
+  size: 257, 49
+  orig: 257, 49
+  offset: 0, 0
+  index: -1
+extras
+  rotate: false
+  xy: 0, 179
+  size: 244, 80
+  orig: 244, 80
+  offset: 0, 0
+  index: -1
+extras_pressed
+  rotate: false
+  xy: 470, 0
+  size: 214, 50
+  orig: 214, 50
+  offset: 0, 0
+  index: -1
+multiplayer
+  rotate: false
+  xy: 244, 179
+  size: 392, 80
+  orig: 392, 80
+  offset: 0, 0
+  index: -1
+multiplayer_pressed
+  rotate: false
+  xy: 0, 50
+  size: 362, 50
+  orig: 362, 50
+  offset: 0, 0
+  index: -1
+optionen
+  rotate: false
+  xy: 636, 179
+  size: 282, 80
+  orig: 282, 80
+  offset: 0, 0
+  index: -1
+optionen_pressed
+  rotate: false
+  xy: 362, 50
+  size: 252, 50
+  orig: 252, 50
+  offset: 0, 0
+  index: -1
+options
+  rotate: false
+  xy: 0, 259
+  size: 249, 80
+  orig: 249, 80
+  offset: 0, 0
+  index: -1
+options_pressed
+  rotate: false
+  xy: 614, 50
+  size: 219, 50
+  orig: 219, 50
+  offset: 0, 0
+  index: -1
+singleplayer
+  rotate: false
+  xy: 249, 259
+  size: 402, 80
+  orig: 402, 80
+  offset: 0, 0
+  index: -1
+singleplayer_pressed
+  rotate: false
+  xy: 0, 100
+  size: 372, 50
+  orig: 372, 50
+  offset: 0, 0
+  index: -1
+weiter
+  rotate: false
+  xy: 659, 100
+  size: 243, 79
+  orig: 243, 79
+  offset: 0, 0
+  index: -1
+weiter_pressed
+  rotate: false
+  xy: 257, 0
+  size: 213, 49
+  orig: 213, 49
+  offset: 0, 0
+  index: -1

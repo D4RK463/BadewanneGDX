@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.Language
 import org.wanne.game.WanneGame
 import org.wanne.game.model.animation.WaterAnimation
 import org.wanne.game.model.player.Duck
@@ -33,6 +34,7 @@ class MainMenuScreen(
     private val poolAttendant = PoolAttendant(700F, 95F, Player.Companion.Looking.RIGHT, am = game.am)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
+    private val mainButtonAtlas: TextureAtlas = game.am.get("pictures/Menue/mainbuttons.atlas")
 
     private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
 
@@ -70,13 +72,23 @@ class MainMenuScreen(
     }
 
     private fun buildMenu() {
-        val singlePlayerButtonText = if (game.startedGame) {
-            "Continue"
+        val singlePlayerSprite = if (game.startedGame) {
+            if (game.currentLang().language == Language.EN) {
+                "continue"
+            } else {
+                "weiter"
+            }
         } else {
-            "Singleplayer"
+            "singleplayer"
         }
 
-        val startButton = createTextButton(singlePlayerButtonText, 100f, 400f)
+        val startButton =
+            game.createUIButton(
+                mainButtonAtlas.createSprite(singlePlayerSprite),
+                mainButtonAtlas.createSprite(singlePlayerSprite+"_pressed"),
+                100f,
+                320f,
+            )
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -89,7 +101,13 @@ class MainMenuScreen(
             },
         )
 
-        val multiButton = createTextButton("Multiplayer", 100f, 250f)
+        val multiButton =
+            game.createUIButton(
+                mainButtonAtlas.createSprite("multiplayer"),
+                mainButtonAtlas.createSprite("multiplayer_pressed"),
+                100f,
+                250f,
+            )
         multiButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -102,8 +120,38 @@ class MainMenuScreen(
             },
         )
 
-        val optionsButton = createTextButton("Optionen", 100f, 100f)
+        val optionsSprite = if (game.currentLang().language == Language.DE) {
+            "optionen"
+        } else {
+            "options"
+        }
+        val optionsButton =
+            game.createUIButton(
+                mainButtonAtlas.createSprite(optionsSprite),
+                mainButtonAtlas.createSprite(optionsSprite+"_pressed"),
+                100f,
+                180f,
+            )
         optionsButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.screen = game.optionsScreen
+                    dispose()
+                }
+            },
+        )
+
+        val extrasButton =
+            game.createUIButton(
+                mainButtonAtlas.createSprite("extras"),
+                mainButtonAtlas.createSprite("extras_pressed"),
+                100f,
+                110f,
+            )
+        extrasButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
@@ -136,6 +184,7 @@ class MainMenuScreen(
         stage.addActor(startButton)
         stage.addActor(multiButton)
         stage.addActor(optionsButton)
+        stage.addActor(extrasButton)
 
         if (!game.android) {
             stage.addActor(exitButton)
