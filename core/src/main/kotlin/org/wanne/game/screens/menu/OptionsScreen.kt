@@ -1,6 +1,5 @@
 package org.wanne.game.screens.menu
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -26,9 +25,8 @@ class OptionsScreen(
         optionsTitle.x = 100f
         optionsTitle.y = 550f
 
-        val languageLabel = Label("Sprache auswählen:", skin)
+        val languageLabel = Label("Sprache auswählen:", game.wanneSkin)
         languageLabel.setPosition(500f, 520f)
-        languageLabel.color = Color.BLACK
 
         val languageSelectBox = SelectBox<String>(skin)
         languageSelectBox.setPosition(500f, 500F)
@@ -41,9 +39,8 @@ class OptionsScreen(
             }
         })
 
-        val soundVolumeLabel = Label("${soundVolumeLabelText}${game.config.soundVolume}", skin)
+        val soundVolumeLabel = Label("${soundVolumeLabelText}${parsePercent(game.config.soundVolume)}%", game.wanneSkin)
         soundVolumeLabel.setPosition(500f, 420f)
-        soundVolumeLabel.color = Color.BLACK
 
         val soundSlider = Slider(0F, 1F, 0.05F, false, skin)
         soundSlider.setPosition(500f, 400f)
@@ -52,13 +49,12 @@ class OptionsScreen(
             override fun changed(event: ChangeEvent, actor: Actor) {
                 game.config.soundVolume = soundSlider.value
                 soundVolumeLabel.setText("")
-                soundVolumeLabel.setText("${soundVolumeLabelText}${soundSlider.value}")
+                soundVolumeLabel.setText("${soundVolumeLabelText}${parsePercent(soundSlider.value)}%")
             }
         })
 
-        val musicVolumeLabel = Label("${musicVolumeLabelText}${game.config.musicVolume}", skin)
+        val musicVolumeLabel = Label("${musicVolumeLabelText}${parsePercent(game.config.musicVolume)}%", game.wanneSkin)
         musicVolumeLabel.setPosition(500f, 320f)
-        musicVolumeLabel.color = Color.BLACK
 
         val musicSlider = Slider(0F, 1F, 0.05F, false, skin)
         musicSlider.setPosition(500f, 300F)
@@ -67,7 +63,7 @@ class OptionsScreen(
             override fun changed(event: ChangeEvent, actor: Actor) {
                 game.config.musicVolume = musicSlider.value
                 musicVolumeLabel.setText("")
-                musicVolumeLabel.setText("${musicVolumeLabelText}${musicSlider.value}")
+                musicVolumeLabel.setText("${musicVolumeLabelText}${parsePercent(musicSlider.value)}%")
             }
         })
 
@@ -93,5 +89,9 @@ class OptionsScreen(
         stage.addActor(musicSlider)
         stage.addActor(backButton)
         stage.addActor(optionsTitle)
+    }
+
+    private fun parsePercent(value: Float) : Int {
+        return value.times( 10).toInt().times(10)
     }
 }

@@ -1,6 +1,5 @@
 package org.wanne.game.screens.menu
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
@@ -125,9 +124,8 @@ class NetworkScreen(
             },
         )
 
-        val ipLabel = Label("Eigene IP-Adresse: ${getIpAddress()}", skin)
+        val ipLabel = Label("Eigene IP-Adresse: ${getIpAddress()}", game.wanneSkin)
         ipLabel.setPosition(500f, 550f)
-        ipLabel.color = Color.BLACK
 
         stage.addActor(ipLabel)
         stage.addActor(ipField)

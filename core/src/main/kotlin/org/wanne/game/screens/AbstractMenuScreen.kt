@@ -12,7 +12,7 @@ abstract class AbstractMenuScreen (
     val game: WanneGame,
 ) : Screen {
 
-    val skin: Skin = game.am.get("ui/uiskin.json")
+    val skin: Skin = game.am.get("ui/default/uiskin.json")
 
     val mainButtonAtlas: TextureAtlas = game.am.get("pictures/Menue/mainbuttons.atlas")
 

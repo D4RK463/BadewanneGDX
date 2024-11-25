@@ -16,7 +16,7 @@ class AssetsManager {
     private val assetManager: AssetManager = AssetManager()
 
     fun loadUI() {
-        assetManager.load("ui/uiskin.json", Skin::class.java)
+        assetManager.load("ui/default/uiskin.json", Skin::class.java)
 
         assetManager.load("ui/cursor/Ansehen.png", Pixmap::class.java)
         assetManager.load("ui/cursor/Reden.png", Pixmap::class.java)

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
@@ -19,9 +18,7 @@ class LoadingScreen (
 
     private lateinit var stage: Stage
 
-    private val skin: Skin = Skin(Gdx.files.internal("ui/uiskin.json"))
-
-    private val loadingLabel: Label = Label("Loading ...", skin)
+    private val loadingLabel: Label = Label("Loading ...", game.wanneSkin)
 
     private var initialLoadingDone = false
     private var currentLoad = 0

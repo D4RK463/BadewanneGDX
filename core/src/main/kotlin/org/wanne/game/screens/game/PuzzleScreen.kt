@@ -22,7 +22,7 @@ import org.wanne.game.model.puzzle.VictoryMessage
 class PuzzleScreen(
     var game: WanneGame,
 ) : Screen {
-    private val skin: Skin = game.am.get("ui/uiskin.json")
+    private val skin: Skin = game.am.get("ui/default/uiskin.json")
 
     // Background
     private val puzzleBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/puzzle.png")
