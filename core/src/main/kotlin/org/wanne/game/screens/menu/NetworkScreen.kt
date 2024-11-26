@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import org.wanne.game.Language
 import org.wanne.game.WanneGame
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
@@ -110,7 +111,17 @@ class NetworkScreen(
         )
         stopServerButton.isVisible = false
 
-        val backButton = createTextButton("Zurück", 500f, 80f)
+        val backSprite = if (game.currentLang().language == Language.EN) {
+            "back"
+        } else {
+            "zuruck"
+        }
+        val backButton = game.createUIButton(
+            mainButtonAtlas.createSprite(backSprite),
+            mainButtonAtlas.createSprite(backSprite + "_pressed"),
+            500f,
+            80f,
+        )
         backButton.addListener(
             object : ChangeListener() {
                 override fun changed(
