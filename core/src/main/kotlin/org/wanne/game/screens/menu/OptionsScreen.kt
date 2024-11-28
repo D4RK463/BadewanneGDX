@@ -4,11 +4,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox
 import com.badlogic.gdx.scenes.scene2d.ui.Slider
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
 import org.wanne.game.WanneGame
+import org.wanne.game.sound.Speech
 
 class OptionsScreen(
     game: WanneGame,
@@ -19,27 +19,15 @@ class OptionsScreen(
 
     lateinit var optionsTitle: Image
     lateinit var languageLabel: Label
+    lateinit var modeLabel: Label
     lateinit var backButton: ImageButton
 
+    lateinit var gerButton: ImageButton
+    lateinit var engButton: ImageButton
+    lateinit var orgButton: ImageButton
+    lateinit var droglButton: ImageButton
+
     override fun buildMenu() {
-        val languageSelectBox = SelectBox<String>(skin)
-        languageSelectBox.setPosition(650f, 410F)
-        languageSelectBox.setItems("DE_ORIGINAL", "EN", "DROGL") //, "DE_NEU")
-        languageSelectBox.selected = game.config.speech
-        languageSelectBox.width = 350F
-        languageSelectBox.addListener(object : ChangeListener() {
-            override fun changed(event: ChangeEvent, actor: Actor) {
-                game.config.speech = languageSelectBox.selected
-
-                // direkt die Sprache ändern
-                optionsTitle.remove()
-                languageLabel.remove()
-                backButton.remove()
-
-                createLanguageSensitiveObjects()
-            }
-        })
-
         val soundVolumeLabel = Label("${soundVolumeLabelText}${parsePercent(game.config.soundVolume)}%", game.wanneSkin)
         soundVolumeLabel.setPosition(100f, 450f)
 
@@ -70,13 +58,28 @@ class OptionsScreen(
             }
         })
 
-        stage.addActor(languageSelectBox)
         stage.addActor(soundVolumeLabel)
         stage.addActor(soundSlider)
         stage.addActor(musicVolumeLabel)
         stage.addActor(musicSlider)
 
+        createLangButtons()
         createLanguageSensitiveObjects()
+    }
+
+    private fun updateLanguageSensitiveObjects() {
+        optionsTitle.remove()
+        languageLabel.remove()
+        modeLabel.remove()
+        backButton.remove()
+
+        gerButton.remove()
+        engButton.remove()
+        orgButton.remove()
+        droglButton.remove()
+
+        createLanguageSensitiveObjects()
+        createLangButtons()
     }
 
     private fun createLanguageSensitiveObjects() {
@@ -85,16 +88,23 @@ class OptionsScreen(
         } else {
             Image(mainButtonAtlas.createSprite("options"))
         }
-        optionsTitle.x = 100f
+        optionsTitle.x = 90f
         optionsTitle.y = 550f
 
 
         languageLabel = if (game.currentLang().language == Language.DE) {
-            Label("Sprache auswählen", game.wanneSkin)
+            Label("Sprache", game.wanneSkin)
         } else {
-            Label("Choose language", game.wanneSkin)
+            Label("Language", game.wanneSkin)
         }
-        languageLabel.setPosition(650f, 450f)
+        languageLabel.setPosition(570f, 450f)
+
+        modeLabel = if (game.currentLang().language == Language.DE) {
+            Label("Spielmodus", game.wanneSkin)
+        } else {
+            Label("Game mode", game.wanneSkin)
+        }
+        modeLabel.setPosition(570f, 250f)
 
         val backSprite = if (game.currentLang().language == Language.DE) {
             "zuruckspeichern"
@@ -104,8 +114,8 @@ class OptionsScreen(
         backButton = game.createUIButton(
             mainButtonAtlas.createSprite(backSprite),
             mainButtonAtlas.createSprite(backSprite + "_pressed"),
-            300f,
-            50f,
+            320f,
+            35f,
         )
         backButton.addListener(
             object : ChangeListener() {
@@ -120,12 +130,100 @@ class OptionsScreen(
             },
         )
 
-        stage.addActor(languageLabel)
-        stage.addActor(backButton)
         stage.addActor(optionsTitle)
+        stage.addActor(languageLabel)
+        //stage.addActor(modeLabel)
+        stage.addActor(backButton)
     }
 
     private fun parsePercent(value: Float): Int {
         return value.times(10).toInt().times(10)
+    }
+
+    private fun createLangButtons() {
+        gerButton = game.createUIButton(
+            mainButtonAtlas.createSprite("gerButton"+getButtonSelectionState(Speech.DE_NEU)),
+            mainButtonAtlas.createSprite("gerButton_pressed"),
+            560f,
+            350F,
+        )
+        gerButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.speech = Speech.DE_NEU.speech
+                    updateLanguageSensitiveObjects()
+                }
+            },
+        )
+
+        engButton = game.createUIButton(
+            mainButtonAtlas.createSprite("engButton"+getButtonSelectionState(Speech.EN)),
+            mainButtonAtlas.createSprite("engButton_pressed"),
+            735f,
+            350F,
+        )
+        engButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.speech = Speech.EN.speech
+                    updateLanguageSensitiveObjects()
+                }
+            },
+        )
+
+        orgButton = game.createUIButton(
+            mainButtonAtlas.createSprite("orgButton"+getButtonSelectionState(Speech.DE_ORIGINAL)),
+            mainButtonAtlas.createSprite("orgButton_pressed"),
+            910f,
+            350F,
+        )
+        orgButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.speech = Speech.DE_ORIGINAL.speech
+                    updateLanguageSensitiveObjects()
+                }
+            },
+        )
+
+        droglButton = game.createUIButton(
+            mainButtonAtlas.createSprite("droglButton"+getButtonSelectionState(Speech.DROGL)),
+            mainButtonAtlas.createSprite("droglButton_pressed"),
+            1085f,
+            350F,
+        )
+        droglButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.speech = Speech.DROGL.speech
+                    updateLanguageSensitiveObjects()
+                }
+            },
+        )
+
+        stage.addActor(gerButton)
+        stage.addActor(engButton)
+        stage.addActor(orgButton)
+        stage.addActor(droglButton)
+    }
+
+    private fun getButtonSelectionState(speech: Speech) : String {
+        return if(game.currentLang() == speech) {
+            "_selected"
+        } else {
+            ""
+        }
     }
 }

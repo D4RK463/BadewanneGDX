@@ -23,6 +23,8 @@ class Config {
 
     var speech: String = Speech.DE_ORIGINAL.speech
 
+    var mode: String = VideoMode.CLASSIC.toString()
+
     fun saveSettings() {
         prefs["ipAddress"] = ipAddress
         prefs["clientPort"] = clientPort
@@ -31,6 +33,7 @@ class Config {
         prefs["musicVolume"] = musicVolume
         prefs["extrasUnlocked"] = extrasUnlocked
         prefs["language"] = speech
+        prefs["mode"] = mode
 
         prefs.flush()
     }

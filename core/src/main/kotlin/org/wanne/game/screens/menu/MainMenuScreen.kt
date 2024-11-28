@@ -161,6 +161,7 @@ class MainMenuScreen(
                 }
             },
         )
+        extrasButton.isDisabled = true
 
         val exitButton =
             game.createUIButton(

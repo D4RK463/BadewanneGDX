@@ -19,7 +19,7 @@ class NetworkScreen(
 
     override fun buildMenu() {
         val multiTitle = Image(mainButtonAtlas.createSprite("multiplayer"))
-        multiTitle.x = 100f
+        multiTitle.x = 90f
         multiTitle.y = 550f
 
         val ipField = TextField("IP Adresse eingeben", skin)
