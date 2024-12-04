@@ -128,4 +128,10 @@ class WanneGame(val android: Boolean): Game() {
 
         return skin
     }
+
+    fun currentSkin() : Skin = if (config.mode == VideoMode.CLASSIC.toString()) {
+        am.get("ui/default/uiskin.json")
+    } else {
+        wanneSkin
+    }
 }

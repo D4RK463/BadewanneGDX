@@ -19,7 +19,7 @@ abstract class AbstractObject(
 
     var isInInventory = false
 
-    abstract fun getSprite(time: Float): Sprite
+    abstract fun getSprite(time: Float): Sprite?
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
         sprite.x = correctPositionX(posX.toInt()).toFloat()
@@ -44,17 +44,17 @@ abstract class AbstractObject(
         time: Float
     ) {
         val sprite = getSprite(time)
-        sprite.setScale(scaleX, scaleY)
-        sprite.draw(batch, parentAlpha)
+        sprite?.setScale(scaleX, scaleY)
+        sprite?.draw(batch, parentAlpha)
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         this.draw(batch, parentAlpha, 0F)
     }
 
-    override fun getWidth(): Float = getSprite(0F).width
+    override fun getWidth(): Float = getSprite(0F)?.width ?: 0F
 
-    override fun getHeight(): Float = getSprite(0F).height
+    override fun getHeight(): Float = getSprite(0F)?.height ?: 0F
 
     override fun setScale(scaleX: Float, scaleY: Float) {
         this.scaleX = scaleX
@@ -62,7 +62,7 @@ abstract class AbstractObject(
     }
 
     fun correctPositionX(currentX: Int) : Int {
-        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {252} else {0}
+        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {254} else {0}
         return currentX + extra
     }
 

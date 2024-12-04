@@ -15,8 +15,8 @@ class Window(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -54,8 +54,8 @@ class Window(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
         Point(
-            510,
-            308
+            correctPositionX(510),
+            correctPositionY(308)
         ), null)
 
     override fun getToolTipDescription(): String = choose("Kleines Fenster", "Little window")

@@ -12,8 +12,8 @@ class Drawer(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -43,8 +43,8 @@ class Drawer(
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?> = Pair(
         org.wanne.game.model.Point(
-            510,
-            308
+            correctPositionX(510),
+            correctPositionY(308)
         ), null)
 
     override fun getToolTipDescription(): String = choose("Holzschrank", "Drawer")

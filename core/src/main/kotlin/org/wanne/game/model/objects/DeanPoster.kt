@@ -12,8 +12,8 @@ class DeanPoster(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -39,8 +39,8 @@ class DeanPoster(
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
         org.wanne.game.model.Point(
-            344,
-            264
+            correctPositionX(344),
+            correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
     override fun getToolTipDescription(): String = choose("James Dean Film", "James Dean Movie")

@@ -12,8 +12,8 @@ class IceMenuRight(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -31,8 +31,8 @@ class IceMenuRight(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
         Point(
-            550,
-            200
+            correctPositionX(550),
+            correctPositionY(200)
         ), Player.Companion.Looking.RIGHT)
 
     override fun getToolTipDescription(): String = choose("Eiskarte", "Ice cream menu")

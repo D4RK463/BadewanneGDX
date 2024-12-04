@@ -11,8 +11,8 @@ class Box(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -27,8 +27,8 @@ class Box(
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
         org.wanne.game.model.Point(
-            638,
-            268
+            correctPositionX(638),
+            correctPositionY(268)
         ), Player.Companion.Looking.RIGHT
     )
 

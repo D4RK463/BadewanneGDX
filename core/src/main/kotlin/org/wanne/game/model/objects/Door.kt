@@ -2,6 +2,7 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
@@ -41,8 +42,8 @@ class Door(
         action.reset()
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
-        org.wanne.game.model.Point(
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
+        Point(
             correctPositionX(862),
             correctPositionY(216)
         ), Player.Companion.Looking.RIGHT)

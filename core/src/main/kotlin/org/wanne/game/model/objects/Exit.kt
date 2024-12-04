@@ -13,8 +13,8 @@ class Exit(
     game: WanneGame,
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -63,8 +63,8 @@ class Exit(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
-            900,
-            216
+            correctPositionX(900),
+            correctPositionY(216)
         ), Player.Companion.Looking.RIGHT
     )
 

@@ -3,6 +3,7 @@ package org.wanne.game.model.objects
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.collections.CowDialogCollection
+import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.CowState.NORMAL
@@ -15,8 +16,8 @@ class Cow(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -32,8 +33,11 @@ class Cow(
     override fun look(dialogBoard: DialogBoard) {
     }
 
-    override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking?> =
-        Pair(org.wanne.game.model.Point(posX.toInt(), posY.toInt()), Player.Companion.Looking.LEFT)
+    override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> =
+        Pair(Point(
+            correctPositionX(posX.toInt()),
+            correctPositionY(posY.toInt())
+        ), Player.Companion.Looking.LEFT)
 
     override fun getToolTipDescription(): String = choose("Der Wächter", "The guardian")
 

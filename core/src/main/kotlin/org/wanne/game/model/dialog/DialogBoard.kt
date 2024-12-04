@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.Dialog
 import org.wanne.game.model.AbstractObject
@@ -23,10 +24,10 @@ class DialogBoard(
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
-        height = getSprite(0F).height
-        width = getSprite(0F).width
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
+        height = getSprite(0F)?.height ?: 0F
+        width = getSprite(0F)?.width ?: 0F
     }
 
     private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
@@ -180,5 +181,9 @@ class DialogBoard(
         this.isVisible = true
     }
 
-    override fun getSprite(time: Float): Sprite = addPositionToSprite(itemAtlas.createSprite("Brett"))
+    override fun getSprite(time: Float): Sprite? = if (game.config.mode == VideoMode.CLASSIC.toString()) {
+        addPositionToSprite(itemAtlas.createSprite("Brett"))
+    } else {
+        null
+    }
 }

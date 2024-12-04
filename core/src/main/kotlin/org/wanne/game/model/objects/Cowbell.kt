@@ -12,8 +12,8 @@ class Cowbell(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = posX
-        y = posY
+        x = correctPositionX(posX.toInt()).toFloat()
+        y = correctPositionY(posY.toInt()).toFloat()
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -53,8 +53,8 @@ class Cowbell(
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
         org.wanne.game.model.Point(
-            288,
-            154
+            correctPositionX(288),
+            correctPositionY(154)
         ), Player.Companion.Looking.LEFT)
 
     override fun getToolTipDescription(): String = choose("Kuhglocke", "Cowbell")
