@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import org.wanne.game.AssetsManager
+import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 
 abstract class AbstractObject(
@@ -21,8 +22,8 @@ abstract class AbstractObject(
     abstract fun getSprite(time: Float): Sprite
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
-        sprite.x = posX
-        sprite.y = posY
+        sprite.x = correctPositionX(posX.toInt()).toFloat()
+        sprite.y = correctPositionY(posY.toInt()).toFloat()
         return sprite
     }
 
@@ -58,5 +59,15 @@ abstract class AbstractObject(
     override fun setScale(scaleX: Float, scaleY: Float) {
         this.scaleX = scaleX
         this.scaleY = scaleY
+    }
+
+    fun correctPositionX(currentX: Int) : Int {
+        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {252} else {0}
+        return currentX + extra
+    }
+
+    fun correctPositionY(currentY: Int) : Int {
+        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {-50} else {0}
+        return currentY + extra
     }
 }

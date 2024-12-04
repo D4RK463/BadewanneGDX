@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.animation.FireAnimation
@@ -46,6 +47,7 @@ class RoomScreen(
     // Background
     private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
     private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
+    private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
 
     // Raum Lauf-Limits => links, unten, rechts, oben
     private val limits = intArrayOf(255, 129, 934, 312)
@@ -95,15 +97,19 @@ class RoomScreen(
     private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
 
     override fun show() {
-        Gdx.graphics.setWindowedMode(1024, 768)
-        viewport = FitViewport(1024f, 768f)
+        Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
         stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(fireAnimation, powerUpAnimation))
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
         if (game.isSingleplayer) {
-            stage.addActor(Image(roomBackgroundSingle))
+            if (game.config.mode == VideoMode.CLASSIC.toString()) {
+                stage.addActor(Image(roomBackgroundSingle))
+            } else {
+                stage.addActor(Image(roomBackgroundSingleWide))
+            }
         } else {
             stage.addActor(Image(roomBackgroundMulti))
         }

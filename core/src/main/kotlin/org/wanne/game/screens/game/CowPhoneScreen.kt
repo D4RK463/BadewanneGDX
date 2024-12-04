@@ -36,8 +36,8 @@ class CowPhoneScreen(
     private val cow = Cow(game = game)
 
     override fun show() {
-        Gdx.graphics.setWindowedMode(1024, 768)
-        viewport = FitViewport(1024f, 768f)
+        Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
         musicBackground.volume = 0.4F
         musicBackground.isLooping = true

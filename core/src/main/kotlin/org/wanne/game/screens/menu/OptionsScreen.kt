@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Slider
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
+import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.sound.Speech
 
@@ -26,6 +27,9 @@ class OptionsScreen(
     lateinit var engButton: ImageButton
     lateinit var orgButton: ImageButton
     lateinit var droglButton: ImageButton
+
+    lateinit var classicButton: ImageButton
+    lateinit var modernButton: ImageButton
 
     override fun buildMenu() {
         val soundVolumeLabel = Label("${soundVolumeLabelText}${parsePercent(game.config.soundVolume)}%", game.wanneSkin)
@@ -63,11 +67,12 @@ class OptionsScreen(
         stage.addActor(musicVolumeLabel)
         stage.addActor(musicSlider)
 
-        createLangButtons()
         createLanguageSensitiveObjects()
+        createLangButtons()
+        createModeButtons()
     }
 
-    private fun updateLanguageSensitiveObjects() {
+    private fun updateObjects() {
         optionsTitle.remove()
         languageLabel.remove()
         modeLabel.remove()
@@ -78,8 +83,12 @@ class OptionsScreen(
         orgButton.remove()
         droglButton.remove()
 
+        classicButton.remove()
+        modernButton.remove()
+
         createLanguageSensitiveObjects()
         createLangButtons()
+        createModeButtons()
     }
 
     private fun createLanguageSensitiveObjects() {
@@ -132,7 +141,7 @@ class OptionsScreen(
 
         stage.addActor(optionsTitle)
         stage.addActor(languageLabel)
-        //stage.addActor(modeLabel)
+        stage.addActor(modeLabel)
         stage.addActor(backButton)
     }
 
@@ -154,7 +163,7 @@ class OptionsScreen(
                     actor: Actor?,
                 ) {
                     game.config.speech = Speech.DE_NEU.speech
-                    updateLanguageSensitiveObjects()
+                    updateObjects()
                 }
             },
         )
@@ -172,7 +181,7 @@ class OptionsScreen(
                     actor: Actor?,
                 ) {
                     game.config.speech = Speech.EN.speech
-                    updateLanguageSensitiveObjects()
+                    updateObjects()
                 }
             },
         )
@@ -190,7 +199,7 @@ class OptionsScreen(
                     actor: Actor?,
                 ) {
                     game.config.speech = Speech.DE_ORIGINAL.speech
-                    updateLanguageSensitiveObjects()
+                    updateObjects()
                 }
             },
         )
@@ -208,7 +217,7 @@ class OptionsScreen(
                     actor: Actor?,
                 ) {
                     game.config.speech = Speech.DROGL.speech
-                    updateLanguageSensitiveObjects()
+                    updateObjects()
                 }
             },
         )
@@ -219,8 +228,57 @@ class OptionsScreen(
         stage.addActor(droglButton)
     }
 
+    private fun createModeButtons() {
+        classicButton = game.createUIButton(
+            mainButtonAtlas.createSprite("classicButton" + getButtonSelectionState(VideoMode.CLASSIC)),
+            mainButtonAtlas.createSprite("classicButton_pressed"),
+            560f,
+            149F,
+        )
+        classicButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.mode = VideoMode.CLASSIC.toString()
+                    updateObjects()
+                }
+            },
+        )
+
+        modernButton = game.createUIButton(
+            mainButtonAtlas.createSprite("modernButton" + getButtonSelectionState(VideoMode.MODERN)),
+            mainButtonAtlas.createSprite("modernButton_pressed"),
+            735f,
+            150F,
+        )
+        modernButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.config.mode = VideoMode.MODERN.toString()
+                    updateObjects()
+                }
+            },
+        )
+
+        stage.addActor(classicButton)
+        stage.addActor(modernButton)
+    }
+
     private fun getButtonSelectionState(speech: Speech) : String {
         return if(game.currentLang() == speech) {
+            "_selected"
+        } else {
+            ""
+        }
+    }
+
+    private fun getButtonSelectionState(mode: VideoMode) : String {
+        return if(game.config.mode == mode.toString()) {
             "_selected"
         } else {
             ""

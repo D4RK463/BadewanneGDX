@@ -72,7 +72,7 @@ class WanneGame(val android: Boolean): Game() {
 
     override fun create() {
         batch = SpriteBatch()
-        config = Config()
+        config = Config(android)
         soundManager = SoundManager(config)
         dialogManager = DialogManager(config, soundManager)
 

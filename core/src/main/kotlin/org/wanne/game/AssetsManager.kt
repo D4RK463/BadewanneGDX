@@ -39,6 +39,7 @@ class AssetsManager {
 
         assetManager.load("pictures/Backgrounds/KinderzimmerSingle.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/Kinderzimmer.png", Texture::class.java)
+        assetManager.load("pictures/Backgrounds/Kinderzimmer169.png", Texture::class.java)
     }
 
     fun loadSprites() {

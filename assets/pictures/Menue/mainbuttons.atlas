@@ -1,11 +1,11 @@
 mainbuttons.png
-size: 1951, 399
+size: 1018, 867
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 back
   rotate: false
-  xy: 676, 124
+  xy: 243, 303
   size: 182, 80
   orig: 182, 80
   offset: 0, 0
@@ -19,21 +19,42 @@ back_pressed
   index: -1
 backsave
   rotate: false
-  xy: 858, 124
+  xy: 425, 303
   size: 457, 80
   orig: 457, 80
   offset: 0, 0
   index: -1
 backsave_pressed
   rotate: false
-  xy: 622, 0
+  xy: 0, 50
   size: 427, 50
   orig: 427, 50
   offset: 0, 0
   index: -1
+classicButton
+  rotate: false
+  xy: 528, 762
+  size: 177, 105
+  orig: 177, 105
+  offset: 0, 0
+  index: -1
+classicButton_pressed
+  rotate: false
+  xy: 584, 224
+  size: 147, 75
+  orig: 147, 75
+  offset: 0, 0
+  index: -1
+classicButton_selected
+  rotate: false
+  xy: 705, 762
+  size: 177, 105
+  orig: 177, 105
+  offset: 0, 0
+  index: -1
 continue
   rotate: false
-  xy: 146, 124
+  xy: 731, 224
   size: 287, 79
   orig: 287, 79
   offset: 0, 0
@@ -47,161 +68,182 @@ continue_pressed
   index: -1
 droglButton
   rotate: false
-  xy: 0, 295
+  xy: 657, 554
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 droglButton_pressed
   rotate: false
-  xy: 1438, 50
+  xy: 847, 150
   size: 146, 74
   orig: 146, 74
   offset: 0, 0
   index: -1
 droglButton_selected
   rotate: false
-  xy: 176, 295
+  xy: 833, 554
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 engButton
   rotate: false
-  xy: 352, 295
+  xy: 0, 658
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 engButton_pressed
   rotate: false
-  xy: 1584, 50
+  xy: 0, 224
   size: 146, 74
   orig: 146, 74
   offset: 0, 0
   index: -1
 engButton_selected
   rotate: false
-  xy: 528, 295
+  xy: 176, 658
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 extras
   rotate: false
-  xy: 1315, 124
+  xy: 0, 383
   size: 244, 80
   orig: 244, 80
   offset: 0, 0
   index: -1
 extras_pressed
   rotate: false
-  xy: 1049, 0
+  xy: 427, 50
   size: 214, 50
   orig: 214, 50
   offset: 0, 0
   index: -1
 gerButton
   rotate: false
-  xy: 704, 295
+  xy: 352, 658
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 gerButton_pressed
   rotate: false
-  xy: 1730, 50
+  xy: 146, 224
   size: 146, 74
   orig: 146, 74
   offset: 0, 0
   index: -1
 gerButton_selected
   rotate: false
-  xy: 880, 295
+  xy: 528, 658
+  size: 176, 104
+  orig: 176, 104
+  offset: 0, 0
+  index: -1
+modernButton
+  rotate: false
+  xy: 704, 658
+  size: 176, 104
+  orig: 176, 104
+  offset: 0, 0
+  index: -1
+modernButton_pressed
+  rotate: false
+  xy: 292, 224
+  size: 146, 74
+  orig: 146, 74
+  offset: 0, 0
+  index: -1
+modernButton_selected
+  rotate: false
+  xy: 0, 762
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 multiplayer
   rotate: false
-  xy: 1559, 124
+  xy: 244, 383
   size: 392, 80
   orig: 392, 80
   offset: 0, 0
   index: -1
 multiplayer_pressed
   rotate: false
-  xy: 1263, 0
+  xy: 641, 50
   size: 362, 50
   orig: 362, 50
   offset: 0, 0
   index: -1
 optionen
   rotate: false
-  xy: 0, 204
+  xy: 636, 383
   size: 282, 80
   orig: 282, 80
   offset: 0, 0
   index: -1
 optionen_pressed
   rotate: false
-  xy: 1625, 0
+  xy: 0, 100
   size: 252, 50
   orig: 252, 50
   offset: 0, 0
   index: -1
 options
   rotate: false
-  xy: 282, 204
+  xy: 0, 463
   size: 249, 80
   orig: 249, 80
   offset: 0, 0
   index: -1
 options_pressed
   rotate: false
-  xy: 0, 50
+  xy: 252, 100
   size: 219, 50
   orig: 219, 50
   offset: 0, 0
   index: -1
 orgButton
   rotate: false
-  xy: 1056, 295
+  xy: 176, 762
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 orgButton_pressed
   rotate: false
-  xy: 0, 124
+  xy: 438, 224
   size: 146, 74
   orig: 146, 74
   offset: 0, 0
   index: -1
 orgButton_selected
   rotate: false
-  xy: 1232, 295
+  xy: 352, 762
   size: 176, 104
   orig: 176, 104
   offset: 0, 0
   index: -1
 singleplayer
   rotate: false
-  xy: 531, 204
+  xy: 249, 463
   size: 402, 80
   orig: 402, 80
   offset: 0, 0
   index: -1
 singleplayer_pressed
   rotate: false
-  xy: 219, 50
+  xy: 471, 100
   size: 372, 50
   orig: 372, 50
   offset: 0, 0
   index: -1
 weiter
   rotate: false
-  xy: 433, 124
+  xy: 0, 303
   size: 243, 79
   orig: 243, 79
   offset: 0, 0
@@ -215,28 +257,28 @@ weiter_pressed
   index: -1
 zuruck
   rotate: false
-  xy: 933, 204
+  xy: 651, 463
   size: 250, 91
   orig: 250, 91
   offset: 0, 0
   index: -1
 zuruck_pressed
   rotate: false
-  xy: 591, 50
+  xy: 0, 150
   size: 220, 61
   orig: 220, 61
   offset: 0, 0
   index: -1
 zuruckspeichern
   rotate: false
-  xy: 1183, 204
+  xy: 0, 554
   size: 657, 91
   orig: 657, 91
   offset: 0, 0
   index: -1
 zuruckspeichern_pressed
   rotate: false
-  xy: 811, 50
+  xy: 220, 150
   size: 627, 61
   orig: 627, 61
   offset: 0, 0

@@ -42,8 +42,8 @@ class PuzzleScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/jeopardy.mp3")
 
     override fun show() {
-        Gdx.graphics.setWindowedMode(1024, 768)
-        viewport = FitViewport(1024f, 768f)
+        Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
         musicBackground.volume = 0.2F
         musicBackground.isLooping = true

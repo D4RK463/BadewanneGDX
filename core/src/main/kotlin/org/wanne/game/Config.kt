@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences
 import ktx.preferences.set
 import org.wanne.game.sound.Speech
 
-class Config {
+class Config(android: Boolean) {
 
     private var prefs: Preferences = Gdx.app.getPreferences("prefs")
 
@@ -23,7 +23,7 @@ class Config {
 
     var speech: String = Speech.DE_ORIGINAL.speech
 
-    var mode: String = VideoMode.CLASSIC.toString()
+    var mode: String = if (android) {VideoMode.CLASSIC.toString()} else {VideoMode.MODERN.toString()}
 
     fun saveSettings() {
         prefs["ipAddress"] = ipAddress
@@ -36,6 +36,22 @@ class Config {
         prefs["mode"] = mode
 
         prefs.flush()
+    }
+
+    fun getResolutionX() : Int {
+        return when(mode) {
+            VideoMode.CLASSIC.toString() -> 1024
+            VideoMode.MODERN.toString() -> 1280
+            else -> 1024
+        }
+    }
+
+    fun getResolutionY() : Int {
+        return when(mode) {
+            VideoMode.CLASSIC.toString() -> 768
+            VideoMode.MODERN.toString() -> 720
+            else -> 768
+        }
     }
 
 }
