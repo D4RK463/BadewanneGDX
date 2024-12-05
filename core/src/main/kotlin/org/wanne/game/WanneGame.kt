@@ -119,7 +119,6 @@ class WanneGame(val android: Boolean): Game() {
         val generator = FreeTypeFontGenerator(Gdx.files.internal("ui/wanne/luchitas.ttf"))
         val parameter = FreeTypeFontParameter()
         parameter.size = 60
-        parameter.color = Color.ORANGE
         val font = generator.generateFont(parameter)
         skin.add("Luchitas", font)
 
@@ -129,9 +128,13 @@ class WanneGame(val android: Boolean): Game() {
         return skin
     }
 
-    fun currentSkin() : Skin = if (config.mode == VideoMode.CLASSIC.toString()) {
+    fun currentSkin(): Skin = if (classicMode()) {
         am.get("ui/default/uiskin.json")
     } else {
         wanneSkin
+    }
+
+    fun classicMode(): Boolean {
+        return config.mode == VideoMode.CLASSIC.toString()
     }
 }

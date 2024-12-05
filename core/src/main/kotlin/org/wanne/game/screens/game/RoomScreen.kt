@@ -49,8 +49,12 @@ class RoomScreen(
     private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
     private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
 
-    // Raum Lauf-Limits => links, unten, rechts, oben
-    private val limits = intArrayOf(255, 129, 934, 312)
+    // Raum Lauf-Limits → links, unten, rechts, oben
+    private val limits = if (game.classicMode()) {
+        intArrayOf(255, 129, 934, 312)
+    } else {
+        intArrayOf(509, 79, 1188, 262)
+    }
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
@@ -97,6 +101,7 @@ class RoomScreen(
     private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
 
     override fun show() {
+        println("show")
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
@@ -105,7 +110,7 @@ class RoomScreen(
 
         // Hintergrund setzen
         if (game.isSingleplayer) {
-            if (game.config.mode == VideoMode.CLASSIC.toString()) {
+            if (game.classicMode()) {
                 stage.addActor(Image(roomBackgroundSingle))
             } else {
                 stage.addActor(Image(roomBackgroundSingleWide))
@@ -199,10 +204,14 @@ class RoomScreen(
     }
 
     override fun hide() {
+        println("hide")
         musicBackground.stop()
+
+        // ToDo: Alles entfernen was vom Modus-Wechsel betroffen ist
     }
 
     override fun dispose() {
+        println("dispose")
         stage.dispose()
     }
 }

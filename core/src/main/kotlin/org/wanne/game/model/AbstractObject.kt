@@ -62,12 +62,12 @@ abstract class AbstractObject(
     }
 
     fun correctPositionX(currentX: Int) : Int {
-        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {254} else {0}
+        val extra = if (!game.classicMode()) {254} else {0}
         return currentX + extra
     }
 
     fun correctPositionY(currentY: Int) : Int {
-        val extra = if (game.config.mode == VideoMode.MODERN.toString()) {-50} else {0}
+        val extra = if (!game.classicMode()) {-50} else {0}
         return currentY + extra
     }
 }

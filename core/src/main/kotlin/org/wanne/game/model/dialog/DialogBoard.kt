@@ -20,7 +20,6 @@ import org.wanne.game.model.PointAndClickAction
 class DialogBoard(
     posX: Float = 0F,
     posY: Float = 137F,
-    val skin: Skin,
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
     init {
@@ -30,29 +29,47 @@ class DialogBoard(
         width = getSprite(0F)?.width ?: 0F
     }
 
-    private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", skin)
-    private val label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", skin)
-    private val label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", skin)
-    private val label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", skin)
+    private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", game.currentSkin())
+    private val label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", game.currentSkin())
+    private val label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", game.currentSkin())
+    private val label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", game.currentSkin())
 
     fun initialize(stage: Stage) {
         reset()
 
         label1.toFront()
+        label1.color = Color.WHITE
         label1.x = 5F
-        label1.y = 205F
+        label1.y = if (game.classicMode()) {
+            205F
+        } else {
+            210F
+        }
 
         label2.toFront()
+        label2.color = Color.WHITE
         label2.x = 5F
-        label2.y = 185F
+        label2.y = if (game.classicMode()) {
+            185F
+        } else {
+            170F
+        }
 
         initAnswerLabel(label3)
         label3.x = 5F
-        label3.y = 165F
+        label3.y = if (game.classicMode()) {
+            165F
+        } else {
+            130F
+        }
 
         initAnswerLabel(label4)
         label4.x = 5F
-        label4.y = 145F
+        label4.y = if (game.classicMode()) {
+            145F
+        } else {
+            90F
+        }
 
         stage.addActor(label1)
         stage.addActor(label2)
@@ -181,7 +198,7 @@ class DialogBoard(
         this.isVisible = true
     }
 
-    override fun getSprite(time: Float): Sprite? = if (game.config.mode == VideoMode.CLASSIC.toString()) {
+    override fun getSprite(time: Float): Sprite? = if (game.classicMode()) {
         addPositionToSprite(itemAtlas.createSprite("Brett"))
     } else {
         null

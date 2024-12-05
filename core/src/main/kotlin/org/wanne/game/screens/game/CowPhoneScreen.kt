@@ -27,10 +27,8 @@ class CowPhoneScreen(
     // Animation
     private val cowCallAnimation = CowCallAnimation(0F, 0F, am = game.am)
 
-    private val skin: Skin = game.am.get("ui/default/uiskin.json")
-
     // Dialog System
-    private val dialogBoard = DialogBoard(skin = skin, game = game)
+    private val dialogBoard = DialogBoard(game = game)
 
     // Objects
     private val cow = Cow(game = game)

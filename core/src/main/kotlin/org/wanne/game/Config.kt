@@ -23,7 +23,7 @@ class Config(android: Boolean) {
 
     var speech: String = Speech.DE_ORIGINAL.speech
 
-    var mode: String = if (android) {VideoMode.CLASSIC.toString()} else {VideoMode.MODERN.toString()}
+    var mode: String = if (android) {VideoMode.MODERN.toString()} else {VideoMode.CLASSIC.toString()}
 
     fun saveSettings() {
         prefs["ipAddress"] = ipAddress

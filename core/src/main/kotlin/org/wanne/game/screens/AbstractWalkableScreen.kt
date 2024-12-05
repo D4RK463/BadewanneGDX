@@ -28,7 +28,7 @@ abstract class AbstractWalkableScreen(
 
     val skin: Skin = game.currentSkin()
 
-    val dialogBoard = DialogBoard(skin = skin,  game = game)
+    val dialogBoard = DialogBoard(game = game)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
@@ -268,4 +268,5 @@ abstract class AbstractWalkableScreen(
     ) {
         viewport.update(width, height, true)
     }
+
 }
