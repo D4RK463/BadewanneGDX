@@ -14,6 +14,7 @@ class Inventory private constructor() {
 
     val items = mutableSetOf<GameObject>()
 
+    // ToDo Positionen anpassen
     private val positions =
         arrayOf(
             Point(365, 22), // 1
@@ -23,6 +24,7 @@ class Inventory private constructor() {
             Point(862, 16), // 5
         )
 
+    // ToDo: Neue Positionen für alle Objekte anpassen
     fun addGameObjectToInventory(gameObject: GameObject) {
         gameObject.isInInventory = true
         items.add(gameObject)

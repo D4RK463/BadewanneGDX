@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
+import org.wanne.game.model.Inventory
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
@@ -29,6 +30,8 @@ abstract class AbstractWalkableScreen(
     val skin: Skin = game.currentSkin()
 
     val dialogBoard = DialogBoard(game = game)
+
+    val inventory = Inventory.getInstance()
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
@@ -51,6 +54,7 @@ abstract class AbstractWalkableScreen(
         poolAttendant: PoolAttendant,
         duck: Duck,
     ) {
+        // ToDo: Button müssen veränderbar sein, Position und Größe
         // Buttons
         val lookCursor: Pixmap = game.am.get("ui/cursor/Ansehen.png")
         val lookButton =

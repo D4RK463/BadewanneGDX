@@ -246,29 +246,29 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
     private fun addDroglDialog() {
         addDialog(
             "Start1", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher, ",
-                "Droglbecher?",
-                "Droglbecher? Droglbecher?",
-                "Droglbecher! Droglbecher?",
+                "Droggelbecher: Droggelbecher, ",
+                "Droggelbecher?",
+                "Droggelbecher? Droggelbecher?",
+                "Droggelbecher! Droggelbecher?",
                 null
             )
         )
 
         addDialog(
-            "Droglbecher! Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher! Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
-                "Droglbecher?",
+                "Droggelbecher?",
                 null,
                 null
             )
         )
 
         addDialog(
-            "Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher! Droglbecher,",
-                "Droglbecher!",
-                "Droglbecher.",
+            "Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher! Droggelbecher,",
+                "Droggelbecher!",
+                "Droggelbecher.",
                 null,
                 null,
                 StateChange.LEFT
@@ -276,8 +276,8 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
         )
 
         addDialog(
-            "Droglbecher.", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher.", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
                 null,
                 null,
@@ -286,20 +286,20 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
         )
 
         addDialog(
-            "Droglbecher? Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
-                "Droglbecher?",
-                "Droglbecher.?",
+            "Droggelbecher? Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
+                "Droggelbecher?",
+                "Droggelbecher.?",
                 null,
                 null
             )
         )
 
         addDialog(
-            "Droglbecher.?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher.?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
-                "Droglbecher...",
+                "Droggelbecher...",
                 null,
                 null,
                 StateChange.RIGHT
@@ -307,8 +307,8 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
         )
 
         addDialog(
-            "Droglbecher...", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher...", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
                 null,
                 null,
@@ -318,17 +318,17 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start2", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher?",
+                "Droggelbecher: Droggelbecher?",
                 null,
-                "Droglbecher",
+                "Droggelbecher",
                 null,
                 null
             )
         )
 
         addDialog(
-            "Droglbecher", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
                 null,
                 null,
@@ -338,7 +338,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start3", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher?",
+                "Droggelbecher: Droggelbecher?",
                 null,
                 null,
                 null,
@@ -348,7 +348,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start4", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+                "Droggelbecher: Droggelbecher!",
                 null,
                 null,
                 null,

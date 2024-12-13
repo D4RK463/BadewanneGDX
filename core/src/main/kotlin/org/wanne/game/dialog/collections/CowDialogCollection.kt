@@ -346,9 +346,9 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
     private fun addDroglDialog() {
         addDialog(
             "Start1", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!!",
+                "Droggelbecher: Droggelbecher!!",
                 null,
-                "Droglbecher.",
+                "Droggelbecher.",
                 null,
                 0
             )
@@ -356,37 +356,37 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
 
         addDialog(
             "Start2", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!!",
+                "Droggelbecher: Droggelbecher!!",
                 null,
                 null,
-                "Droglbecher Droglbecher?",
+                "Droggelbecher Droggelbecher?",
                 0
             )
         )
 
         addDialog(
-            "Droglbecher.", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
-                "Droglbecher.",
-                "Droglbecher?",
-                "Droglbecher??",
+            "Droggelbecher.", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher.",
+                "Droggelbecher.",
+                "Droggelbecher?",
+                "Droggelbecher??",
                 1
             )
         )
 
         addDialog(
-            "Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+            "Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
-                "Droglbecher???",
+                "Droggelbecher???",
                 2
             )
         )
 
         addDialog(
-            "Droglbecher??", Language.DROGL, Dialog(
-                "Droglbecher: Drooooglbecher.",
+            "Droggelbecher??", Language.DROGL, Dialog(
+                "Droggelbecher: Drooooglbecher.",
                 null,
                 null,
                 "Drogl becher?",
@@ -396,62 +396,62 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
 
         addDialog(
             "Drogl becher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+                "Droggelbecher: Droggelbecher!",
                 null,
-                "Droglbecher???",
+                "Droggelbecher???",
                 null,
                 4
             )
         )
 
         addDialog(
-            "Droglbecher???", Language.DROGL, Dialog(
-                "Droglbecher: Drooooglbecher.",
+            "Droggelbecher???", Language.DROGL, Dialog(
+                "Droggelbecher: Drooooglbecher.",
                 null,
                 null,
-                "Droglbecher Droglbecher?",
+                "Droggelbecher Droggelbecher?",
                 6
             )
         )
 
         addDialog(
-            "Droglbecher Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher, Droglbecher,",
-                "Droglbecher. 'Click'",
+            "Droggelbecher Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher, Droggelbecher,",
+                "Droggelbecher. 'Click'",
                 null,
-                "Droglbecher...",
+                "Droggelbecher...",
                 7
             )
         )
 
         addDialog(
-            "Droglbecher...", Language.DROGL, Dialog(
+            "Droggelbecher...", Language.DROGL, Dialog(
                 StateChange.YES
             )
         )
 
         addDialog(
             "Start3", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher?",
+                "Droggelbecher: Droggelbecher?",
                 null,
                 null,
-                "Droglbecher!!",
+                "Droggelbecher!!",
                 null
             )
         )
 
         addDialog(
-            "Droglbecher!!", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher. Droglbecher.",
+            "Droggelbecher!!", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher. Droggelbecher.",
                 null,
                 null,
-                "Droglbecher!!!",
+                "Droggelbecher!!!",
                 8
             )
         )
 
         addDialog(
-            "Droglbecher!!!", Language.DROGL, Dialog(
+            "Droggelbecher!!!", Language.DROGL, Dialog(
                 StateChange.YES
             )
         )

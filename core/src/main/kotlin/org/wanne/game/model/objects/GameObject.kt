@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import org.wanne.game.Language
-import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
@@ -133,7 +132,7 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> stupidAnswersDE[random.nextInt(stupidAnswersDE.size - 1)]
             Language.EN -> stupidAnswersEN[random.nextInt(stupidAnswersEN.size - 1)]
-            Language.DROGL -> randomizeDroglbecher()
+            Language.DROGL -> randomizeDroggelbecher()
         }
     }
 
@@ -171,11 +170,11 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> german
             Language.EN -> english
-            Language.DROGL -> randomizeDroglbecher()
+            Language.DROGL -> randomizeDroggelbecher()
         }
     }
 
-    private fun randomizeDroglbecher(): String {
+    private fun randomizeDroggelbecher(): String {
         val sign: String = when(random.nextInt(5)) {
             0 -> ""
             1 -> "!"
@@ -184,7 +183,7 @@ abstract class GameObject(
             4 -> "!!"
             else -> ""
         }
-        return "Droglbecher$sign"
+        return "Droggelbecher$sign"
     }
 
 }

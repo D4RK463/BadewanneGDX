@@ -180,17 +180,17 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
     private fun getDroglDialog() {
         addDialog(
             "Start1", Language.DROGL, Dialog(
-                "Droglbecher!",
+                "Droggelbecher!",
                 null,
-                "Droglbecher?",
+                "Droggelbecher?",
                 null,
                 null
             )
         )
 
         addDialog(
-            "Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: ... *drogl*",
+            "Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: ... *drogl*",
                 null,
                 null,
                 null,
@@ -201,17 +201,17 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
 
         addDialog(
             "Start2", Language.DROGL, Dialog(
-                "Droglbecher?",
+                "Droggelbecher?",
                 null,
-                "Droglbecher??",
-                "Droglbecher???",
+                "Droggelbecher??",
+                "Droggelbecher???",
                 0
             )
         )
 
         addDialog(
-            "Droglbecher???", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!!!!",
+            "Droggelbecher???", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!!!!",
                 null,
                 null,
                 null,
@@ -221,28 +221,28 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
         )
 
         addDialog(
-            "Droglbecher??", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!",
+            "Droggelbecher??", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!",
                 null,
                 "Drogl becher?",
-                "Droglbecher Droglbecher?",
+                "Droggelbecher Droggelbecher?",
                 2
             )
         )
 
         addDialog(
             "Drogl becher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
-                "DroglBecher?",
+                "Droggelbecher?",
                 3
             )
         )
 
         addDialog(
-            "DroglBecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher, Droglbecher. ",
+            "Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher, Droggelbecher. ",
                 null,
                 null,
                 null,

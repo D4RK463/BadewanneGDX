@@ -696,9 +696,9 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
     private fun getDroglDialog() {
         addDialog(
             "Start1", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+                "Droggelbecher: Droggelbecher.",
                 null,
-                "Droglbecher?",
+                "Droggelbecher?",
                 null,
                 0
             )
@@ -706,7 +706,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start2", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher?",
+                "Droggelbecher: Droggelbecher?",
                 null,
                 null,
                 null,
@@ -715,18 +715,18 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
         )
 
         addDialog(
-            "Droglbecher?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher,",
-                "Droglbecher.",
-                "Droglbecher.",
+            "Droggelbecher?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher,",
+                "Droggelbecher.",
+                "Droggelbecher.",
                 null,
                 1
             )
         )
 
         addDialog(
-            "Droglbecher.", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+            "Droggelbecher.", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
                 "*drogl* ...",
@@ -736,17 +736,17 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "*drogl* ...", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher. :(",
+                "Droggelbecher: Droggelbecher. :(",
                 null,
                 null,
-                "Droglbecher...",
+                "Droggelbecher...",
                 3
             )
         )
 
         addDialog(
-            "Droglbecher...", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher?",
+            "Droggelbecher...", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher?",
                 null,
                 null,
                 null,
@@ -756,28 +756,28 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
         )
 
         addDialog(
-            "Droglbecher??", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher ",
-                "Droglbecher.",
-                "Droglbecher???",
+            "Droggelbecher??", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher ",
+                "Droggelbecher.",
+                "Droggelbecher???",
                 null,
                 6
             )
         )
 
         addDialog(
-            "Droglbecher???", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+            "Droggelbecher???", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher.",
                 null,
-                "Droglbecher!?",
+                "Droggelbecher!?",
                 null,
                 7
             )
         )
 
         addDialog(
-            "Droglbecher!?", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher!!",
+            "Droggelbecher!?", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher!!",
                 null,
                 null,
                 null,
@@ -788,20 +788,20 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start3", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher :) ",
+                "Droggelbecher: Droggelbecher :) ",
                 null,
-                "Droglbecher??",
-                "Droglbecher???",
+                "Droggelbecher??",
+                "Droggelbecher???",
                 5
             )
         )
 
         addDialog(
             "Start4", Language.DROGL, Dialog(
-                "Droglbecher?",
+                "Droggelbecher?",
                 null,
-                "Droglbecher??",
-                "Droglbecher???",
+                "Droggelbecher??",
+                "Droggelbecher???",
                 null,
                 StateChange.YES
             )
@@ -809,7 +809,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start5", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
                 null,
@@ -819,38 +819,38 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Drogl becher??", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher...! ",
+                "Droggelbecher: Droggelbecher...! ",
                 null,
                 null,
-                "Droglbecher, Droglbecher...",
+                "Droggelbecher, Droggelbecher...",
                 16
             )
         )
 
         addDialog(
-            "Droglbecher, Droglbecher...", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher.",
+            "Droggelbecher, Droggelbecher...", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
-                "Droglbecher!??",
+                "Droggelbecher!??",
                 18
             )
         )
 
         addDialog(
-            "Droglbecher!??", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher...",
+            "Droggelbecher!??", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher...",
                 null,
-                "Droglbecher!!!!",
+                "Droggelbecher!!!!",
                 null,
                 19
             )
         )
 
         addDialog(
-            "Droglbecher!!!!", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher,",
-                "Droglbecher!",
+            "Droggelbecher!!!!", Language.DROGL, Dialog(
+                "Droggelbecher: Droggelbecher,",
+                "Droggelbecher!",
                 null,
                 null,
                 20,
@@ -860,7 +860,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start6", Language.DROGL, Dialog(
-                "Droglbecher: Droglbecher! Droglbecher!",
+                "Droggelbecher: Droggelbecher! Droggelbecher!",
                 null,
                 null,
                 null,
@@ -870,7 +870,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start7", Language.DROGL, Dialog(
-                "Droglbecher!!",
+                "Droggelbecher!!",
                 null,
                 "Drogl becher??",
                 null,

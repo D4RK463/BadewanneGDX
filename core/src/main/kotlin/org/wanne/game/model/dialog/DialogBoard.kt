@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.Dialog
 import org.wanne.game.model.AbstractObject
@@ -29,14 +27,13 @@ class DialogBoard(
         width = getSprite(0F)?.width ?: 0F
     }
 
-    private val label1: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", game.currentSkin())
-    private val label2: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", game.currentSkin())
-    private val label3: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", game.currentSkin())
-    private val label4: Label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", game.currentSkin())
+    private lateinit var label1: Label
+    private lateinit var label2: Label
+    private lateinit var label3: Label
+    private lateinit var label4: Label
 
     fun initialize(stage: Stage) {
-        reset()
-
+        label1 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", game.currentSkin())
         label1.toFront()
         label1.color = Color.WHITE
         label1.x = 5F
@@ -46,6 +43,7 @@ class DialogBoard(
             210F
         }
 
+        label2 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", game.currentSkin())
         label2.toFront()
         label2.color = Color.WHITE
         label2.x = 5F
@@ -55,6 +53,7 @@ class DialogBoard(
             170F
         }
 
+        label3 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", game.currentSkin())
         initAnswerLabel(label3)
         label3.x = 5F
         label3.y = if (game.classicMode()) {
@@ -63,6 +62,7 @@ class DialogBoard(
             130F
         }
 
+        label4 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", game.currentSkin())
         initAnswerLabel(label4)
         label4.x = 5F
         label4.y = if (game.classicMode()) {
@@ -70,6 +70,8 @@ class DialogBoard(
         } else {
             90F
         }
+
+        reset()
 
         stage.addActor(label1)
         stage.addActor(label2)
@@ -202,5 +204,12 @@ class DialogBoard(
         addPositionToSprite(itemAtlas.createSprite("Brett"))
     } else {
         null
+    }
+
+    override fun dispose() {
+        label1.remove()
+        label2.remove()
+        label3.remove()
+        label4.remove()
     }
 }

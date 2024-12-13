@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.animation.FireAnimation
@@ -20,6 +19,7 @@ import org.wanne.game.model.objects.DrBear
 import org.wanne.game.model.objects.Drawer
 import org.wanne.game.model.objects.Exit
 import org.wanne.game.model.objects.FireFlower
+import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.objects.Mario
 import org.wanne.game.model.objects.MilkSucker
 import org.wanne.game.model.objects.Note
@@ -60,48 +60,47 @@ class RoomScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Animations
-    private val fireAnimation = FireAnimation(82F, 198F, false, game.am)
-    private val powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
+    private lateinit var fireAnimation: FireAnimation
+    private lateinit var powerUpAnimation: PowerUpAnimation
 
     // Objects
-    private val pills = Pills(game = game)
-    private val bed = Bed(game = game)
-    private val roomWindow = Window(game = game)
-    private val drawer = Drawer(game = game)
-    private val door = Door(game = game)
-    private val pa2Poster = PA2Poster(game = game)
-    private val brucePoster = BrucePoster(game = game)
-    private val deanPoster = DeanPoster(game = game)
-    private val rug = Rug(game = game)
-    private val stickers = Stickers(game = game)
-    private val straw = Straw(game = game)
-    private val box = Box(game = game)
-    private val safe = Safe(game = game)
-    private val drBear = DrBear(game = game, gameObjectToAppear = pills)
-    private val milkSucker = MilkSucker(game = game)
-    private val stethoscope = Stethoscope(game = game, gameObjectToAppear = milkSucker)
-    private val scalpel = Scalpel(game = game, gameObjectToAppear = pills)
-    private val note = Note(game = game)
-    private val mario =
-        Mario(
-            game = game,
-            gameObjectToManipulate = rug,
-            gameObjectToAppear = note,
-            fireAnimation = fireAnimation,
-            powerUpAnimation = powerUpAnimation
-        )
-    private val bell = Cowbell(game = game)
-    private val teddy = Teddy(game = game, gameObjectToCheck = mario)
-    private val flower = FireFlower(game = game, gameObjectToManipulate = mario)
-    private val telephone = Telephone(game = game, winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
-    private val exit = Exit(game = game)
+    private lateinit var pills: Pills
+    private lateinit var bed: Bed
+    private lateinit var roomWindow: Window
+    private lateinit var drawer: Drawer
+    private lateinit var door: Door
+    private lateinit var pa2Poster: PA2Poster
+    private lateinit var brucePoster: BrucePoster
+    private lateinit var deanPoster: DeanPoster
+    private lateinit var rug: Rug
+    private lateinit var stickers: Stickers
+    private lateinit var straw: Straw
+    private lateinit var box: Box
+    private lateinit var safe: Safe
+    private lateinit var drBear: DrBear
+    private lateinit var milkSucker: MilkSucker
+    private lateinit var stethoscope: Stethoscope
+    private lateinit var scalpel: Scalpel
+    private lateinit var note: Note
+    private lateinit var mario: Mario
+    private lateinit var bell: Cowbell
+    private lateinit var teddy: Teddy
+    private lateinit var flower: FireFlower
+    private lateinit var telephone: Telephone
+    private lateinit var exit: Exit
 
     // Players
-    private val poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
-    private val duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
+    private lateinit var poolAttendant: PoolAttendant
+    private lateinit var duck: Duck
 
     override fun show() {
         println("show")
+
+        // Dinge erstellen
+        createAnimations()
+        createGameObjects()
+        createPlayableCharacters()
+
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
@@ -126,7 +125,8 @@ class RoomScreen(
         // Klick Steuerung der Charaktere
         stage.addListener(PointAndClickListener(dialogBoard, limits))
 
-        createGameObjects()
+        // Stage Config
+        configureGameObjects()
         createGameUI(poolAttendant, duck)
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
@@ -136,34 +136,73 @@ class RoomScreen(
         game.startedGame = true
     }
 
-    private fun createGameObjects() {
-        // Objekte hinzufügen (Reihenfolge ist wichtig)
-        bed.addToStage(stage, skin)
-        drBear.addToStage(stage, skin)
-        stethoscope.addToStage(stage, skin)
-        scalpel.addToStage(stage, skin)
-        mario.addToStage(stage, skin)
-        bell.addToStage(stage, skin)
-        roomWindow.addToStage(stage, skin)
-        drawer.addToStage(stage, skin)
-        stickers.addToStage(stage, skin)
-        exit.addToStage(stage, skin)
-        straw.addToStage(stage, skin)
-        door.addToStage(stage, skin)
-        pa2Poster.addToStage(stage, skin)
-        brucePoster.addToStage(stage, skin)
-        deanPoster.addToStage(stage, skin)
-        safe.addToStage(stage, skin)
-        rug.addToStage(stage, skin)
-        flower.addToStage(stage, skin)
-        telephone.addToStage(stage, skin)
-        box.addToStage(stage, skin)
-        teddy.addToStage(stage, skin)
+    private fun createPlayableCharacters() {
+        // ToDo Spieler an verändernde Positionen anpassen
+        poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
+        duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
+    }
 
-        // Objekte für später im Spiel
-        milkSucker.addToStage(stage, skin)
-        pills.addToStage(stage, skin)
-        note.addToStage(stage, skin)
+    private fun createAnimations() {
+        // ToDo Animationen an verändernde Positionen anpassen
+        fireAnimation = FireAnimation(82F, 198F, false, game.am)
+        powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
+    }
+
+    private fun createGameObjects() {
+        pills = Pills(game = game)
+        bed = Bed(game = game)
+        roomWindow = Window(game = game)
+        drawer = Drawer(game = game)
+        door = Door(game = game)
+        pa2Poster = PA2Poster(game = game)
+        brucePoster = BrucePoster(game = game)
+        deanPoster = DeanPoster(game = game)
+        rug = Rug(game = game)
+        stickers = Stickers(game = game)
+        straw = Straw(game = game)
+        box = Box(game = game)
+        safe = Safe(game = game)
+        drBear = DrBear(game = game, gameObjectToAppear = pills)
+        milkSucker = MilkSucker(game = game)
+        stethoscope = Stethoscope(game = game, gameObjectToAppear = milkSucker)
+        scalpel = Scalpel(game = game, gameObjectToAppear = pills)
+        note = Note(game = game)
+        mario =
+            Mario(
+                game = game,
+                gameObjectToManipulate = rug,
+                gameObjectToAppear = note,
+                fireAnimation = fireAnimation,
+                powerUpAnimation = powerUpAnimation
+            )
+        bell = Cowbell(game = game)
+        teddy = Teddy(game = game, gameObjectToCheck = mario)
+        flower = FireFlower(game = game, gameObjectToManipulate = mario)
+        telephone = Telephone(game = game, winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
+        exit = Exit(game = game)
+    }
+
+    private fun configureGameObjects() {
+        // Reihenfolge ist wichtig
+        val roomItemList: List<GameObject> = listOf(
+            bed, drBear, stethoscope, scalpel, mario, bell, roomWindow, drawer, stickers, exit,
+            straw, door, pa2Poster, brucePoster, deanPoster, safe, rug, flower, telephone, box,
+            teddy, milkSucker, pills, note
+        )
+        val inventoryItems = inventory.items
+
+        // Alle Objekte hinzufügen, die nicht im Inventar sind
+        roomItemList.filter {
+            for (item in inventoryItems) {
+                if (item.name == it.name) {
+                    return@filter false
+                }
+            }
+            return@filter true
+        }.forEach { item -> item.addToStage(stage, skin)}
+
+        // Inventar Objekt hinzufügen
+        inventoryItems.forEach { item -> item.addToStage(stage, skin) }
 
         // Der Ausgang darf nur am Ende auf sein :)
         exit.isVisible = false
@@ -171,13 +210,13 @@ class RoomScreen(
 //        door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
-        if (!stage.currentAction.inventory.isObjectInInventory(note)) {
+        if (!inventory.isObjectInInventory(note)) {
             note.isVisible = false
         }
-        if (!stage.currentAction.inventory.isObjectInInventory(milkSucker)) {
+        if (!inventory.isObjectInInventory(milkSucker)) {
             milkSucker.isVisible = false
         }
-        if (!stage.currentAction.inventory.isObjectInInventory(pills)) {
+        if (!inventory.isObjectInInventory(pills)) {
             pills.isVisible = false
         }
 
@@ -207,7 +246,33 @@ class RoomScreen(
         println("hide")
         musicBackground.stop()
 
-        // ToDo: Alles entfernen was vom Modus-Wechsel betroffen ist
+        bed.remove()
+        drBear.remove()
+        stethoscope.remove()
+        scalpel.remove()
+        mario.remove()
+        bell.remove()
+        roomWindow.remove()
+        drawer.remove()
+        stickers.remove()
+        exit.remove()
+        straw.remove()
+        door.remove()
+        pa2Poster.remove()
+        brucePoster.remove()
+        deanPoster.remove()
+        safe.remove()
+        rug.remove()
+        flower.remove()
+        telephone.remove()
+        box.remove()
+        teddy.remove()
+        milkSucker.remove()
+        pills.remove()
+        note.remove()
+
+        dialogBoard.dispose()
+        dialogBoard.remove()
     }
 
     override fun dispose() {
