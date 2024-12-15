@@ -120,7 +120,7 @@ abstract class GameObject(
         action: PointAndClickAction,
     ) {
         if (isInInventory) {
-            dialogBoard.prepLookAt("Das hab ich doch schon!")
+            dialogBoard.prepLookAt(game.choose("Das hab ich doch schon!", "I have that already!"))
         } else {
             dialogBoard.prepLookAt(getAStupidAnswer())
         }
@@ -132,7 +132,7 @@ abstract class GameObject(
         return when(game.currentLang().language) {
             Language.DE -> stupidAnswersDE[random.nextInt(stupidAnswersDE.size - 1)]
             Language.EN -> stupidAnswersEN[random.nextInt(stupidAnswersEN.size - 1)]
-            Language.DROGL -> randomizeDroggelbecher()
+            Language.DROGL -> game.randomizeDroggelbecher()
         }
     }
 
@@ -160,30 +160,6 @@ abstract class GameObject(
         tooltip = TextTooltip(getToolTipDescription(), skin)
         this.addListener(tooltip)
         stage.addActor(this)
-    }
-
-    /**
-     * Entscheidet welches der richtige String ist, anhand der aktuell
-     * eingestellten Sprache
-     */
-    fun choose(german: String, english: String): String {
-        return when(game.currentLang().language) {
-            Language.DE -> german
-            Language.EN -> english
-            Language.DROGL -> randomizeDroggelbecher()
-        }
-    }
-
-    private fun randomizeDroggelbecher(): String {
-        val sign: String = when(random.nextInt(5)) {
-            0 -> ""
-            1 -> "!"
-            2 -> "?"
-            3 -> "!?"
-            4 -> "!!"
-            else -> ""
-        }
-        return "Droggelbecher$sign"
     }
 
 }

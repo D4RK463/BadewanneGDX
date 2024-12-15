@@ -23,7 +23,7 @@ class DeanPoster(
     override fun getName(): String = "DeanPoster"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Anspruchsvoll!", "Demanding!"))
+        dialogBoard.prepLookAt(game.choose("Anspruchsvoll!", "Demanding!"))
     }
 
     override fun take(
@@ -31,8 +31,8 @@ class DeanPoster(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepLookAt(
-            choose("Geht nicht, das ist ein ", "I can't, that is a"),
-            choose("tragendes Poster!", "load-bearing poster!")
+            game.choose("Geht nicht, das ist ein ", "I can't, that is a"),
+            game.choose("tragendes Poster!", "load-bearing poster!")
         )
         action.reset()
     }
@@ -43,5 +43,5 @@ class DeanPoster(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("James Dean Film", "James Dean Movie")
+    override fun getToolTipDescription(): String = game.choose("James Dean Film", "James Dean Movie")
 }

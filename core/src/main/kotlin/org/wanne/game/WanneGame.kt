@@ -2,7 +2,6 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -25,9 +24,12 @@ import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.screens.menu.OptionsScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
+import java.util.*
 
 
 class WanneGame(val android: Boolean): Game() {
+    private val random = Random()
+
     val roomScreen: RoomScreen by lazy {
         RoomScreen(this)
     }
@@ -91,8 +93,6 @@ class WanneGame(val android: Boolean): Game() {
 
     fun reset() {
         // ToDo: Alle Bildschirme zurücksetzen
-
-        //roomScreen = RoomScreen(this)
     }
 
     fun createUIButton(
@@ -136,5 +136,29 @@ class WanneGame(val android: Boolean): Game() {
 
     fun classicMode(): Boolean {
         return config.mode == VideoMode.CLASSIC.toString()
+    }
+
+    /**
+     * Entscheidet welches der richtige String ist, anhand der aktuell
+     * eingestellten Sprache
+     */
+    fun choose(german: String, english: String): String {
+        return when(currentLang().language) {
+            Language.DE -> german
+            Language.EN -> english
+            Language.DROGL -> randomizeDroggelbecher()
+        }
+    }
+
+    fun randomizeDroggelbecher(): String {
+        val sign: String = when(random.nextInt(5)) {
+            0 -> ""
+            1 -> "!"
+            2 -> "?"
+            3 -> "!?"
+            4 -> "!!"
+            else -> ""
+        }
+        return "Droggelbecher$sign"
     }
 }

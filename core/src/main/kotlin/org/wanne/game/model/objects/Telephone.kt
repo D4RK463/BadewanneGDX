@@ -30,7 +30,7 @@ class Telephone(
     override fun getName(): String = "Telephone"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Super... rosa Telefon!", "Super... pink phone!"))
+        dialogBoard.prepLookAt(game.choose("Super... rosa Telefon!", "Super... pink phone!"))
     }
 
     override fun use(
@@ -39,7 +39,7 @@ class Telephone(
     ) {
         if (game.talkedToCow) {
             dialogBoard.prepUseIt(
-                choose(
+                game.choose(
                     "Ich kenne die Nummer vom Wächter nicht auswendig.",
                     "I don't know the number of the guardian."
                 ),
@@ -48,7 +48,7 @@ class Telephone(
             )
         } else {
             dialogBoard.prepUseIt(
-                choose(
+                game.choose(
                     "Wen soll ich denn anrufen? Kenn keine Nummern.",
                     "Who am I supposed to call? I don't know any numbers."
                 ),
@@ -98,10 +98,10 @@ class Telephone(
             } else {
                 // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
                 if (game.cowIsBusy) {
-                    dialogBoard.prepLookAt(choose(
-                        choose("Piep, Piep, Piep...", "Tut, Tut, Tut..."),
-                        choose("Scheint besetzt zu sein.", "Seems to be busy.")
-                    ))
+                    dialogBoard.prepLookAt(
+                        game.choose("Piep, Piep, Piep...", "Tut, Tut, Tut..."),
+                        game.choose("Scheint besetzt zu sein.", "Seems to be busy.")
+                    )
                 } else {
                     game.screen = game.cowPhoneScreen
                 }
@@ -123,5 +123,5 @@ class Telephone(
             correctPositionY(266)
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = choose("Rosa Telefon", "Pink phone")
+    override fun getToolTipDescription(): String = game.choose("Rosa Telefon", "Pink phone")
 }

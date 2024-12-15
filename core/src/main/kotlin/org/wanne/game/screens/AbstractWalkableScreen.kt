@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
@@ -27,13 +27,26 @@ abstract class AbstractWalkableScreen(
 
     lateinit var viewport: FitViewport
 
-    val skin: Skin = game.currentSkin()
-
     val dialogBoard = DialogBoard(game = game)
 
     val inventory = Inventory.getInstance()
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
+
+    private lateinit var lookButton: ImageButton
+    private lateinit var speakButton: ImageButton
+    private lateinit var takeButton: ImageButton
+    private lateinit var useButton: ImageButton
+    private lateinit var combineButton: ImageButton
+    private lateinit var poolAttendantButton: ImageButton
+    private lateinit var duckButton: ImageButton
+    private lateinit var exitButton: ImageButton
+
+    val lookCursor: Pixmap = game.am.get("ui/cursor/Ansehen.png")
+    val speakCursor: Pixmap = game.am.get("ui/cursor/Reden.png")
+    val takeCursor: Pixmap = game.am.get("ui/cursor/Nehmen.png")
+    val useCursor: Pixmap = game.am.get("ui/cursor/Benutzen.png")
+    val combineCursor: Pixmap = game.am.get("ui/cursor/kombinieren.png")
 
     override fun render(delta: Float) {
         ScreenUtils.clear(Color.BLACK)
@@ -56,15 +69,13 @@ abstract class AbstractWalkableScreen(
     ) {
         // ToDo: Button müssen veränderbar sein, Position und Größe
         // Buttons
-        val lookCursor: Pixmap = game.am.get("ui/cursor/Ansehen.png")
-        val lookButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("Ansehen"),
-                buttonAtlas.createSprite("AnsehenPressed"),
-                5f,
-                45f,
-            )
-        lookButton.addListener(TextTooltip("untersuchen", skin))
+        lookButton = game.createUIButton(
+            buttonAtlas.createSprite("Ansehen"),
+            buttonAtlas.createSprite("AnsehenPressed"),
+            5f,
+            45f,
+        )
+        lookButton.addListener(TextTooltip("untersuchen", game.currentSkin()))
         lookButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -78,15 +89,13 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val speakCursor: Pixmap = game.am.get("ui/cursor/Reden.png")
-        val speakButton =
-            game.createUIButton(
+        speakButton = game.createUIButton(
                 buttonAtlas.createSprite("Reden"),
                 buttonAtlas.createSprite("RedenPressed"),
                 65f,
                 45f,
             )
-        speakButton.addListener(TextTooltip("ansprechen", skin))
+        speakButton.addListener(TextTooltip("ansprechen", game.currentSkin()))
         speakButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -100,15 +109,14 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val takeCursor: Pixmap = game.am.get("ui/cursor/Nehmen.png")
-        val takeButton =
+        takeButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Nehmen"),
                 buttonAtlas.createSprite("NehmenPressed"),
                 120f,
                 45f,
             )
-        takeButton.addListener(TextTooltip("aufnehmen", skin))
+        takeButton.addListener(TextTooltip("aufnehmen", game.currentSkin()))
         takeButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -122,15 +130,14 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val useCursor: Pixmap = game.am.get("ui/cursor/Benutzen.png")
-        val useButton =
+        useButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Benutzen"),
                 buttonAtlas.createSprite("BenutzenPressed"),
                 180f,
                 45f,
             )
-        useButton.addListener(TextTooltip("benutzen", skin))
+        useButton.addListener(TextTooltip("benutzen", game.currentSkin()))
         useButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -144,15 +151,14 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        val combineCursor: Pixmap = game.am.get("ui/cursor/kombinieren.png")
-        val combineButton =
+        combineButton =
             game.createUIButton(
                 buttonAtlas.createSprite("kombinieren"),
                 buttonAtlas.createSprite("kombinierenPressed"),
                 240f,
                 40f,
             )
-        combineButton.addListener(TextTooltip("kombinieren", skin))
+        combineButton.addListener(TextTooltip("kombinieren", game.currentSkin()))
         combineButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -168,7 +174,7 @@ abstract class AbstractWalkableScreen(
 
         // Nur beim Single-Player sind die Buttons notwendig
         if (game.isSingleplayer) {
-            val poolAttendantButton =
+            poolAttendantButton =
                 game.createUIButton(
                     buttonAtlas.createSprite("Bademeister"),
                     buttonAtlas.createSprite("BademeisterPressed"),
@@ -176,7 +182,7 @@ abstract class AbstractWalkableScreen(
                     707f,
                 )
             poolAttendantButton.isVisible = false
-            val duckButton =
+            duckButton =
                 game.createUIButton(
                     buttonAtlas.createSprite("Ente"),
                     buttonAtlas.createSprite("EntePressed"),
@@ -184,7 +190,7 @@ abstract class AbstractWalkableScreen(
                     705f,
                 )
 
-            duckButton.addListener(TextTooltip("wechsle zur Ente", skin))
+            duckButton.addListener(TextTooltip("wechsle zur Ente", game.currentSkin()))
             duckButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -206,7 +212,7 @@ abstract class AbstractWalkableScreen(
                     }
                 },
             )
-            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", skin))
+            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", game.currentSkin()))
             poolAttendantButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -236,14 +242,14 @@ abstract class AbstractWalkableScreen(
             stage.addActor(duckButton)
         }
 
-        val exitButton =
+        exitButton =
             game.createUIButton(
                 buttonAtlas.createSprite("Passen"),
                 buttonAtlas.createSprite("PassenPressed"),
                 978f,
                 705f,
             )
-        exitButton.addListener(TextTooltip("zurück zum Hauptmenü", skin))
+        exitButton.addListener(TextTooltip("zurück zum Hauptmenü", game.currentSkin()))
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -271,6 +277,17 @@ abstract class AbstractWalkableScreen(
         height: Int,
     ) {
         viewport.update(width, height, true)
+    }
+
+    override fun hide() {
+        lookButton.remove()
+        speakButton.remove()
+        takeButton.remove()
+        useButton.remove()
+        combineButton.remove()
+        poolAttendantButton.remove()
+        duckButton.remove()
+        exitButton.remove()
     }
 
 }

@@ -28,7 +28,7 @@ class Cowbell(
     override fun getName(): String = "Cowbell"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Wie ist die hier her gekommen?", "How did that get here?"))
+        dialogBoard.prepLookAt(game.choose("Wie ist die hier her gekommen?", "How did that get here?"))
     }
 
     override fun use(
@@ -36,7 +36,7 @@ class Cowbell(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            choose("Erinnert mich an meinen Urlaub in den Bergen.", "Reminds me of my vacation in the alps."),
+            game.choose("Erinnert mich an meinen Urlaub in den Bergen.", "Reminds me of my vacation in the alps."),
             null,
             action,
         )
@@ -57,5 +57,5 @@ class Cowbell(
             correctPositionY(154)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Kuhglocke", "Cowbell")
+    override fun getToolTipDescription(): String = game.choose("Kuhglocke", "Cowbell")
 }

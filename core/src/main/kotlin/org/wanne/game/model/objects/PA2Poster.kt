@@ -24,8 +24,8 @@ class PA2Poster(
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt(
-            choose("Es ist von: Projekt Ananas 2.", "It's that movie: Project Pineapple 2."),
-            choose("Der läuft doch aktuell im Kino oder?", "It's currently in the cinema, isn't it?")
+            game.choose("Es ist von: Projekt Ananas 2.", "It's that movie: Project Pineapple 2."),
+            game.choose("Der läuft doch aktuell im Kino oder?", "It's currently in the cinema, isn't it?")
         )
     }
 
@@ -35,5 +35,5 @@ class PA2Poster(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Poster", "Poster")
+    override fun getToolTipDescription(): String = game.choose("Poster", "Poster")
 }

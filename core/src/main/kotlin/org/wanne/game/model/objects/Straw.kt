@@ -23,7 +23,7 @@ class Straw(
     override fun getName(): String = "Straw"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Stroh?", "Straw?"))
+        dialogBoard.prepLookAt(game.choose("Stroh?", "Straw?"))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
@@ -32,5 +32,5 @@ class Straw(
             correctPositionY(216)
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = choose("Stroh", "Straw")
+    override fun getToolTipDescription(): String = game.choose("Stroh", "Straw")
 }

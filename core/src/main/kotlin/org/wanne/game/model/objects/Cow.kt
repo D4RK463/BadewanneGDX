@@ -39,7 +39,7 @@ class Cow(
             correctPositionY(posY.toInt())
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Der Wächter", "The guardian")
+    override fun getToolTipDescription(): String = game.choose("Der Wächter", "The guardian")
 
     override fun talk(
         dialogBoard: DialogBoard,

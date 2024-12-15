@@ -22,7 +22,7 @@ class BrucePoster(
     override fun getName(): String = "BrucePoster"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Der Typ ist mein Held.", "That guy is my hero."))
+        dialogBoard.prepLookAt(game.choose("Der Typ ist mein Held.", "That guy is my hero."))
     }
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
@@ -31,5 +31,5 @@ class BrucePoster(
             correctPositionY(268)
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = choose("Bruce Lee", "Bruce Lee")
+    override fun getToolTipDescription(): String = game.choose("Bruce Lee", "Bruce Lee")
 }

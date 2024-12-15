@@ -30,7 +30,7 @@ class Stethoscope(
     override fun getName(): String = "Stethoscope"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Alles was ein echter Arzt braucht.", "Everything a real doctor needs."))
+        dialogBoard.prepLookAt(game.choose("Alles was ein echter Arzt braucht.", "Everything a real doctor needs."))
     }
 
     override fun take(
@@ -65,5 +65,5 @@ class Stethoscope(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Stethoskop", "Stethoscope")
+    override fun getToolTipDescription(): String = game.choose("Stethoskop", "Stethoscope")
 }

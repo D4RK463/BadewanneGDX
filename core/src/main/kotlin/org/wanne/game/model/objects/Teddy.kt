@@ -35,13 +35,13 @@ class Teddy(
     override fun look(dialogBoard: DialogBoard) {
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
             dialogBoard.prepLookAt(
-                choose("Ein trauriger Teddy.", "One sad teddy."),
-                choose("So süß das man fast Karies davon kriegt.", "So cute that it almost gives you tooth decay.")
+                game.choose("Ein trauriger Teddy.", "One sad teddy."),
+                game.choose("So süß das man fast Karies davon kriegt.", "So cute that it almost gives you tooth decay.")
             )
         } else {
             dialogBoard.prepLookAt(
-                choose("Ein Teddy.", "A teddy."),
-                choose("Sie sieht schon etwas mutiger aus.", "She looks much braver now.")
+                game.choose("Ein Teddy.", "A teddy."),
+                game.choose("Sie sieht schon etwas mutiger aus.", "She looks much braver now.")
             )
         }
     }
@@ -80,5 +80,5 @@ class Teddy(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = choose("Teddy", "Teddy")
+    override fun getToolTipDescription(): String = game.choose("Teddy", "Teddy")
 }

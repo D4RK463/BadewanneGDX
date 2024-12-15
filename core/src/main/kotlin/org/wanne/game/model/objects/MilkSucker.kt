@@ -30,8 +30,8 @@ class MilkSucker(
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt(
-            choose("Es ist der Milchabsauger 2000!", "It is the Milksucker 2000!"),
-            choose("Netter Name für einen einfachen Eimer.", "Fancy name for a simple bucket.")
+            game.choose("Es ist der Milchabsauger 2000!", "It is the Milksucker 2000!"),
+            game.choose("Netter Name für einen einfachen Eimer.", "Fancy name for a simple bucket.")
         )
     }
 
@@ -49,5 +49,5 @@ class MilkSucker(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Milchabsauger 2000", "Milksucker 2000")
+    override fun getToolTipDescription(): String = game.choose("Milchabsauger 2000", "Milksucker 2000")
 }

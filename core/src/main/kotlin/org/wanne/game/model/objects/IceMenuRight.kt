@@ -24,8 +24,8 @@ class IceMenuRight(
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt(
-            choose("Eis, Eis, Baby!...", "Ice, ice, baby!..."),
-            choose("Lecker!", "Delicious!")
+            game.choose("Eis, Eis, Baby!...", "Ice, ice, baby!..."),
+            game.choose("Lecker!", "Delicious!")
         )
     }
 
@@ -35,5 +35,5 @@ class IceMenuRight(
             correctPositionY(200)
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = choose("Eiskarte", "Ice cream menu")
+    override fun getToolTipDescription(): String = game.choose("Eiskarte", "Ice cream menu")
 }

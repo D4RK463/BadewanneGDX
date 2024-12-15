@@ -28,7 +28,7 @@ class Window(
     private val dialogCollection = WindowDialogCollection(am)
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Es ist halb offen.", "It's half open."))
+        dialogBoard.prepLookAt(game.choose("Es ist halb offen.", "It's half open."))
     }
 
     override fun use(
@@ -58,5 +58,5 @@ class Window(
             correctPositionY(308)
         ), null)
 
-    override fun getToolTipDescription(): String = choose("Kleines Fenster", "Little window")
+    override fun getToolTipDescription(): String = game.choose("Kleines Fenster", "Little window")
 }

@@ -39,7 +39,7 @@ class FireFlower(
     override fun getName(): String = "FireFlower"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Ganz schön heiß...aua!", "Ahh! It's hot!"))
+        dialogBoard.prepLookAt(game.choose("Ganz schön heiß...aua!", "Ahh! It's hot!"))
     }
 
     override fun take(
@@ -60,8 +60,8 @@ class FireFlower(
             game.screen = game.puzzleScreen
         } else {
             dialogBoard.prepLookAt(
-                choose("Damit bin ich schon fertig.", "I already finished it."),
-                choose("War gar nicht so einfach!", "Wasn't easy!")
+                game.choose("Damit bin ich schon fertig.", "I already finished it."),
+                game.choose("War gar nicht so einfach!", "Wasn't easy!")
             )
         }
 
@@ -93,5 +93,5 @@ class FireFlower(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = choose("Feuerblume", "Fireflower")
+    override fun getToolTipDescription(): String = game.choose("Feuerblume", "Fireflower")
 }

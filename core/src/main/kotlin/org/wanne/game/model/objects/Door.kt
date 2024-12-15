@@ -24,7 +24,7 @@ class Door(
     override fun getName(): String = "Door"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose(
+        dialogBoard.prepLookAt(game.choose(
             "Eine verschlossene Tür. Aber warum ist die so groß?",
             "A closed door. But why is it so large?"
         ))
@@ -35,7 +35,7 @@ class Door(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            choose("Ich kann sie nicht öffnen. Sie ist fest verschlossen.", "I can't open it. It's locked."),
+            game.choose("Ich kann sie nicht öffnen. Sie ist fest verschlossen.", "I can't open it. It's locked."),
             null,
             action,
         )
@@ -48,5 +48,5 @@ class Door(
             correctPositionY(216)
         ), Player.Companion.Looking.RIGHT)
 
-    override fun getToolTipDescription(): String = choose("Tür", "Door")
+    override fun getToolTipDescription(): String = game.choose("Tür", "Door")
 }

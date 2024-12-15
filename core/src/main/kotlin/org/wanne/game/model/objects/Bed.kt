@@ -23,7 +23,7 @@ class Bed(
     override fun getName(): String = "Bed"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Ist das ein SuperSchaf?", "Is that a super-sheep?"))
+        dialogBoard.prepLookAt(game.choose("Ist das ein SuperSchaf?", "Is that a super-sheep?"))
     }
 
     override fun use(
@@ -31,7 +31,7 @@ class Bed(
         action: PointAndClickAction,
     ) {
         dialogBoard.prepUseIt(
-            choose("Ich bin nicht müde.", "I am not tired."),
+            game.choose("Ich bin nicht müde.", "I am not tired."),
             null,
             action,
         )
@@ -44,5 +44,5 @@ class Bed(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Bett", "Bed")
+    override fun getToolTipDescription(): String = game.choose("Bett", "Bed")
 }

@@ -206,10 +206,12 @@ class DialogBoard(
         null
     }
 
-    override fun dispose() {
+    override fun remove(): Boolean {
         label1.remove()
         label2.remove()
         label3.remove()
         label4.remove()
+        return this.remove()
     }
+
 }

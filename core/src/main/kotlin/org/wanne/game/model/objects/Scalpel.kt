@@ -30,7 +30,7 @@ class Scalpel(
     override fun getName(): String = "Scalpel"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Das ist sogar scharf...krank.", "It's really sharp...sick."))
+        dialogBoard.prepLookAt(game.choose("Das ist sogar scharf...krank.", "It's really sharp...sick."))
     }
 
     override fun take(
@@ -47,7 +47,7 @@ class Scalpel(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Skalpell", "Scalpel")
+    override fun getToolTipDescription(): String = game.choose("Skalpell", "Scalpel")
 
     override fun combine(
         dialogBoard: DialogBoard,

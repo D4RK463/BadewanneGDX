@@ -199,10 +199,10 @@ class RoomScreen(
                 }
             }
             return@filter true
-        }.forEach { item -> item.addToStage(stage, skin)}
+        }.forEach { item -> item.addToStage(stage, game.currentSkin())}
 
         // Inventar Objekt hinzufügen
-        inventoryItems.forEach { item -> item.addToStage(stage, skin) }
+        inventoryItems.forEach { item -> item.addToStage(stage, game.currentSkin()) }
 
         // Der Ausgang darf nur am Ende auf sein :)
         exit.isVisible = false
@@ -244,6 +244,7 @@ class RoomScreen(
 
     override fun hide() {
         println("hide")
+        super.hide()
         musicBackground.stop()
 
         bed.remove()
@@ -271,12 +272,10 @@ class RoomScreen(
         pills.remove()
         note.remove()
 
-        dialogBoard.dispose()
         dialogBoard.remove()
     }
 
     override fun dispose() {
-        println("dispose")
         stage.dispose()
     }
 }

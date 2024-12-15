@@ -25,7 +25,7 @@ class Ice(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Eis!!!", "Ice cream!!!")
+    override fun getToolTipDescription(): String = game.choose("Eis!!!", "Ice cream!!!")
 
     override fun getSprite(time: Float): Sprite {
         return addPositionToSprite(inventoryAtlas.createSprite("EisInv"))
@@ -34,7 +34,7 @@ class Ice(
     override fun getName(): String = "Ice"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Das sieht wirklich lecker aus.", "Looks yummy."))
+        dialogBoard.prepLookAt(game.choose("Das sieht wirklich lecker aus.", "Looks yummy."))
     }
 
     override fun use(

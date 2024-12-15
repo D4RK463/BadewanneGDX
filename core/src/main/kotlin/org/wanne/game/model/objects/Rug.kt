@@ -32,12 +32,12 @@ class Rug(
 
     override fun look(dialogBoard: DialogBoard) {
         if (burned) {
-            dialogBoard.prepLookAt(choose(
+            dialogBoard.prepLookAt(game.choose(
                 "Der Teppich ist so verkohlt, der fällt fast auseinander!",
                 "The carpet is so charred, it's almost falling apart!"
             ))
         } else {
-            dialogBoard.prepLookAt(choose(
+            dialogBoard.prepLookAt(game.choose(
                 "Funkytastisch! Vielleicht lässt er sich bewegen.",
                 "Funkytastic! Maybe it's moveable."
             ))
@@ -50,7 +50,7 @@ class Rug(
     ) {
         if (!burned) {
             dialogBoard.prepUseIt(
-                choose("Der Teppich lässt sich nicht bewegen!!", "The Carpet does not move!!"),
+                game.choose("Der Teppich lässt sich nicht bewegen!!", "The Carpet does not move!!"),
                 null,
                 action,
             )
@@ -69,5 +69,5 @@ class Rug(
             correctPositionY(264)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = choose("Funky Teppich", "Funky carpet")
+    override fun getToolTipDescription(): String = game.choose("Funky Teppich", "Funky carpet")
 }

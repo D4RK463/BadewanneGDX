@@ -22,7 +22,7 @@ class Box(
     override fun getName(): String = "Box"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(choose("Eine blaue Kiste, nix besonderes.", "A blue box, nothing special."))
+        dialogBoard.prepLookAt(game.choose("Eine blaue Kiste, nix besonderes.", "A blue box, nothing special."))
     }
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(
@@ -32,5 +32,5 @@ class Box(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = choose("Blaue Kiste", "Blue box")
+    override fun getToolTipDescription(): String = game.choose("Blaue Kiste", "Blue box")
 }

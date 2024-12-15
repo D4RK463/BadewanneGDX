@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
-import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.game.model.objects.GoldBag
 import org.wanne.game.model.objects.Graffiti
 import org.wanne.game.model.objects.HonkSign
@@ -21,6 +20,7 @@ import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.screens.AbstractWalkableScreen
+import org.wanne.game.stage.PointAndClickAwareStage
 
 class OutsideScreen(
     private var game: WanneGame,
@@ -57,6 +57,7 @@ class OutsideScreen(
         stage = PointAndClickAwareStage(viewport, poolAttendant, duck, emptyList())
         Gdx.input.inputProcessor = stage
 
+        // ToDo neuer Hintergrund
         // Hintergrund setzen
         if (game.isSingleplayer) {
             stage.addActor(Image(outsideBackgroundSingle))
@@ -81,20 +82,21 @@ class OutsideScreen(
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
     }
 
+    // ToDo Objekte variabel machen
     private fun createGameObjects() {
         stage.initializeInventoryItems()
 
         // Objekte hinzufügen (Reihenfolge ist wichtig)
-        iceMenuLeft.addToStage(stage, skin)
-        iceMenuRight.addToStage(stage, skin)
-        honkSign.addToStage(stage, skin)
-        street.addToStage(stage, skin)
-        graffiti.addToStage(stage, skin)
-        iceman.addToStage(stage, skin)
-        goldBag.addToStage(stage, skin)
+        iceMenuLeft.addToStage(stage, game.currentSkin())
+        iceMenuRight.addToStage(stage, game.currentSkin())
+        honkSign.addToStage(stage, game.currentSkin())
+        street.addToStage(stage, game.currentSkin())
+        graffiti.addToStage(stage, game.currentSkin())
+        iceman.addToStage(stage, game.currentSkin())
+        goldBag.addToStage(stage, game.currentSkin())
 
         ice.isVisible = false
-        ice.addToStage(stage, skin)
+        ice.addToStage(stage, game.currentSkin())
     }
 
     override fun resetPlayerAndSound() {
