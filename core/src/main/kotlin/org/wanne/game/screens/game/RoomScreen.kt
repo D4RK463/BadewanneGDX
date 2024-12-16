@@ -53,7 +53,7 @@ class RoomScreen(
     private val limits = if (game.classicMode()) {
         intArrayOf(255, 129, 934, 312)
     } else {
-        intArrayOf(509, 79, 1188, 262)
+        intArrayOf(509, 10, 1188, 262)
     }
 
     // Ambience Musik

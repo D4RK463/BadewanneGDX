@@ -8,7 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
+import org.wanne.game.UiButtonBuilder
 import org.wanne.game.WanneGame
+import org.wanne.game.model.Point
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
 import java.net.NetworkInterface
@@ -116,12 +118,11 @@ class NetworkScreen(
         } else {
             "zuruck"
         }
-        val backButton = game.createUIButton(
-            mainButtonAtlas.createSprite(backSprite),
-            mainButtonAtlas.createSprite(backSprite + "_pressed"),
-            500f,
-            80f,
-        )
+        val backButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite(backSprite))
+            .withTexturePressed(mainButtonAtlas.createSprite(backSprite + "_pressed"))
+            .withPoint(Point(500, 80))
+            .build()
         backButton.addListener(
             object : ChangeListener() {
                 override fun changed(

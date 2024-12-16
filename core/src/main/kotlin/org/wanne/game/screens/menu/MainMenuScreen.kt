@@ -11,7 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.Language
+import org.wanne.game.UiButtonBuilder
 import org.wanne.game.WanneGame
+import org.wanne.game.model.Point
 import org.wanne.game.model.animation.WaterAnimation
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
@@ -81,13 +83,11 @@ class MainMenuScreen(
             "singleplayer"
         }
 
-        val startButton =
-            game.createUIButton(
-                mainButtonAtlas.createSprite(singlePlayerSprite),
-                mainButtonAtlas.createSprite(singlePlayerSprite+"_pressed"),
-                100f,
-                320f,
-            )
+        val startButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite(singlePlayerSprite))
+            .withTexturePressed(mainButtonAtlas.createSprite(singlePlayerSprite+"_pressed"))
+            .withPoint(Point(100, 320))
+            .build()
         startButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -100,13 +100,11 @@ class MainMenuScreen(
             },
         )
 
-        val multiButton =
-            game.createUIButton(
-                mainButtonAtlas.createSprite("multiplayer"),
-                mainButtonAtlas.createSprite("multiplayer_pressed"),
-                100f,
-                250f,
-            )
+        val multiButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite("multiplayer"))
+            .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_pressed"))
+            .withPoint(Point(100, 250))
+            .build()
         multiButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -124,13 +122,11 @@ class MainMenuScreen(
         } else {
             "options"
         }
-        val optionsButton =
-            game.createUIButton(
-                mainButtonAtlas.createSprite(optionsSprite),
-                mainButtonAtlas.createSprite(optionsSprite+"_pressed"),
-                100f,
-                180f,
-            )
+        val optionsButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite(optionsSprite))
+            .withTexturePressed(mainButtonAtlas.createSprite(optionsSprite+"_pressed"))
+            .withPoint(Point(100, 180))
+            .build()
         optionsButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -143,13 +139,11 @@ class MainMenuScreen(
             },
         )
 
-        val extrasButton =
-            game.createUIButton(
-                mainButtonAtlas.createSprite("extras"),
-                mainButtonAtlas.createSprite("extras_pressed"),
-                100f,
-                110f,
-            )
+        val extrasButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite("extras"))
+            .withTexturePressed(mainButtonAtlas.createSprite("extras_pressed"))
+            .withPoint(Point(100, 110))
+            .build()
         extrasButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -163,13 +157,11 @@ class MainMenuScreen(
         )
         extrasButton.isDisabled = true
 
-        val exitButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("exit"),
-                buttonAtlas.createSprite("exitPressed"),
-                1235f,
-                655f,
-            )
+        val exitButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("exit"))
+            .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
+            .withPoint(Point(1235, 655))
+            .build()
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(

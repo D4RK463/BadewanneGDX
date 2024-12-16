@@ -40,7 +40,7 @@ class DialogBoard(
         label1.y = if (game.classicMode()) {
             205F
         } else {
-            210F
+            135F
         }
 
         label2 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", game.currentSkin())
@@ -50,25 +50,27 @@ class DialogBoard(
         label2.y = if (game.classicMode()) {
             185F
         } else {
-            170F
+            95F
         }
 
         label3 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", game.currentSkin())
         initAnswerLabel(label3)
         label3.x = 5F
+        label3.color = Color.ORANGE
         label3.y = if (game.classicMode()) {
             165F
         } else {
-            130F
+            55F
         }
 
         label4 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", game.currentSkin())
         initAnswerLabel(label4)
         label4.x = 5F
+        label4.color = Color.ORANGE
         label4.y = if (game.classicMode()) {
             145F
         } else {
-            90F
+            15F
         }
 
         reset()
@@ -211,7 +213,7 @@ class DialogBoard(
         label2.remove()
         label3.remove()
         label4.remove()
-        return this.remove()
+        return super.remove()
     }
 
 }

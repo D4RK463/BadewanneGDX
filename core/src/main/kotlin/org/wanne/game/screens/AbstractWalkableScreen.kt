@@ -15,6 +15,7 @@ import org.wanne.game.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
+import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
@@ -68,14 +69,14 @@ abstract class AbstractWalkableScreen(
         poolAttendant: PoolAttendant,
         duck: Duck,
     ) {
-        // ToDo: Button müssen veränderbar sein, Position und Größe
         // Buttons
         lookButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Ansehen"))
             .withTexturePressed(buttonAtlas.createSprite("AnsehenPressed"))
-            .withX(5f)
-            .withY(45f)
-            .withTooltip(TextTooltip("untersuchen", game.currentSkin()))
+            .withPoint(game.choose(Point(5, 45), Point(120, 630)))
+            .withTooltip(TextTooltip(game.choose("ansehen", "look at"), game.currentSkin()))
+            .withScale(0.1F, 0.1F)
+            .useScaling(!game.classicMode())
             .build()
         lookButton.addListener(
             object : ChangeListener() {
@@ -90,13 +91,13 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        speakButton = game.createUIButton(
-                buttonAtlas.createSprite("Reden"),
-                buttonAtlas.createSprite("RedenPressed"),
-                65f,
-                45f,
-            )
-        speakButton.addListener(TextTooltip("ansprechen", game.currentSkin()))
+        speakButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("Reden"))
+            .withTexturePressed(buttonAtlas.createSprite("RedenPressed"))
+            .withPoint(game.choose(Point(65, 45), Point(120, 530)))
+            .withTooltip(TextTooltip(game.choose("ansprechen", "speak to"), game.currentSkin()))
+            .useScaling(!game.classicMode())
+            .build()
         speakButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -110,14 +111,13 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        takeButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("Nehmen"),
-                buttonAtlas.createSprite("NehmenPressed"),
-                120f,
-                45f,
-            )
-        takeButton.addListener(TextTooltip("aufnehmen", game.currentSkin()))
+        takeButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("Nehmen"))
+            .withTexturePressed(buttonAtlas.createSprite("NehmenPressed"))
+            .withPoint(game.choose(Point(120, 45), Point(30, 530)))
+            .withTooltip(TextTooltip(game.choose("aufnehmen", "take"), game.currentSkin()))
+            .useScaling(!game.classicMode())
+            .build()
         takeButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -131,14 +131,13 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        useButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("Benutzen"),
-                buttonAtlas.createSprite("BenutzenPressed"),
-                180f,
-                45f,
-            )
-        useButton.addListener(TextTooltip("benutzen", game.currentSkin()))
+        useButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("Benutzen"))
+            .withTexturePressed(buttonAtlas.createSprite("BenutzenPressed"))
+            .withPoint(game.choose(Point(180, 45), Point(30, 430)))
+            .withTooltip(TextTooltip(game.choose("benutzen", "use"), game.currentSkin()))
+            .useScaling(!game.classicMode())
+            .build()
         useButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -152,14 +151,13 @@ abstract class AbstractWalkableScreen(
             },
         )
 
-        combineButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("kombinieren"),
-                buttonAtlas.createSprite("kombinierenPressed"),
-                240f,
-                40f,
-            )
-        combineButton.addListener(TextTooltip("kombinieren", game.currentSkin()))
+        combineButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("kombinieren"))
+            .withTexturePressed(buttonAtlas.createSprite("kombinierenPressed"))
+            .withPoint(game.choose(Point(240, 40), Point(120, 430)))
+            .withTooltip(TextTooltip(game.choose("kombinieren", "combine"), game.currentSkin()))
+            .useScaling(!game.classicMode())
+            .build()
         combineButton.addListener(
             object : ChangeListener() {
                 override fun changed(
@@ -175,23 +173,25 @@ abstract class AbstractWalkableScreen(
 
         // Nur beim Single-Player sind die Buttons notwendig
         if (game.isSingleplayer) {
-            poolAttendantButton =
-                game.createUIButton(
-                    buttonAtlas.createSprite("Bademeister"),
-                    buttonAtlas.createSprite("BademeisterPressed"),
-                    3f,
-                    707f,
-                )
-            poolAttendantButton.isVisible = false
-            duckButton =
-                game.createUIButton(
-                    buttonAtlas.createSprite("Ente"),
-                    buttonAtlas.createSprite("EntePressed"),
-                    5f,
-                    705f,
-                )
+            poolAttendantButton = UiButtonBuilder()
+                .withTexture(buttonAtlas.createSprite("Bademeister"))
+                .withTexturePressed(buttonAtlas.createSprite("BademeisterPressed"))
+                .withPoint(game.choose(Point(3, 707), Point(30, 618)))
+                .withTooltip(TextTooltip(game.choose("wechsle zum Bademeister", "change to the Pool Attendant"), game.currentSkin()))
+                .setVisible(false)
+                .withScale(0.45F, 0.45F)
+                .useScaling(!game.classicMode())
+                .build()
 
-            duckButton.addListener(TextTooltip("wechsle zur Ente", game.currentSkin()))
+            duckButton = UiButtonBuilder()
+                .withTexture(buttonAtlas.createSprite("Ente"))
+                .withTexturePressed(buttonAtlas.createSprite("EntePressed"))
+                .withPoint(game.choose(Point(5, 705), Point(32, 616)))
+                .withTooltip(TextTooltip(game.choose("wechsle zur Ente", "change to the Duck"), game.currentSkin()))
+                .useScaling(!game.classicMode())
+                .withScale(0.45F, 0.45F)
+                .build()
+
             duckButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -213,7 +213,7 @@ abstract class AbstractWalkableScreen(
                     }
                 },
             )
-            poolAttendantButton.addListener(TextTooltip("wechsle zum Bademeister", game.currentSkin()))
+
             poolAttendantButton.addListener(
                 object : ChangeListener() {
                     override fun changed(
@@ -243,14 +243,13 @@ abstract class AbstractWalkableScreen(
             stage.addActor(duckButton)
         }
 
-        exitButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("Passen"),
-                buttonAtlas.createSprite("PassenPressed"),
-                978f,
-                705f,
-            )
-        exitButton.addListener(TextTooltip("zurück zum Hauptmenü", game.currentSkin()))
+        exitButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("Passen"))
+            .withTexturePressed(buttonAtlas.createSprite("PassenPressed"))
+            .withPoint(game.choose(Point(978, 705), Point(1200, 640)))
+            .withTooltip(TextTooltip(game.choose("zurück zum Hauptmenü", "back to the Main menu"), game.currentSkin()))
+            .useScaling(!game.classicMode())
+            .build()
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(

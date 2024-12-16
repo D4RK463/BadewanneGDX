@@ -5,16 +5,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import org.wanne.game.model.Point
 
 class UiButtonBuilder {
 
     private lateinit var texture: Sprite
     private lateinit var texturePressed: Sprite
-    private var x: Float = 0F
-    private var y: Float = 0F
-    private var scaleX: Float = 1F
-    private var scaleY: Float = 1F
+    private var scaleX: Float = 0.2F
+    private var scaleY: Float = 0.2F
     private var tooltip: TextTooltip? = null
+    private var point: Point = Point(100, 100)
+    private var useScaling: Boolean = false
+    private var visible: Boolean = true
 
     fun withTexture(texture: Sprite): UiButtonBuilder {
         this.texture = texture
@@ -26,13 +28,8 @@ class UiButtonBuilder {
         return this
     }
 
-    fun withX(x: Float): UiButtonBuilder {
-        this.x = x
-        return this
-    }
-
-    fun withY(y: Float): UiButtonBuilder {
-        this.y = y
+    fun withPoint(point: Point): UiButtonBuilder {
+        this.point = point
         return this
     }
 
@@ -42,23 +39,41 @@ class UiButtonBuilder {
         return this
     }
 
+    fun useScaling(useScaling: Boolean): UiButtonBuilder {
+        this.useScaling = useScaling
+        return this
+    }
+
     fun withTooltip(tooltip: TextTooltip): UiButtonBuilder {
         this.tooltip = tooltip
         return this
     }
 
+    fun setVisible(visible: Boolean): UiButtonBuilder {
+        this.visible = visible
+        return this
+    }
+
     fun build(): ImageButton {
         val style = ImageButtonStyle()
+
         style.imageUp = TextureRegionDrawable(texture)
         style.imageDown = TextureRegionDrawable(texturePressed)
 
         val button = ImageButton(style)
-        button.x = x
-        button.y = y
+        button.x = point.x.toFloat()
+        button.y = point.y.toFloat()
 
         if (tooltip != null) {
             button.addListener(tooltip)
         }
+
+        if (useScaling) {
+            button.isTransform = true
+            button.scaleBy(scaleX, scaleY)
+        }
+
+        button.isVisible = visible
 
         return button
     }

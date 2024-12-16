@@ -13,8 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
+import org.wanne.game.model.Point
 import org.wanne.game.stage.PuzzleStage
 import org.wanne.game.model.puzzle.Puzzle
 import org.wanne.game.model.puzzle.VictoryMessage
@@ -70,14 +72,12 @@ class PuzzleScreen(
     }
 
     private fun createGameUI() {
-        val exitButton =
-            game.createUIButton(
-                buttonAtlas.createSprite("exit"),
-                buttonAtlas.createSprite("exitPressed"),
-                980f,
-                705f,
-            )
-        exitButton.addListener(TextTooltip("bring mich zurück", skin))
+        val exitButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("exit"))
+            .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
+            .withPoint(Point(980, 705))
+            .withTooltip(TextTooltip(game.choose("bring mich zurück", "bring me back"), skin))
+            .build()
         exitButton.addListener(
             object : ChangeListener() {
                 override fun changed(

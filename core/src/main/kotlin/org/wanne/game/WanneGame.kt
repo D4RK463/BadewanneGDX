@@ -2,16 +2,13 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import org.wanne.game.dialog.DialogManager
+import org.wanne.game.model.Point
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
 import org.wanne.game.screens.LoadingScreen
@@ -95,22 +92,6 @@ class WanneGame(val android: Boolean): Game() {
         // ToDo: Alle Bildschirme zurücksetzen
     }
 
-    fun createUIButton(
-        texture: Sprite,
-        texturePressed: Sprite,
-        x: Float,
-        y: Float,
-    ): ImageButton {
-        val style = ImageButtonStyle()
-        style.imageUp = TextureRegionDrawable(texture)
-        style.imageDown = TextureRegionDrawable(texturePressed)
-        val button = ImageButton(style)
-        button.x = x
-        button.y = y
-
-        return button
-    }
-
     fun currentLang() = Speech.fromSaveString(config.speech)
 
     private fun createWanneSkin(): Skin {
@@ -140,7 +121,7 @@ class WanneGame(val android: Boolean): Game() {
 
     /**
      * Entscheidet welches der richtige String ist, anhand der aktuell
-     * eingestellten Sprache
+     * eingestellten Sprache, oder Droggelbecher
      */
     fun choose(german: String, english: String): String {
         return when(currentLang().language) {
@@ -160,5 +141,17 @@ class WanneGame(val android: Boolean): Game() {
             else -> ""
         }
         return "Droggelbecher$sign"
+    }
+
+    /**
+     * Entscheidet welches der richtige Punkt ist, anhand des aktuell
+     * eingestellten Video Modes
+     */
+    fun choose(originalPoint: Point, widePoint: Point): Point {
+        return if (config.mode == VideoMode.CLASSIC.name) {
+            originalPoint
+        } else {
+            widePoint
+        }
     }
 }

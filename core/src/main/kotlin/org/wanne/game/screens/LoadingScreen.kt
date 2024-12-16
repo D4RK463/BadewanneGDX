@@ -31,6 +31,7 @@ class LoadingScreen (
         stage = Stage(viewport)
 
         loadingLabel.isVisible = true
+        loadingLabel.color = Color.ORANGE
         loadingLabel.setPosition(30F, 10F)
 
         stage.addActor(loadingLabel)

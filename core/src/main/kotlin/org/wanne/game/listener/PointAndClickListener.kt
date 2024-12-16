@@ -83,7 +83,7 @@ class PointAndClickListener(
                 moveX = (moveX - (moveX % Player.MOVE_PIXEL))
                 moveY = (moveY - (moveY % Player.MOVE_PIXEL))
 
-                stage.moveToPoint = org.wanne.game.model.Point(moveX, moveY)
+                stage.moveToPoint = Point(moveX, moveY)
                 stage.needToMove = true
             } else {
                 stage.currentPlayer.state = Player.Companion.State.STANDING
@@ -105,7 +105,7 @@ class PointAndClickListener(
             // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
             // kombiniert, was noch angelaufen werden muss
         } else if (stage.currentAction.type == ActionType.COMBINE && stage.currentAction.combineObject1 != null) {
-            // Wenn beide Objekte imprivate Inventar sind, muss sich auch nicht bewegt werden
+            // Wenn beide Objekte im Inventar sind, muss sich auch nicht bewegt werden
             if (stage.currentAction.inventory.isObjectInInventory(hitObject) &&
                 stage.currentAction.isCombineObject1InTheInventory()
             ) {
