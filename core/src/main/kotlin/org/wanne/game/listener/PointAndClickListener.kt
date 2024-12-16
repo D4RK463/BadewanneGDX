@@ -83,7 +83,7 @@ class PointAndClickListener(
                 moveX = (moveX - (moveX % Player.MOVE_PIXEL))
                 moveY = (moveY - (moveY % Player.MOVE_PIXEL))
 
-                stage.moveToPoint = Point(moveX, moveY)
+                stage.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
                 stage.needToMove = true
             } else {
                 stage.currentPlayer.state = Player.Companion.State.STANDING

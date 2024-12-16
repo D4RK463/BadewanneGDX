@@ -4,16 +4,16 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import org.wanne.game.AssetsManager
+import org.wanne.game.model.Point
 import org.wanne.game.model.player.Player.Companion.Looking
 
 class Duck(
-    posX: Float,
-    posY: Float,
+    point: Point,
     looking: Looking,
     scaleX: Float = 1f,
     scaleY: Float = 1f,
     am: AssetsManager
-) : Player(posX, posY, looking, scaleX, scaleY, am) {
+) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
     private val lookLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Ente/lookLeft.atlas")
     private val lookRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Ente/lookRight.atlas")
     private val walkLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Ente/walkLeft.atlas")

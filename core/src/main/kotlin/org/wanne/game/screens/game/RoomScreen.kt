@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
+import org.wanne.game.model.Point
 import org.wanne.game.model.animation.FireAnimation
 import org.wanne.game.model.animation.PowerUpAnimation
 import org.wanne.game.model.objects.Bed
@@ -48,13 +49,6 @@ class RoomScreen(
     private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
     private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
     private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
-
-    // Raum Lauf-Limits → links, unten, rechts, oben
-    private val limits = if (game.classicMode()) {
-        intArrayOf(255, 129, 934, 312)
-    } else {
-        intArrayOf(509, 10, 1188, 262)
-    }
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
@@ -100,6 +94,7 @@ class RoomScreen(
         createAnimations()
         createGameObjects()
         createPlayableCharacters()
+        val limits = createRoomLimits()
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -136,16 +131,32 @@ class RoomScreen(
         game.startedGame = true
     }
 
-    private fun createPlayableCharacters() {
-        // ToDo Spieler an verändernde Positionen anpassen
-        poolAttendant = PoolAttendant(400F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
-        duck = Duck(600F, 200F, Player.Companion.Looking.LEFT, am = game.am)
+    private fun createRoomLimits(): IntArray {
+        // Raum Lauf-Limits → links, unten, rechts, oben
+        return if (game.classicMode()) {
+            intArrayOf(255, 129, 934, 312)
+        } else {
+            intArrayOf(509, 10, 1188, 262)
+        }
     }
 
     private fun createAnimations() {
         // ToDo Animationen an verändernde Positionen anpassen
         fireAnimation = FireAnimation(82F, 198F, false, game.am)
         powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
+    }
+
+    private fun createPlayableCharacters() {
+        poolAttendant = PoolAttendant(
+            game.choose(Point(400F, 200F), Point(600F, 200F)),
+            Player.Companion.Looking.RIGHT,
+            am = game.am
+        )
+        duck = Duck(
+            game.choose(Point(600F, 200F), Point(800F, 200F)),
+            Player.Companion.Looking.LEFT,
+            am = game.am
+        )
     }
 
     private fun createGameObjects() {

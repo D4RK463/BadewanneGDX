@@ -12,8 +12,8 @@ class Graffiti(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -28,8 +28,8 @@ class Graffiti(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(
         Point(
-            correctPositionX(200),
-            correctPositionY(220)
+            correctPositionX(200F),
+            correctPositionY(220F)
         ), Player.Companion.Looking.RIGHT)
 
     override fun getToolTipDescription(): String = "Graffiti"

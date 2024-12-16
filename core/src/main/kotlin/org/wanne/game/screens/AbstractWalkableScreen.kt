@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.UiButtonBuilder
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
@@ -73,7 +73,7 @@ abstract class AbstractWalkableScreen(
         lookButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Ansehen"))
             .withTexturePressed(buttonAtlas.createSprite("AnsehenPressed"))
-            .withPoint(game.choose(Point(5, 45), Point(120, 630)))
+            .withPoint(game.choose(Point(5F, 45F), Point(120F, 630F)))
             .withTooltip(TextTooltip(game.choose("ansehen", "look at"), game.currentSkin()))
             .withScale(0.1F, 0.1F)
             .useScaling(!game.classicMode())
@@ -94,7 +94,7 @@ abstract class AbstractWalkableScreen(
         speakButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Reden"))
             .withTexturePressed(buttonAtlas.createSprite("RedenPressed"))
-            .withPoint(game.choose(Point(65, 45), Point(120, 530)))
+            .withPoint(game.choose(Point(65F, 45F), Point(120F, 530F)))
             .withTooltip(TextTooltip(game.choose("ansprechen", "speak to"), game.currentSkin()))
             .useScaling(!game.classicMode())
             .build()
@@ -114,7 +114,7 @@ abstract class AbstractWalkableScreen(
         takeButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Nehmen"))
             .withTexturePressed(buttonAtlas.createSprite("NehmenPressed"))
-            .withPoint(game.choose(Point(120, 45), Point(30, 530)))
+            .withPoint(game.choose(Point(120F, 45F), Point(30F, 530F)))
             .withTooltip(TextTooltip(game.choose("aufnehmen", "take"), game.currentSkin()))
             .useScaling(!game.classicMode())
             .build()
@@ -134,7 +134,7 @@ abstract class AbstractWalkableScreen(
         useButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Benutzen"))
             .withTexturePressed(buttonAtlas.createSprite("BenutzenPressed"))
-            .withPoint(game.choose(Point(180, 45), Point(30, 430)))
+            .withPoint(game.choose(Point(180F, 45F), Point(30F, 430F)))
             .withTooltip(TextTooltip(game.choose("benutzen", "use"), game.currentSkin()))
             .useScaling(!game.classicMode())
             .build()
@@ -154,7 +154,7 @@ abstract class AbstractWalkableScreen(
         combineButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("kombinieren"))
             .withTexturePressed(buttonAtlas.createSprite("kombinierenPressed"))
-            .withPoint(game.choose(Point(240, 40), Point(120, 430)))
+            .withPoint(game.choose(Point(240F, 40F), Point(120F, 430F)))
             .withTooltip(TextTooltip(game.choose("kombinieren", "combine"), game.currentSkin()))
             .useScaling(!game.classicMode())
             .build()
@@ -176,8 +176,8 @@ abstract class AbstractWalkableScreen(
             poolAttendantButton = UiButtonBuilder()
                 .withTexture(buttonAtlas.createSprite("Bademeister"))
                 .withTexturePressed(buttonAtlas.createSprite("BademeisterPressed"))
-                .withPoint(game.choose(Point(3, 707), Point(30, 618)))
-                .withTooltip(TextTooltip(game.choose("wechsle zum Bademeister", "change to the Pool Attendant"), game.currentSkin()))
+                .withPoint(game.choose(Point(3F, 707F), Point(30F, 618F)))
+                .withTooltip(TextTooltip(game.choose("wechsle zum Bademeister", "change to Pool Attendant"), game.currentSkin()))
                 .setVisible(false)
                 .withScale(0.45F, 0.45F)
                 .useScaling(!game.classicMode())
@@ -186,8 +186,8 @@ abstract class AbstractWalkableScreen(
             duckButton = UiButtonBuilder()
                 .withTexture(buttonAtlas.createSprite("Ente"))
                 .withTexturePressed(buttonAtlas.createSprite("EntePressed"))
-                .withPoint(game.choose(Point(5, 705), Point(32, 616)))
-                .withTooltip(TextTooltip(game.choose("wechsle zur Ente", "change to the Duck"), game.currentSkin()))
+                .withPoint(game.choose(Point(5F, 705F), Point(32F, 616F)))
+                .withTooltip(TextTooltip(game.choose("wechsle zur Ente", "change to Duck"), game.currentSkin()))
                 .useScaling(!game.classicMode())
                 .withScale(0.45F, 0.45F)
                 .build()
@@ -246,7 +246,7 @@ abstract class AbstractWalkableScreen(
         exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("Passen"))
             .withTexturePressed(buttonAtlas.createSprite("PassenPressed"))
-            .withPoint(game.choose(Point(978, 705), Point(1200, 640)))
+            .withPoint(game.choose(Point(978F, 705F), Point(1200F, 640F)))
             .withTooltip(TextTooltip(game.choose("zurück zum Hauptmenü", "back to the Main menu"), game.currentSkin()))
             .useScaling(!game.classicMode())
             .build()

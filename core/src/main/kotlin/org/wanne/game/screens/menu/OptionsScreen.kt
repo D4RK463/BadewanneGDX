@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Slider
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
-import org.wanne.game.UiButtonBuilder
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
@@ -125,7 +125,7 @@ class OptionsScreen(
         backButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(backSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(backSprite + "_pressed"))
-            .withPoint(Point(320, 35))
+            .withPoint(Point(320F, 35F))
             .build()
         backButton.addListener(
             object : ChangeListener() {
@@ -154,7 +154,7 @@ class OptionsScreen(
         gerButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("gerButton"+getButtonSelectionState(Speech.DE_NEU)))
             .withTexturePressed(mainButtonAtlas.createSprite("gerButton_pressed"))
-            .withPoint(Point(560, 350))
+            .withPoint(Point(560F, 350F))
             .build()
         gerButton.addListener(
             object : ChangeListener() {
@@ -171,7 +171,7 @@ class OptionsScreen(
         engButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("engButton"+getButtonSelectionState(Speech.EN)))
             .withTexturePressed(mainButtonAtlas.createSprite("engButton_pressed"))
-            .withPoint(Point(735, 350))
+            .withPoint(Point(735F, 350F))
             .build()
         engButton.addListener(
             object : ChangeListener() {
@@ -188,7 +188,7 @@ class OptionsScreen(
         orgButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("orgButton"+getButtonSelectionState(Speech.DE_ORIGINAL)))
             .withTexturePressed(mainButtonAtlas.createSprite("orgButton_pressed"))
-            .withPoint(Point(910, 350))
+            .withPoint(Point(910F, 350F))
             .build()
         orgButton.addListener(
             object : ChangeListener() {
@@ -205,7 +205,7 @@ class OptionsScreen(
         droglButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("droglButton"+getButtonSelectionState(Speech.DROGL)))
             .withTexturePressed(mainButtonAtlas.createSprite("droglButton_pressed"))
-            .withPoint(Point(1085, 350))
+            .withPoint(Point(1085F, 350F))
             .build()
         droglButton.addListener(
             object : ChangeListener() {
@@ -229,7 +229,7 @@ class OptionsScreen(
         classicButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("classicButton" + getButtonSelectionState(VideoMode.CLASSIC)))
             .withTexturePressed(mainButtonAtlas.createSprite("classicButton_pressed"))
-            .withPoint(Point(560, 149))
+            .withPoint(Point(560F, 149F))
             .build()
         classicButton.addListener(
             object : ChangeListener() {
@@ -246,7 +246,7 @@ class OptionsScreen(
         modernButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("modernButton" + getButtonSelectionState(VideoMode.MODERN)))
             .withTexturePressed(mainButtonAtlas.createSprite("modernButton_pressed"))
-            .withPoint(Point(735, 150))
+            .withPoint(Point(735F, 150F))
             .build()
         modernButton.addListener(
             object : ChangeListener() {

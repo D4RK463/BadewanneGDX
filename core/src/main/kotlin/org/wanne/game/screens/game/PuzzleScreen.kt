@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.UiButtonBuilder
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
 import org.wanne.game.model.Point
@@ -75,7 +75,7 @@ class PuzzleScreen(
         val exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
-            .withPoint(Point(980, 705))
+            .withPoint(Point(980F, 705F))
             .withTooltip(TextTooltip(game.choose("bring mich zurück", "bring me back"), skin))
             .build()
         exitButton.addListener(

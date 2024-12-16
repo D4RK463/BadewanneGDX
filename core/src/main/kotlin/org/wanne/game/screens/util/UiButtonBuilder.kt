@@ -1,4 +1,4 @@
-package org.wanne.game
+package org.wanne.game.screens.util
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
@@ -14,7 +14,7 @@ class UiButtonBuilder {
     private var scaleX: Float = 0.2F
     private var scaleY: Float = 0.2F
     private var tooltip: TextTooltip? = null
-    private var point: Point = Point(100, 100)
+    private var point: Point = Point(100F, 100F)
     private var useScaling: Boolean = false
     private var visible: Boolean = true
 
@@ -61,8 +61,8 @@ class UiButtonBuilder {
         style.imageDown = TextureRegionDrawable(texturePressed)
 
         val button = ImageButton(style)
-        button.x = point.x.toFloat()
-        button.y = point.y.toFloat()
+        button.x = point.x
+        button.y = point.y
 
         if (tooltip != null) {
             button.addListener(tooltip)

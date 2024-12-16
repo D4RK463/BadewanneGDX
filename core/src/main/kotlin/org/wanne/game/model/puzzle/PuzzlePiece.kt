@@ -12,7 +12,7 @@ class PuzzlePiece(
     val pieceNumber: Int,
     var indexNumber: Int,
     game: WanneGame
-) : AbstractObject(point.x.toFloat(), point.y.toFloat(), game) {
+) : AbstractObject(point.x, point.y, game) {
     private val puzzleAtlas: TextureAtlas = am.get("pictures/Puzzle/puzzle.atlas")
 
     private val spriteRotationSpeed = 90
@@ -57,7 +57,7 @@ class PuzzlePiece(
         }
     }
 
-    fun getPositionAsPoint(): Point = Point(posX.toInt(), posY.toInt())
+    fun getPositionAsPoint(): Point = Point(posX, posY)
 
     override fun setPositionToPoint(point: Point) {
         super.setPositionToPoint(point)

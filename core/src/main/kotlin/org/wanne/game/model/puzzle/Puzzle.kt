@@ -9,15 +9,15 @@ class Puzzle (private val game: WanneGame) {
 
     private val positions =
         arrayOf(
-            Point(210, 510), // 1
-            Point(410, 510), // 2
-            Point(610, 510), // 3
-            Point(210, 310), // 4
-            Point(410, 310), // 5
-            Point(610, 310), // 6
-            Point(210, 110), // 7
-            Point(410, 110), // 8
-            Point(610, 110), // 9
+            Point(210F, 510F), // 1
+            Point(410F, 510F), // 2
+            Point(610F, 510F), // 3
+            Point(210F, 310F), // 4
+            Point(410F, 310F), // 5
+            Point(610F, 310F), // 6
+            Point(210F, 110F), // 7
+            Point(410F, 110F), // 8
+            Point(610F, 110F), // 9
         )
 
     private val expectedPieceNumberSequence = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)

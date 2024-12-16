@@ -14,8 +14,8 @@ class Telephone(
     game: WanneGame,
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -119,8 +119,8 @@ class Telephone(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
-            correctPositionX(650),
-            correctPositionY(266)
+            correctPositionX(650F),
+            correctPositionY(266F)
         ), Player.Companion.Looking.RIGHT)
 
     override fun getToolTipDescription(): String = game.choose("Rosa Telefon", "Pink phone")

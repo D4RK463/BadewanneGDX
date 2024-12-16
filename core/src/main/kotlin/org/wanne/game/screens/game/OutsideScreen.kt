@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
+import org.wanne.game.model.Point
 import org.wanne.game.model.objects.GoldBag
 import org.wanne.game.model.objects.Graffiti
 import org.wanne.game.model.objects.HonkSign
@@ -37,8 +38,8 @@ class OutsideScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Players
-    private val poolAttendant = PoolAttendant(86F, 220F, Player.Companion.Looking.RIGHT, am = game.am)
-    private val duck = Duck(100F, 200F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val poolAttendant = PoolAttendant(Point(86F, 220F), Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(Point(100F, 200F), Player.Companion.Looking.RIGHT, am = game.am)
 
     // Objects
     private val ice = Ice(game = game)
@@ -112,6 +113,7 @@ class OutsideScreen(
     }
 
     override fun hide() {
+        super.hide()
         musicBackground.stop()
     }
 

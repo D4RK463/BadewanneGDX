@@ -21,8 +21,8 @@ class DialogBoard(
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posX)
         height = getSprite(0F)?.height ?: 0F
         width = getSprite(0F)?.width ?: 0F
     }

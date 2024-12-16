@@ -17,11 +17,11 @@ class Inventory private constructor() {
     // ToDo Positionen anpassen
     private val positions =
         arrayOf(
-            Point(365, 22), // 1
-            Point(490, 18), // 2
-            Point(615, 16), // 3
-            Point(735, 16), // 4
-            Point(862, 16), // 5
+            Point(365F, 22F), // 1
+            Point(490F, 18F), // 2
+            Point(615F, 16F), // 3
+            Point(735F, 16F), // 4
+            Point(862F, 16F), // 5
         )
 
     // ToDo: Neue Positionen für alle Objekte anpassen

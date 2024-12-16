@@ -13,16 +13,16 @@ class GoldBag(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
-            correctPositionX(800),
-            correctPositionY(234)
+            correctPositionX(800F),
+            correctPositionY(234F)
         ), Player.Companion.Looking.RIGHT)
 
     override fun getToolTipDescription(): String = game.choose("Ein Sack voll Geld", "A bag of money")

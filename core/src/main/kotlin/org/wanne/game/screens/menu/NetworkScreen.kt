@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
-import org.wanne.game.UiButtonBuilder
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.network.Client
@@ -121,7 +121,7 @@ class NetworkScreen(
         val backButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(backSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(backSprite + "_pressed"))
-            .withPoint(Point(500, 80))
+            .withPoint(Point(500F, 80F))
             .build()
         backButton.addListener(
             object : ChangeListener() {

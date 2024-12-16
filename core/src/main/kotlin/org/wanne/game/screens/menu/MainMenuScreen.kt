@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.Language
-import org.wanne.game.UiButtonBuilder
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.animation.WaterAnimation
@@ -32,8 +32,8 @@ class MainMenuScreen(
 
     private var background: Texture = game.am.get("pictures/Menue/background.png")
 
-    private val duck = Duck(485F, 90F, Player.Companion.Looking.RIGHT, am = game.am)
-    private val poolAttendant = PoolAttendant(700F, 95F, Player.Companion.Looking.RIGHT, am = game.am)
+    private val duck = Duck(Point(485F, 90F), Player.Companion.Looking.RIGHT, am = game.am)
+    private val poolAttendant = PoolAttendant(Point(700F, 95F), Player.Companion.Looking.RIGHT, am = game.am)
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
@@ -86,7 +86,7 @@ class MainMenuScreen(
         val startButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(singlePlayerSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(singlePlayerSprite+"_pressed"))
-            .withPoint(Point(100, 320))
+            .withPoint(Point(100F, 320F))
             .build()
         startButton.addListener(
             object : ChangeListener() {
@@ -103,7 +103,7 @@ class MainMenuScreen(
         val multiButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("multiplayer"))
             .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_pressed"))
-            .withPoint(Point(100, 250))
+            .withPoint(Point(100F, 250F))
             .build()
         multiButton.addListener(
             object : ChangeListener() {
@@ -125,7 +125,7 @@ class MainMenuScreen(
         val optionsButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(optionsSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(optionsSprite+"_pressed"))
-            .withPoint(Point(100, 180))
+            .withPoint(Point(100F, 180F))
             .build()
         optionsButton.addListener(
             object : ChangeListener() {
@@ -142,7 +142,7 @@ class MainMenuScreen(
         val extrasButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite("extras"))
             .withTexturePressed(mainButtonAtlas.createSprite("extras_pressed"))
-            .withPoint(Point(100, 110))
+            .withPoint(Point(100F, 110F))
             .build()
         extrasButton.addListener(
             object : ChangeListener() {
@@ -160,7 +160,7 @@ class MainMenuScreen(
         val exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
-            .withPoint(Point(1235, 655))
+            .withPoint(Point(1235F, 655F))
             .build()
         exitButton.addListener(
             object : ChangeListener() {

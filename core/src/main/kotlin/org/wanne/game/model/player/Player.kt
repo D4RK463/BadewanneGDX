@@ -29,8 +29,8 @@ abstract class Player(
     }
 
     fun walkToPoint(
-        move2posX: Int,
-        move2posY: Int,
+        move2posX: Float,
+        move2posY: Float,
         lookingAtTheEnd: Looking?,
         action: () -> Unit,
     ) {
@@ -42,7 +42,7 @@ abstract class Player(
         // Endpunkt sollte in der Mitte der Figur sein
         val sprite = getSprite()
         val movePosX = move2posX - sprite.width / 2
-        val movePosY = move2posY.toFloat() // - sprite.height / 2
+        val movePosY = move2posY // - sprite.height / 2
 
         state = State.WALKING
         if (posX < movePosX) {

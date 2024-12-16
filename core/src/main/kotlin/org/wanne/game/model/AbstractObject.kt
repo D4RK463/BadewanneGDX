@@ -22,8 +22,8 @@ abstract class AbstractObject(
     abstract fun getSprite(time: Float): Sprite?
 
     fun addPositionToSprite(sprite: Sprite): Sprite {
-        sprite.x = correctPositionX(posX.toInt()).toFloat()
-        sprite.y = correctPositionY(posY.toInt()).toFloat()
+        sprite.x = correctPositionX(posX)
+        sprite.y = correctPositionY(posY)
         return sprite
     }
 
@@ -31,8 +31,8 @@ abstract class AbstractObject(
     }
 
     open fun setPositionToPoint(point: Point) {
-        posX = point.x.toFloat()
-        posY = point.y.toFloat()
+        posX = point.x
+        posY = point.y
         x = posX
         y = posY
         positionChanged()
@@ -61,12 +61,12 @@ abstract class AbstractObject(
         this.scaleY = scaleY
     }
 
-    fun correctPositionX(currentX: Int) : Int {
+    fun correctPositionX(currentX: Float) : Float {
         val extra = if (!game.classicMode()) {254} else {0}
         return currentX + extra
     }
 
-    fun correctPositionY(currentY: Int) : Int {
+    fun correctPositionY(currentY: Float) : Float {
         val extra = if (!game.classicMode()) {-50} else {0}
         return currentY + extra
     }

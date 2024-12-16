@@ -14,8 +14,8 @@ class Stethoscope(
     private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -61,8 +61,8 @@ class Stethoscope(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
-            correctPositionX(344),
-            correctPositionY(264)
+            correctPositionX(344F),
+            correctPositionY(264F)
         ), Player.Companion.Looking.LEFT)
 
     override fun getToolTipDescription(): String = game.choose("Stethoskop", "Stethoscope")

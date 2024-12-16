@@ -19,8 +19,8 @@ class Iceman(
     private val icemanAnimation: IcemanAnimation = IcemanAnimation(posX, posY, true, am)
 
     init {
-        x = correctPositionX(posX.toInt()).toFloat()
-        y = correctPositionY(posY.toInt()).toFloat()
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
         height = getSprite(0F).height
         width = getSprite(0F).width
     }
@@ -153,8 +153,8 @@ class Iceman(
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
-            correctPositionX(524),
-            correctPositionY(234)
+            correctPositionX(524F),
+            correctPositionY(234F)
         ), Player.Companion.Looking.RIGHT
     )
 

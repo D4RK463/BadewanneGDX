@@ -37,7 +37,7 @@ class CowPhoneScreen(
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
-        musicBackground.volume = 0.4F
+        musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
 
