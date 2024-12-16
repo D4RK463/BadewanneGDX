@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
@@ -69,13 +70,13 @@ abstract class AbstractWalkableScreen(
     ) {
         // ToDo: Button müssen veränderbar sein, Position und Größe
         // Buttons
-        lookButton = game.createUIButton(
-            buttonAtlas.createSprite("Ansehen"),
-            buttonAtlas.createSprite("AnsehenPressed"),
-            5f,
-            45f,
-        )
-        lookButton.addListener(TextTooltip("untersuchen", game.currentSkin()))
+        lookButton = UiButtonBuilder()
+            .withTexture(buttonAtlas.createSprite("Ansehen"))
+            .withTexturePressed(buttonAtlas.createSprite("AnsehenPressed"))
+            .withX(5f)
+            .withY(45f)
+            .withTooltip(TextTooltip("untersuchen", game.currentSkin()))
+            .build()
         lookButton.addListener(
             object : ChangeListener() {
                 override fun changed(
