@@ -107,7 +107,7 @@ class Mario(
                         // Telefonnummer-Zettel ins Inventar packen
                         if (!gameObjectToAppear.isVisible) {
                             gameObjectToAppear.isVisible = true
-                            action.inventory.addGameObjectToInventory(gameObjectToAppear)
+                            action.inventory.addGameObjectToInventory(gameObjectToAppear, !game.classicMode())
                         }
 
                         action.reset()

@@ -37,7 +37,7 @@ class Stethoscope(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        action.inventory.addGameObjectToInventory(this)
+        action.inventory.addGameObjectToInventory(this, !game.classicMode())
         action.reset()
     }
 
@@ -53,7 +53,7 @@ class Stethoscope(
         action: PointAndClickAction,
     ) {
         isVisible = false
-        action.inventory.removeGameObject(this)
+        action.inventory.removeGameObject(this, !game.classicMode())
 
         gameObjectToAppear.isVisible = true
         action.reset()

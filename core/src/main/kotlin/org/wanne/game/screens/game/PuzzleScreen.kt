@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
@@ -24,30 +25,34 @@ import org.wanne.game.model.puzzle.VictoryMessage
 class PuzzleScreen(
     var game: WanneGame,
 ) : Screen {
-    private val skin: Skin = game.am.get("ui/default/uiskin.json")
-
     // Background
     private val puzzleBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/puzzle.png")
+    private val puzzleBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/puzzle169.png")
     private val puzzleBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/puzzleMultiplayer.png")
 
     private lateinit var stage: PuzzleStage
 
     private lateinit var viewport: FitViewport
 
-    private val puzzle = Puzzle(game)
+    // Objects
+    private lateinit var puzzle: Puzzle
+    private lateinit var victoryMessage: VictoryMessage
 
-    private val victoryMessage = VictoryMessage(game = game)
-
+    // Buttons
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
+    private lateinit var exitButton: ImageButton
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/jeopardy.mp3")
 
     override fun show() {
+        createPuzzle()
+        createGameObjects()
+
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
-        musicBackground.volume = 0.2F
+        musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
 
@@ -56,7 +61,11 @@ class PuzzleScreen(
 
         // Hintergrund setzen
         if (game.isSingleplayer) {
-            stage.addActor(Image(puzzleBackgroundSingle))
+            if (game.classicMode()) {
+                stage.addActor(Image(puzzleBackgroundSingle))
+            } else {
+                stage.addActor(Image(puzzleBackgroundSingleWide))
+            }
         } else {
             stage.addActor(Image(puzzleBackgroundMulti))
         }
@@ -64,19 +73,26 @@ class PuzzleScreen(
         stage.addListener(PuzzleClickListener())
 
         puzzle.initializePuzzle(stage)
-
-        victoryMessage.isVisible = false
         stage.addActor(victoryMessage)
 
         createGameUI()
     }
 
+    private fun createPuzzle() {
+        puzzle = Puzzle(game)
+    }
+
+    private fun createGameObjects() {
+        victoryMessage = VictoryMessage(game = game)
+        victoryMessage.isVisible = false
+    }
+
     private fun createGameUI() {
-        val exitButton = UiButtonBuilder()
+        exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
-            .withPoint(Point(980F, 705F))
-            .withTooltip(TextTooltip(game.choose("bring mich zurück", "bring me back"), skin))
+            .withPoint(game.choose(Point(980F, 705F), Point(1200F, 640F)))
+            .withTooltip(TextTooltip(game.choose("bring mich zurück", "bring me back"), game.currentSkin()))
             .build()
         exitButton.addListener(
             object : ChangeListener() {
@@ -122,6 +138,9 @@ class PuzzleScreen(
 
     override fun hide() {
         musicBackground.stop()
+        puzzle.remove()
+        victoryMessage.remove()
+        exitButton.remove()
     }
 
     override fun dispose() {

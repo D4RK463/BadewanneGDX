@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import org.wanne.game.AssetsManager
+import org.wanne.game.model.Point
 import org.wanne.utils.GifDecoder
 
 class CowCallAnimation(
-    posX: Float,
-    posY: Float,
+    point: Point,
     visible: Boolean = true,
     am: AssetsManager
-): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
+): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am) {
     private val cowAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.LOOP,
         Gdx.files.internal("pictures/Backgrounds/Telephonezelle.gif").read()

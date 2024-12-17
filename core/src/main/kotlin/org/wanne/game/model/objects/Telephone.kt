@@ -64,7 +64,7 @@ class Telephone(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        action.inventory.addGameObjectToInventory(this)
+        action.inventory.addGameObjectToInventory(this, !game.classicMode())
         action.reset()
     }
 
@@ -92,9 +92,9 @@ class Telephone(
             if (numberOfWinningObjectsInInventory == 3) {
                 game.possessWinningObjects = true
                 game.screen = game.cowPhoneScreen
-                action.inventory.removeGameObject(winningRequiredGameObjectList[0])
-                action.inventory.removeGameObject(winningRequiredGameObjectList[1])
-                action.inventory.removeGameObject(winningRequiredGameObjectList[2])
+                action.inventory.removeGameObject(winningRequiredGameObjectList[0], !game.classicMode())
+                action.inventory.removeGameObject(winningRequiredGameObjectList[1], !game.classicMode())
+                action.inventory.removeGameObject(winningRequiredGameObjectList[2], !game.classicMode())
             } else {
                 // Wenn die Kuh die Tür schon aufgemacht hat, ist besetzt
                 if (game.cowIsBusy) {

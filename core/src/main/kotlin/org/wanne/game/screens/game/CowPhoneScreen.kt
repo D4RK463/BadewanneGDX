@@ -4,15 +4,17 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.DialogOnlyClickListener
-import org.wanne.game.stage.DialogOnlyStage
+import org.wanne.game.model.Point
 import org.wanne.game.model.animation.CowCallAnimation
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.Cow
+import org.wanne.game.stage.DialogOnlyStage
 
 class CowPhoneScreen(
     private var game: WanneGame,
@@ -21,21 +23,31 @@ class CowPhoneScreen(
 
     private lateinit var viewport: FitViewport
 
+    // Background (nur für Modern Mode)
+    private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
+
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Animation
-    private val cowCallAnimation = CowCallAnimation(0F, 0F, am = game.am)
+    private lateinit var cowCallAnimation: CowCallAnimation
 
     // Dialog System
     private val dialogBoard = DialogBoard(game = game)
 
     // Objects
-    private val cow = Cow(game = game)
+    private lateinit var cow: Cow
 
     override fun show() {
+        createAnimation()
+        createGameObjects()
+
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
+
+        if (!game.classicMode()) {
+            stage.addActor(Image(roomBackgroundSingleWide))
+        }
 
         musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
@@ -52,6 +64,14 @@ class CowPhoneScreen(
 
         // Initialen Dialog starten
         stage.currentAction.action(dialogBoard)
+    }
+
+    private fun createAnimation() {
+        cowCallAnimation = CowCallAnimation(game.choose(Point(0F, 0F), Point(254F, 0F)), am = game.am)
+    }
+
+    private fun createGameObjects() {
+        cow = Cow(game = game)
     }
 
     override fun render(delta: Float) {
@@ -82,11 +102,12 @@ class CowPhoneScreen(
     }
 
     override fun hide() {
+        dialogBoard.remove()
+        cow.remove()
         musicBackground.stop()
     }
 
     override fun dispose() {
-        dialogBoard.dispose()
         stage.dispose()
     }
 }

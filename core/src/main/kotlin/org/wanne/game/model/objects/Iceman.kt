@@ -65,7 +65,7 @@ class Iceman(
                         // Eis ins Inventar packen
                         if (!gameObjectToAppear.isVisible) {
                             gameObjectToAppear.isVisible = true
-                            action.inventory.addGameObjectToInventory(gameObjectToAppear)
+                            action.inventory.addGameObjectToInventory(gameObjectToAppear, !game.classicMode())
                             iceGiven = true
                         }
                     }
@@ -143,7 +143,7 @@ class Iceman(
             // Eis ins Inventar packen
             if (!gameObjectToAppear.isVisible) {
                 gameObjectToAppear.isVisible = true
-                action.inventory.addGameObjectToInventory(gameObjectToAppear)
+                action.inventory.addGameObjectToInventory(gameObjectToAppear, !game.classicMode())
                 iceGiven = true
             }
         }

@@ -14,7 +14,6 @@ class Inventory private constructor() {
 
     val items = mutableSetOf<GameObject>()
 
-    // ToDo Positionen anpassen
     private val positions =
         arrayOf(
             Point(365F, 22F), // 1
@@ -24,21 +23,41 @@ class Inventory private constructor() {
             Point(862F, 16F), // 5
         )
 
-    // ToDo: Neue Positionen für alle Objekte anpassen
-    fun addGameObjectToInventory(gameObject: GameObject) {
+    private val positionsWide =
+        arrayOf(
+            Point(30F, 305F), // 1
+            Point(30F, 180F), // 2
+            Point(30F, 55F),  // 3
+            Point(120F, 305F), // 4
+            Point(120F, 180F), // 5
+        )
+
+    fun addGameObjectToInventory(gameObject: GameObject, isWidescreen: Boolean) {
         gameObject.isInInventory = true
         items.add(gameObject)
-        gameObject.setPositionToPoint(positions[items.indexOf(gameObject)])
+        gameObject.setPositionToPoint(getPositions(isWidescreen)[items.indexOf(gameObject)])
     }
 
-    fun removeGameObject(gameObjectToBeRemoved: GameObject) {
+    fun removeGameObject(gameObjectToBeRemoved: GameObject, isWidescreen: Boolean) {
         gameObjectToBeRemoved.isVisible = false
         gameObjectToBeRemoved.isInInventory = false
         items.remove(gameObjectToBeRemoved)
 
         // Position der übrigen Objekte anpassen
-        items.forEach { it.setPositionToPoint(positions[items.indexOf(it)]) }
+        rearrangeObjects(isWidescreen)
     }
+
+    fun rearrangeObjects(isWidescreen: Boolean) {
+        items.forEach { it.setPositionToPoint(getPositions(isWidescreen)[items.indexOf(it)]) }
+    }
+
+    private fun getPositions(isWidescreen: Boolean): Array<Point> =
+        if (isWidescreen) {
+            positionsWide
+        } else {
+            positions
+        }
+
 
     fun isObjectInInventory(gameObject: GameObject): Boolean = items.contains(gameObject)
 }

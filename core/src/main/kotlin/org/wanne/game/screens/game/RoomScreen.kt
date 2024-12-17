@@ -119,6 +119,7 @@ class RoomScreen(
         stage.addListener(PointAndClickListener(dialogBoard, limits))
 
         // Stage Config
+        inventory.rearrangeObjects(!game.classicMode())
         configureGameObjects()
         createGameUI(poolAttendant, duck)
 

@@ -9,15 +9,15 @@ class Puzzle (private val game: WanneGame) {
 
     private val positions =
         arrayOf(
-            Point(210F, 510F), // 1
-            Point(410F, 510F), // 2
-            Point(610F, 510F), // 3
-            Point(210F, 310F), // 4
-            Point(410F, 310F), // 5
-            Point(610F, 310F), // 6
-            Point(210F, 110F), // 7
-            Point(410F, 110F), // 8
-            Point(610F, 110F), // 9
+            game.choose(Point(210F, 510F), Point(360F, 460F)), // 1
+            game.choose(Point(410F, 510F), Point(560F, 460F)), // 2
+            game.choose(Point(610F, 510F), Point(760F, 460F)), // 3
+            game.choose(Point(210F, 310F), Point(360F, 260F)), // 4
+            game.choose(Point(410F, 310F), Point(560F, 260F)), // 5
+            game.choose(Point(610F, 310F), Point(760F, 260F)), // 6
+            game.choose(Point(210F, 110F), Point(360F, 60F)), // 7
+            game.choose(Point(410F, 110F), Point(560F, 60F)), // 8
+            game.choose(Point(610F, 110F), Point(760F, 60F))  // 9
         )
 
     private val expectedPieceNumberSequence = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
@@ -73,5 +73,10 @@ class Puzzle (private val game: WanneGame) {
         val correctRotation = puzzle.filter { it.hasCorrectRotation() }.size == 9
 
         return correctRotation && correctOrder
+    }
+
+    fun remove() {
+        puzzle.forEach{ it.remove() }
+        puzzle.clear()
     }
 }

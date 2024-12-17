@@ -34,6 +34,12 @@ class PuzzlePiece(
         width = getSprite(0F).width
     }
 
+    override fun addPositionToSprite(sprite: Sprite): Sprite {
+        sprite.x = posX
+        sprite.y = posY
+        return sprite
+    }
+
     override fun getSprite(time: Float): Sprite = puzzleSprite
 
     fun rotate90() {

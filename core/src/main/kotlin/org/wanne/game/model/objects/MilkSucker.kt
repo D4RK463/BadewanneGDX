@@ -39,7 +39,7 @@ class MilkSucker(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        action.inventory.addGameObjectToInventory(this)
+        action.inventory.addGameObjectToInventory(this, !game.classicMode())
         action.reset()
     }
 

@@ -46,7 +46,7 @@ class FireFlower(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        action.inventory.addGameObjectToInventory(this)
+        action.inventory.addGameObjectToInventory(this, !game.classicMode())
         action.reset()
     }
 
@@ -83,7 +83,7 @@ class FireFlower(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        action.inventory.removeGameObject(this)
+        action.inventory.removeGameObject(this, !game.classicMode())
     }
 
     override fun getInteractPosition(): Pair<org.wanne.game.model.Point, Player.Companion.Looking> = Pair(

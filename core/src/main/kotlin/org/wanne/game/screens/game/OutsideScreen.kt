@@ -66,7 +66,7 @@ class OutsideScreen(
             stage.addActor(Image(outsideBackgroundMulti))
         }
 
-        musicBackground.volume = 0.4F
+        musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
 
