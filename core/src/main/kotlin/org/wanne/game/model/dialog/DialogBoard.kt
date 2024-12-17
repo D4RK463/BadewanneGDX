@@ -13,6 +13,7 @@ import org.wanne.game.WanneGame
 import org.wanne.game.dialog.Dialog
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.ActionType
+import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 
 class DialogBoard(
@@ -28,62 +29,62 @@ class DialogBoard(
     }
 
     private lateinit var label1: Label
+    private lateinit var shadowLabel1: Label
     private lateinit var label2: Label
+    private lateinit var shadowLabel2: Label
     private lateinit var label3: Label
+    private lateinit var shadowLabel3: Label
     private lateinit var label4: Label
+    private lateinit var shadowLabel4: Label
 
     fun initialize(stage: Stage) {
-        label1 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX1", game.currentSkin())
-        label1.toFront()
-        label1.color = Color.WHITE
-        label1.x = 5F
-        label1.y = if (game.classicMode()) {
-            205F
-        } else {
-            135F
-        }
+        val label1Pair = createDialogLabelAndShadow(game.choose(Point(5F, 205F), Point(15F, 135F)))
+        label1 = label1Pair.first
+        shadowLabel1 = label1Pair.second
 
-        label2 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX2", game.currentSkin())
-        label2.toFront()
-        label2.color = Color.WHITE
-        label2.x = 5F
-        label2.y = if (game.classicMode()) {
-            185F
-        } else {
-            95F
-        }
+        val label2Pair = createDialogLabelAndShadow(game.choose(Point(5F, 185F), Point(15F, 95F)))
+        label2 = label2Pair.first
+        shadowLabel2 = label2Pair.second
 
-        label3 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX3", game.currentSkin())
+        val label3Pair = createDialogLabelAndShadow(game.choose(Point(5F, 165F), Point(15F, 55F)), Color.ORANGE)
+        label3 = label3Pair.first
+        shadowLabel3 = label3Pair.second
         initAnswerLabel(label3)
-        label3.x = 5F
-        label3.color = Color.ORANGE
-        label3.y = if (game.classicMode()) {
-            165F
-        } else {
-            55F
-        }
 
-        label4 = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX4", game.currentSkin())
+        val label4Pair = createDialogLabelAndShadow(game.choose(Point(5F, 145F), Point(15F, 15F)), Color.ORANGE)
+        label4 = label4Pair.first
+        shadowLabel4 = label4Pair.second
         initAnswerLabel(label4)
-        label4.x = 5F
-        label4.color = Color.ORANGE
-        label4.y = if (game.classicMode()) {
-            145F
-        } else {
-            15F
-        }
 
         reset()
 
+        stage.addActor(shadowLabel1)
+        stage.addActor(shadowLabel2)
+        stage.addActor(shadowLabel3)
+        stage.addActor(shadowLabel4)
         stage.addActor(label1)
         stage.addActor(label2)
         stage.addActor(label3)
         stage.addActor(label4)
     }
 
-    private fun initAnswerLabel(label: Label) {
+    private fun createDialogLabelAndShadow(position: Point, color: Color? = null): Pair<Label, Label> {
+        val label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", game.currentSkin())
         label.toFront()
-        label.color = Color.ORANGE
+        color?.let { label.color = it }
+        label.x = position.x
+        label.y = position.y
+
+        val shadowLabel = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", game.currentSkin())
+        shadowLabel.toFront()
+        shadowLabel.color = Color.BLACK
+        shadowLabel.x = position.x + 2
+        shadowLabel.y = position.y + 2
+
+        return Pair(label, shadowLabel)
+    }
+
+    private fun initAnswerLabel(label: Label) {
         label.addListener(
             object : InputListener() {
                 override fun enter(
@@ -112,26 +113,34 @@ class DialogBoard(
     fun reset() {
         this.isVisible = false
         label1.isVisible = false
+        shadowLabel1.isVisible = false
+        resetAllExceptNo1()
+    }
+
+    private fun resetAllExceptNo1() {
         label2.isVisible = false
+        shadowLabel2.isVisible = false
         label3.isVisible = false
+        shadowLabel3.isVisible = false
         label4.isVisible = false
+        shadowLabel4.isVisible = false
     }
 
     fun prepLookAt(
         lookAtSentence: String,
         lookAtSentence2: String? = null,
     ) {
-        label1.setText(lookAtSentence)
-        label1.isVisible = true
+        setText(label1, shadowLabel1, lookAtSentence)
         label2.isVisible = false
 
         if (lookAtSentence2 != null) {
-            label2.setText(lookAtSentence2)
-            label2.isVisible = true
+            setText(label2, shadowLabel2, lookAtSentence2)
         }
 
         label3.isVisible = false
+        shadowLabel3.isVisible = false
         label4.isVisible = false
+        shadowLabel4.isVisible = false
 
         this.isVisible = true
     }
@@ -150,32 +159,26 @@ class DialogBoard(
         }
     }
 
-    fun prepTalkTo(
+    private fun prepTalkTo(
         talkToSentence: String,
         talkToSentence2: String?,
         answer1: String?,
         answer2: String?,
         action: PointAndClickAction,
     ) {
-        label1.setText(talkToSentence)
-        label1.isVisible = true
-        label2.isVisible = false
-        label3.isVisible = false
-        label4.isVisible = false
+        setText(label1, shadowLabel1, talkToSentence)
+        resetAllExceptNo1()
 
         if (talkToSentence2 != null) {
-            label2.setText(talkToSentence2)
-            label2.isVisible = true
+            setText(label2, shadowLabel2, talkToSentence2)
         }
 
         if (answer1 != null) {
-            label3.setText(answer1)
-            label3.isVisible = true
+            setText(label3, shadowLabel3, answer1)
         }
 
         if (answer2 != null) {
-            label4.setText(answer2)
-            label4.isVisible = true
+            setText(label4, shadowLabel4, answer2)
         }
 
         action.type = ActionType.TALK_TO
@@ -187,15 +190,11 @@ class DialogBoard(
         furtherDo: String?,
         action: PointAndClickAction,
     ) {
-        label1.setText(explainSentence)
-        label1.isVisible = true
-        label2.isVisible = false
-        label3.isVisible = false
-        label4.isVisible = false
+        setText(label1, shadowLabel1, explainSentence)
+        resetAllExceptNo1()
 
         if (furtherDo != null) {
-            label3.setText(furtherDo)
-            label3.isVisible = true
+            setText(label3, shadowLabel3, furtherDo)
         }
 
         action.type = ActionType.USE
@@ -210,10 +209,23 @@ class DialogBoard(
 
     override fun remove(): Boolean {
         label1.remove()
+        shadowLabel1.remove()
         label2.remove()
+        shadowLabel2.remove()
         label3.remove()
+        shadowLabel3.remove()
         label4.remove()
+        shadowLabel4.remove()
         return super.remove()
+    }
+
+    private fun setText(label: Label, shadowLabel: Label, text: String) {
+        label.setText(text)
+        label.isVisible = true
+        if (!game.classicMode()) {
+            shadowLabel.setText(text)
+            shadowLabel.isVisible = true
+        }
     }
 
 }

@@ -4,12 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import org.wanne.game.stage.PointAndClickAwareStage
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.stage.PointAndClickAwareStage
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
@@ -34,7 +34,8 @@ class PointAndClickListener(
             if (hitObject is GameObject) {
                 stage.currentAction.clickedObject = hitObject
 
-                // Wenn es sich um eine Kombinieren-Aktion handelt, soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
+                // Wenn es sich um eine Kombinieren-Aktion handelt,
+                // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
                 if (stage.currentAction.type == ActionType.COMBINE) {
                     if (stage.currentAction.combineObject1 != null) {
                         maybeMove(hitObject, stage)
@@ -67,7 +68,7 @@ class PointAndClickListener(
             var moveY = y.toInt()
 
             // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-            if (moveY in 129..685) {
+            if (checkGameLimits(moveX, moveY)) {
                 if (moveX < roomLimits[0]) { // links
                     moveX = roomLimits[0]
                 } else if (moveX > roomLimits[2]) { // rechts
@@ -92,6 +93,14 @@ class PointAndClickListener(
         }
 
         return true
+    }
+
+    private fun checkGameLimits(moveX: Int, moveY: Int): Boolean {
+        return if (dialogBoard.game.classicMode()) {
+            moveY in 129..685
+        } else {
+            moveY in 10..685 && moveX > 217
+        }
     }
 
     private fun maybeMove(

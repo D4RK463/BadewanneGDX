@@ -88,8 +88,6 @@ class RoomScreen(
     private lateinit var duck: Duck
 
     override fun show() {
-        println("show")
-
         // Dinge erstellen
         createAnimations()
         createGameObjects()
@@ -141,9 +139,16 @@ class RoomScreen(
     }
 
     private fun createAnimations() {
-        // ToDo Animationen an verändernde Positionen anpassen
-        fireAnimation = FireAnimation(82F, 198F, false, game.am)
-        powerUpAnimation = PowerUpAnimation(82F, 345F, false, game.am)
+        fireAnimation = FireAnimation(
+            game.choose(Point(82F, 198F), Point(336F, 148F)),
+            false,
+            game.am
+        )
+        powerUpAnimation = PowerUpAnimation(
+            game.choose(Point(82F, 345F), Point(336F, 295F)),
+            false,
+            game.am
+        )
     }
 
     private fun createPlayableCharacters() {
@@ -254,7 +259,6 @@ class RoomScreen(
     }
 
     override fun hide() {
-        println("hide")
         super.hide()
         musicBackground.stop()
 

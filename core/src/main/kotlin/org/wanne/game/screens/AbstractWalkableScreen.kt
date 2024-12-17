@@ -179,7 +179,7 @@ abstract class AbstractWalkableScreen(
                 .withPoint(game.choose(Point(3F, 707F), Point(30F, 618F)))
                 .withTooltip(TextTooltip(game.choose("wechsle zum Bademeister", "change to Pool Attendant"), game.currentSkin()))
                 .setVisible(false)
-                .withScale(0.45F, 0.45F)
+                .withScale(0.4F, 0.4F)
                 .useScaling(!game.classicMode())
                 .build()
 
@@ -189,7 +189,7 @@ abstract class AbstractWalkableScreen(
                 .withPoint(game.choose(Point(5F, 705F), Point(32F, 616F)))
                 .withTooltip(TextTooltip(game.choose("wechsle zur Ente", "change to Duck"), game.currentSkin()))
                 .useScaling(!game.classicMode())
-                .withScale(0.45F, 0.45F)
+                .withScale(0.4F, 0.4F)
                 .build()
 
             duckButton.addListener(
