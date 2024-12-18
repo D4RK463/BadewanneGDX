@@ -239,6 +239,11 @@ class RoomScreen(
 
         if (game.puzzleSolved) {
             flower.solved = true
+            if (inventory.isObjectInInventory(flower)) {
+                println("drin")
+            }
+//            val fireFlower = inventory.getObjectFromInventory(flower) as FireFlower
+//            fireFlower.solved = true
         }
 
         if (game.cowIsBusy) {

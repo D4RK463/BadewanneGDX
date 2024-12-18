@@ -34,7 +34,7 @@ class PuzzleClickListener : ClickListener() {
                 // ToDo: Play victory sound!
                 stage.victoryMessage.isVisible = true
             }
-        } else if (hitObject is org.wanne.game.model.puzzle.VictoryMessage) {
+        } else if (hitObject is VictoryMessage) {
             stage.game.puzzleSolved = true
             stage.game.screen = stage.game.roomScreen
         }

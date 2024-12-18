@@ -58,6 +58,10 @@ class Inventory private constructor() {
             positions
         }
 
-
+    // ToDo: Check über den Namen
     fun isObjectInInventory(gameObject: GameObject): Boolean = items.contains(gameObject)
+
+    fun getObjectFromInventory(gameObject: GameObject): GameObject {
+        return items.first { item -> item.name == gameObject.name }
+    }
 }
