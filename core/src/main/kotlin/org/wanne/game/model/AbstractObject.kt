@@ -22,8 +22,8 @@ abstract class AbstractObject(
     abstract fun getSprite(time: Float): Sprite?
 
     open fun addPositionToSprite(sprite: Sprite): Sprite {
-        sprite.x = correctPositionX(posX)
-        sprite.y = correctPositionY(posY)
+        sprite.x = if (!isInInventory) correctPositionX(posX) else posX
+        sprite.y = if (!isInInventory) correctPositionY(posY) else posY
         return sprite
     }
 
