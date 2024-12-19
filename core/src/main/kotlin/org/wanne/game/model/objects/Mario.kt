@@ -2,6 +2,7 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.collections.MarioDialogCollection
@@ -24,17 +25,44 @@ class Mario(
     posY: Float = 345F,
     private val gameObjectToManipulate: GameObject,
     private val gameObjectToAppear: GameObject,
-    private val fireAnimation: FireAnimation,
-    private val powerUpAnimation: PowerUpAnimation,
     game: WanneGame,
 ) : GameObject(posX, posY, game) {
     init {
         initialize()
     }
 
+    // Animations
+    private lateinit var fireAnimation: FireAnimation
+    private lateinit var powerUpAnimation: PowerUpAnimation
+
     private var state = NORMAL
 
     private val dialogCollection = MarioDialogCollection(am)
+
+    override fun initialize() {
+        super.initialize()
+        createAnimations()
+    }
+
+    private fun createAnimations() {
+        fireAnimation = FireAnimation(
+            game.choose(Point(82F, 198F), Point(336F, 148F)),
+            false,
+            game.am
+        )
+        powerUpAnimation = PowerUpAnimation(
+            game.choose(Point(82F, 345F), Point(336F, 295F)),
+            false,
+            game.am
+        )
+    }
+
+    override fun draw(batch: Batch, parentAlpha: Float, time: Float) {
+        super.draw(batch, parentAlpha, time)
+
+        fireAnimation.draw(batch, time)
+        powerUpAnimation.draw(batch, time)
+    }
 
     fun poweredUp(): Boolean {
         return state in arrayOf(

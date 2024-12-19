@@ -23,9 +23,6 @@ class CowPhoneScreen(
 
     private lateinit var viewport: FitViewport
 
-    // Background (nur für Modern Mode)
-    private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
-
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
@@ -35,12 +32,8 @@ class CowPhoneScreen(
     // Dialog System
     private val dialogBoard = DialogBoard(game = game)
 
-    // Objects
-    private lateinit var cow: Cow
-
     override fun show() {
         createAnimation()
-        createGameObjects()
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -49,14 +42,10 @@ class CowPhoneScreen(
         musicBackground.isLooping = true
         musicBackground.play()
 
-        stage = DialogOnlyStage(viewport, cowCallAnimation, dialogObject = cow)
+        stage = DialogOnlyStage(viewport, cowCallAnimation, dialogObject = game.items.cow)
         Gdx.input.inputProcessor = stage
 
         stage.addListener(DialogOnlyClickListener(dialogBoard))
-
-        if (!game.classicMode()) {
-            stage.addActor(Image(roomBackgroundSingleWide))
-        }
 
         dialogBoard.isVisible = true
         stage.addActor(dialogBoard)
@@ -67,11 +56,7 @@ class CowPhoneScreen(
     }
 
     private fun createAnimation() {
-        cowCallAnimation = CowCallAnimation(game.choose(Point(0F, 0F), Point(254F, 0F)), am = game.am)
-    }
-
-    private fun createGameObjects() {
-        cow = Cow(game = game)
+        cowCallAnimation = CowCallAnimation(game.choose(Point(0F, 0F), Point(127F, 0F)), am = game.am)
     }
 
     override fun render(delta: Float) {
@@ -103,7 +88,7 @@ class CowPhoneScreen(
 
     override fun hide() {
         dialogBoard.remove()
-        cow.remove()
+        game.items.cow.remove()
         musicBackground.stop()
     }
 

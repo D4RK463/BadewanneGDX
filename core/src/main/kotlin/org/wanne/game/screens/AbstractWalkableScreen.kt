@@ -17,6 +17,7 @@ import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
 import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
@@ -63,6 +64,26 @@ abstract class AbstractWalkableScreen(
         stage.draw()
 
         game.batch.end()
+    }
+
+    fun addObjectsToStage(roomItemList: List<GameObject>) {
+        val inventoryItems = inventory.items
+
+        // Alle Objekte hinzufügen, die nicht im Inventar sind
+        roomItemList.filter {
+            for (item in inventoryItems) {
+                if (item.name == it.name) {
+                    return@filter false
+                }
+            }
+            return@filter true
+        }.forEach { item ->
+            item.initialize()
+            item.addToStage(stage, game.currentSkin())
+        }
+
+        // Inventar Objekt hinzufügen
+        inventoryItems.forEach { item -> item.addToStage(stage, game.currentSkin()) }
     }
 
     fun createGameUI(

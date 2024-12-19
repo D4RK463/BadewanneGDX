@@ -94,8 +94,12 @@ class MainMenuScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    game.screen = game.roomScreen
-                     dispose()
+                    if (game.arrivedOutside) {
+                        game.screen = game.outsideScreen
+                    } else {
+                        game.screen = game.roomScreen
+                    }
+                    dispose()
                 }
             },
         )

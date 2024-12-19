@@ -43,7 +43,7 @@ abstract class AbstractAnimationStage(
             }
         }
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
-        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, stateTime) }
+        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, Gdx.graphics.deltaTime) }
 
         // Zusätzliche Animationen rendern
         additionalAnimations?.forEach {

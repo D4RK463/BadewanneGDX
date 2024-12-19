@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import org.wanne.game.AssetsManager
-import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 
 abstract class AbstractObject(
@@ -38,8 +37,8 @@ abstract class AbstractObject(
         positionChanged()
     }
 
-    fun draw(
-        batch: Batch?,
+    open fun draw(
+        batch: Batch,
         parentAlpha: Float,
         time: Float
     ) {
@@ -48,7 +47,7 @@ abstract class AbstractObject(
         sprite?.draw(batch, parentAlpha)
     }
 
-    override fun draw(batch: Batch?, parentAlpha: Float) {
+    override fun draw(batch: Batch, parentAlpha: Float) {
         this.draw(batch, parentAlpha, 0F)
     }
 

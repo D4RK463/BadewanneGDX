@@ -1,5 +1,6 @@
 package org.wanne.game.model.objects
 
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
 import org.wanne.game.dialog.StateChange
@@ -16,11 +17,11 @@ class Iceman(
     game: WanneGame,
     private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY, game) {
-    private val icemanAnimation: IcemanAnimation = IcemanAnimation(posX, posY, true, am)
-
     init {
         initialize()
     }
+
+    private var icemanAnimation: IcemanAnimation? = null
 
     private var chosenWay: Way = Way.NONE
 
@@ -28,10 +29,26 @@ class Iceman(
 
     private var iceGiven = false
 
+    override fun initialize() {
+        super.initialize()
+        createAnimations()
+    }
+
+    private fun createAnimations() {
+        icemanAnimation = IcemanAnimation(correctPositionX(posX), correctPositionY(posY), true, am)
+    }
+
     override fun getSprite(time: Float): Sprite {
-        val sprite = icemanAnimation.getSpriteOfCurrentState(time)
+        if (icemanAnimation == null) {
+            createAnimations()
+        }
+        val sprite = icemanAnimation!!.getSpriteOfCurrentState(1F)
         addPositionToSprite(sprite)
         return sprite
+    }
+
+    override fun draw(batch: Batch, parentAlpha: Float, time: Float) {
+        icemanAnimation?.draw(batch, time)
     }
 
     override fun getName(): String = "Iceman"

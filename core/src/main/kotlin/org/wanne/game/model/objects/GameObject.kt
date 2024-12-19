@@ -62,7 +62,7 @@ abstract class GameObject(
 
     private lateinit var tooltip: TextTooltip
 
-    fun initialize() {
+    open fun initialize() {
         x = correctPositionX(posX)
         y = correctPositionY(posY)
         height = getSprite(0F)?.height ?: 0F

@@ -1,11 +1,10 @@
 package org.wanne.game.model
 
 import org.wanne.game.WanneGame
-import org.wanne.game.model.animation.FireAnimation
-import org.wanne.game.model.animation.PowerUpAnimation
 import org.wanne.game.model.objects.Bed
 import org.wanne.game.model.objects.Box
 import org.wanne.game.model.objects.BrucePoster
+import org.wanne.game.model.objects.Cow
 import org.wanne.game.model.objects.Cowbell
 import org.wanne.game.model.objects.DeanPoster
 import org.wanne.game.model.objects.Door
@@ -13,6 +12,13 @@ import org.wanne.game.model.objects.DrBear
 import org.wanne.game.model.objects.Drawer
 import org.wanne.game.model.objects.Exit
 import org.wanne.game.model.objects.FireFlower
+import org.wanne.game.model.objects.GoldBag
+import org.wanne.game.model.objects.Graffiti
+import org.wanne.game.model.objects.HonkSign
+import org.wanne.game.model.objects.Ice
+import org.wanne.game.model.objects.IceMenuLeft
+import org.wanne.game.model.objects.IceMenuRight
+import org.wanne.game.model.objects.Iceman
 import org.wanne.game.model.objects.Mario
 import org.wanne.game.model.objects.MilkSucker
 import org.wanne.game.model.objects.Note
@@ -24,25 +30,14 @@ import org.wanne.game.model.objects.Scalpel
 import org.wanne.game.model.objects.Stethoscope
 import org.wanne.game.model.objects.Stickers
 import org.wanne.game.model.objects.Straw
+import org.wanne.game.model.objects.Street
 import org.wanne.game.model.objects.Teddy
 import org.wanne.game.model.objects.Telephone
 import org.wanne.game.model.objects.Window
 
-class ItemHolder(game: WanneGame) {
+class GameObjectsArchive(game: WanneGame) {
 
-    // Animations
-    val fireAnimation = FireAnimation(
-        game.choose(Point(82F, 198F), Point(336F, 148F)),
-        false,
-        game.am
-    )
-    val powerUpAnimation = PowerUpAnimation(
-        game.choose(Point(82F, 345F), Point(336F, 295F)),
-        false,
-        game.am
-    )
-
-    // Objects
+    // Room
     val pills = Pills(game = game)
     val bed = Bed(game = game)
     val roomWindow = Window(game = game)
@@ -65,14 +60,25 @@ class ItemHolder(game: WanneGame) {
         Mario(
             game = game,
             gameObjectToManipulate = rug,
-            gameObjectToAppear = note,
-            fireAnimation = fireAnimation,
-            powerUpAnimation = powerUpAnimation
+            gameObjectToAppear = note
         )
     val bell = Cowbell(game = game)
     val teddy = Teddy(game = game, gameObjectToCheck = mario)
     val flower = FireFlower(game = game, gameObjectToManipulate = mario)
     val telephone = Telephone(game = game, winningRequiredGameObjectList = listOf(milkSucker, pills, bell))
     val exit = Exit(game = game)
+
+    // Cow Dialog
+    val cow = Cow(game = game)
+
+    // Outside
+    val ice = Ice(game = game)
+    val iceMenuLeft = IceMenuLeft(game = game)
+    val iceMenuRight = IceMenuRight(game = game)
+    val honkSign = HonkSign(game = game)
+    val street = Street(game = game)
+    val graffiti = Graffiti(game = game)
+    val iceman = Iceman(game = game, gameObjectToAppear = ice)
+    val goldBag = GoldBag(game = game)
 
 }

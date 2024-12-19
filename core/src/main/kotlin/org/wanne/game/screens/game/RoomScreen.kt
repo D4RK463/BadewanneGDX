@@ -39,7 +39,7 @@ class RoomScreen(
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf(game.items.fireAnimation, game.items.powerUpAnimation))
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -62,7 +62,18 @@ class RoomScreen(
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
-        addObjectsToStage()
+
+        // Reihenfolge ist wichtig
+        val roomItemList: List<GameObject> = listOf(
+            game.items.bed, game.items.drBear, game.items.stethoscope, game.items.scalpel,
+            game.items.mario, game.items.bell, game.items.roomWindow, game.items.drawer,
+            game.items.stickers, game.items.exit, game.items.straw, game.items.door,
+            game.items.pa2Poster, game.items.brucePoster, game.items.deanPoster,
+            game.items.safe, game.items.rug, game.items.flower, game.items.telephone,
+            game.items.box, game.items.teddy, game.items.milkSucker,
+            game.items.pills, game.items.note
+        )
+        addObjectsToStage(roomItemList)
         configureGameObjects()
         createGameUI(poolAttendant, duck)
 
@@ -95,42 +106,11 @@ class RoomScreen(
         )
     }
 
-    private fun addObjectsToStage() {
-        // Reihenfolge ist wichtig
-        val roomItemList: List<GameObject> = listOf(
-            game.items.bed, game.items.drBear, game.items.stethoscope, game.items.scalpel,
-            game.items.mario, game.items.bell, game.items.roomWindow, game.items.drawer,
-            game.items.stickers, game.items.exit, game.items.straw, game.items.door,
-            game.items.pa2Poster, game.items.brucePoster, game.items.deanPoster,
-            game.items.safe, game.items.rug, game.items.flower, game.items.telephone,
-            game.items.box, game.items.teddy, game.items.milkSucker,
-            game.items.pills, game.items.note
-        )
-
-        val inventoryItems = inventory.items
-
-        // Alle Objekte hinzufügen, die nicht im Inventar sind
-        roomItemList.filter {
-            for (item in inventoryItems) {
-                if (item.name == it.name) {
-                    return@filter false
-                }
-            }
-            return@filter true
-        }.forEach { item ->
-            item.initialize()
-            item.addToStage(stage, game.currentSkin())
-        }
-
-        // Inventar Objekt hinzufügen
-        inventoryItems.forEach { item -> item.addToStage(stage, game.currentSkin()) }
-    }
-
     private fun configureGameObjects() {
         // Der Ausgang darf nur am Ende auf sein :)
-        game.items.exit.isVisible = false
-//        game.items.exit.isVisible = true
-//        game.items.door.isVisible = false
+//        game.items.exit.isVisible = false
+        game.items.exit.isVisible = true
+        game.items.door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
         if (!inventory.isObjectInInventory(game.items.note)) {

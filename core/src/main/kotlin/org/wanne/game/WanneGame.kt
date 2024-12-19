@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import org.wanne.game.dialog.DialogManager
-import org.wanne.game.model.ItemHolder
+import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
@@ -54,7 +54,7 @@ class WanneGame(val android: Boolean): Game() {
     lateinit var config: Config
     lateinit var soundManager: SoundManager
     lateinit var dialogManager: DialogManager
-    lateinit var items: ItemHolder
+    lateinit var items: GameObjectsArchive
     val am = AssetsManager()
 
     lateinit var client: Client
@@ -67,6 +67,7 @@ class WanneGame(val android: Boolean): Game() {
     var talkedToCow = false
     var possessWinningObjects = false
     var cowIsBusy = false
+    var arrivedOutside = false
 
     lateinit var wanneSkin: Skin
 
@@ -82,7 +83,7 @@ class WanneGame(val android: Boolean): Game() {
     }
 
     fun initializeItemHolder() {
-        this.items = ItemHolder(this)
+        this.items = GameObjectsArchive(this)
     }
 
     override fun render() {

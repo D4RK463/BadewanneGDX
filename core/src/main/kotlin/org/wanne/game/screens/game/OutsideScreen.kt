@@ -9,14 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.Point
-import org.wanne.game.model.objects.GoldBag
-import org.wanne.game.model.objects.Graffiti
-import org.wanne.game.model.objects.HonkSign
-import org.wanne.game.model.objects.Ice
-import org.wanne.game.model.objects.IceMenuLeft
-import org.wanne.game.model.objects.IceMenuRight
-import org.wanne.game.model.objects.Iceman
-import org.wanne.game.model.objects.Street
+import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
@@ -31,27 +24,18 @@ class OutsideScreen(
     private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")
     private val outsideBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Outside.png")
 
-    // Raum Lauf-Limits => links,unten,rechts,oben
-    private val limits = intArrayOf(70, 129, 934, 235)
-
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Players
-    private val poolAttendant = PoolAttendant(Point(86F, 220F), Player.Companion.Looking.RIGHT, am = game.am)
-    private val duck = Duck(Point(100F, 200F), Player.Companion.Looking.RIGHT, am = game.am)
-
-    // Objects
-    private val ice = Ice(game = game)
-    private val iceMenuLeft = IceMenuLeft(game = game)
-    private val iceMenuRight = IceMenuRight(game = game)
-    private val honkSign = HonkSign(game = game)
-    private val street = Street(game = game)
-    private val graffiti = Graffiti(game = game)
-    private val iceman = Iceman(game = game, gameObjectToAppear = ice)
-    private val goldBag = GoldBag(game = game)
+    private lateinit var poolAttendant: PoolAttendant
+    private lateinit var duck: Duck
 
     override fun show() {
+        // Dinge erstellen
+        createPlayableCharacters()
+        val limits = createRoomLimits()
+
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
@@ -73,7 +57,15 @@ class OutsideScreen(
         // Klick Steuerung der Charaktere
         stage.addListener(PointAndClickListener(dialogBoard, limits))
 
-        createGameObjects()
+        // Stage Config
+        inventory.rearrangeObjects(!game.classicMode())
+
+        // Reihenfolge ist wichtig
+        val roomItemList: List<GameObject> = listOf(
+            game.items.iceMenuLeft, game.items.iceMenuRight, game.items.honkSign, game.items.street,
+            game.items.graffiti, game.items.iceman, game.items.goldBag
+        )
+        addObjectsToStage(roomItemList)
         createGameUI(poolAttendant, duck)
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
@@ -81,23 +73,30 @@ class OutsideScreen(
         dialogBoard.initialize(stage)
 
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
+
+        game.arrivedOutside = true
     }
 
-    // ToDo Objekte variabel machen
-    private fun createGameObjects() {
-        stage.initializeInventoryItems()
+    private fun createRoomLimits(): IntArray {
+        // Raum Lauf-Limits → links, unten, rechts, oben
+        return if (game.classicMode()) {
+            intArrayOf(70, 129, 934, 235)
+        } else {
+            intArrayOf(509, 10, 1188, 235)
+        }
+    }
 
-        // Objekte hinzufügen (Reihenfolge ist wichtig)
-        iceMenuLeft.addToStage(stage, game.currentSkin())
-        iceMenuRight.addToStage(stage, game.currentSkin())
-        honkSign.addToStage(stage, game.currentSkin())
-        street.addToStage(stage, game.currentSkin())
-        graffiti.addToStage(stage, game.currentSkin())
-        iceman.addToStage(stage, game.currentSkin())
-        goldBag.addToStage(stage, game.currentSkin())
-
-        ice.isVisible = false
-        ice.addToStage(stage, game.currentSkin())
+    private fun createPlayableCharacters() {
+        poolAttendant = PoolAttendant(
+            game.choose(Point(86F, 220F), Point(340F, 170F)),
+            Player.Companion.Looking.RIGHT,
+            am = game.am
+        )
+        duck = Duck(
+            game.choose(Point(100F, 200F), Point(354F, 150F)),
+            Player.Companion.Looking.RIGHT,
+            am = game.am
+        )
     }
 
     override fun resetPlayerAndSound() {
@@ -115,6 +114,16 @@ class OutsideScreen(
     override fun hide() {
         super.hide()
         musicBackground.stop()
+
+        game.items.iceMenuLeft.remove()
+        game.items.iceMenuRight.remove()
+        game.items.honkSign.remove()
+        game.items.street.remove()
+        game.items.graffiti.remove()
+        game.items.iceman.remove()
+        game.items.goldBag.remove()
+
+        dialogBoard.remove()
     }
 
     override fun dispose() {
