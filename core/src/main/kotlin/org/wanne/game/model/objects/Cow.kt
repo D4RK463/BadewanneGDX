@@ -16,10 +16,7 @@ class Cow(
     game: WanneGame
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX)
-        y = correctPositionY(posY)
-        height = getSprite(0F).height
-        width = getSprite(0F).width
+        initialize()
     }
 
     private val dialogCollection = CowDialogCollection(am)

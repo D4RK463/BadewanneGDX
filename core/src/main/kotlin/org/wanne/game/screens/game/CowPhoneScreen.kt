@@ -45,10 +45,6 @@ class CowPhoneScreen(
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
-        if (!game.classicMode()) {
-            stage.addActor(Image(roomBackgroundSingleWide))
-        }
-
         musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
@@ -57,6 +53,10 @@ class CowPhoneScreen(
         Gdx.input.inputProcessor = stage
 
         stage.addListener(DialogOnlyClickListener(dialogBoard))
+
+        if (!game.classicMode()) {
+            stage.addActor(Image(roomBackgroundSingleWide))
+        }
 
         dialogBoard.isVisible = true
         stage.addActor(dialogBoard)

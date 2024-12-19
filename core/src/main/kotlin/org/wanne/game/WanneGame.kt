@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import org.wanne.game.dialog.DialogManager
+import org.wanne.game.model.ItemHolder
 import org.wanne.game.model.Point
 import org.wanne.game.network.Client
 import org.wanne.game.network.Server
@@ -22,7 +23,6 @@ import org.wanne.game.screens.menu.OptionsScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
 import java.util.*
-
 
 class WanneGame(val android: Boolean): Game() {
     private val random = Random()
@@ -54,6 +54,7 @@ class WanneGame(val android: Boolean): Game() {
     lateinit var config: Config
     lateinit var soundManager: SoundManager
     lateinit var dialogManager: DialogManager
+    lateinit var items: ItemHolder
     val am = AssetsManager()
 
     lateinit var client: Client
@@ -78,6 +79,10 @@ class WanneGame(val android: Boolean): Game() {
         wanneSkin = createWanneSkin()
 
         setScreen(LoadingScreen(this))
+    }
+
+    fun initializeItemHolder() {
+        this.items = ItemHolder(this)
     }
 
     override fun render() {

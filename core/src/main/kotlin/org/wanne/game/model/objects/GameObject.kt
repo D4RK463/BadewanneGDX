@@ -62,6 +62,13 @@ abstract class GameObject(
 
     private lateinit var tooltip: TextTooltip
 
+    fun initialize() {
+        x = correctPositionX(posX)
+        y = correctPositionY(posY)
+        height = getSprite(0F)?.height ?: 0F
+        width = getSprite(0F)?.width ?: 0F
+    }
+
     abstract fun look(dialogBoard: DialogBoard)
 
     open fun use(

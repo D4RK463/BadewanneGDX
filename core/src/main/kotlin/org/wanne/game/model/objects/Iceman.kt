@@ -19,10 +19,7 @@ class Iceman(
     private val icemanAnimation: IcemanAnimation = IcemanAnimation(posX, posY, true, am)
 
     init {
-        x = correctPositionX(posX)
-        y = correctPositionY(posY)
-        height = getSprite(0F).height
-        width = getSprite(0F).width
+        initialize()
     }
 
     private var chosenWay: Way = Way.NONE

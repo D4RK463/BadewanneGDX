@@ -14,10 +14,7 @@ class Stethoscope(
     private val gameObjectToAppear: GameObject,
 ) : GameObject(posX, posY, game) {
     init {
-        x = correctPositionX(posX)
-        y = correctPositionY(posY)
-        height = getSprite(0F).height
-        width = getSprite(0F).width
+        initialize()
     }
 
     override fun getSprite(time: Float): Sprite =
