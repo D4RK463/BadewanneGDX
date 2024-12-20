@@ -94,11 +94,16 @@ class MainMenuScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    if (game.arrivedOutside) {
-                        game.screen = game.outsideScreen
-                    } else {
+                    if (game.gameEnded) {
                         game.screen = game.roomScreen
+                    } else {
+                        if (game.arrivedOutside) {
+                            game.screen = game.outsideScreen
+                        } else {
+                            game.screen = game.roomScreen
+                        }
                     }
+
                     dispose()
                 }
             },
@@ -164,7 +169,8 @@ class MainMenuScreen(
         val exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
-            .withPoint(Point(1235F, 655F))
+            .withPoint(Point(1225F, 645F))
+            .useScaling(true)
             .build()
         exitButton.addListener(
             object : ChangeListener() {

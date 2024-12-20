@@ -8,7 +8,7 @@ import org.wanne.game.model.Point
 import org.wanne.utils.GifDecoder
 
 class CowCallAnimation(
-    point: Point,
+    point: Point = Point(0F, 0F),
     visible: Boolean = true,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am) {
@@ -25,5 +25,10 @@ class CowCallAnimation(
         }
 
         return texture
+    }
+
+    fun updatePosition(newPosition: Point) {
+        posX = newPosition.x
+        posY = newPosition.y
     }
 }

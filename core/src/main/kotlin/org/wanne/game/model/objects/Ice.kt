@@ -47,6 +47,7 @@ class Ice(
         inventory.clearInventory()
         game.arrivedOutside
         game.startedGame = false
+        game.gameEnded = true
         game.screen = game.mainMenuScreen
     }
 

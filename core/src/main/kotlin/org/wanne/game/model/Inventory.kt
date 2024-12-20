@@ -25,11 +25,11 @@ class Inventory private constructor() {
 
     private val positionsWide =
         arrayOf(
-            Point(30F, 305F), // 1
-            Point(30F, 180F), // 2
-            Point(30F, 55F),  // 3
-            Point(120F, 305F), // 4
-            Point(120F, 180F), // 5
+            Point(16F, 419F), // 1
+            Point(110F, 419F), // 2
+            Point(16F, 327F),  // 3
+            Point(110F, 329F), // 4
+            Point(62F, 243F), // 5
         )
 
     fun addGameObjectToInventory(gameObject: GameObject, isWidescreen: Boolean) {
@@ -71,7 +71,10 @@ class Inventory private constructor() {
     }
 
     fun clearInventory() {
-        items.forEach { item -> removeGameObject(item, false) }
+        items.forEach { item ->
+            item.isVisible = false
+            item.isInInventory = false
+        }
         items.clear()
     }
 }

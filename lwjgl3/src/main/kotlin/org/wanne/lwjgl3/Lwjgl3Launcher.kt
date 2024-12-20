@@ -17,7 +17,7 @@ fun main() {
             setTitle("Die Badewannen-Verschwörung GDX")
 //        setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
             setForegroundFPS(60)
-            setResizable(false)
+//            setResizable(false)
 
             //val primaryMode: DisplayMode = Lwjgl3ApplicationConfiguration.getDisplayMode()
             //setFullscreenMode(primaryMode)

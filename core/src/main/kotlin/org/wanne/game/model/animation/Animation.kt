@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import org.wanne.game.AssetsManager
 
-abstract class Animation(val posX: Float, val posY: Float, var visible: Boolean, val am: AssetsManager) {
+abstract class Animation(var posX: Float, var posY: Float, var visible: Boolean, val am: AssetsManager) {
 
     private var elapsedTime: Float = 0F
 

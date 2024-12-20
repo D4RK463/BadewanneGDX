@@ -93,6 +93,7 @@ class PuzzleScreen(
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
             .withPoint(game.choose(Point(980F, 705F), Point(1200F, 640F)))
             .withTooltip(TextTooltip(game.choose("bring mich zurück", "bring me back"), game.currentSkin()))
+            .useScaling(!game.classicMode())
             .build()
         exitButton.addListener(
             object : ChangeListener() {

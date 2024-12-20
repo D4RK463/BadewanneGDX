@@ -27,13 +27,13 @@ class CowPhoneScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     // Animation
-    private lateinit var cowCallAnimation: CowCallAnimation
+    private val cowCallAnimation: CowCallAnimation  = CowCallAnimation(am = game.am)
 
     // Dialog System
     private val dialogBoard = DialogBoard(game = game)
 
     override fun show() {
-        createAnimation()
+        cowCallAnimation.updatePosition(game.choose(Point(0F, 0F), Point(127F, 0F)))
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -53,10 +53,6 @@ class CowPhoneScreen(
 
         // Initialen Dialog starten
         stage.currentAction.action(dialogBoard)
-    }
-
-    private fun createAnimation() {
-        cowCallAnimation = CowCallAnimation(game.choose(Point(0F, 0F), Point(127F, 0F)), am = game.am)
     }
 
     override fun render(delta: Float) {

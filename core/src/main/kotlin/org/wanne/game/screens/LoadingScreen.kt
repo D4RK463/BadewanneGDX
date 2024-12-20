@@ -69,9 +69,9 @@ class LoadingScreen (
                         percent = 1F
 
                         if (!initialLoadingDone) {
+                            loadingLabel.setText("loading complete (${percent*100}%)")
                             game.cowPhoneScreen = CowPhoneScreen(game)
                             game.initializeItemHolder()
-                            loadingLabel.setText("loading complete (${percent*100}%)")
 
                             game.setScreen(game.mainMenuScreen)
                             initialLoadingDone = true

@@ -62,11 +62,11 @@ class RoomScreen(
         // Reihenfolge ist wichtig
         val roomItemList: List<GameObject> = listOf(
             game.items.bed, game.items.drBear, game.items.stethoscope, game.items.scalpel,
-            game.items.mario, game.items.bell, game.items.roomWindow, game.items.drawer,
+            game.items.bell, game.items.roomWindow, game.items.drawer,
             game.items.stickers, game.items.exit, game.items.straw, game.items.door,
             game.items.pa2Poster, game.items.brucePoster, game.items.deanPoster,
-            game.items.safe, game.items.rug, game.items.flower, game.items.telephone,
-            game.items.box, game.items.teddy, game.items.milkSucker,
+            game.items.safe, game.items.rug, game.items.mario, game.items.flower, game.items.box,
+            game.items.telephone, game.items.teddy, game.items.milkSucker,
             game.items.pills, game.items.note
         )
         addObjectsToStage(roomItemList)
@@ -109,6 +109,8 @@ class RoomScreen(
 //        game.items.door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
+//        inventory.addGameObjectToInventory(game.items.note, !game.classicMode())
+//        game.items.note.isVisible = true
         if (!inventory.isObjectInInventory(game.items.note)) {
             game.items.note.isVisible = false
         }

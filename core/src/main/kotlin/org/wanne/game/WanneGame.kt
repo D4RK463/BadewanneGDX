@@ -61,6 +61,7 @@ class WanneGame(val android: Boolean): Game() {
     lateinit var server: Server
 
     var startedGame = false
+    var gameEnded = false
 
     var isSingleplayer = true
     var puzzleSolved = false
