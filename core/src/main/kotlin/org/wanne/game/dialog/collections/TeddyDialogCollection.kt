@@ -42,13 +42,13 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
                 "Kannste mir jetzt helfen?",
                 null,
                 "Was is los mit dir?",
-                "Was weißt du über den Wächter?",
+                "Was weisst du über den Wächter?",
                 0
             )
         )
 
         addDialog(
-            "Was weißt du über den Wächter?", Language.DE, Dialog(
+            "Was weisst du über den Wächter?", Language.DE, Dialog(
                 "Teddy: AAAHHHHHH!!!!",
                 null,
                 null,

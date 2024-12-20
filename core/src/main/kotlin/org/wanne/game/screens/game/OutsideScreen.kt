@@ -23,13 +23,10 @@ class OutsideScreen(
     // Background
     private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")
     private val outsideBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Outside.png")
+    private val outsideBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Outside169.png")
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
-
-    // Players
-    private lateinit var poolAttendant: PoolAttendant
-    private lateinit var duck: Duck
 
     override fun show() {
         // Dinge erstellen
@@ -42,10 +39,13 @@ class OutsideScreen(
         stage = PointAndClickAwareStage(viewport, poolAttendant, duck, emptyList())
         Gdx.input.inputProcessor = stage
 
-        // ToDo neuer Hintergrund
         // Hintergrund setzen
         if (game.isSingleplayer) {
-            stage.addActor(Image(outsideBackgroundSingle))
+            if (game.classicMode()) {
+                stage.addActor(Image(outsideBackgroundSingle))
+            } else {
+                stage.addActor(Image(outsideBackgroundSingleWide))
+            }
         } else {
             stage.addActor(Image(outsideBackgroundMulti))
         }
@@ -63,9 +63,10 @@ class OutsideScreen(
         // Reihenfolge ist wichtig
         val roomItemList: List<GameObject> = listOf(
             game.items.iceMenuLeft, game.items.iceMenuRight, game.items.honkSign, game.items.street,
-            game.items.graffiti, game.items.iceman, game.items.goldBag
+            game.items.graffiti, game.items.iceman, game.items.goldBag, game.items.ice
         )
         addObjectsToStage(roomItemList)
+        configureGameObjects()
         createGameUI(poolAttendant, duck)
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
@@ -82,7 +83,7 @@ class OutsideScreen(
         return if (game.classicMode()) {
             intArrayOf(70, 129, 934, 235)
         } else {
-            intArrayOf(509, 10, 1188, 235)
+            intArrayOf(340, 10, 1188, 235)
         }
     }
 
@@ -97,6 +98,12 @@ class OutsideScreen(
             Player.Companion.Looking.RIGHT,
             am = game.am
         )
+    }
+
+    private fun configureGameObjects() {
+        if (!inventory.isObjectInInventory(game.items.ice)) {
+            game.items.ice.isVisible = false
+        }
     }
 
     override fun resetPlayerAndSound() {
@@ -122,6 +129,7 @@ class OutsideScreen(
         game.items.graffiti.remove()
         game.items.iceman.remove()
         game.items.goldBag.remove()
+        game.items.ice.remove()
 
         dialogBoard.remove()
     }

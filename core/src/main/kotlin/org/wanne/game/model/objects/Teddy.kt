@@ -33,7 +33,7 @@ class Teddy(
         if (gameObjectToCheck is Mario && !gameObjectToCheck.poweredUp()) {
             dialogBoard.prepLookAt(
                 game.choose("Ein trauriger Teddy.", "One sad teddy."),
-                game.choose("So süß das man fast Karies davon kriegt.", "So cute that it almost gives you tooth decay.")
+                game.choose("So süss das man fast Karies davon kriegt.", "So cute that it almost gives you tooth decay.")
             )
         } else {
             dialogBoard.prepLookAt(

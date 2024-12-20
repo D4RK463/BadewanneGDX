@@ -36,6 +36,7 @@ abstract class AbstractWalkableScreen(
 
     private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
 
+    // Buttons
     private lateinit var lookButton: ImageButton
     private lateinit var speakButton: ImageButton
     private lateinit var takeButton: ImageButton
@@ -45,11 +46,16 @@ abstract class AbstractWalkableScreen(
     private lateinit var duckButton: ImageButton
     private lateinit var exitButton: ImageButton
 
+    // Cursor
     val lookCursor: Pixmap = game.am.get("ui/cursor/Ansehen.png")
     val speakCursor: Pixmap = game.am.get("ui/cursor/Reden.png")
     val takeCursor: Pixmap = game.am.get("ui/cursor/Nehmen.png")
     val useCursor: Pixmap = game.am.get("ui/cursor/Benutzen.png")
     val combineCursor: Pixmap = game.am.get("ui/cursor/kombinieren.png")
+
+    // Players
+    lateinit var poolAttendant: PoolAttendant
+    lateinit var duck: Duck
 
     override fun render(delta: Float) {
         ScreenUtils.clear(Color.BLACK)

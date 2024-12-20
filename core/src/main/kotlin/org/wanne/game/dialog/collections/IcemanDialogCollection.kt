@@ -61,14 +61,14 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
             "Wie steht die Sonne? Echt jetz?", Language.DE, Dialog(
                 "Eismann: Jo man chill!",
                 "Was wollt ihr?",
-                "Ich hätte gerne 1 großes Eis für meinen Freund hier.",
+                "Ich hätte gerne 1 riesen Eis für meinen Freund hier.",
                 null,
                 null
             )
         )
 
         addDialog(
-            "Ich hätte gerne 1 großes Eis für meinen Freund hier.", Language.DE, Dialog(
+            "Ich hätte gerne 1 riesen Eis für meinen Freund hier.", Language.DE, Dialog(
                 "Eismann: Jo man klar!",
                 "Got the money?",
                 "Ich schau mal in meiner Hose nach.",

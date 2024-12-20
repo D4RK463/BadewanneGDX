@@ -22,7 +22,7 @@ class Safe(
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt(game.choose(
-            "Ein alter Safe mit einem Zahlenschloß...seltsam.",
+            "Ein alter Safe mit einem Zahlenschloss...seltsam.",
             "An old safe with a combination lock...strange."
         ))
     }

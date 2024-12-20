@@ -192,7 +192,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "WOW!!!", Language.DE, Dialog(
-                "Mario: Er soll riesig groß sein mit ",
+                "Mario: Er soll riesig gross sein mit ",
                 "fürchterlichen Klauen und Eiter triefendem Maul.",
                 "Wo kann ich ihn finden?",
                 "Du laberst doch nur!",
@@ -254,7 +254,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
         addDialog(
             "Start5", Language.DE, Dialog(
                 "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
-                "bloß froh das man durchs Telefon nichts riechen kann!",
+                "froh das man durchs Telefon nichts riechen kann!",
                 null,
                 null,
                 21

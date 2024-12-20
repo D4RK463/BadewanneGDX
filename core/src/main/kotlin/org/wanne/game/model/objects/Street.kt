@@ -45,5 +45,5 @@ class Street(
             correctPositionY(220F)
         ), Player.Companion.Looking.LEFT)
 
-    override fun getToolTipDescription(): String = game.choose("Straßenkreuzung", "Street corner")
+    override fun getToolTipDescription(): String = game.choose("Strassenkreuzung", "Street corner")
 }

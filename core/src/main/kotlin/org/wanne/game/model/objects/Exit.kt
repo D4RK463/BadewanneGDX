@@ -21,7 +21,7 @@ class Exit(
     override fun getName(): String = "Exit"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Da gehts nach draußen!", "That's the way out!"))
+        dialogBoard.prepLookAt(game.choose("Da gehts nach draussen!", "That's the way out!"))
     }
 
     override fun use(
@@ -65,5 +65,5 @@ class Exit(
         ), Player.Companion.Looking.RIGHT
     )
 
-    override fun getToolTipDescription(): String = game.choose("Süße Freiheit!", "Sweet freedom!")
+    override fun getToolTipDescription(): String = game.choose("Süsse Freiheit!", "Sweet freedom!")
 }

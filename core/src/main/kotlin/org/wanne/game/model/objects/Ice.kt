@@ -2,6 +2,7 @@ package org.wanne.game.model.objects
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
+import org.wanne.game.model.Inventory
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
@@ -15,6 +16,8 @@ class Ice(
     init {
         initialize()
     }
+
+    private val inventory: Inventory = Inventory.getInstance()
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(
         Point(
@@ -41,6 +44,8 @@ class Ice(
         // ToDo: Endvideo einfügen
         println("Game Over")
 
+        inventory.clearInventory()
+        game.arrivedOutside
         game.startedGame = false
         game.screen = game.mainMenuScreen
     }

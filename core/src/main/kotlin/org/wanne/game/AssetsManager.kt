@@ -33,6 +33,7 @@ class AssetsManager {
 
         assetManager.load("pictures/Backgrounds/OutsideSingle.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/Outside.png", Texture::class.java)
+        assetManager.load("pictures/Backgrounds/Outside169.png", Texture::class.java)
 
         assetManager.load("pictures/Backgrounds/puzzle.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/puzzleMultiplayer.png", Texture::class.java)

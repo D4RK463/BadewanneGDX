@@ -69,4 +69,9 @@ class Inventory private constructor() {
             null
         }
     }
+
+    fun clearInventory() {
+        items.forEach { item -> removeGameObject(item, false) }
+        items.clear()
+    }
 }
