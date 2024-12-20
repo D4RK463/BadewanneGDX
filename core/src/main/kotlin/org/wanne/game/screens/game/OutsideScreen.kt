@@ -13,7 +13,6 @@ import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
-import org.wanne.game.screens.AbstractWalkableScreen
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class OutsideScreen(

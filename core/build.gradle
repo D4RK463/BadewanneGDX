@@ -8,6 +8,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.badlogicgames.gdx-video:gdx-video:$gdxVideoVersion"
   api "com.github.MrStahlfelge.gdx-websockets:core:$websocketVersion"
   api "com.github.crykn.guacamole:core:$guacamoleVersion"
   api "com.github.crykn.guacamole:gdx:$guacamoleVersion"

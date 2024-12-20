@@ -59,6 +59,7 @@ dependencies {
   implementation "com.badlogicgames.gdx-controllers:gdx-controllers-android:$gdxControllersVersion"
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   implementation "com.github.MrStahlfelge.gdx-websockets:common:$websocketVersion"
+  implementation "com.badlogicgames.gdx-video:gdx-video-android:$gdxVideoVersion"
   implementation project(':core')
 
   natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"

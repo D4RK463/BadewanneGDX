@@ -1,4 +1,4 @@
-package org.wanne.game.screens
+package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen

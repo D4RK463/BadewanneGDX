@@ -18,7 +18,6 @@ import org.wanne.game.model.animation.WaterAnimation
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
-import org.wanne.game.screens.AbstractMenuScreen
 import org.wanne.game.stage.MainMenuStage
 import kotlin.system.exitProcess
 

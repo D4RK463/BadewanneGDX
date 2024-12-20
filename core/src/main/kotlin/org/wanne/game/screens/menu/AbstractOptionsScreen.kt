@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.model.animation.WaterAboveAnimation
-import org.wanne.game.screens.AbstractMenuScreen
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
 

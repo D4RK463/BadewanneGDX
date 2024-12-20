@@ -34,6 +34,7 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
   implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx-video:gdx-video-lwjgl3:$gdxVideoVersion"
   implementation "com.github.Hangman:TuningFork:$tuningForkVersion"
   implementation "com.github.MrStahlfelge.gdx-websockets:common:$websocketVersion"
   implementation "com.github.crykn.guacamole:gdx-desktop:$guacamoleVersion"
