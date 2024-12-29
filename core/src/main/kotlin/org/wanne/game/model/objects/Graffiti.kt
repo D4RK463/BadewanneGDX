@@ -20,7 +20,7 @@ class Graffiti(
     override fun getName(): String = "Graffiti"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Der Name kommt mir bekannt vor...", "I heard that name before somewhere..."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Der Name kommt mir bekannt vor...", "I heard that name before somewhere..."))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking?> = Pair(

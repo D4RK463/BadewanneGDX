@@ -54,7 +54,7 @@ class Iceman(
     override fun getName(): String = "Iceman"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Chilliger Dude!", "Cool dude!"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Chilliger Dude!", "Cool dude!"))
     }
 
     override fun talk(

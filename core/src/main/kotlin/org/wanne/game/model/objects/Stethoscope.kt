@@ -27,7 +27,7 @@ class Stethoscope(
     override fun getName(): String = "Stethoscope"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Alles was ein echter Arzt braucht.", "Everything a real doctor needs."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Alles was ein echter Arzt braucht.", "Everything a real doctor needs."))
     }
 
     override fun take(

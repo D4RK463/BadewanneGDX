@@ -29,7 +29,7 @@ class GoldBag(
     }
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Kann das wirklich echtes Geld sein?", "Can this really be real money?"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Kann das wirklich echtes Geld sein?", "Can this really be real money?"))
     }
 
     override fun getName(): String = "GoldBag"

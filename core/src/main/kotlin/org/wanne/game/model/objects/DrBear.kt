@@ -39,7 +39,7 @@ class DrBear(
             )
         } else {
             dialogBoard.prepLookAt(
-                game.choose("Doktor Bär.", "Dr. Bear."),
+                getLookName(),
                 game.choose("Ich hätte gern einen Termin für Sonntag :-)", "I'd like to make an appointment for Sunday :-)")
             )
         }

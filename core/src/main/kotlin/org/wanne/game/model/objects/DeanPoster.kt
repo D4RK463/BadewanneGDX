@@ -20,7 +20,7 @@ class DeanPoster(
     override fun getName(): String = "DeanPoster"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Anspruchsvoll!", "Demanding!"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Anspruchsvoll!", "Demanding!"))
     }
 
     override fun take(

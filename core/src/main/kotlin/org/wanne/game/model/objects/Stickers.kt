@@ -20,7 +20,7 @@ class Stickers(
     override fun getName(): String = "Stickers"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Wow, SpongeBob Aufkleber!", "Wow, SpongeBob Stickers!"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Wow, SpongeBob Aufkleber!", "Wow, SpongeBob Stickers!"))
     }
 
     override fun getInteractPosition(): Pair<Point, Player.Companion.Looking> = Pair(

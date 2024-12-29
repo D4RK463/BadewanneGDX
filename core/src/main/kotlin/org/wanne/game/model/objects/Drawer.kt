@@ -20,7 +20,7 @@ class Drawer(
     override fun getName(): String = "Drawer"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose(
+        dialogBoard.prepLookAt(getLookName(), game.choose(
             "Die Schubladen sind nur aufgemalt... lol.",
             "The drawers are only painted on... lol."
         ))

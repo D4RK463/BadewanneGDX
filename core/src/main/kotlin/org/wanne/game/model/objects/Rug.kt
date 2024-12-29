@@ -29,12 +29,12 @@ class Rug(
 
     override fun look(dialogBoard: DialogBoard) {
         if (burned) {
-            dialogBoard.prepLookAt(game.choose(
+            dialogBoard.prepLookAt(getLookName(), game.choose(
                 "Der Teppich ist so verkohlt, der fällt fast auseinander!",
                 "The carpet is so charred, it's almost falling apart!"
             ))
         } else {
-            dialogBoard.prepLookAt(game.choose(
+            dialogBoard.prepLookAt(getLookName(), game.choose(
                 "Funkytastisch! Vielleicht lässt er sich bewegen.",
                 "Funkytastic! Maybe it's moveable."
             ))

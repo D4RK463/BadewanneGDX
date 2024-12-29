@@ -25,7 +25,7 @@ class Window(
     private val dialogCollection = WindowDialogCollection(am)
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Es ist halb offen.", "It's half open."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Es ist halb offen.", "It's half open."))
     }
 
     override fun use(

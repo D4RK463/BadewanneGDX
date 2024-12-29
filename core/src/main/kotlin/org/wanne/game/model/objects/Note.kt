@@ -26,7 +26,7 @@ class Note(
     override fun getName(): String = "Note"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose(
+        dialogBoard.prepLookAt(getLookName(), game.choose(
             "Oh, eine Telefonnummer: 0190/******.",
             "Oh, it's a phone number: 0500/******."
         ))

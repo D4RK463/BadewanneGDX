@@ -27,7 +27,7 @@ class Scalpel(
     override fun getName(): String = "Scalpel"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Das ist sogar scharf...krank.", "It's really sharp...sick."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Das ist sogar scharf...krank.", "It's really sharp...sick."))
     }
 
     override fun take(

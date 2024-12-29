@@ -26,7 +26,7 @@ class Pills(
     override fun getName(): String = "Pills"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Valium, hartes Zeug für'n Teddy.", "Valium, hard stuff for that small bear."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Valium, hartes Zeug für'n Teddy.", "Valium, hard stuff for that small bear."))
     }
 
     override fun use(

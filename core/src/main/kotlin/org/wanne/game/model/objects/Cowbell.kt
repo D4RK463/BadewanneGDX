@@ -25,7 +25,7 @@ class Cowbell(
     override fun getName(): String = "Cowbell"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Wie ist die hier her gekommen?", "How did that get here?"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Wie ist die hier her gekommen?", "How did that get here?"))
     }
 
     override fun use(

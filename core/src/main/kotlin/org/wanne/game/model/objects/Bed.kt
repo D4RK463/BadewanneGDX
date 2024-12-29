@@ -20,7 +20,7 @@ class Bed(
     override fun getName(): String = "Bed"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Ist das ein SuperSchaf?", "Is that a super-sheep?"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Ist das ein SuperSchaf?", "Is that a super-sheep?"))
     }
 
     override fun use(

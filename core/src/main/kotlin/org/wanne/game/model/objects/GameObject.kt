@@ -151,6 +151,8 @@ abstract class GameObject(
 
     abstract fun getToolTipDescription(): String
 
+    fun getLookName() = getToolTipDescription() + "."
+
     /**
      * Fügt dieses Object der Stage hinzu und erzeugt einen ToolTip in der passenden Sprache dafür
      */

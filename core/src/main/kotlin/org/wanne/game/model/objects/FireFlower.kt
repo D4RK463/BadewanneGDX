@@ -36,7 +36,10 @@ class FireFlower(
     override fun getName(): String = "FireFlower"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Ganz schön heiss...aua!", "Ahh! It's hot!"))
+        dialogBoard.prepLookAt(
+            getLookName(),
+            game.choose("Ganz schön heiss...aua!", "Ahh! It's hot!")
+        )
     }
 
     override fun take(

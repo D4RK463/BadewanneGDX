@@ -21,7 +21,7 @@ class IceMenuRight(
 
     override fun look(dialogBoard: DialogBoard) {
         dialogBoard.prepLookAt(
-            game.choose("Eis, Eis, Baby!...", "Ice, ice, baby!..."),
+            getLookName(),
             game.choose("Lecker!", "Delicious!")
         )
     }

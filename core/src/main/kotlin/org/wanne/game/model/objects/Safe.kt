@@ -21,7 +21,7 @@ class Safe(
     override fun getName(): String = "Safe"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose(
+        dialogBoard.prepLookAt(getLookName(), game.choose(
             "Ein alter Safe mit einem Zahlenschloss...seltsam.",
             "An old safe with a combination lock...strange."
         ))

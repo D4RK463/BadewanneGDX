@@ -21,7 +21,7 @@ class Exit(
     override fun getName(): String = "Exit"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Da gehts nach draussen!", "That's the way out!"))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Da gehts nach draussen!", "That's the way out!"))
     }
 
     override fun use(

@@ -34,7 +34,7 @@ class Ice(
     override fun getName(): String = "Ice"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose("Das sieht wirklich lecker aus.", "Looks yummy."))
+        dialogBoard.prepLookAt(getLookName(), game.choose("Das sieht wirklich lecker aus.", "Looks yummy."))
     }
 
     override fun use(

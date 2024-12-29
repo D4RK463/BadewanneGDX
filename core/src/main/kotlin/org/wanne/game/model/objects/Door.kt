@@ -21,7 +21,7 @@ class Door(
     override fun getName(): String = "Door"
 
     override fun look(dialogBoard: DialogBoard) {
-        dialogBoard.prepLookAt(game.choose(
+        dialogBoard.prepLookAt(getLookName(), game.choose(
             "Eine verschlossene Tür. Aber warum ist die so riesig?",
             "A closed door. But why is it so large?"
         ))
