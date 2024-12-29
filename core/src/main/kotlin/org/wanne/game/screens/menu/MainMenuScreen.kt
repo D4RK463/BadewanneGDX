@@ -93,8 +93,9 @@ class MainMenuScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+
                     if (game.gameEnded) {
-                        game.screen = game.roomScreen
+                        game.screen = game.introVideoScreen
                     } else {
                         if (game.arrivedOutside) {
                             game.screen = game.outsideScreen
@@ -102,7 +103,6 @@ class MainMenuScreen(
                             game.screen = game.roomScreen
                         }
                     }
-
                     dispose()
                 }
             },

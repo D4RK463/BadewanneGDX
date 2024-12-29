@@ -30,6 +30,7 @@ class RoomScreen(
         // Dinge erstellen
         createPlayableCharacters()
         val limits = createRoomLimits()
+        game.gameEnded = false
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

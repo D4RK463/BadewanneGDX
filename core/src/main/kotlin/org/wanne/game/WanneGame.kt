@@ -20,6 +20,7 @@ import org.wanne.game.screens.game.RoomScreen
 import org.wanne.game.screens.menu.MainMenuScreen
 import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.screens.menu.OptionsScreen
+import org.wanne.game.screens.video.IntroVideoScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
 import java.util.*
@@ -48,6 +49,9 @@ class WanneGame(val android: Boolean): Game() {
     val optionsScreen: OptionsScreen by lazy {
         OptionsScreen(this)
     }
+    val introVideoScreen: IntroVideoScreen by lazy {
+        IntroVideoScreen(this)
+    }
 
     lateinit var batch: SpriteBatch
 
@@ -61,7 +65,7 @@ class WanneGame(val android: Boolean): Game() {
     lateinit var server: Server
 
     var startedGame = false
-    var gameEnded = false
+    var gameEnded = true
 
     var isSingleplayer = true
     var puzzleSolved = false

@@ -64,8 +64,12 @@ class LoadingScreen (
                     game.am.loadSounds()
                     loadingLabel.setText("loading sounds (${(percent*100).toInt()}%)")
                 }
+                6 -> {
+                    game.am.loadVideos()
+                    loadingLabel.setText("loading videos (${(percent*100).toInt()}%)")
+                }
                 else -> {
-                    if (currentLoad > 6){
+                    if (currentLoad > 7){
                         percent = 1F
 
                         if (!initialLoadingDone) {

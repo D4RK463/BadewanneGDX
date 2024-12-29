@@ -1,8 +1,10 @@
 package org.wanne.game
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -14,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 class AssetsManager {
 
     private val assetManager: AssetManager = AssetManager()
+
+    lateinit var introVideo: FileHandle
 
     fun loadUI() {
         assetManager.load("ui/default/uiskin.json", Skin::class.java)
@@ -127,6 +131,10 @@ class AssetsManager {
         assetManager.load("soundsOriginal/Kuh/gutgelaunt.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Kuh/besorgsmir.mp3", Sound::class.java)
         assetManager.load("soundsOriginal/Kuh/bisgleich.mp3", Sound::class.java)
+    }
+
+    fun loadVideos() {
+        introVideo = Gdx.files.internal("video/intro.webm")
     }
 
     fun update(millis: Int): Boolean {
