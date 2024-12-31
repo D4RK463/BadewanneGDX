@@ -10,8 +10,6 @@ import org.wanne.game.model.animation.WaterAboveAnimation
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
 
-    lateinit var stage: Stage
-
     var background: Texture = game.am.get("pictures/Menue/options.png")
 
     private val waterAnimation = WaterAboveAnimation(235F, 225F, true, game.am)
@@ -20,7 +18,6 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
         Gdx.graphics.setWindowedMode(1280, 720)
         viewport = FitViewport(1280f, 720f)
 
-        batch = game.batch
         stage = Stage(viewport)
 
         Gdx.input.inputProcessor = stage
@@ -35,28 +32,15 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         viewport.apply()
 
-        batch.begin()
+        game.batch.begin()
 
-        batch.draw(background, 0F, 0F)
-        waterAnimation.draw(batch, Gdx.graphics.deltaTime)
-        batch.end()
+        game.batch.draw(background, 0F, 0F)
+        waterAnimation.draw(game.batch, Gdx.graphics.deltaTime)
+        game.batch.end()
 
         stage.act()
         stage.draw()
 
-    }
-
-    override fun resize(width: Int, height: Int) {
-        viewport.update(width, height, true)
-    }
-
-    override fun pause() {
-    }
-
-    override fun resume() {
-    }
-
-    override fun hide() {
     }
 
     override fun dispose() {

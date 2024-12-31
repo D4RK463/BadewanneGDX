@@ -315,6 +315,8 @@ abstract class AbstractWalkableScreen(
         poolAttendantButton.remove()
         duckButton.remove()
         exitButton.remove()
+
+        game.timer.stop()
     }
 
 }

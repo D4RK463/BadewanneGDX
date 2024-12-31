@@ -24,8 +24,6 @@ import kotlin.system.exitProcess
 class MainMenuScreen(
     game: WanneGame,
 ) : AbstractMenuScreen(game) {
-    private lateinit var stage: Stage
-
     private var logoHeadline: Image = Image(game.am.get("pictures/Menue/title3.png") as Texture)
     private var edge: Image = Image(game.am.get("pictures/Menue/ecke.png") as Texture)
 
@@ -50,7 +48,6 @@ class MainMenuScreen(
         Gdx.graphics.setWindowedMode(1280, 720)
         viewport = FitViewport(1280f, 720f)
 
-        batch = game.batch
         stage = MainMenuStage(viewport, poolAttendant, duck, listOf(waterAnimation))
 
         logoHeadline.x = 100f
@@ -192,38 +189,7 @@ class MainMenuScreen(
         }
     }
 
-    override fun render(delta: Float) {
-        ScreenUtils.clear(Color.BLACK)
-        viewport.apply()
-
-        // Zeichnen
-        game.batch.projectionMatrix = viewport.camera.combined
-        game.batch.begin()
-
-        // Stage zeichnen mit UI, Objekten
-        stage.act()
-        stage.draw()
-
-        game.batch.end()
-    }
-
-    override fun resize(
-        width: Int,
-        height: Int,
-    ) {
-        viewport.update(width, height, true)
-    }
-
-    override fun pause() {
-    }
-
-    override fun resume() {
-    }
-
     override fun dispose() {
         stage.dispose()
-    }
-
-    override fun hide() {
     }
 }

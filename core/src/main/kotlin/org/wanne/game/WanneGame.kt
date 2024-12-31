@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import de.damios.guacamole.Stopwatch
 import org.wanne.game.dialog.DialogManager
 import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
@@ -20,6 +21,7 @@ import org.wanne.game.screens.game.RoomScreen
 import org.wanne.game.screens.menu.MainMenuScreen
 import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.screens.menu.OptionsScreen
+import org.wanne.game.screens.menu.ResultScreen
 import org.wanne.game.screens.video.IntroVideoScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
@@ -52,6 +54,9 @@ class WanneGame(val android: Boolean): Game() {
     val introVideoScreen: IntroVideoScreen by lazy {
         IntroVideoScreen(this)
     }
+    val resultScreen: ResultScreen by lazy {
+        ResultScreen(this)
+    }
 
     lateinit var batch: SpriteBatch
 
@@ -76,6 +81,8 @@ class WanneGame(val android: Boolean): Game() {
 
     lateinit var wanneSkin: Skin
 
+    val timer: Stopwatch = Stopwatch.createUnstarted()
+
     override fun create() {
         batch = SpriteBatch()
         config = Config(android)
@@ -89,10 +96,6 @@ class WanneGame(val android: Boolean): Game() {
 
     fun initializeItemHolder() {
         this.items = GameObjectsArchive(this)
-    }
-
-    override fun render() {
-        super.render() // important!
     }
 
     override fun dispose() {
@@ -134,11 +137,17 @@ class WanneGame(val android: Boolean): Game() {
      * Entscheidet welches der richtige String ist, anhand der aktuell
      * eingestellten Sprache, oder Droggelbecher
      */
-    fun choose(german: String, english: String): String {
+    fun choose(german: String, english: String, useDroggelbecher: Boolean = true): String {
         return when(currentLang().language) {
             Language.DE -> german
             Language.EN -> english
-            Language.DROGL -> randomizeDroggelbecher()
+            Language.DROGL -> {
+                if (useDroggelbecher) {
+                    randomizeDroggelbecher()
+                } else {
+                    english
+                }
+            }
         }
     }
 

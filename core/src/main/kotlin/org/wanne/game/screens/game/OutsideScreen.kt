@@ -31,6 +31,9 @@ class OutsideScreen(
         // Dinge erstellen
         createPlayableCharacters()
         val limits = createRoomLimits()
+        if (!game.timer.isRunning) {
+            game.timer.start()
+        }
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

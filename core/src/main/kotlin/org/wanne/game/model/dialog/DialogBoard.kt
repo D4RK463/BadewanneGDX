@@ -15,6 +15,7 @@ import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
+import org.wanne.game.screens.menu.Shadow
 
 class DialogBoard(
     posX: Float = 0F,
@@ -29,13 +30,13 @@ class DialogBoard(
     }
 
     private lateinit var label1: Label
-    private lateinit var shadowLabel1: Label
+    private lateinit var shadowLabel1: Shadow
     private lateinit var label2: Label
-    private lateinit var shadowLabel2: Label
+    private lateinit var shadowLabel2: Shadow
     private lateinit var label3: Label
-    private lateinit var shadowLabel3: Label
+    private lateinit var shadowLabel3: Shadow
     private lateinit var label4: Label
-    private lateinit var shadowLabel4: Label
+    private lateinit var shadowLabel4: Shadow
 
     fun initialize(stage: Stage) {
         val label1Pair = createDialogLabelAndShadow(game.choose(Point(5F, 205F), Point(15F, 135F)))
@@ -68,7 +69,7 @@ class DialogBoard(
         stage.addActor(label4)
     }
 
-    private fun createDialogLabelAndShadow(position: Point, color: Color? = null): Pair<Label, Label> {
+    private fun createDialogLabelAndShadow(position: Point, color: Color? = null): Pair<Label, Shadow> {
         val label = Label("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", game.currentSkin())
         label.toFront()
         color?.let { label.color = it }
@@ -79,7 +80,7 @@ class DialogBoard(
         shadowLabel.toFront()
         shadowLabel.color = Color.BLACK
         shadowLabel.x = position.x + 2
-        shadowLabel.y = position.y + 2
+        shadowLabel.y = position.y - 2
 
         return Pair(label, shadowLabel)
     }

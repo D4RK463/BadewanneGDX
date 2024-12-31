@@ -20,22 +20,25 @@ class OptionsScreen(
     private val musicVolumeLabelText = "Music: "
     private val soundVolumeLabelText = "Sound: "
 
-    lateinit var optionsTitle: Image
-    lateinit var languageLabel: Label
-    lateinit var modeLabel: Label
-    lateinit var backButton: ImageButton
+    private lateinit var optionsTitle: Image
+    private lateinit var languageLabel: Label
+    private lateinit var languageLabelShadow: Shadow
+    private lateinit var modeLabel: Label
+    private lateinit var modeLabelShadow: Shadow
+    private lateinit var backButton: ImageButton
 
-    lateinit var gerButton: ImageButton
-    lateinit var engButton: ImageButton
-    lateinit var orgButton: ImageButton
-    lateinit var droglButton: ImageButton
+    private lateinit var gerButton: ImageButton
+    private lateinit var engButton: ImageButton
+    private lateinit var orgButton: ImageButton
+    private lateinit var droglButton: ImageButton
 
-    lateinit var classicButton: ImageButton
-    lateinit var modernButton: ImageButton
+    private lateinit var classicButton: ImageButton
+    private lateinit var modernButton: ImageButton
 
     override fun buildMenu() {
-        val soundVolumeLabel = Label("${soundVolumeLabelText}${parsePercent(game.config.soundVolume)}%", game.wanneSkin)
-        soundVolumeLabel.setPosition(100f, 450f)
+        val soundVolumePair = createLabelWithShadow("${soundVolumeLabelText}${parsePercent(game.config.soundVolume)}%", 100f, 450f)
+        val soundVolumeLabel = soundVolumePair.first
+        val soundVolumeLabelShadow = soundVolumePair.second
 
         val soundSlider = Slider(0F, 1F, 0.05F, false, game.wanneSkin)
         soundSlider.setPosition(100f, 340f)
@@ -44,13 +47,18 @@ class OptionsScreen(
         soundSlider.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 game.config.soundVolume = soundSlider.value
+
+                val newVolumeString = "${soundVolumeLabelText}${parsePercent(soundSlider.value)}%"
                 soundVolumeLabel.setText("")
-                soundVolumeLabel.setText("${soundVolumeLabelText}${parsePercent(soundSlider.value)}%")
+                soundVolumeLabel.setText(newVolumeString)
+                soundVolumeLabelShadow.setText("")
+                soundVolumeLabelShadow.setText(newVolumeString)
             }
         })
 
-        val musicVolumeLabel = Label("${musicVolumeLabelText}${parsePercent(game.config.musicVolume)}%", game.wanneSkin)
-        musicVolumeLabel.setPosition(100f, 250f)
+        val musicVolumePair = createLabelWithShadow("${musicVolumeLabelText}${parsePercent(game.config.musicVolume)}%", 100f, 250f)
+        val musicVolumeLabel = musicVolumePair.first
+        val musicVolumeLabelShadow = musicVolumePair.second
 
         val musicSlider = Slider(0F, 1F, 0.05F, false, game.wanneSkin)
         musicSlider.setPosition(100f, 140F)
@@ -59,13 +67,19 @@ class OptionsScreen(
         musicSlider.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 game.config.musicVolume = musicSlider.value
+
+                val newVolumeString = "${musicVolumeLabelText}${parsePercent(musicSlider.value)}%"
                 musicVolumeLabel.setText("")
-                musicVolumeLabel.setText("${musicVolumeLabelText}${parsePercent(musicSlider.value)}%")
+                musicVolumeLabel.setText(newVolumeString)
+                musicVolumeLabelShadow.setText("")
+                musicVolumeLabelShadow.setText(newVolumeString)
             }
         })
 
+        stage.addActor(soundVolumeLabelShadow)
         stage.addActor(soundVolumeLabel)
         stage.addActor(soundSlider)
+        stage.addActor(musicVolumeLabelShadow)
         stage.addActor(musicVolumeLabel)
         stage.addActor(musicSlider)
 
@@ -77,7 +91,9 @@ class OptionsScreen(
     private fun updateObjects() {
         optionsTitle.remove()
         languageLabel.remove()
+        languageLabelShadow.remove()
         modeLabel.remove()
+        modeLabelShadow.remove()
         backButton.remove()
 
         gerButton.remove()
@@ -102,20 +118,13 @@ class OptionsScreen(
         optionsTitle.x = 90f
         optionsTitle.y = 550f
 
+        val languageLabelPair = createLabelWithShadow(game.choose("Sprache", "Language", false), 570f, 450f)
+        languageLabel = languageLabelPair.first
+        languageLabelShadow = languageLabelPair.second
 
-        languageLabel = if (game.currentLang().language == Language.DE) {
-            Label("Sprache", game.wanneSkin)
-        } else {
-            Label("Language", game.wanneSkin)
-        }
-        languageLabel.setPosition(570f, 450f)
-
-        modeLabel = if (game.currentLang().language == Language.DE) {
-            Label("Spielmodus", game.wanneSkin)
-        } else {
-            Label("Game mode", game.wanneSkin)
-        }
-        modeLabel.setPosition(570f, 250f)
+        val modelLabelPair = createLabelWithShadow(game.choose("Spielmodus", "Game mode", false), 570f, 250f)
+        modeLabel = modelLabelPair.first
+        modeLabelShadow = modelLabelPair.second
 
         val backSprite = if (game.currentLang().language == Language.DE) {
             "zuruckspeichern"
@@ -141,7 +150,9 @@ class OptionsScreen(
         )
 
         stage.addActor(optionsTitle)
+        stage.addActor(languageLabelShadow)
         stage.addActor(languageLabel)
+        stage.addActor(modeLabelShadow)
         stage.addActor(modeLabel)
         stage.addActor(backButton)
     }

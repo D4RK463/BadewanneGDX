@@ -1,5 +1,7 @@
 package org.wanne.game.model.objects
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Inventory
@@ -41,14 +43,14 @@ class Ice(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
-        // ToDo: Endvideo einfügen
-        println("Game Over")
-
         inventory.clearInventory()
-        game.arrivedOutside
-        game.startedGame = false
-        game.gameEnded = true
-        game.screen = game.mainMenuScreen
+        game.timer.stop()
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
+
+        // ToDo: Endvideo starten
+        println("Game Over")
+        game.screen = game.resultScreen
+
     }
 
 }
