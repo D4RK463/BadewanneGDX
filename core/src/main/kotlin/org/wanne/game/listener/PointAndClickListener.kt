@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import org.wanne.game.Statistic
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
 import org.wanne.game.model.dialog.DialogBoard
@@ -22,6 +23,7 @@ class PointAndClickListener(
         pointer: Int,
         button: Int,
     ): Boolean {
+        Statistic.countClick()
         val stage = event?.stage as PointAndClickAwareStage
 
         // Aktion

@@ -2,6 +2,7 @@ package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import org.wanne.game.Statistic
 import org.wanne.game.stage.PuzzleStage
 import org.wanne.game.model.puzzle.PuzzlePiece
 import org.wanne.game.model.puzzle.VictoryMessage
@@ -12,6 +13,7 @@ class PuzzleClickListener : ClickListener() {
         x: Float,
         y: Float,
     ) {
+        Statistic.countClick()
         val stage = event?.stage as PuzzleStage
 
         // Das Objekt holen, auf welches geklickt wurde

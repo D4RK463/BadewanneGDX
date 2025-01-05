@@ -2,6 +2,7 @@ package org.wanne.game.model
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
+import org.wanne.game.Statistic.Companion.count
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 
@@ -25,6 +26,7 @@ class PointAndClickAction(
     var marioPoweredUp = false
 
     fun reset(resetObjectToo: Boolean = true) {
+        count(type)
         type = ActionType.NOTHING
         lastSentence = "Start"
 

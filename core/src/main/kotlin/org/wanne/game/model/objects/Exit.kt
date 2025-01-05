@@ -28,6 +28,7 @@ class Exit(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
+        action.reset()
         game.screen = game.outsideScreen
     }
 
@@ -35,6 +36,7 @@ class Exit(
         dialogBoard: DialogBoard,
         action: PointAndClickAction,
     ) {
+        action.reset()
         game.screen = game.outsideScreen
     }
 

@@ -46,6 +46,7 @@ class Ice(
         inventory.clearInventory()
         game.timer.stop()
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
+        action.reset()
 
         // ToDo: Endvideo starten
         println("Game Over")

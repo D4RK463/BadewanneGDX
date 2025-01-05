@@ -3,6 +3,7 @@ package org.wanne.game.listener
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import org.wanne.game.Statistic
 import org.wanne.game.stage.DialogOnlyStage
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.dialog.DialogBoard
@@ -17,6 +18,7 @@ class DialogOnlyClickListener(
         pointer: Int,
         button: Int,
     ): Boolean {
+        Statistic.countClick()
         val stage = event?.stage as DialogOnlyStage
 
         stage.currentAction.type = ActionType.TALK_TO
