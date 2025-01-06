@@ -18,6 +18,7 @@ class AssetsManager {
     private val assetManager: AssetManager = AssetManager()
 
     lateinit var introVideo: FileHandle
+    lateinit var outroVideo: FileHandle
 
     fun loadUI() {
         assetManager.load("ui/default/uiskin.json", Skin::class.java)
@@ -135,6 +136,7 @@ class AssetsManager {
 
     fun loadVideos() {
         introVideo = Gdx.files.internal("video/intro.webm")
+        outroVideo = Gdx.files.internal("video/outro.webm")
     }
 
     fun update(millis: Int): Boolean {

@@ -22,7 +22,7 @@ import org.wanne.game.screens.menu.MainMenuScreen
 import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.screens.menu.OptionsScreen
 import org.wanne.game.screens.menu.ResultScreen
-import org.wanne.game.screens.video.IntroVideoScreen
+import org.wanne.game.screens.video.VideoScreen
 import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
 import java.util.*
@@ -51,11 +51,14 @@ class WanneGame(val android: Boolean): Game() {
     val optionsScreen: OptionsScreen by lazy {
         OptionsScreen(this)
     }
-    val introVideoScreen: IntroVideoScreen by lazy {
-        IntroVideoScreen(this)
-    }
     val resultScreen: ResultScreen by lazy {
         ResultScreen(this)
+    }
+    val introVideoScreen: VideoScreen by lazy {
+        VideoScreen(this, roomScreen, am.introVideo)
+    }
+    val outroVideoScreen: VideoScreen by lazy {
+        VideoScreen(this, resultScreen, am.outroVideo)
     }
 
     lateinit var batch: SpriteBatch

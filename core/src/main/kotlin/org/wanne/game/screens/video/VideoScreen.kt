@@ -2,6 +2,7 @@ package org.wanne.game.screens.video
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
@@ -13,7 +14,7 @@ import com.badlogic.gdx.video.VideoPlayerCreator
 import com.badlogic.gdx.video.scenes.scene2d.VideoActor
 import org.wanne.game.WanneGame
 
-class IntroVideoScreen(val game: WanneGame): Screen {
+class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val video: FileHandle): Screen {
 
     private lateinit var viewport: FitViewport
 
@@ -30,13 +31,13 @@ class IntroVideoScreen(val game: WanneGame): Screen {
 
         videoPlayer = VideoPlayerCreator.createVideoPlayer()
         videoPlayer.volume = game.config.musicVolume
-        videoPlayer.setOnCompletionListener { game.screen = game.roomScreen }
+        videoPlayer.setOnCompletionListener { game.screen = changeScreen }
 
         stage.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 videoPlayer.stop()
                 dispose()
-                game.screen = game.roomScreen
+                game.screen = changeScreen
                 return true
             }
         })
@@ -50,7 +51,7 @@ class IntroVideoScreen(val game: WanneGame): Screen {
 
         stage.addActor(actor)
 
-        videoPlayer.play(game.am.introVideo)
+        videoPlayer.play(video)
     }
 
     override fun render(delta: Float) {
@@ -84,6 +85,5 @@ class IntroVideoScreen(val game: WanneGame): Screen {
         stage.dispose()
         videoPlayer.dispose()
     }
-
 
 }
