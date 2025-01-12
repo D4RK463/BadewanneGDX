@@ -1,6 +1,5 @@
 package org.wanne.game.screens.menu
 
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -10,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
+import org.wanne.game.screens.AbstractScreen
 
 typealias Shadow = Label
 
 abstract class AbstractMenuScreen (
-    val game: WanneGame,
-) : Screen {
+    game: WanneGame,
+) : AbstractScreen(game) {
     lateinit var stage: Stage
 
     val skin: Skin = game.am.get("ui/default/uiskin.json")
@@ -36,26 +36,6 @@ abstract class AbstractMenuScreen (
         button.setSize(width, height)
 
         return button
-    }
-
-    fun createLabelWithShadow(
-        text: String,
-        posX: Float,
-        posY: Float,
-        fontScale: Float = 1F,
-        color: Color? = null
-    ): Pair<Label, Shadow> {
-        val label = Label(text, game.wanneSkin)
-        label.setPosition(posX, posY)
-        label.setFontScale(fontScale)
-        color?.apply { label.color = color }
-
-        val shadow = Label(text, game.wanneSkin)
-        shadow.setPosition(posX+2, posY-2)
-        shadow.color = Color.BLACK
-        shadow.setFontScale(fontScale)
-
-        return Pair(label, shadow)
     }
 
     override fun resize(

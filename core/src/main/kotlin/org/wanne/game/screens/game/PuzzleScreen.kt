@@ -1,7 +1,6 @@
 package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
@@ -9,26 +8,25 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
 import org.wanne.game.model.Point
-import org.wanne.game.stage.PuzzleStage
 import org.wanne.game.model.puzzle.Puzzle
 import org.wanne.game.model.puzzle.VictoryMessage
+import org.wanne.game.screens.AbstractScreen
+import org.wanne.game.screens.util.UiButtonBuilder
+import org.wanne.game.stage.PuzzleStage
 
 class PuzzleScreen(
-    var game: WanneGame,
-) : Screen {
+    game: WanneGame,
+) : AbstractScreen(game) {
     // Background
     private val puzzleBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/puzzle.png")
     private val puzzleBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/puzzle169.png")
-    private val puzzleBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/puzzleMultiplayer.png")
 
     private lateinit var stage: PuzzleStage
 
@@ -60,14 +58,10 @@ class PuzzleScreen(
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
-        if (game.isSingleplayer) {
-            if (game.classicMode()) {
-                stage.addActor(Image(puzzleBackgroundSingle))
-            } else {
-                stage.addActor(Image(puzzleBackgroundSingleWide))
-            }
+        if (game.classicMode()) {
+            stage.addActor(Image(puzzleBackgroundSingle))
         } else {
-            stage.addActor(Image(puzzleBackgroundMulti))
+            stage.addActor(Image(puzzleBackgroundSingleWide))
         }
 
         stage.addListener(PuzzleClickListener())
@@ -88,6 +82,16 @@ class PuzzleScreen(
     }
 
     private fun createGameUI() {
+        val action = if (game.android) { "tab" } else { game.choose("klick", "click", false) }
+        val instructionsTextDuck = game.choose("Drehen = Puzzleteil doppelt ${action}en", "To turn = double $action")
+        val instructionsTextAttendant = game.choose("Tauschen = 2 Puzzleteile ${action}en", "To switch = $action 2 pieces")
+        val instructionsDuckPair = createLabelWithShadow(instructionsTextDuck, 150f, 50f)
+        val instructionsDuck = instructionsDuckPair.first
+        val instructionsDuckShadow = instructionsDuckPair.second
+        val instructionsAttendantPair = createLabelWithShadow(instructionsTextAttendant, 150f, 10f)
+        val instructionsAttendant = instructionsAttendantPair.first
+        val instructionsAttendantShadow = instructionsAttendantPair.second
+
         exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
             .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
@@ -106,6 +110,10 @@ class PuzzleScreen(
             },
         )
 
+        stage.addActor(instructionsDuckShadow)
+        stage.addActor(instructionsAttendantShadow)
+        stage.addActor(instructionsDuck)
+        stage.addActor(instructionsAttendant)
         stage.addActor(exitButton)
     }
 

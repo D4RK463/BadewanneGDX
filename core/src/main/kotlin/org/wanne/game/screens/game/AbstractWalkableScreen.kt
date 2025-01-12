@@ -1,7 +1,6 @@
 package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -11,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
@@ -21,11 +19,13 @@ import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PoolAttendant
+import org.wanne.game.screens.AbstractScreen
+import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.stage.PointAndClickAwareStage
 
 abstract class AbstractWalkableScreen(
-    private var game: WanneGame,
-) : Screen {
+    game: WanneGame,
+) : AbstractScreen(game) {
     lateinit var stage: PointAndClickAwareStage
 
     lateinit var viewport: FitViewport

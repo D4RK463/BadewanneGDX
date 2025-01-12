@@ -20,39 +20,44 @@ class ResultScreen(
         val title = titlePair.first
         val titleShadow = titlePair.second
 
-        val timeResultPair = createLabelWithShadow(calculateTimeString(), 100f, 450f)
-        val timeResult = timeResultPair.first
-        val timeResultShadow = timeResultPair.second
-
         val lookResultString = game.choose("Ansehen: ${Statistic.lookCount}x", "look: ${Statistic.lookCount}x", false)
-        val lookResultPair = createLabelWithShadow(lookResultString, 100f, 400f)
+        val lookResultPair = createLabelWithShadow(lookResultString, 100f, 450f)
         val lookResult = lookResultPair.first
         val lookResultShadow = lookResultPair.second
 
         val useResultString = game.choose("Benutzen: ${Statistic.useCount+2}x", "use: ${Statistic.useCount+2}x", false)
-        val useResultPair = createLabelWithShadow(useResultString, 100f, 350f)
+        val useResultPair = createLabelWithShadow(useResultString, 500f, 450f)
         val useResult = useResultPair.first
         val useResultShadow = useResultPair.second
 
         val talkResultString = game.choose("Reden: ${Statistic.talkCount}x", "talk: ${Statistic.talkCount}x", false)
-        val talkResultPair = createLabelWithShadow(talkResultString, 100f, 300f)
+        val talkResultPair = createLabelWithShadow(talkResultString, 100f, 400f)
         val talkResult = talkResultPair.first
         val talkResultShadow = talkResultPair.second
 
         val combineResultString = game.choose("Kombinieren: ${Statistic.combineCount}x", "combine: ${Statistic.combineCount}x", false)
-        val combineResultPair = createLabelWithShadow(combineResultString, 100f, 250f)
+        val combineResultPair = createLabelWithShadow(combineResultString, 500f, 400f)
         val combineResult = combineResultPair.first
         val combineResultShadow = combineResultPair.second
 
         val takeResultString = game.choose("Nehmen: ${Statistic.takeCount}x", "take: ${Statistic.takeCount}x", false)
-        val takeResultPair = createLabelWithShadow(takeResultString, 100f, 200f)
+        val takeResultPair = createLabelWithShadow(takeResultString, 100f, 350f)
         val takeResult = takeResultPair.first
         val takeResultShadow = takeResultPair.second
 
         val clicksResultString = game.choose("Gesamt Klicks: ${Statistic.clicks}", "total clicks: ${Statistic.clicks}", false)
-        val clicksResultPair = createLabelWithShadow(clicksResultString, 100f, 150f, color = Color.ORANGE)
+        val clicksResultPair = createLabelWithShadow(clicksResultString, 100f, 250f, color = Color.ORANGE)
         val clicksResult = clicksResultPair.first
         val clicksResultShadow = clicksResultPair.second
+
+        val timeResultPair = createLabelWithShadow(calculateTimeString(), 100f, 200f, color = Color.ORANGE)
+        val timeResult = timeResultPair.first
+        val timeResultShadow = timeResultPair.second
+
+        val unlockString = game.choose("Droggelbecher Modus \n freigeschaltet", "Droggelbecher Mode unlocked", false)
+        val unlockPair = createLabelWithShadow(unlockString, 500f, 250f, 1.2F)
+        val unlock = unlockPair.first
+        val unlockShadow = unlockPair.second
 
         val backSprite = if (game.currentLang().language == Language.EN) {
             "back"
@@ -89,6 +94,7 @@ class ResultScreen(
         stage.addActor(combineResultShadow)
         stage.addActor(takeResultShadow)
         stage.addActor(clicksResultShadow)
+        stage.addActor(unlockShadow)
         stage.addActor(title)
         stage.addActor(timeResult)
         stage.addActor(lookResult)
@@ -97,6 +103,7 @@ class ResultScreen(
         stage.addActor(combineResult)
         stage.addActor(takeResult)
         stage.addActor(clicksResult)
+        stage.addActor(unlock)
         stage.addActor(backButton)
     }
 

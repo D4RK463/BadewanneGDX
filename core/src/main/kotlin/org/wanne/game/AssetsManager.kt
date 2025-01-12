@@ -41,7 +41,6 @@ class AssetsManager {
         assetManager.load("pictures/Backgrounds/Outside169.png", Texture::class.java)
 
         assetManager.load("pictures/Backgrounds/puzzle.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/puzzleMultiplayer.png", Texture::class.java)
         assetManager.load("pictures/Backgrounds/puzzle169.png", Texture::class.java)
 
         assetManager.load("pictures/Backgrounds/KinderzimmerSingle.png", Texture::class.java)

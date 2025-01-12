@@ -52,10 +52,10 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
         stage.addActor(actor)
 
         videoPlayer.play(video)
+        ScreenUtils.clear(Color.BLACK)
     }
 
     override fun render(delta: Float) {
-        ScreenUtils.clear(Color.BLACK)
         viewport.apply()
 
         // Zeichnen

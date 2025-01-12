@@ -15,7 +15,7 @@ import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class RoomScreen(
-    private var game: WanneGame,
+    game: WanneGame,
 ) : AbstractWalkableScreen(game) {
 
     // Background
