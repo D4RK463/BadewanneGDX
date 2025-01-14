@@ -3,11 +3,9 @@ package org.wanne.game.screens.video
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.files.FileHandle
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.video.VideoPlayer
 import com.badlogic.gdx.video.VideoPlayerCreator
@@ -30,8 +28,11 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
         Gdx.input.inputProcessor = stage
 
         videoPlayer = VideoPlayerCreator.createVideoPlayer()
-        videoPlayer.volume = game.config.musicVolume
-        videoPlayer.setOnCompletionListener { game.screen = changeScreen }
+
+//        videoPlayer.volume = game.config.musicVolume
+        videoPlayer.setOnCompletionListener {
+            game.screen = changeScreen
+        }
 
         stage.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -42,17 +43,17 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
             }
         })
 
+        videoPlayer.load(video)
+
         // Actor richtig erstellen (wichtig)
         val actor = VideoActor(videoPlayer)
         actor.x = 0F
         actor.y = 0F
         actor.height = 720F
         actor.width = 1280F
-
         stage.addActor(actor)
 
-        videoPlayer.play(video)
-        ScreenUtils.clear(Color.BLACK)
+        videoPlayer.play()
     }
 
     override fun render(delta: Float) {
