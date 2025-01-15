@@ -468,7 +468,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where is the guardian?", Language.EN, Dialog(
-                "Mario: I don't know, where he is.",
+                "Mario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -479,7 +479,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where can I find him?", Language.EN, Dialog(
-                "Mario: I don't know, where he is.",
+                "Mario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -490,7 +490,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where is the guardian again?", Language.EN, Dialog(
-                "Mario: I don't know, where he is.",
+                "Mario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -642,7 +642,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Can you help me, to get rid of the carpet?", Language.EN, Dialog(
-                "Mario: I would help you but I don't want to.",
+                "Mario: I would help you, but I don't want to.",
                 null,
                 "You #*%&!!! I hate you!!",
                 "*sniff* Please, please I'll do everything for you!",
