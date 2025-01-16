@@ -1,0 +1,55 @@
+# Kuh
+
+## Deutsch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Wäwächter hier!! | 😀
+| 1 | Dadas kann ich nicht, auauch ich muss mich an didie Regeln halten. | 🙂
+| 2 | Ichch soll euch 15 Jajahre gefangen haltenn. Warum dadarf ich nicht sasagen! | 😐
+| 3 | Ichch hole jejeden der im Abfluss landet und brringe ihn ins Zzimmer. | 😐
+| 4 | Ichch werde dafühür bezahhlt! Frage dich lieber warum dudu im Abfluss gelandet bist. | 🤫
+| 5 | Wewen ich dir das ssage mümüsste ich dich tötöten. | 😠
+| 6 | Dudu hast Glück, ich bibin sehr gut gelaunt. | 🙂
+| 7 | Bebesorge mir Valium, memeine Kuhglocke und den Milchabsauger 2000. | 🙂
+| 8 | Sehr guuuut. Daann mach ich euch gleich die Tüür auf. | 😃
+| 9 | Wawas willst duu schon wieder? | 🤨
+| 10 | Ey jetzzt nicht frech werdenn. Wehe ihr saagt jemand daas ich euch raus lasse! | 😠
+
+|===
+
+## Englisch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Guaguardian speeaking!! | 😀
+| 1 | I I can't do do that. I have to abide by thethe ruules too. | 🙂
+| 2 | I I have to detain you you for 15 years. Can't telll you why! | 😐
+| 3 | I I kidnap everyone who ge-gets sucked in and dro-drop them into the roooom. | 😐
+| 4 | I I'm getting payed fooor this! Better thiink about, why yooouu are here. | 🤫
+| 5 | If I I tell you, I have tooo kill you. | 😠
+| 6 | Youuu're in luck, I'm in a very good moooood. | 🙂
+| 7 | Ge-get me Valium, my Cowbell and the Milksucker 2000. 'Click' | 🙂
+| 8 | Very niiice. Then I'll open the dooooor for you straight awaaaay. | 😃
+| 9 | What dooooo you want? | 🤨
+| 10 | Do-Don't be cheeky nooooow. Don't you da-dare tell anyone that I'm letting you ooout! | 😠
+
+|===
+
+## Droggelbecher
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Droggelbecher! | 😀
+| 1 | Droggelbecher. | 😐
+| 2 | Droggelbecher. | 🤫
+| 3 | Droggelbecher. | 😠
+| 4 | Droggelbecher? | 🤨
+
+|===

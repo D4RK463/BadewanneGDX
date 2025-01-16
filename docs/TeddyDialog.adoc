@@ -1,0 +1,43 @@
+# Teddy
+
+## Deutsch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | ... zitter | 😨
+| 1 | AAAHHHHHH!!!! | 😱
+| 2 | Hab Angst! | 😨
+| 3 | Hab Angst, dass ich den Wächter sehe. | 😨
+| 4 | Ach... Der hat zuviel von seiner eigenen Medizin genommen. | 😐
+
+|===
+
+## Englisch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | ... shiver | 😨
+| 1 | AAAHHHHHH!!!! | 😱
+| 2 | I'm scared! | 😨
+| 3 | I'm afraid that I see the guardian. | 😨
+| 4 | Well... He's taken too much of his own medicine. | 😐
+
+|===
+
+## Droggelbecher
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | ... drogl | 😨
+| 1 | Droggelbecher!!!! | 😱
+| 2 | Droggelbecher! | 😨
+| 4 | Droggelbecher. | 😐
+
+|===
+

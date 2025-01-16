@@ -1,0 +1,23 @@
+# Dr Bär
+
+## Deutsch / Englisch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Eeeehhhhhehehehe!! | 🥴
+| 1 | Ohhhhhhh!?! | 😣
+
+|===
+
+## Droggelbecher
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Droooogglbecher!! | 🥴
+| 1 | Droggelbecher!?! | 😣
+
+|===
