@@ -1,0 +1,57 @@
+# Eisman
+
+## Deutsch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Jo Duckboy und Bath-mann, wie steht die Sonne? | 😃
+| 1 | Jo man nice und shiny! | 😃
+| 2 | Jo sure man! Take soviel, wie ihr wollt, Bros, No need anyway! | 😋
+| 3 | Jo dude, Eis in the sunshine! | 😋
+| 5 | Jo man, chill! | 😐
+| 6 | Jo man, klar! | 😃
+| 7 | Jo Ducky, whatever! | 😃
+| 8 | Mehr Eis, Duckyboy? | 😜
+| 9 | Jo man, got the moneys? | 🤨
+| 10 | Jo dude, mehr gibs nicht! | 😒
+
+|===
+
+## Englisch
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Jo Duckboy and Bath-mann, how is the sun hanging? | 😃
+| 1 | Jo man nice and shiny! | 😃
+| 2 | Jo sure man! Take as much, as you like, Bros, No need anyway! | 😋
+| 3 | Jo dude, ice in the sunshine! | 😋
+| 5 | Jo man, chill! | 😐
+| 6 | Jo man, sure! | 😃
+| 7 | Jo Ducky, whatever! | 😃
+| 8 | More ice, Duckyboy? | 😜
+| 9 | Jo man, got the moneys? | 🤨
+| 10 | Jo dude, that's all you get! | 😒
+
+|===
+
+## Droggelbecher
+
+[%autowidth]
+|===
+| Index | Dialog | Feeling
+
+| 0 | Droggelbecher, Droggelbecher? | 😃
+| 1 | Droggelbecher! | 😃
+| 2 | Droggelbecher! Droggelbecher, Droggelbecher! | 😋
+| 3 | Droggelbecher! | 😋
+| 4 | Droggelbecher! | 😐
+| 5 | Droggelbecher! | 😃
+| 6 | Droggelbecher? | 😜
+| 7 | Droggelbecher? | 🤨
+| 8 | Droggelbecher! | 😒
+
+|===

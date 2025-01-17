@@ -49,7 +49,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Mega gut, Danke.", Language.DE, Dialog(
-                "Eismann: Jo man, Eis in the sunshine!",
+                "Eismann: Jo dude, Eis in the sunshine!",
                 null,
                 null,
                 null,
@@ -59,7 +59,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Wie steht die Sonne? Echt jetz?", Language.DE, Dialog(
-                "Eismann: Jo man chill!",
+                "Eismann: Jo man, chill!",
                 "Was wollt ihr?",
                 "Ich hätte gerne 1 riesen Eis für meinen Freund hier.",
                 null,
@@ -69,7 +69,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Ich hätte gerne 1 riesen Eis für meinen Freund hier.", Language.DE, Dialog(
-                "Eismann: Jo man klar!",
+                "Eismann: Jo man, klar!",
                 "Got the money?",
                 "Ich schau mal in meiner Hose nach.",
                 null,
@@ -90,7 +90,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start2", Language.DE, Dialog(
-                "Eismann: Jo man, mehr Eis, Duckyboy?",
+                "Eismann: Mehr Eis, Duckyboy?",
                 null,
                 "Danke, wir haben genug!",
                 null,
@@ -120,7 +120,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start4", Language.DE, Dialog(
-                "Eismann: Jo man, mehr gibs nicht!",
+                "Eismann: Jo dude, mehr gibs nicht!",
                 null,
                 null,
                 null,
@@ -163,7 +163,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Awesome, thank you.", Language.EN, Dialog(
-                "Iceman: Jo man, ice in the sunshine!",
+                "Iceman: Jo dude, ice in the sunshine!",
                 null,
                 null,
                 null,
@@ -173,7 +173,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "How is the sun hanging? Seriously?", Language.EN, Dialog(
-                "Iceman: Jo man chill!",
+                "Iceman: Jo man, chill!",
                 "What do you want?",
                 "I would like 1 large ice cream for my friend here.",
                 null,
@@ -183,7 +183,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "I would like 1 large ice cream for my friend here.", Language.EN, Dialog(
-                "Iceman: Jo man sure!",
+                "Iceman: Jo man, sure!",
                 "Got the money?",
                 "Let me check my wallet.",
                 null,
@@ -204,7 +204,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start2", Language.EN, Dialog(
-                "Iceman: Jo man, more ice, Duckyboy?",
+                "Iceman: More ice, Duckyboy?",
                 null,
                 "Thanks, we've had enough!",
                 null,
@@ -214,7 +214,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Thanks, we've had enough!", Language.EN, Dialog(
-                "Eismann: Jo man, ice in the sunshine!",
+                "Eismann: Jo dude, ice in the sunshine!",
                 null,
                 null,
                 null,
@@ -234,7 +234,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start4", Language.EN, Dialog(
-                "Iceman: Jo man, that's all you get!",
+                "Iceman: Jo dude, that's all you get!",
                 null,
                 null,
                 null,
