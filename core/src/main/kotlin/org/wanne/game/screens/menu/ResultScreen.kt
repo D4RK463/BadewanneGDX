@@ -54,10 +54,35 @@ class ResultScreen(
         val timeResult = timeResultPair.first
         val timeResultShadow = timeResultPair.second
 
-        val unlockString = game.choose("Droggelbecher Modus \n freigeschaltet", "Droggelbecher Mode unlocked", false)
-        val unlockPair = createLabelWithShadow(unlockString, 500f, 250f, 1.2F)
-        val unlock = unlockPair.first
-        val unlockShadow = unlockPair.second
+        // Was freigeschaltet wurde?
+        var somethingWasUnlocked = false
+        if (game.unlockDrogglWithNewPlaythrough) {
+            val drogglString = game.choose("Droggelbecher Modus", "Droggelbecher Mode", false)
+            val drogglPair = createLabelWithShadow(drogglString, 500f, 250f, 1.2F)
+            val droggl = drogglPair.first
+            val drogglShadow = drogglPair.second
+
+            stage.addActor(drogglShadow)
+            stage.addActor(droggl)
+
+            game.unlockDrogglWithNewPlaythrough = false
+            game.config.drooglUnlocked = true
+            game.config.saveSettings()
+
+            somethingWasUnlocked = true
+        }
+
+        // Wenn was freigeschaltet wurde?
+        if (somethingWasUnlocked) {
+            val unlockString = game.choose("freigeschaltet", "unlocked", false)
+            val unlockPair = createLabelWithShadow(unlockString, 500f, 200f, 1.2F)
+            val unlock = unlockPair.first
+            val unlockShadow = unlockPair.second
+
+            stage.addActor(unlockShadow)
+            stage.addActor(unlock)
+        }
+
 
         val backSprite = if (game.currentLang().language == Language.EN) {
             "back"
@@ -94,7 +119,6 @@ class ResultScreen(
         stage.addActor(combineResultShadow)
         stage.addActor(takeResultShadow)
         stage.addActor(clicksResultShadow)
-        stage.addActor(unlockShadow)
         stage.addActor(title)
         stage.addActor(timeResult)
         stage.addActor(lookResult)
@@ -103,7 +127,6 @@ class ResultScreen(
         stage.addActor(combineResult)
         stage.addActor(takeResult)
         stage.addActor(clicksResult)
-        stage.addActor(unlock)
         stage.addActor(backButton)
     }
 

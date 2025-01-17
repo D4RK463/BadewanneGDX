@@ -82,6 +82,8 @@ class WanneGame(val android: Boolean): Game() {
     var cowIsBusy = false
     var arrivedOutside = false
 
+    var unlockDrogglWithNewPlaythrough = true
+
     lateinit var wanneSkin: Skin
 
     val timer: Stopwatch = Stopwatch.createUnstarted()
@@ -91,6 +93,8 @@ class WanneGame(val android: Boolean): Game() {
         config = Config(android)
         soundManager = SoundManager(config)
         dialogManager = DialogManager(config, soundManager)
+
+        unlockDrogglWithNewPlaythrough = !config.drooglUnlocked
 
         wanneSkin = createWanneSkin()
 

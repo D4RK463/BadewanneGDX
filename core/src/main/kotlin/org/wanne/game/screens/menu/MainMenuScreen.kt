@@ -144,23 +144,23 @@ class MainMenuScreen(
             },
         )
 
-        val extrasButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("extras"))
-            .withTexturePressed(mainButtonAtlas.createSprite("extras_pressed"))
-            .withPoint(Point(100F, 110F))
-            .build()
-        extrasButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    game.screen = game.optionsScreen
-                    dispose()
-                }
-            },
-        )
-        extrasButton.isDisabled = true
+//        val extrasButton = UiButtonBuilder()
+//            .withTexture(mainButtonAtlas.createSprite("extras"))
+//            .withTexturePressed(mainButtonAtlas.createSprite("extras_pressed"))
+//            .withPoint(Point(100F, 110F))
+//            .build()
+//        extrasButton.addListener(
+//            object : ChangeListener() {
+//                override fun changed(
+//                    event: ChangeEvent?,
+//                    actor: Actor?,
+//                ) {
+//                    game.screen = game.optionsScreen
+//                    dispose()
+//                }
+//            },
+//        )
+//        extrasButton.isDisabled = true
 
         val exitButton = UiButtonBuilder()
             .withTexture(buttonAtlas.createSprite("exit"))
@@ -182,7 +182,7 @@ class MainMenuScreen(
         stage.addActor(startButton)
         stage.addActor(multiButton)
         stage.addActor(optionsButton)
-        stage.addActor(extrasButton)
+//        stage.addActor(extrasButton)
 
         if (!game.android) {
             stage.addActor(exitButton)

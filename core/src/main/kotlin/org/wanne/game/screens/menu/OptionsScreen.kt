@@ -99,7 +99,10 @@ class OptionsScreen(
         gerButton.remove()
         engButton.remove()
         orgButton.remove()
-        droglButton.remove()
+
+        if (game.config.drooglUnlocked) {
+            droglButton.remove()
+        }
 
         classicButton.remove()
         modernButton.remove()
@@ -213,27 +216,30 @@ class OptionsScreen(
             },
         )
 
-        droglButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("droglButton"+getButtonSelectionState(Speech.DROGL)))
-            .withTexturePressed(mainButtonAtlas.createSprite("droglButton_pressed"))
-            .withPoint(Point(1085F, 350F))
-            .build()
-        droglButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    game.config.speech = Speech.DROGL.speech
-                    updateObjects()
-                }
-            },
-        )
+        if (game.config.drooglUnlocked) {
+            droglButton = UiButtonBuilder()
+                .withTexture(mainButtonAtlas.createSprite("droglButton"+getButtonSelectionState(Speech.DROGL)))
+                .withTexturePressed(mainButtonAtlas.createSprite("droglButton_pressed"))
+                .withPoint(Point(1085F, 350F))
+                .build()
+            droglButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        game.config.speech = Speech.DROGL.speech
+                        updateObjects()
+                    }
+                },
+            )
+
+            stage.addActor(droglButton)
+        }
 
         stage.addActor(gerButton)
         stage.addActor(engButton)
         stage.addActor(orgButton)
-        stage.addActor(droglButton)
     }
 
     private fun createModeButtons() {

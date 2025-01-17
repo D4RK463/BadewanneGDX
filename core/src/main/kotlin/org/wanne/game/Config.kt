@@ -21,6 +21,8 @@ class Config(android: Boolean) {
 
     var extrasUnlocked: Boolean = prefs.getBoolean("extrasUnlocked", false)
 
+    var drooglUnlocked: Boolean = prefs.getBoolean("drooglUnlocked", false)
+
     var speech: String = Speech.DE_ORIGINAL.speech
 
     var mode: String = if (android) {VideoMode.MODERN.toString()} else {VideoMode.CLASSIC.toString()}
@@ -32,6 +34,7 @@ class Config(android: Boolean) {
         prefs["soundVolume"] = soundVolume
         prefs["musicVolume"] = musicVolume
         prefs["extrasUnlocked"] = extrasUnlocked
+        prefs["drooglUnlocked"] = drooglUnlocked
         prefs["language"] = speech
         prefs["mode"] = mode
 
