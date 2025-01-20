@@ -39,7 +39,7 @@ jobs:
           echo "version_name=${{steps.wanne_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
 
-      - name: Bump version and push tag
+      - name: Push tag
         uses: laputansoft/github-tag-action@v4.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -47,6 +47,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             lwjgl3/build/construo/dist/Wanne-linuxX64.zip
