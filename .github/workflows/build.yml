@@ -37,12 +37,6 @@ jobs:
         run: |
           echo "version_name=${{steps.wanne_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
-#      - name: Push tag
-#        uses: laputansoft/github-tag-action@v4.6
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          tag: ${{env.version_name}}
-
       - name: Tag and Release
         uses: ncipollo/release-action@v1
         with:
@@ -51,3 +45,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
           allowUpdates: true
+          generateReleaseNotes: true
