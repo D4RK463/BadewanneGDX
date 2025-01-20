@@ -62,7 +62,7 @@ configure(subprojects - project(':android')) {
 }
 
 subprojects {
-  version = '$projectVersion'
+  version = projectVersion
   ext.appName = 'Wanne'
   repositories {
     mavenCentral()
