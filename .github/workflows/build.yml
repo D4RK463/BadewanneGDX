@@ -1,4 +1,4 @@
-name: Building different Versions
+name: Building different Versions and creating a release
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build_release:
 
     runs-on: ubuntu-latest
     permissions:
@@ -30,13 +30,7 @@ jobs:
       - name: Build Windows Version
         run: ./gradlew packageWinX64 printVersionName
 
-  release:
-
-    runs-on: ubuntu-latest
-
-    steps:
       - uses: actions/checkout@master
-
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
