@@ -46,8 +46,9 @@ jobs:
 
       - name: Tag and Release
         uses: ncipollo/release-action@v1
-        with: #lwjgl3/build/construo/dist/Wanne-linuxX64.zip
-          artifacts: "app/build/construo/dist/Wanne-linuxX64.zip,app/build/construo/dist/Wanne-winX64.zip"
+        with:
+          artifacts: "app/lwjgl3/build/construo/dist/*.zip"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
+          allowUpdates: true
