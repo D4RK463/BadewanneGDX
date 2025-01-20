@@ -38,17 +38,16 @@ jobs:
         run: |
           echo "version_name=${{steps.wanne_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
+#      - name: Push tag
+#        uses: laputansoft/github-tag-action@v4.6
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          tag: ${{env.version_name}}
 
-      - name: Push tag
-        uses: laputansoft/github-tag-action@v4.6
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{env.version_name}}
-
-      - name: Release
+      - name: Tag and Release
         uses: ncipollo/release-action@v1
-        with:
-          artifacts: "**/lwjgl3/build/construo/dist/Wanne-linuxX64.zip,**/lwjgl3/build/construo/dist/Wanne-winX64.zip"
+        with: #lwjgl3/build/construo/dist/Wanne-linuxX64.zip
+          artifacts: "app/build/construo/dist/Wanne-linuxX64.zip,app/build/construo/dist/Wanne-winX64.zip"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
