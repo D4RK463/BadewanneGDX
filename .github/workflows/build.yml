@@ -25,10 +25,28 @@ jobs:
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
       - name: Build Linux Version
-        run: ./gradlew packageLinuxX64
+        run: ./gradlew packageLinuxX64 printVersionName
 
       - name: Build Windows Version
-        run: ./gradlew packageWinX64
+        run: ./gradlew packageWinX64 printVersionName
+
+  release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Retrieve Version
+        run: |
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+        id: wanne_version
+
+      - name: Bump version and push tag
+        uses: laputansoft/github-tag-action@v4.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{  env.version_name  }}
 
       - name: Release
         uses: softprops/action-gh-release@v2

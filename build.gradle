@@ -61,6 +61,10 @@ configure(subprojects - project(':android')) {
 
 }
 
+task printVersionName {
+  println projectVersion
+}
+
 subprojects {
   version = projectVersion
   ext.appName = 'Wanne'
