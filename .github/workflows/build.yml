@@ -43,7 +43,7 @@ jobs:
         uses: laputansoft/github-tag-action@v4.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{  env.version_name  }}
+          tag: ${{env.version_name}}
 
       - name: Release
         uses: softprops/action-gh-release@v2
