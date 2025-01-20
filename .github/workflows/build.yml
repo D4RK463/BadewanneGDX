@@ -28,7 +28,6 @@ jobs:
       - name: Build Windows Version
         run: ./gradlew packageWinX64
 
-      - uses: actions/checkout@master
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
@@ -47,7 +46,7 @@ jobs:
       - name: Tag and Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{ github.workspace }}/lwjgl3/build/construo/dist/*.zip"
+          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
