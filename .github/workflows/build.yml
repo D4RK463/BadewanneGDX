@@ -47,7 +47,7 @@ jobs:
       - name: Tag and Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "lwjgl3/build/construo/dist/*.zip"
+          artifacts: "${{ github.workspace }}/lwjgl3/build/construo/dist/*.zip"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
