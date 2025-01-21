@@ -38,6 +38,7 @@ jobs:
           echo "version_name=${{steps.wanne_version.outputs.VERSION_NAME}}" >> $GITHUB_ENV
 
       - name: Tag and Release
+        if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
           artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip"
