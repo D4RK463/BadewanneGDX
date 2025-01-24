@@ -1,4 +1,4 @@
-name: Building different Versions and creating a release
+name: Building and release on main
 
 on:
   push:
@@ -28,6 +28,15 @@ jobs:
       - name: Build Windows Version
         run: ./gradlew packageWinX64
 
+      - name: Build MacX64 Version
+        run: ./gradlew packageMacX64
+
+      - name: Build Mac M1 Version
+        run: ./gradlew packageMacM1
+
+      - name: Build Unsigned Apk Version
+        run: ./gradlew android:assembleRelease
+
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
@@ -41,7 +50,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip"
+          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{github.workspace}}/android/build/outputs/apk/release/*.apk"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
