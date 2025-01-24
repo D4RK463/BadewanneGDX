@@ -14,7 +14,7 @@ import org.wanne.game.WanneGame
 
 class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val video: FileHandle): Screen {
 
-    private lateinit var viewport: FitViewport
+    private val viewport: FitViewport = FitViewport(1280f, 720f)
 
     private lateinit var stage: Stage
 
@@ -22,7 +22,6 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
 
     override fun show() {
         Gdx.graphics.setWindowedMode(1280, 720)
-        viewport = FitViewport(1280f, 720f)
 
         stage = Stage(viewport)
         Gdx.input.inputProcessor = stage
@@ -31,6 +30,7 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
 
 //        videoPlayer.volume = game.config.musicVolume
         videoPlayer.setOnCompletionListener {
+            dispose()
             game.screen = changeScreen
         }
 

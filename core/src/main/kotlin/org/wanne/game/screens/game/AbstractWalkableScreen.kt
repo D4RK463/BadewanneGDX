@@ -28,7 +28,7 @@ abstract class AbstractWalkableScreen(
 ) : AbstractScreen(game) {
     lateinit var stage: PointAndClickAwareStage
 
-    lateinit var viewport: FitViewport
+    var viewport: FitViewport  = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
 
     val dialogBoard = DialogBoard(game = game)
 

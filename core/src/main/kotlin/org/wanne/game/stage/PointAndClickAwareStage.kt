@@ -24,12 +24,6 @@ class PointAndClickAwareStage(
     var lookingAtTheEnd: Player.Companion.Looking? = null
     var doTheAction: () -> Unit = {}
 
-    @Deprecated("Wird bald entfernt")
-    fun initializeInventoryItems() {
-        // Alle Objekt die im Inventar sind, in die aktuelle Stage hinzufügen
-        currentAction.inventory.items.forEach { addActor(it) }
-    }
-
     override fun draw() {
 
         // Bewegung ausrechnen

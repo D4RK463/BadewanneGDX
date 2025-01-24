@@ -16,8 +16,13 @@ import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class OutsideScreen(
-    game: WanneGame,
+    game: WanneGame
 ) : AbstractWalkableScreen(game) {
+    init {
+        // Dinge erstellen
+        createPlayableCharacters()
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
+    }
 
     // Background
     private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")
@@ -28,17 +33,12 @@ class OutsideScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     override fun show() {
-        // Dinge erstellen
-        createPlayableCharacters()
         val limits = createRoomLimits()
         if (!game.timer.isRunning) {
             game.timer.start()
         }
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
-        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
-
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, emptyList())
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
