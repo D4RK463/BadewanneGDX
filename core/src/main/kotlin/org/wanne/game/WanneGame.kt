@@ -159,6 +159,18 @@ class WanneGame(val android: Boolean): Game() {
         }
     }
 
+    /**
+     * Entscheidet welches der richtige Punkt ist, anhand des aktuell
+     * eingestellten Video Modes
+     */
+    fun choose(originalPoint: Point, widePoint: Point): Point {
+        return if (classicMode()) {
+            originalPoint
+        } else {
+            widePoint
+        }
+    }
+
     fun randomizeDroggelbecher(): String {
         val sign: String = when(random.nextInt(5)) {
             0 -> ""
@@ -169,17 +181,5 @@ class WanneGame(val android: Boolean): Game() {
             else -> ""
         }
         return "Droggelbecher$sign"
-    }
-
-    /**
-     * Entscheidet welches der richtige Punkt ist, anhand des aktuell
-     * eingestellten Video Modes
-     */
-    fun choose(originalPoint: Point, widePoint: Point): Point {
-        return if (config.mode == VideoMode.CLASSIC.name) {
-            originalPoint
-        } else {
-            widePoint
-        }
     }
 }
