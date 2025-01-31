@@ -2,8 +2,10 @@ package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
@@ -17,11 +19,6 @@ import org.wanne.game.stage.PointAndClickAwareStage
 class RoomScreen(
     game: WanneGame
 ) : AbstractWalkableScreen(game) {
-    init {
-        // Dinge erstellen
-        createPlayableCharacters()
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
-    }
 
     // Background
     private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
@@ -32,11 +29,15 @@ class RoomScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     override fun show() {
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
+        createPlayableCharacters()
+
         val limits = createRoomLimits()
         game.gameEnded = false
         game.timer.start()
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -103,11 +104,16 @@ class RoomScreen(
         )
     }
 
+    private fun updatePlayableCharacters() {
+        poolAttendant.setStartPoint(game.choose(Point(400F, 200F), Point(600F, 200F)))
+        duck.setStartPoint(game.choose(Point(600F, 200F), Point(800F, 200F)))
+    }
+
     private fun configureGameObjects() {
         // Der Ausgang darf nur am Ende auf sein :)
-        game.items.exit.isVisible = false
-//        game.items.exit.isVisible = true
-//        game.items.door.isVisible = false
+//        game.items.exit.isVisible = false
+        game.items.exit.isVisible = true
+        game.items.door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
 //        inventory.addGameObjectToInventory(game.items.note, !game.classicMode())

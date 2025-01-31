@@ -2,6 +2,7 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
@@ -56,10 +57,10 @@ class WanneGame(val android: Boolean): Game() {
         ResultScreen(this)
     }
     val introVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, roomScreen, am.introVideo)
+        VideoScreen(this, "roomScreen", am.outroVideo)
     }
     val outroVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, resultScreen, am.outroVideo)
+        VideoScreen(this, "resultScreen", am.outroVideo)
     }
 
     lateinit var batch: SpriteBatch
@@ -139,6 +140,10 @@ class WanneGame(val android: Boolean): Game() {
 
     fun classicMode(): Boolean {
         return config.mode == VideoMode.CLASSIC.toString()
+    }
+
+    fun changeScreenAfterVideo(newScreen: String) {
+        setScreen(if (newScreen == "roomScreen") { roomScreen } else { resultScreen })
     }
 
     /**

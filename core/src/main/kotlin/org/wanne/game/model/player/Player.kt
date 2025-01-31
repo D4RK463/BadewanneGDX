@@ -3,6 +3,7 @@ package org.wanne.game.model.player
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
 import org.wanne.game.AssetsManager
+import org.wanne.game.model.Point
 
 abstract class Player(
     var posX: Float,
@@ -104,6 +105,11 @@ abstract class Player(
     private fun scaleDown(scalePercent: Float) {
         scaleX -= (scalePercent * scaleX)
         scaleY -= (scalePercent * scaleY)
+    }
+
+    fun setStartPoint(point: Point) {
+        posX = point.x
+        posY = point.y
     }
 
     abstract fun getSpriteOfCurrentState(time: Float): Sprite
