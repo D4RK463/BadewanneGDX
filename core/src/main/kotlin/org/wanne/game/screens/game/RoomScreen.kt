@@ -111,9 +111,9 @@ class RoomScreen(
 
     private fun configureGameObjects() {
         // Der Ausgang darf nur am Ende auf sein :)
-//        game.items.exit.isVisible = false
-        game.items.exit.isVisible = true
-        game.items.door.isVisible = false
+        game.items.exit.isVisible = false
+//        game.items.exit.isVisible = true
+//        game.items.door.isVisible = false
 
         // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
 //        inventory.addGameObjectToInventory(game.items.note, !game.classicMode())

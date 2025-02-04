@@ -31,10 +31,6 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
 
     private var videoFinished = false
 
-    private lateinit var finishLabel: Label
-    private var finishLabelScale = 1F
-    private var scaleUp = true
-
     override fun show() {
         Gdx.graphics.setWindowedMode(1280, 720)
 
@@ -62,12 +58,6 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
         if (game.android) {
             frameBuffer = FrameBuffer(Pixmap.Format.RGB565, 1280, 720, false)
         }
-
-        val action = if (game.android) { "Tab" } else { game.choose("Klick", "Click", false) }
-        val finishText = game.choose("${action}en um weiter zu machen", "$action to continue")
-        finishLabel = Label(finishText, game.wanneSkin)
-        finishLabel.setPosition(50F, 50F)
-        finishLabel.setFontScale(finishLabelScale)
 
         videoFinished = false
         videoPlayer.play()
@@ -109,29 +99,7 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
 
         // Im Moment als Workaround, wenn das Video vorbei ist
         if (videoFinished) {
-            // Gibts eine Aufforderung zu klicken
-//            ScreenUtils.clear(Color.BLACK)
-//
-//            if (scaleUp) {
-//                finishLabelScale += 0.01F
-//            }
-//            if (finishLabelScale >= 1.5F) {
-//                scaleUp = false
-//            }
-//            if (!scaleUp) {
-//                finishLabelScale -= 0.01F
-//            }
-//            if (finishLabelScale <= 1F) {
-//                scaleUp = true
-//            }
-//
-//            finishLabel.setFontScale(finishLabelScale)
-//            finishLabel.draw(game.batch, 1F)
-
-
-            val finishLabelAndroid = Label("Fuck you!!", game.wanneSkin)
-            finishLabelAndroid.isVisible = true
-            finishLabelAndroid.draw(game.batch, 1F)
+            game.changeScreenAfterVideo(changeScreenName)
         }
 
         stage.act()

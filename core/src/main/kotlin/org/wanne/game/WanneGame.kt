@@ -57,7 +57,7 @@ class WanneGame(val android: Boolean): Game() {
         ResultScreen(this)
     }
     val introVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, "roomScreen", am.outroVideo)
+        VideoScreen(this, "roomScreen", am.introVideo)
     }
     val outroVideoScreen: VideoScreen by lazy {
         VideoScreen(this, "resultScreen", am.outroVideo)
