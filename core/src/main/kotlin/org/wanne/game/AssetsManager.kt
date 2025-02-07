@@ -80,8 +80,17 @@ class AssetsManager {
 
     fun loadMusic() {
         assetManager.load("soundsOriginal/Background/Kinderzimmer.mp3", Music::class.java)
-        // ToDo: Durch Gema freie Version ersetzen
-        assetManager.load("soundsOriginal/Background/jeopardy.mp3", Music::class.java)
+
+        /**
+         * https://pixabay.com
+         *
+         * music_for_audio - Please Calm My Mind
+         * Lidérc - No Copyright Lofii Dreamscape CalmChillout_Long Music
+         * BFCMUSIC - Upbeat & Optimistic Funky Groove
+         */
+        assetManager.load("soundsOriginal/Background/title_theme.mp3", Music::class.java)
+        assetManager.load("soundsOriginal/Background/puzzle_theme.mp3", Music::class.java)
+        assetManager.load("soundsOriginal/Background/funky_groove.mp3", Music::class.java)
     }
 
     fun loadSounds() {

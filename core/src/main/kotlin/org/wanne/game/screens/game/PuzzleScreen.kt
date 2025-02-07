@@ -41,7 +41,7 @@ class PuzzleScreen(
     private lateinit var exitButton: ImageButton
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/jeopardy.mp3")
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/puzzle_theme.mp3")
 
     override fun show() {
         createPuzzle()

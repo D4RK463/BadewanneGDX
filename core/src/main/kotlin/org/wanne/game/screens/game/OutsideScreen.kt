@@ -26,6 +26,7 @@ class OutsideScreen(
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
+    private val radioBackground: Music = game.am.get("soundsOriginal/Background/funky_groove.mp3")
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -54,6 +55,10 @@ class OutsideScreen(
         musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
+
+        radioBackground.volume = game.config.musicVolume
+        radioBackground.isLooping = true
+        radioBackground.play()
 
         // Klick Steuerung der Charaktere
         stage.addListener(PointAndClickListener(dialogBoard, limits))
@@ -127,6 +132,7 @@ class OutsideScreen(
     override fun hide() {
         super.hide()
         musicBackground.stop()
+        radioBackground.stop()
 
         game.items.iceMenuLeft.remove()
         game.items.iceMenuRight.remove()
