@@ -10,7 +10,6 @@ import org.wanne.game.model.puzzle.VictoryMessage
 class PuzzleStage(
     viewport: Viewport,
     val puzzle: Puzzle,
-    val victoryMessage: org.wanne.game.model.puzzle.VictoryMessage,
     val game: WanneGame,
 ) : Stage(
         viewport,

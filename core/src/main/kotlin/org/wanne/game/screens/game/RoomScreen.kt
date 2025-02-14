@@ -104,11 +104,6 @@ class RoomScreen(
         )
     }
 
-    private fun updatePlayableCharacters() {
-        poolAttendant.setStartPoint(game.choose(Point(400F, 200F), Point(600F, 200F)))
-        duck.setStartPoint(game.choose(Point(600F, 200F), Point(800F, 200F)))
-    }
-
     private fun configureGameObjects() {
         // Der Ausgang darf nur am Ende auf sein :)
         game.items.exit.isVisible = false

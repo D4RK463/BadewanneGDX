@@ -54,7 +54,7 @@ class PuzzleScreen(
         musicBackground.isLooping = true
         musicBackground.play()
 
-        stage = PuzzleStage(viewport, puzzle, victoryMessage, game)
+        stage = PuzzleStage(viewport, puzzle, game)
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen

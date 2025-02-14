@@ -1,11 +1,13 @@
 package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.wanne.game.Statistic
-import org.wanne.game.stage.PuzzleStage
 import org.wanne.game.model.puzzle.PuzzlePiece
 import org.wanne.game.model.puzzle.VictoryMessage
+import org.wanne.game.stage.PuzzleStage
 
 class PuzzleClickListener : ClickListener() {
     override fun clicked(
@@ -25,7 +27,7 @@ class PuzzleClickListener : ClickListener() {
                 stage.action.reset()
                 hitObject.rotate90()
 
-                // Sonst wird getauscht
+            // Sonst wird getauscht
             } else {
                 if (stage.action.setChangePieces(hitObject)) {
                     stage.puzzle.exchangePieces(stage.action)
@@ -34,7 +36,13 @@ class PuzzleClickListener : ClickListener() {
 
             if (stage.puzzle.isPuzzleSolved()) {
                 // ToDo: Play victory sound!
-                stage.victoryMessage.isVisible = true
+                val victoryMessage = stage.actors.items.filterIsInstance<VictoryMessage>().first()
+                victoryMessage.isVisible = true
+
+                val exitButton = stage.actors.items.filterIsInstance<ImageButton>().first()
+                exitButton.isVisible = false
+
+                stage.actors.items.filterIsInstance<Label>().forEach {it.isVisible = false}
             }
         } else if (hitObject is VictoryMessage) {
             stage.game.puzzleSolved = true

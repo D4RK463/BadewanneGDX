@@ -106,11 +106,6 @@ class OutsideScreen(
         )
     }
 
-    private fun updatePlayableCharacters() {
-        poolAttendant.setStartPoint(game.choose(Point(86F, 220F), Point(340F, 170F)))
-        duck.setStartPoint(game.choose(Point(100F, 200F), Point(354F, 150F)))
-    }
-
     private fun configureGameObjects() {
         if (!inventory.isObjectInInventory(game.items.ice)) {
             game.items.ice.isVisible = false
