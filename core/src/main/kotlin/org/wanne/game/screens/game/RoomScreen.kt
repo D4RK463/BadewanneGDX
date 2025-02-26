@@ -2,8 +2,10 @@ package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
@@ -15,7 +17,7 @@ import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class RoomScreen(
-    game: WanneGame,
+    game: WanneGame
 ) : AbstractWalkableScreen(game) {
 
     // Background
@@ -27,15 +29,14 @@ class RoomScreen(
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
 
     override fun show() {
-        // Dinge erstellen
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
         createPlayableCharacters()
+
         val limits = createRoomLimits()
         game.gameEnded = false
         game.timer.start()
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
-        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
-
         stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
         Gdx.input.inputProcessor = stage
 

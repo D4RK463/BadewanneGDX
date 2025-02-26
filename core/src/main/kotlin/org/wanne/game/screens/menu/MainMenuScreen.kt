@@ -1,6 +1,7 @@
 package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -36,6 +37,9 @@ class MainMenuScreen(
 
     private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
 
+    // Ambience Musik
+    private val musicBackground: Music = game.am.get("soundsOriginal/Background/title_theme.mp3")
+
     init {
         duck.scaleX *= 1.2F
         duck.scaleY *= 1.2F
@@ -58,6 +62,10 @@ class MainMenuScreen(
 
         stage.addActor(Image(background))
         stage.addActor(logoHeadline)
+
+        musicBackground.volume = game.config.musicVolume
+        musicBackground.isLooping = true
+        musicBackground.play()
 
         if (!game.android) {
             stage.addActor(edge)
@@ -92,11 +100,14 @@ class MainMenuScreen(
                 ) {
 
                     if (game.gameEnded) {
+                        musicBackground.stop()
                         game.screen = game.introVideoScreen
                     } else {
                         if (game.arrivedOutside) {
+                            musicBackground.stop()
                             game.screen = game.outsideScreen
                         } else {
+                            musicBackground.stop()
                             game.screen = game.roomScreen
                         }
                     }

@@ -16,7 +16,7 @@ import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class OutsideScreen(
-    game: WanneGame,
+    game: WanneGame
 ) : AbstractWalkableScreen(game) {
 
     // Background
@@ -26,19 +26,19 @@ class OutsideScreen(
 
     // Ambience Musik
     private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
+    private val radioBackground: Music = game.am.get("soundsOriginal/Background/funky_groove.mp3")
 
     override fun show() {
-        // Dinge erstellen
+        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
         createPlayableCharacters()
+
         val limits = createRoomLimits()
         if (!game.timer.isRunning) {
             game.timer.start()
         }
 
         Gdx.graphics.setWindowedMode(game.config.getResolutionX(), game.config.getResolutionY())
-        viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
-
-        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, emptyList())
+        stage = PointAndClickAwareStage(viewport, poolAttendant, duck, listOf())
         Gdx.input.inputProcessor = stage
 
         // Hintergrund setzen
@@ -55,6 +55,10 @@ class OutsideScreen(
         musicBackground.volume = game.config.musicVolume
         musicBackground.isLooping = true
         musicBackground.play()
+
+        radioBackground.volume = game.config.musicVolume
+        radioBackground.isLooping = true
+        radioBackground.play()
 
         // Klick Steuerung der Charaktere
         stage.addListener(PointAndClickListener(dialogBoard, limits))
@@ -123,6 +127,7 @@ class OutsideScreen(
     override fun hide() {
         super.hide()
         musicBackground.stop()
+        radioBackground.stop()
 
         game.items.iceMenuLeft.remove()
         game.items.iceMenuRight.remove()

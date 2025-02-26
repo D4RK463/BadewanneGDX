@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.WanneGame
 import org.wanne.game.screens.game.CowPhoneScreen
+import org.wanne.game.screens.game.RoomScreen
 
 class LoadingScreen (
     private var game: WanneGame,

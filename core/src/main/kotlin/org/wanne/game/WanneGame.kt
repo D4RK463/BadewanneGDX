@@ -2,10 +2,12 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
+import com.badlogic.gdx.math.MathUtils.random
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import de.damios.guacamole.Stopwatch
 import org.wanne.game.dialog.DialogManager
@@ -55,10 +57,10 @@ class WanneGame(val android: Boolean): Game() {
         ResultScreen(this)
     }
     val introVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, roomScreen, am.introVideo)
+        VideoScreen(this, "roomScreen", am.introVideo)
     }
     val outroVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, resultScreen, am.outroVideo)
+        VideoScreen(this, "resultScreen", am.outroVideo)
     }
 
     lateinit var batch: SpriteBatch
@@ -140,6 +142,10 @@ class WanneGame(val android: Boolean): Game() {
         return config.mode == VideoMode.CLASSIC.toString()
     }
 
+    fun changeScreenAfterVideo(newScreen: String) {
+        setScreen(if (newScreen == "roomScreen") { roomScreen } else { resultScreen })
+    }
+
     /**
      * Entscheidet welches der richtige String ist, anhand der aktuell
      * eingestellten Sprache, oder Droggelbecher
@@ -158,6 +164,18 @@ class WanneGame(val android: Boolean): Game() {
         }
     }
 
+    /**
+     * Entscheidet welches der richtige Punkt ist, anhand des aktuell
+     * eingestellten Video Modes
+     */
+    fun choose(originalPoint: Point, widePoint: Point): Point {
+        return if (classicMode()) {
+            originalPoint
+        } else {
+            widePoint
+        }
+    }
+
     fun randomizeDroggelbecher(): String {
         val sign: String = when(random.nextInt(5)) {
             0 -> ""
@@ -168,17 +186,5 @@ class WanneGame(val android: Boolean): Game() {
             else -> ""
         }
         return "Droggelbecher$sign"
-    }
-
-    /**
-     * Entscheidet welches der richtige Punkt ist, anhand des aktuell
-     * eingestellten Video Modes
-     */
-    fun choose(originalPoint: Point, widePoint: Point): Point {
-        return if (config.mode == VideoMode.CLASSIC.name) {
-            originalPoint
-        } else {
-            widePoint
-        }
     }
 }
