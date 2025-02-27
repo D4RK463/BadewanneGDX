@@ -56,7 +56,7 @@ jobs:
 
       - name: Retrieve Version
         run: |
-          echo "VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)" >> $GITHUB_OUTPUT
+          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
         id: wanne_version
 
       - name: Get version
