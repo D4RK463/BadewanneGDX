@@ -37,9 +37,21 @@ jobs:
       - name: Build Unsigned Apk Version
         run: ./gradlew android:assembleRelease
 
+      - name: Sign Apk
+        uses: Tlaster/android-sign@v1
+        with:
+          releaseDirectory: |
+            android/build/outputs/apk/release
+            android/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          output: android/build/release/signed
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
       - name: Retrieve Version
         run: |
-          echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
+          echo "VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)" >> $GITHUB_OUTPUT
         id: wanne_version
 
       - name: Get version
@@ -50,7 +62,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{github.workspace}}/android/build/outputs/apk/release/*.apk"
+          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{github.workspace}}/android/build/release/signed/*.apk"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
