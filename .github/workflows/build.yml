@@ -46,11 +46,13 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Signed app bundle
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: Signed app bundle
+#          path: ${{steps.sign_app.outputs.signedReleaseFile}}
 
       - name: Retrieve Version
         run: |
@@ -65,7 +67,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{github.workspace}}/android/build/release/signed/*.apk"
+          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{steps.sign_app.outputs.signedReleaseFile}}"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
