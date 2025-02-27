@@ -38,16 +38,19 @@ jobs:
         run: ./gradlew android:assembleRelease
 
       - name: Sign Apk
-        uses: Tlaster/android-sign@v1
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
         with:
-          releaseDirectory: |
-            android/build/outputs/apk/release
-            android/build/outputs/bundle/release
+          releaseDirectory: android/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          output: android/build/release/signed
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed app bundle
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
 
       - name: Retrieve Version
         run: |
