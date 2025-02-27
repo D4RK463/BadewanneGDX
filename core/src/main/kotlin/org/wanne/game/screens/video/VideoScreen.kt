@@ -55,9 +55,9 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
         videoPlayer.load(video)
 
         // Bei Android braucht's einen Framebuffer, warum auch immer
-        if (game.android) {
-            frameBuffer = FrameBuffer(Pixmap.Format.RGB565, 1280, 720, false)
-        }
+//        if (game.android) {
+//            frameBuffer = FrameBuffer(Pixmap.Format.RGB565, 1280, 720, false)
+//        }
 
         videoFinished = false
         videoPlayer.play()
@@ -70,9 +70,9 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
             videoPlayer.volume = game.config.musicVolume
         }
 
-        if (game.android) {
-            frameBuffer.begin()
-        }
+//        if (game.android) {
+//            frameBuffer.begin()
+//        }
 
         // Zeichnen
         game.batch.projectionMatrix = viewport.camera.combined
@@ -106,9 +106,9 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
         stage.draw()
         game.batch.end()
 
-        if (game.android) {
-            frameBuffer.end()
-        }
+//        if (game.android) {
+//            frameBuffer.end()
+//        }
     }
 
     override fun resize(width: Int, height: Int) {

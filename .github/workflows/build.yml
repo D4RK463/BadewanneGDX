@@ -37,6 +37,23 @@ jobs:
       - name: Build Unsigned Apk Version
         run: ./gradlew android:assembleRelease
 
+      - name: Sign Apk
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: android/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: Signed app bundle
+#          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"
@@ -50,7 +67,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{github.workspace}}/android/build/outputs/apk/release/*.apk"
+          artifacts: "${{github.workspace}}/lwjgl3/build/construo/dist/*.zip, ${{steps.sign_app.outputs.signedReleaseFile}}"
           tag: ${{env.version_name}}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifactErrorsFailBuild: true
