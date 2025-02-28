@@ -40,6 +40,14 @@ android {
     release {
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+      applicationVariants.all {
+        variant -> variant.outputs.all {
+          output ->
+            def name = "wanne-${projectVersion}.apk"
+            output.outputFileName = name
+        }
+      }
     }
   }
 

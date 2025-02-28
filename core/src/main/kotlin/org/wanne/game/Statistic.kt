@@ -20,7 +20,7 @@ class Statistic {
                 ActionType.TALK_TO -> talkCount++
                 ActionType.COMBINE -> combineCount++
                 ActionType.ADD_TO_INVENTORY -> takeCount++
-                ActionType.NOTHING -> throw IllegalArgumentException("Unreachable Action reached")
+                ActionType.NOTHING -> null
             }
             // println("$type u:$useCount l:$lookCount t:$talkCount c:$combineCount i:$takeCount")
         }

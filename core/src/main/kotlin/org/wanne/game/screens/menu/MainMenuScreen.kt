@@ -132,6 +132,7 @@ class MainMenuScreen(
                 }
             },
         )
+        multiButton.isDisabled = true
 
         val optionsSprite = if (game.currentLang().language == Language.DE) {
             "optionen"
