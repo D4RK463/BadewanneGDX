@@ -10,7 +10,7 @@ import org.wanne.game.model.animation.WaterAboveAnimation
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
 
-    var background: Texture = game.am.get("pictures/Menue/options.png")
+    var background: Texture = game.am.get("textures/options.png")
 
     private val waterAnimation = WaterAboveAnimation(235F, 225F, true, game.am)
 

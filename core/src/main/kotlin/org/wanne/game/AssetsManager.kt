@@ -21,65 +21,65 @@ class AssetsManager {
     lateinit var outroVideo: FileHandle
 
     fun loadUI() {
-        assetManager.load("ui/default/uiskin.json", Skin::class.java)
+        assetManager.load("skins/default/uiskin.json", Skin::class.java)
 
-        assetManager.load("ui/cursor/Ansehen.png", Pixmap::class.java)
-        assetManager.load("ui/cursor/Reden.png", Pixmap::class.java)
-        assetManager.load("ui/cursor/Nehmen.png", Pixmap::class.java)
-        assetManager.load("ui/cursor/Benutzen.png", Pixmap::class.java)
-        assetManager.load("ui/cursor/kombinieren.png", Pixmap::class.java)
+        assetManager.load("pixmaps/Ansehen.png", Pixmap::class.java)
+        assetManager.load("pixmaps/Reden.png", Pixmap::class.java)
+        assetManager.load("pixmaps/Nehmen.png", Pixmap::class.java)
+        assetManager.load("pixmaps/Benutzen.png", Pixmap::class.java)
+        assetManager.load("pixmaps/kombinieren.png", Pixmap::class.java)
     }
 
     fun loadTextures() {
-        assetManager.load("pictures/Menue/title3.png", Texture::class.java)
-        assetManager.load("pictures/Menue/background.png", Texture::class.java)
-        assetManager.load("pictures/Menue/ecke.png", Texture::class.java)
-        assetManager.load("pictures/Menue/options.png", Texture::class.java)
+        assetManager.load("textures/title3.png", Texture::class.java)
+        assetManager.load("textures/background.png", Texture::class.java)
+        assetManager.load("textures/ecke.png", Texture::class.java)
+        assetManager.load("textures/options.png", Texture::class.java)
 
-        assetManager.load("pictures/Backgrounds/OutsideSingle.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/Outside.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/Outside169.png", Texture::class.java)
+        assetManager.load("textures/OutsideSingle.png", Texture::class.java)
+        assetManager.load("textures/Outside.png", Texture::class.java)
+        assetManager.load("textures/Outside169.png", Texture::class.java)
 
-        assetManager.load("pictures/Backgrounds/puzzle.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/puzzle169.png", Texture::class.java)
+        assetManager.load("textures/puzzle.png", Texture::class.java)
+        assetManager.load("textures/puzzle169.png", Texture::class.java)
 
-        assetManager.load("pictures/Backgrounds/KinderzimmerSingle.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/Kinderzimmer.png", Texture::class.java)
-        assetManager.load("pictures/Backgrounds/Kinderzimmer169.png", Texture::class.java)
+        assetManager.load("textures/KinderzimmerSingle.png", Texture::class.java)
+        assetManager.load("textures/Kinderzimmer.png", Texture::class.java)
+        assetManager.load("textures/Kinderzimmer169.png", Texture::class.java)
     }
 
     fun loadSprites() {
-        assetManager.load("pictures/Buttons/buttons.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/buttons.atlas", TextureAtlas::class.java)
 
-        assetManager.load("pictures/Items/items.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Items/inventory.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/items.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/inventory.atlas", TextureAtlas::class.java)
 
         // Duck
-        assetManager.load("pictures/Players/Ente/lookLeft.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Ente/lookRight.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Ente/walkLeft.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Ente/walkRight.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/duck/lookLeft.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/duck/lookRight.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/duck/walkLeft.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/duck/walkRight.atlas", TextureAtlas::class.java)
 
         // PoolAttendant
-        assetManager.load("pictures/Players/Bademeister/scratchLeft.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Bademeister/scratchRight.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Bademeister/lookLeft.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Bademeister/lookRight.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Bademeister/walkLeft.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Players/Bademeister/walkRight.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/scratchLeft.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/scratchRight.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/lookLeft.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/lookRight.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/walkLeft.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/poolattendent/walkRight.atlas", TextureAtlas::class.java)
 
-        assetManager.load("pictures/Puzzle/puzzle.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/puzzle.atlas", TextureAtlas::class.java)
 
-        assetManager.load("pictures/Items/iceman.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/iceman.atlas", TextureAtlas::class.java)
 
         // Menü Stuff
-        assetManager.load("pictures/Menue/water.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Menue/water_above.atlas", TextureAtlas::class.java)
-        assetManager.load("pictures/Menue/mainbuttons.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/water.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/animations/water_above.atlas", TextureAtlas::class.java)
+        assetManager.load("sprites/mainbuttons.atlas", TextureAtlas::class.java)
     }
 
     fun loadMusic() {
-        assetManager.load("soundsOriginal/Background/Kinderzimmer.mp3", Music::class.java)
+        assetManager.load("music/background.mp3", Music::class.java)
 
         /**
          * https://pixabay.com
@@ -88,9 +88,9 @@ class AssetsManager {
          * Lidérc - No Copyright Lofii Dreamscape CalmChillout_Long Music
          * BFCMUSIC - Upbeat & Optimistic Funky Groove
          */
-        assetManager.load("soundsOriginal/Background/title_theme.mp3", Music::class.java)
-        assetManager.load("soundsOriginal/Background/puzzle_theme.mp3", Music::class.java)
-        assetManager.load("soundsOriginal/Background/funky_groove.mp3", Music::class.java)
+        assetManager.load("music/title_theme.mp3", Music::class.java)
+        assetManager.load("music/puzzle_theme.mp3", Music::class.java)
+        assetManager.load("music/funky_groove.mp3", Music::class.java)
     }
 
     fun loadSounds() {

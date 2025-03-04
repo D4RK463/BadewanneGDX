@@ -14,12 +14,12 @@ class PoolAttendant(
     scaleY: Float = 1f,
     am: AssetsManager
 ) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
-    private val scratchLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/scratchLeft.atlas")
-    private val scratchRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/scratchRight.atlas")
-    private val lookLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas = am.get("pictures/Players/Bademeister/walkRight.atlas")
+    private val scratchLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/scratchLeft.atlas")
+    private val scratchRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/scratchRight.atlas")
+    private val lookLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/lookLeft.atlas")
+    private val lookRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/lookRight.atlas")
+    private val walkLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/walkLeft.atlas")
+    private val walkRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/walkRight.atlas")
 
     private var scratchLeftAnimation: Animation<Sprite> =
         Animation(

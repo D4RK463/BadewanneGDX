@@ -1,0 +1,117 @@
+water_above.png
+size: 3488, 1988
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+water_above
+  rotate: false
+  xy: 0, 0
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 1
+water_above
+  rotate: false
+  xy: 872, 0
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 2
+water_above
+  rotate: false
+  xy: 1744, 0
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 3
+water_above
+  rotate: false
+  xy: 2616, 0
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 4
+water_above
+  rotate: false
+  xy: 0, 497
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 5
+water_above
+  rotate: false
+  xy: 872, 497
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 6
+water_above
+  rotate: false
+  xy: 1744, 497
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 7
+water_above
+  rotate: false
+  xy: 2616, 497
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 8
+water_above
+  rotate: false
+  xy: 0, 994
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 9
+water_above
+  rotate: false
+  xy: 872, 994
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 10
+water_above
+  rotate: false
+  xy: 1744, 994
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 11
+water_above
+  rotate: false
+  xy: 2616, 994
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 12
+water_above
+  rotate: false
+  xy: 0, 1491
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 13
+water_above
+  rotate: false
+  xy: 872, 1491
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 14
+water_above
+  rotate: false
+  xy: 1744, 1491
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 15
+water_above
+  rotate: false
+  xy: 2616, 1491
+  size: 872, 497
+  orig: 872, 497
+  offset: 0, 0
+  index: 16

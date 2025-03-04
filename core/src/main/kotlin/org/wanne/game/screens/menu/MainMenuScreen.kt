@@ -25,20 +25,20 @@ import kotlin.system.exitProcess
 class MainMenuScreen(
     game: WanneGame,
 ) : AbstractMenuScreen(game) {
-    private var logoHeadline: Image = Image(game.am.get("pictures/Menue/title3.png") as Texture)
-    private var edge: Image = Image(game.am.get("pictures/Menue/ecke.png") as Texture)
+    private var logoHeadline: Image = Image(game.am.get("textures/title3.png") as Texture)
+    private var edge: Image = Image(game.am.get("textures/ecke.png") as Texture)
 
-    private var background: Texture = game.am.get("pictures/Menue/background.png")
+    private var background: Texture = game.am.get("textures/background.png")
 
     private val duck = Duck(Point(485F, 90F), Player.Companion.Looking.RIGHT, am = game.am)
     private val poolAttendant = PoolAttendant(Point(700F, 95F), Player.Companion.Looking.RIGHT, am = game.am)
 
-    private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am.get("sprites/buttons.atlas")
 
     private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/title_theme.mp3")
+    private val musicBackground: Music = game.am.get("music/title_theme.mp3")
 
     init {
         duck.scaleX *= 1.2F

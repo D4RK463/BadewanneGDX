@@ -11,7 +11,7 @@ class WaterAnimation(
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
-    private val waterFlowing: TextureAtlas = am.get("pictures/Menue/water.atlas")
+    private val waterFlowing: TextureAtlas = am.get("textures/water.atlas")
 
     private val waterAnimation = Animation(
         0.099f,

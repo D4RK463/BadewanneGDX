@@ -21,12 +21,12 @@ class RoomScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
-    private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
-    private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
+    private val roomBackgroundSingle: Texture = game.am.get("textures/KinderzimmerSingle.png")
+    private val roomBackgroundMulti: Texture = game.am.get("textures/Kinderzimmer.png")
+    private val roomBackgroundSingleWide: Texture = game.am.get("textures/Kinderzimmer169.png")
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
+    private val musicBackground: Music = game.am.get("music/background.mp3")
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

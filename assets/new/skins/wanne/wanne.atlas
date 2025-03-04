@@ -1,0 +1,20 @@
+
+wanne.png
+size: 256, 256
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+block
+  rotate: false
+  xy: 1, 35
+  size: 99, 128
+  orig: 99, 128
+  offset: 0, 0
+  index: -1
+line
+  rotate: false
+  xy: 1, 1
+  size: 79, 32
+  orig: 79, 32
+  offset: 0, 0
+  index: -1

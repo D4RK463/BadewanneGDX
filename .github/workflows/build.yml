@@ -49,11 +49,6 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: Signed app bundle
-#          path: ${{steps.sign_app.outputs.signedReleaseFile}}
-
       - name: Retrieve Version
         run: |
           echo "::set-output name=VERSION_NAME::$(${{github.workspace}}/gradlew -q printVersionName)"

@@ -14,7 +14,7 @@ class FireAnimation(
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am)  {
     private val fireAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.NORMAL,
-        Gdx.files.internal("pictures/Items/FeuerTeppich.gif").read()
+        Gdx.files.internal("sprites/FeuerTeppich.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {

@@ -14,7 +14,7 @@ abstract class AbstractObject(
 ) : Actor() {
     val am: AssetsManager = game.am
 
-    val itemAtlas: TextureAtlas = am.get("pictures/Items/items.atlas")
+    val itemAtlas: TextureAtlas = am.get("sprites/items.atlas")
 
     var isInInventory = false
 

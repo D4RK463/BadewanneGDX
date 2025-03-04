@@ -133,7 +133,7 @@ class WanneGame(val android: Boolean): Game() {
     }
 
     fun currentSkin(): Skin = if (classicMode()) {
-        am.get("ui/default/uiskin.json")
+        am.get("skins/default/uiskin.json")
     } else {
         wanneSkin
     }

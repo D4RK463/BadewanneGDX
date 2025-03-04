@@ -14,7 +14,7 @@ class CowCallAnimation(
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am) {
     private val cowAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.LOOP,
-        Gdx.files.internal("pictures/Backgrounds/Telephonezelle.gif").read()
+        Gdx.files.internal("textures/Telephonezelle.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {

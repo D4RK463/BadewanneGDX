@@ -18,7 +18,7 @@ abstract class GameObject(
     posY: Float,
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
-    val inventoryAtlas: TextureAtlas = am.get("pictures/Items/inventory.atlas")
+    val inventoryAtlas: TextureAtlas = am.get("sprites/inventory.atlas")
 
     private val random = Random()
 

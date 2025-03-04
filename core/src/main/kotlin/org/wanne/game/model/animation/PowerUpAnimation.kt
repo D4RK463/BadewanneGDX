@@ -14,7 +14,7 @@ class PowerUpAnimation(
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am) {
     private val powerUpAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.NORMAL,
-        Gdx.files.internal("pictures/Items/Mario.gif").read()
+        Gdx.files.internal("sprites/Mario.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {
