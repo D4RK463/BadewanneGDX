@@ -2,12 +2,10 @@ package org.wanne.game
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
-import com.badlogic.gdx.math.MathUtils.random
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import de.damios.guacamole.Stopwatch
 import org.wanne.game.dialog.DialogManager
@@ -120,20 +118,20 @@ class WanneGame(val android: Boolean): Game() {
     private fun createWanneSkin(): Skin {
         val skin = Skin()
 
-        val generator = FreeTypeFontGenerator(Gdx.files.internal("ui/wanne/luchitas.ttf"))
+        val generator = FreeTypeFontGenerator(Gdx.files.internal("$SKINS/wanne/luchitas.ttf"))
         val parameter = FreeTypeFontParameter()
         parameter.size = 60
         val font = generator.generateFont(parameter)
         skin.add("Luchitas", font)
 
-        skin.addRegions(TextureAtlas("ui/wanne/wanne.atlas"))
-        skin.load(Gdx.files.internal("ui/wanne/wanne.json"))
+        skin.addRegions(TextureAtlas("$SKINS/wanne/wanne.atlas"))
+        skin.load(Gdx.files.internal("$SKINS/wanne/wanne.json"))
 
         return skin
     }
 
     fun currentSkin(): Skin = if (classicMode()) {
-        am.get("skins/default/uiskin.json")
+        am.get("$SKINS/default/uiskin.json")
     } else {
         wanneSkin
     }

@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.model.animation.WaterAboveAnimation
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
 
-    var background: Texture = game.am.get("textures/options.png")
+    var background: Texture = game.am.get("$TEXTURES/options.png")
 
     private val waterAnimation = WaterAboveAnimation(235F, 225F, true, game.am)
 

@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.PIXMAPS
+import org.wanne.game.SPRITES
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
@@ -34,7 +36,7 @@ abstract class AbstractWalkableScreen(
 
     val inventory = Inventory.getInstance()
 
-    private val buttonAtlas: TextureAtlas = game.am.get("sprites/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am.get("$SPRITES/buttons.atlas")
 
     // Buttons
     private lateinit var lookButton: ImageButton
@@ -47,11 +49,11 @@ abstract class AbstractWalkableScreen(
     private lateinit var exitButton: ImageButton
 
     // Cursor
-    val lookCursor: Pixmap = game.am.get("pixmaps/Ansehen.png")
-    val speakCursor: Pixmap = game.am.get("pixmaps/Reden.png")
-    val takeCursor: Pixmap = game.am.get("pixmaps/Nehmen.png")
-    val useCursor: Pixmap = game.am.get("pixmaps/Benutzen.png")
-    val combineCursor: Pixmap = game.am.get("pixmaps/kombinieren.png")
+    val lookCursor: Pixmap = game.am.get("$PIXMAPS/Ansehen.png")
+    val speakCursor: Pixmap = game.am.get("$PIXMAPS/Reden.png")
+    val takeCursor: Pixmap = game.am.get("$PIXMAPS/Nehmen.png")
+    val useCursor: Pixmap = game.am.get("$PIXMAPS/Benutzen.png")
+    val combineCursor: Pixmap = game.am.get("$PIXMAPS/kombinieren.png")
 
     // Players
     lateinit var poolAttendant: PoolAttendant

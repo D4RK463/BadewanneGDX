@@ -2,11 +2,11 @@ package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.Point
@@ -21,12 +21,12 @@ class RoomScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val roomBackgroundSingle: Texture = game.am.get("textures/KinderzimmerSingle.png")
-    private val roomBackgroundMulti: Texture = game.am.get("textures/Kinderzimmer.png")
-    private val roomBackgroundSingleWide: Texture = game.am.get("textures/Kinderzimmer169.png")
+    private val roomBackgroundSingle: Texture = game.am.get("$TEXTURES/KinderzimmerSingle.png")
+    private val roomBackgroundMulti: Texture = game.am.get("$TEXTURES/Kinderzimmer.png")
+    private val roomBackgroundSingleWide: Texture = game.am.get("$TEXTURES/Kinderzimmer169.png")
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("music/background.mp3")
+    private val musicBackground: Music = game.am.get("$MUSIC/background.mp3")
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

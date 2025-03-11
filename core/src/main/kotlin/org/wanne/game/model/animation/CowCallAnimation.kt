@@ -3,6 +3,7 @@ package org.wanne.game.model.animation
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import org.wanne.game.ANIMATIONS
 import org.wanne.game.AssetsManager
 import org.wanne.game.model.Point
 import org.wanne.utils.GifDecoder
@@ -14,7 +15,7 @@ class CowCallAnimation(
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am) {
     private val cowAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.LOOP,
-        Gdx.files.internal("textures/Telephonezelle.gif").read()
+        Gdx.files.internal("$ANIMATIONS/Telephonezelle.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {

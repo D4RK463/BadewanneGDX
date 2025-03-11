@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.Point
@@ -20,13 +22,13 @@ class OutsideScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val outsideBackgroundSingle: Texture = game.am.get("textures/OutsideSingle.png")
-    private val outsideBackgroundMulti: Texture = game.am.get("textures/Outside.png")
-    private val outsideBackgroundSingleWide: Texture = game.am.get("textures/Outside169.png")
+    private val outsideBackgroundSingle: Texture = game.am.get("$TEXTURES/OutsideSingle.png")
+    private val outsideBackgroundMulti: Texture = game.am.get("$TEXTURES/Outside.png")
+    private val outsideBackgroundSingleWide: Texture = game.am.get("$TEXTURES/Outside169.png")
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("music/background.mp3")
-    private val radioBackground: Music = game.am.get("music/funky_groove.mp3")
+    private val musicBackground: Music = game.am.get("$MUSIC/background.mp3")
+    private val radioBackground: Music = game.am.get("$MUSIC/funky_groove.mp3")
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

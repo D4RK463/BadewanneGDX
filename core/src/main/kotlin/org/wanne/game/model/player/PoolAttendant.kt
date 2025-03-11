@@ -3,6 +3,7 @@ package org.wanne.game.model.player
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import org.wanne.game.ANIMATIONS
 import org.wanne.game.AssetsManager
 import org.wanne.game.model.Point
 import org.wanne.game.model.player.Player.Companion.Looking
@@ -14,12 +15,12 @@ class PoolAttendant(
     scaleY: Float = 1f,
     am: AssetsManager
 ) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
-    private val scratchLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/scratchLeft.atlas")
-    private val scratchRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/scratchRight.atlas")
-    private val lookLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas = am.get("sprites/animations/poolattendent/walkRight.atlas")
+    private val scratchLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/scratchLeft.atlas")
+    private val scratchRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/scratchRight.atlas")
+    private val lookLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/lookLeft.atlas")
+    private val lookRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/lookRight.atlas")
+    private val walkLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/walkLeft.atlas")
+    private val walkRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/walkRight.atlas")
 
     private var scratchLeftAnimation: Animation<Sprite> =
         Animation(

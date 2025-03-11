@@ -3,6 +3,7 @@ package org.wanne.game.model.player
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import org.wanne.game.ANIMATIONS
 import org.wanne.game.AssetsManager
 import org.wanne.game.model.Point
 import org.wanne.game.model.player.Player.Companion.Looking
@@ -14,10 +15,10 @@ class Duck(
     scaleY: Float = 1f,
     am: AssetsManager
 ) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
-    private val lookLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/duck/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas = am.get("sprites/animations/duck/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas = am.get("sprites/animations/duck/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas = am.get("sprites/animations/duck/walkRight.atlas")
+    private val lookLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/lookLeft.atlas")
+    private val lookRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/lookRight.atlas")
+    private val walkLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/walkLeft.atlas")
+    private val walkRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/walkRight.atlas")
 
     private var lookLeftAnimation: Animation<Sprite> =
         Animation(

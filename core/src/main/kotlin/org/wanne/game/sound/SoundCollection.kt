@@ -2,6 +2,7 @@ package org.wanne.game.sound
 
 import com.badlogic.gdx.audio.Sound
 import org.wanne.game.AssetsManager
+import org.wanne.game.DIALOG
 
 open class SoundCollection(val am: AssetsManager) {
     private val sounds =
@@ -12,7 +13,17 @@ open class SoundCollection(val am: AssetsManager) {
             Speech.DROGL to null,
         )
 
-    fun addSound(
+    private val activeSounds = listOf(Speech.DE_ORIGINAL)
+
+    fun addAllSoundsFor(dialogEnd: Int, directory: String) {
+        activeSounds.forEach {
+            for (i in 0..dialogEnd) {
+                addSound(it, am.get("${DIALOG}/${it.dir()}/$directory/${i}.mp3"))
+            }
+        }
+    }
+
+    private fun addSound(
         speech: Speech,
         sound: Sound,
     ) {

@@ -4,16 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.DialogOnlyClickListener
 import org.wanne.game.model.Point
 import org.wanne.game.model.animation.CowCallAnimation
 import org.wanne.game.model.dialog.DialogBoard
-import org.wanne.game.model.objects.Cow
 import org.wanne.game.stage.DialogOnlyStage
 
 class CowPhoneScreen(
@@ -24,7 +22,7 @@ class CowPhoneScreen(
     private lateinit var viewport: FitViewport
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("music/background.mp3")
+    private val musicBackground: Music = game.am.get("$MUSIC/background.mp3")
 
     // Animation
     private val cowCallAnimation: CowCallAnimation  = CowCallAnimation(am = game.am)

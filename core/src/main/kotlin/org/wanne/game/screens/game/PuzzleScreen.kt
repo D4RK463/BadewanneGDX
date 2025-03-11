@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.SPRITES
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
 import org.wanne.game.model.Point
@@ -25,8 +28,8 @@ class PuzzleScreen(
     game: WanneGame,
 ) : AbstractScreen(game) {
     // Background
-    private val puzzleBackgroundSingle: Texture = game.am.get("textures/puzzle.png")
-    private val puzzleBackgroundSingleWide: Texture = game.am.get("textures/puzzle169.png")
+    private val puzzleBackgroundSingle: Texture = game.am.get("$TEXTURES/puzzle.png")
+    private val puzzleBackgroundSingleWide: Texture = game.am.get("$TEXTURES/puzzle169.png")
 
     private lateinit var stage: PuzzleStage
 
@@ -37,11 +40,11 @@ class PuzzleScreen(
     private lateinit var victoryMessage: VictoryMessage
 
     // Buttons
-    private val buttonAtlas: TextureAtlas = game.am.get("sprites/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am.get("$SPRITES/buttons.atlas")
     private lateinit var exitButton: ImageButton
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("music/puzzle_theme.mp3")
+    private val musicBackground: Music = game.am.get("$MUSIC/puzzle_theme.mp3")
 
     override fun show() {
         createPuzzle()

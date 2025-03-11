@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
 import org.wanne.game.AssetsManager
+import org.wanne.game.SPRITES
 import org.wanne.game.WanneGame
 
 abstract class AbstractObject(
@@ -14,7 +15,7 @@ abstract class AbstractObject(
 ) : Actor() {
     val am: AssetsManager = game.am
 
-    val itemAtlas: TextureAtlas = am.get("sprites/items.atlas")
+    val itemAtlas: TextureAtlas = am.get("$SPRITES/items.atlas")
 
     var isInInventory = false
 
