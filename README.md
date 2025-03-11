@@ -1,4 +1,4 @@
-![alt text](assets/pictures/Menue/title3.png)
+![alt text](assets/textures/title3.png)
 
 **[Deutsch](#worum-gehts)** | **[English](#whats-it-all-about)**
 
