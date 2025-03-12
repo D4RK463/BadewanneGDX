@@ -22,7 +22,7 @@ class PuzzlePiece(
 
     private val random = Random()
 
-    var currentRotation = 0
+    private var currentRotation = 0
 
     init {
         x = posX

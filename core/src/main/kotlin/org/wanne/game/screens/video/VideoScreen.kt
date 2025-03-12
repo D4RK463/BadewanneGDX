@@ -11,7 +11,7 @@ import com.badlogic.gdx.video.VideoPlayer
 import com.badlogic.gdx.video.VideoPlayerCreator
 import org.wanne.game.WanneGame
 
-class VideoScreen(val game: WanneGame, val changeScreenName: String, private val video: FileHandle): Screen {
+class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val video: FileHandle): Screen {
 
     private lateinit var stage: Stage
 
@@ -35,7 +35,7 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 videoPlayer.stop()
                 dispose()
-                game.changeScreenAfterVideo(changeScreenName)
+                game.screen = changeScreen
                 return true
             }
         })
@@ -46,7 +46,6 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
     }
 
     override fun render(delta: Float) {
-
         if (videoPlayer.isBuffered) {
             videoPlayer.volume = game.config.musicVolume
         }
@@ -70,7 +69,7 @@ class VideoScreen(val game: WanneGame, val changeScreenName: String, private val
 
         // Im Moment als Workaround, wenn das Video vorbei ist
         if (videoFinished) {
-            game.changeScreenAfterVideo(changeScreenName)
+            game.screen = changeScreen
         }
 
         stage.draw()
