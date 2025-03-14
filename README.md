@@ -33,7 +33,7 @@ Einfach hier bei github ein [Issue](https://github.com/D4RK463/BadewanneGDX/issu
 An das originale Entwicklungsteam, für die Idee und die Grafiken (Vom Original Code ist in dieser Umsetzung nichts mehr übrig. 😀)
 
 Danke an:
-- Dennis Ludwig
+- [Dennis Ludwig](https://github.com/bmsuseluda)
 - Rolf Scheuerling
 - Jessica Dutschun
 - Jonas Ebling
