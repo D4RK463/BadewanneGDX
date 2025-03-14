@@ -140,4 +140,8 @@ class ResultScreen(
             .plus(secs).plus("S")
     }
 
+    override fun resize(width: Int, height: Int) {
+        viewport.update(width, height, true)
+    }
+
 }

@@ -33,6 +33,7 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
         ScreenUtils.clear(Color.BLACK)
         viewport.apply()
 
+        game.batch.projectionMatrix = viewport.camera.combined
         game.batch.begin()
 
         game.batch.draw(background, 0F, 0F)

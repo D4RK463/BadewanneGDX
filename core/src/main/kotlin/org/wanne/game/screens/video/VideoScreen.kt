@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.video.VideoPlayer
 import com.badlogic.gdx.video.VideoPlayerCreator
 import org.wanne.game.WanneGame
@@ -19,10 +20,13 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
 
     private var videoFinished = false
 
+    // Wird nur für die richtige Sicht beim Desktop Modus benötigt, wird nicht beim Rendern des Videos verwendet.
+    private val viewport: FitViewport = FitViewport(1280f, 720f)
+
     override fun show() {
         Gdx.graphics.setWindowedMode(1280, 720)
 
-        stage = Stage()
+        stage = Stage(viewport)
         Gdx.input.inputProcessor = stage
 
         videoPlayer = VideoPlayerCreator.createVideoPlayer()
@@ -62,8 +66,14 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
                 texture,
                 0F,
                 0F,
-                Gdx.graphics.width.toFloat(),
-                Gdx.graphics.height.toFloat()
+                1280F,
+                720F,
+                0,
+                0,
+                1280,
+                720,
+                false,
+                false
             )
         }
 
@@ -77,6 +87,7 @@ class VideoScreen(val game: WanneGame, val changeScreen: Screen, private val vid
     }
 
     override fun resize(width: Int, height: Int) {
+        viewport.update(width, height, true)
     }
 
     override fun pause() {
