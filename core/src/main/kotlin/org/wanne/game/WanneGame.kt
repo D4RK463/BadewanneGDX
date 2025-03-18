@@ -27,6 +27,8 @@ import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
 import java.util.*
 
+const val VERSION = "0.7.8"
+
 class WanneGame(val android: Boolean): Game() {
     private val random = Random()
 

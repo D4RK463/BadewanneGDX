@@ -2,7 +2,6 @@ package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -13,6 +12,7 @@ import org.wanne.game.Language
 import org.wanne.game.MUSIC
 import org.wanne.game.SPRITES
 import org.wanne.game.TEXTURES
+import org.wanne.game.VERSION
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
 import org.wanne.game.model.animation.WaterAnimation
@@ -135,10 +135,6 @@ class MainMenuScreen(
         )
         multiButton.isDisabled = true
 
-        val notImplementedLabelPair = createLabelWithShadow("UNDER CONSTRUCTION", 130F, 265F, 0.8F, Color.FIREBRICK)
-        val notImplementedLabel = notImplementedLabelPair.first
-        val notImplementedLabelShadow = notImplementedLabelPair.second
-
         val optionsSprite = if (game.currentLang().language == Language.DE) {
             "optionen"
         } else {
@@ -147,7 +143,8 @@ class MainMenuScreen(
         val optionsButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(optionsSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(optionsSprite+"_pressed"))
-            .withPoint(Point(100F, 180F))
+//            .withPoint(Point(100F, 180F))
+            .withPoint(Point(100F, 250F))
             .build()
         optionsButton.addListener(
             object : ChangeListener() {
@@ -196,11 +193,15 @@ class MainMenuScreen(
             },
         )
 
+        val versionPair = createLabelWithShadow("Version: $VERSION", 1120F, 0F, 0.5F)
+        val version = versionPair.first
+        val versionShadow = versionPair.second
+
         stage.addActor(startButton)
-        stage.addActor(multiButton)
-        stage.addActor(notImplementedLabelShadow)
-        stage.addActor(notImplementedLabel)
+//        stage.addActor(multiButton)
         stage.addActor(optionsButton)
+        stage.addActor(versionShadow)
+        stage.addActor(version)
 //        stage.addActor(extrasButton)
 
         if (!game.android) {
