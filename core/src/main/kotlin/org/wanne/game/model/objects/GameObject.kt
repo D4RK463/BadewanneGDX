@@ -12,6 +12,7 @@ import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.shader.Glow
 import java.util.*
 
 abstract class GameObject(
@@ -20,6 +21,8 @@ abstract class GameObject(
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
     val inventoryAtlas: TextureAtlas = am.get("$SPRITES/inventory.atlas")
+
+    var glow = false
 
     private val random = Random()
 
@@ -146,6 +149,7 @@ abstract class GameObject(
 
     override fun dispose() {
         itemAtlas.dispose()
+        inventoryAtlas.dispose()
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>

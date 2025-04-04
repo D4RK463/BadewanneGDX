@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.shader.Glow.shader
 
 abstract class AbstractAnimationStage(
     viewport: Viewport,
@@ -43,7 +44,36 @@ abstract class AbstractAnimationStage(
             }
         }
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
-        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, Gdx.graphics.deltaTime) }
+//        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, Gdx.graphics.deltaTime) }
+
+        actors.filterIsInstance<GameObject>().filter {
+            it.isVisible
+        }.forEach {
+            if (it.glow) {
+
+                // Normalen Render enden
+                batch.end()
+                batch.flush()
+
+                // Object mit Shader zeichnen
+                batch.begin()
+                batch.shader = shader
+                shader.setUniformf("u_amount", 1.5f)
+                shader.setUniformf("u_speed", 0.5f)
+                shader.setUniformf("u_time", stateTime)
+//                shader.setUniformf("u_resolution", 160F, 160F)
+
+                it.draw(batch, 1F, Gdx.graphics.deltaTime)
+                batch.end()
+
+                // Shader wieder entfernen und alles geht normal weiter
+                batch.shader = null
+                batch.begin()
+
+            } else {
+                it.draw(batch, 1F, Gdx.graphics.deltaTime)
+            }
+        }
 
         // Zusätzliche Animationen rendern
         additionalAnimations?.forEach {

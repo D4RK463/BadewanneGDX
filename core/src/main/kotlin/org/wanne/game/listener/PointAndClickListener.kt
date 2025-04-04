@@ -1,5 +1,6 @@
 package org.wanne.game.listener
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -148,6 +149,34 @@ class PointAndClickListener(
         // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
         stage.doTheAction = {
             stage.currentAction.action(dialogBoard)
+        }
+    }
+
+    override fun keyDown(event: InputEvent?, keycode: Int): Boolean {
+        return if (keycode == Input.Keys.SPACE) {
+            val stage = event?.stage as PointAndClickAwareStage
+            val actors = stage.actors
+            actors.filterIsInstance<GameObject>().forEach {
+                if (!it.isInInventory && it.isVisible) {
+                    it.glow = true
+                }
+            }
+            true
+        } else {
+            false
+        }
+    }
+
+    override fun keyUp(event: InputEvent?, keycode: Int): Boolean {
+        return if (keycode == Input.Keys.SPACE) {
+            val stage = event?.stage as PointAndClickAwareStage
+            val actors = stage.actors
+            actors.filterIsInstance<GameObject>().forEach {
+                it.glow = false
+            }
+            true
+        } else {
+            false
         }
     }
 }
