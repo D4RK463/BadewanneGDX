@@ -1,7 +1,10 @@
 package org.wanne.game.stage
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Pixmap
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -58,13 +61,18 @@ abstract class AbstractAnimationStage(
                 // Object mit Shader zeichnen
                 batch.begin()
                 batch.shader = shader
-                shader.setUniformf("u_amount", 1.5f)
-                shader.setUniformf("u_speed", 0.5f)
-                shader.setUniformf("u_time", stateTime)
-//                shader.setUniformf("u_resolution", 160F, 160F)
+
+                shader.bind()
+//                shader.setUniformf("u_amount", 1.5f)
+//                shader.setUniformf("u_speed", 0.5f)
+//                shader.setUniformf("u_time", stateTime)
+//                shader.setUniformf("u_resolution", 1280F, 7200F)
+//                shader.setUniformi("u_texture", 0)
+//                shader.setUniformf("center", it.posX, it.posY);
 
                 it.draw(batch, 1F, Gdx.graphics.deltaTime)
                 batch.end()
+                batch.flush()
 
                 // Shader wieder entfernen und alles geht normal weiter
                 batch.shader = null

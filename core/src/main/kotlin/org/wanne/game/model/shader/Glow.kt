@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 
 object Glow : Group() {
 
+    private lateinit var vertxShader: String
     private val fragmentShader: String
 
     val shader: ShaderProgram
@@ -24,8 +25,10 @@ object Glow : Group() {
     init {
         time = 0F
 //        fragmentShader = Gdx.files.internal("shaders/glow.glsl").readString();
-        fragmentShader = Gdx.files.internal("shaders/underwater.glsl").readString();
-        shader = ShaderProgram(batch.shader.vertexShaderSource, fragmentShader)
+        fragmentShader = Gdx.files.internal("shaders/bw.glsl").readString();
+        vertxShader = Gdx.files.internal("shaders/vertex.glsl").readString();
+//        shader = ShaderProgram(batch.shader.vertexShaderSource, fragmentShader)
+        shader = ShaderProgram(vertxShader, fragmentShader)
 
         if (!shader.isCompiled) {
             println(shader.log)
