@@ -1,10 +1,7 @@
 package org.wanne.game.stage
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Pixmap
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -12,7 +9,8 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
-import org.wanne.game.model.shader.Glow.shader
+import org.wanne.game.model.shader.BlackAndWhite
+import org.wanne.game.model.shader.Underwater
 
 abstract class AbstractAnimationStage(
     viewport: Viewport,
@@ -47,37 +45,14 @@ abstract class AbstractAnimationStage(
             }
         }
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
-//        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, Gdx.graphics.deltaTime) }
-
         actors.filterIsInstance<GameObject>().filter {
             it.isVisible
         }.forEach {
-            if (it.glow) {
-
-                // Normalen Render enden
-                batch.end()
-                batch.flush()
-
-                // Object mit Shader zeichnen
-                batch.begin()
-                batch.shader = shader
-
-                shader.bind()
-//                shader.setUniformf("u_amount", 1.5f)
-//                shader.setUniformf("u_speed", 0.5f)
-//                shader.setUniformf("u_time", stateTime)
-//                shader.setUniformf("u_resolution", 1280F, 7200F)
-//                shader.setUniformi("u_texture", 0)
-//                shader.setUniformf("center", it.posX, it.posY);
-
-                it.draw(batch, 1F, Gdx.graphics.deltaTime)
-                batch.end()
-                batch.flush()
-
-                // Shader wieder entfernen und alles geht normal weiter
-                batch.shader = null
-                batch.begin()
-
+            // Shader rendern, wenn nötig
+            if (it.blackAndWhite) {
+                BlackAndWhite.draw(batch, it, stateTime)
+            } else if(it.drunk) {
+                Underwater.draw(batch, it, stateTime)
             } else {
                 it.draw(batch, 1F, Gdx.graphics.deltaTime)
             }

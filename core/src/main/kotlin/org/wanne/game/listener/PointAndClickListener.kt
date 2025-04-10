@@ -3,6 +3,7 @@ package org.wanne.game.listener
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.Statistic
@@ -24,75 +25,80 @@ class PointAndClickListener(
         pointer: Int,
         button: Int,
     ): Boolean {
-        Statistic.countClick()
         val stage = event?.stage as PointAndClickAwareStage
+        if (pointer == 0) {
+            Statistic.countClick()
 
-        // Aktion
-        if (stage.currentAction.type != ActionType.NOTHING) {
+            // Aktion
+            if (stage.currentAction.type != ActionType.NOTHING) {
 //            println("${stage.currentAction.type} at $x:$y")
 
-            // Das Objekt holen, auf welches geklickt wurde
-            val hitObject = stage.hit(x, y, true)
-//            println("Hit: $hitObject")
-            if (hitObject is GameObject) {
-                stage.currentAction.clickedObject = hitObject
+                // Das Objekt holen, auf welches geklickt wurde
+                val hitObject = stage.hit(x, y, true)
+//                println("Hit: $hitObject")
+                if (hitObject is GameObject) {
+                    stage.currentAction.clickedObject = hitObject
 
-                // Wenn es sich um eine Kombinieren-Aktion handelt,
-                // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
-                if (stage.currentAction.type == ActionType.COMBINE) {
-                    if (stage.currentAction.combineObject1 != null) {
-                        maybeMove(hitObject, stage)
+                    // Wenn es sich um eine Kombinieren-Aktion handelt,
+                    // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
+                    if (stage.currentAction.type == ActionType.COMBINE) {
+                        if (stage.currentAction.combineObject1 != null) {
+                            maybeMove(hitObject, stage)
+                        } else {
+                            // Nur die Action ausführen
+                            stage.needToMove = false
+                            stage.currentAction.action(dialogBoard)
+                        }
                     } else {
-                        // Nur die Action ausführen
-                        stage.needToMove = false
+                        maybeMove(hitObject, stage)
+                    }
+                } else if (hitObject is Image) { // Escape vom Dialog
+                    stage.currentAction.reset()
+
+                    stage.lookingAtTheEnd = null
+                    stage.doTheAction = {}
+                    dialogBoard.reset()
+                } else if (hitObject is Label) { // Im Dialog
+                    stage.currentAction.lastSentence = hitObject.text.toString()
+                    stage.doTheAction = {
                         stage.currentAction.action(dialogBoard)
                     }
-                } else {
-                    maybeMove(hitObject, stage)
                 }
-            } else if (hitObject is Image) { // Escape vom Dialog
-                stage.currentAction.reset()
-
+            } else { // oder laufen
                 stage.lookingAtTheEnd = null
                 stage.doTheAction = {}
                 dialogBoard.reset()
-            } else if (hitObject is Label) { // Im Dialog
-                stage.currentAction.lastSentence = hitObject.text.toString()
-                stage.doTheAction = {
-                    stage.currentAction.action(dialogBoard)
+
+                var moveX = x.toInt()
+                var moveY = y.toInt()
+
+                // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
+                if (checkGameLimits(moveX, moveY)) {
+                    if (moveX < roomLimits[0]) { // links
+                        moveX = roomLimits[0]
+                    } else if (moveX > roomLimits[2]) { // rechts
+                        moveX = roomLimits[2]
+                    }
+                    if (moveY < roomLimits[1]) { // unten
+                        moveY = roomLimits[1]
+                    } else if (moveY > roomLimits[3]) { // oben
+                        moveY = roomLimits[3]
+                    }
+
+                    // Koordinaten am Raster ausrichten
+                    moveX = (moveX - (moveX % Player.MOVE_PIXEL))
+                    moveY = (moveY - (moveY % Player.MOVE_PIXEL))
+
+                    stage.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
+                    stage.needToMove = true
+                } else {
+                    stage.currentPlayer.state = Player.Companion.State.STANDING
+                    stage.needToMove = false
                 }
             }
-        } else { // oder laufen
-            stage.lookingAtTheEnd = null
-            stage.doTheAction = {}
-            dialogBoard.reset()
-
-            var moveX = x.toInt()
-            var moveY = y.toInt()
-
-            // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-            if (checkGameLimits(moveX, moveY)) {
-                if (moveX < roomLimits[0]) { // links
-                    moveX = roomLimits[0]
-                } else if (moveX > roomLimits[2]) { // rechts
-                    moveX = roomLimits[2]
-                }
-                if (moveY < roomLimits[1]) { // unten
-                    moveY = roomLimits[1]
-                } else if (moveY > roomLimits[3]) { // oben
-                    moveY = roomLimits[3]
-                }
-
-                // Koordinaten am Raster ausrichten
-                moveX = (moveX - (moveX % Player.MOVE_PIXEL))
-                moveY = (moveY - (moveY % Player.MOVE_PIXEL))
-
-                stage.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
-                stage.needToMove = true
-            } else {
-                stage.currentPlayer.state = Player.Companion.State.STANDING
-                stage.needToMove = false
-            }
+        } else {
+            // Bei mehr als einem Finger
+            setToBlackAndWhite(stage)
         }
 
         return true
@@ -152,31 +158,68 @@ class PointAndClickListener(
         }
     }
 
+    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+        val stage = event?.stage as PointAndClickAwareStage
+        if (pointer > 0) {
+            resetToColor(stage)
+        }
+    }
+
     override fun keyDown(event: InputEvent?, keycode: Int): Boolean {
-        return if (keycode == Input.Keys.SPACE) {
-            val stage = event?.stage as PointAndClickAwareStage
-            val actors = stage.actors
-            actors.filterIsInstance<GameObject>().forEach {
-                if (!it.isInInventory && it.isVisible) {
-                    it.glow = true
-                }
+        val stage = event?.stage as PointAndClickAwareStage
+        return when (keycode) {
+            Input.Keys.SPACE -> {
+                setToBlackAndWhite(stage)
+                true
             }
-            true
-        } else {
-            false
+            Input.Keys.W -> {
+                val actors = stage.actors
+                actors.filterIsInstance<GameObject>().forEach {
+                    if (!it.isInInventory && it.isVisible) {
+                        it.drunk = true
+                    }
+                }
+                true
+            }
+            else -> {
+                false
+            }
         }
     }
 
     override fun keyUp(event: InputEvent?, keycode: Int): Boolean {
-        return if (keycode == Input.Keys.SPACE) {
-            val stage = event?.stage as PointAndClickAwareStage
-            val actors = stage.actors
-            actors.filterIsInstance<GameObject>().forEach {
-                it.glow = false
+        val stage = event?.stage as PointAndClickAwareStage
+        return when (keycode) {
+            Input.Keys.SPACE -> {
+                resetToColor(stage)
+                true
             }
-            true
-        } else {
-            false
+            Input.Keys.W -> {
+                val actors = stage.actors
+                actors.filterIsInstance<GameObject>().forEach {
+                    it.drunk = false
+                }
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    private fun setToBlackAndWhite(stage: PointAndClickAwareStage) {
+        val actors = stage.actors
+        actors.filterIsInstance<GameObject>().forEach {
+            if (!it.isInInventory && it.isVisible) {
+                it.blackAndWhite = true
+            }
+        }
+    }
+
+    private fun resetToColor(stage: PointAndClickAwareStage) {
+        val actors = stage.actors
+        actors.filterIsInstance<GameObject>().forEach {
+            it.blackAndWhite = false
         }
     }
 }

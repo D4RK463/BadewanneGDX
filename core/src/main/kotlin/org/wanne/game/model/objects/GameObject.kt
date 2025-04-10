@@ -12,7 +12,6 @@ import org.wanne.game.model.Point
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.player.Player
-import org.wanne.game.model.shader.Glow
 import java.util.*
 
 abstract class GameObject(
@@ -22,7 +21,9 @@ abstract class GameObject(
 ) : AbstractObject(posX, posY, game) {
     val inventoryAtlas: TextureAtlas = am.get("$SPRITES/inventory.atlas")
 
-    var glow = false
+    var blackAndWhite = false
+
+    var drunk = false
 
     private val random = Random()
 
