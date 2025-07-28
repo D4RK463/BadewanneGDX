@@ -143,8 +143,8 @@ class MainMenuScreen(
         val optionsButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(optionsSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(optionsSprite+"_pressed"))
-//            .withPoint(Point(100F, 180F))
-            .withPoint(Point(100F, 250F))
+            .withPoint(Point(100F, 180F))
+//            .withPoint(Point(100F, 250F))
             .build()
         optionsButton.addListener(
             object : ChangeListener() {
@@ -198,7 +198,7 @@ class MainMenuScreen(
         val versionShadow = versionPair.second
 
         stage.addActor(startButton)
-//        stage.addActor(multiButton)
+        stage.addActor(multiButton)
         stage.addActor(optionsButton)
         stage.addActor(versionShadow)
         stage.addActor(version)
