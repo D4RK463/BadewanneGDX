@@ -1,12 +1,12 @@
 buildscript {
   repositories {
     mavenCentral()
-    maven { url 'https://s01.oss.sonatype.org' }
+    maven { url 'https://central.sonatype.com' }
     gradlePluginPortal()
     mavenLocal()
     google()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:8.5.2'
@@ -70,11 +70,11 @@ subprojects {
   ext.appName = 'Wanne'
   repositories {
     mavenCentral()
-    maven { url 'https://s01.oss.sonatype.org' }
+    maven { url 'https://central.sonatype.com' }
     // You may want to remove the following line if you have errors downloading dependencies.
     mavenLocal()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
     maven { url 'https://jitpack.io' }
   }
 }
