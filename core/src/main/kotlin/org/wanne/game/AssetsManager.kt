@@ -62,6 +62,7 @@ class AssetsManager {
         assetManager.load("$TEXTURES/ecke.png", Texture::class.java)
         assetManager.load("$TEXTURES/options.png", Texture::class.java)
         assetManager.load("$TEXTURES/tutorial_classic.png", Texture::class.java)
+        assetManager.load("$TEXTURES/tutorial_wide.png", Texture::class.java)
 
         assetManager.load("$TEXTURES/OutsideSingle.png", Texture::class.java)
         assetManager.load("$TEXTURES/Outside.png", Texture::class.java)
