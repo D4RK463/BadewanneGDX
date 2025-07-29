@@ -29,17 +29,17 @@ class MainMenuScreen(
     private var logoHeadline: Image = Image(game.am.get("$TEXTURES/title3.png") as Texture)
     private var edge: Image = Image(game.am.get("$TEXTURES/ecke.png") as Texture)
 
-    private var background: Texture = game.am.get("$TEXTURES/background.png")
+    private var background: Texture = game.am["$TEXTURES/background.png"]
 
     private val duck = Duck(Point(485F, 90F), Player.Companion.Looking.RIGHT, am = game.am)
     private val poolAttendant = PoolAttendant(Point(700F, 95F), Player.Companion.Looking.RIGHT, am = game.am)
 
-    private val buttonAtlas: TextureAtlas = game.am.get("$SPRITES/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am["$SPRITES/buttons.atlas"]
 
     private val waterAnimation = WaterAnimation(938F, 170F, true, game.am)
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("$MUSIC/title_theme.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/title_theme.mp3"]
 
     init {
         duck.scaleX *= 1.2F
@@ -78,20 +78,33 @@ class MainMenuScreen(
     }
 
     private fun buildMenu() {
+        val controlsSprite = game.choose("steuerung", "controls", false)
+        val controlsButton = UiButtonBuilder()
+            .withTexture(mainButtonAtlas.createSprite(controlsSprite))
+            .withTexturePressed(mainButtonAtlas.createSprite(controlsSprite+"_pressed"))
+            .withPoint(Point(100F, 320F))
+            .build()
+        controlsButton.addListener(
+            object : ChangeListener() {
+                override fun changed(
+                    event: ChangeEvent?,
+                    actor: Actor?,
+                ) {
+                    game.screen = game.controlsScreen
+                    dispose()
+                }
+            },
+        )
+
         val singlePlayerSprite = if (game.startedGame) {
-            if (game.currentLang().language == Language.EN) {
-                "continue"
-            } else {
-                "weiter"
-            }
+            game.choose("weiter", "continue", false)
         } else {
             "singleplayer"
         }
-
         val startButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(singlePlayerSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(singlePlayerSprite+"_pressed"))
-            .withPoint(Point(100F, 320F))
+            .withPoint(Point(100F, 250F))
             .build()
         startButton.addListener(
             object : ChangeListener() {
@@ -99,7 +112,6 @@ class MainMenuScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-
                     if (game.gameEnded) {
                         musicBackground.stop()
                         game.screen = game.introVideoScreen
@@ -118,9 +130,9 @@ class MainMenuScreen(
         )
 
         val multiButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("multiplayer"))
-            .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_pressed"))
-            .withPoint(Point(100F, 250F))
+            .withTexture(mainButtonAtlas.createSprite("multiplayer_disabled"))
+            .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_disabled"))
+            .withPoint(Point(100F, 180F))
             .build()
         multiButton.addListener(
             object : ChangeListener() {
@@ -135,16 +147,11 @@ class MainMenuScreen(
         )
         multiButton.isDisabled = true
 
-        val optionsSprite = if (game.currentLang().language == Language.DE) {
-            "optionen"
-        } else {
-            "options"
-        }
+        val optionsSprite = game.choose("optionen", "options", false)
         val optionsButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(optionsSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(optionsSprite+"_pressed"))
-            .withPoint(Point(100F, 180F))
-//            .withPoint(Point(100F, 250F))
+            .withPoint(Point(100F, 110F))
             .build()
         optionsButton.addListener(
             object : ChangeListener() {
@@ -161,7 +168,7 @@ class MainMenuScreen(
 //        val extrasButton = UiButtonBuilder()
 //            .withTexture(mainButtonAtlas.createSprite("extras"))
 //            .withTexturePressed(mainButtonAtlas.createSprite("extras_pressed"))
-//            .withPoint(Point(100F, 110F))
+//            .withPoint(Point(100F, 60F))
 //            .build()
 //        extrasButton.addListener(
 //            object : ChangeListener() {
@@ -197,6 +204,7 @@ class MainMenuScreen(
         val version = versionPair.first
         val versionShadow = versionPair.second
 
+        stage.addActor(controlsButton)
         stage.addActor(startButton)
         stage.addActor(multiButton)
         stage.addActor(optionsButton)

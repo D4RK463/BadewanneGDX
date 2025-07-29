@@ -15,12 +15,12 @@ class PoolAttendant(
     scaleY: Float = 1f,
     am: AssetsManager
 ) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
-    private val scratchLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/scratchLeft.atlas")
-    private val scratchRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/scratchRight.atlas")
-    private val lookLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/poolattendent/walkRight.atlas")
+    private val scratchLeftTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/scratchLeft.atlas"]
+    private val scratchRightTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/scratchRight.atlas"]
+    private val lookLeftTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/lookLeft.atlas"]
+    private val lookRightTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/lookRight.atlas"]
+    private val walkLeftTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/walkLeft.atlas"]
+    private val walkRightTextureAtlas: TextureAtlas = am["$ANIMATIONS/poolattendent/walkRight.atlas"]
 
     private var scratchLeftAnimation: Animation<Sprite> =
         Animation(

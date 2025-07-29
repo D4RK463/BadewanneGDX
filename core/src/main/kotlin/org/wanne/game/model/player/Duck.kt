@@ -15,10 +15,10 @@ class Duck(
     scaleY: Float = 1f,
     am: AssetsManager
 ) : Player(point.x, point.y, looking, scaleX, scaleY, am) {
-    private val lookLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/lookLeft.atlas")
-    private val lookRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/lookRight.atlas")
-    private val walkLeftTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/walkLeft.atlas")
-    private val walkRightTextureAtlas: TextureAtlas = am.get("$ANIMATIONS/duck/walkRight.atlas")
+    private val lookLeftTextureAtlas: TextureAtlas = am["$ANIMATIONS/duck/lookLeft.atlas"]
+    private val lookRightTextureAtlas: TextureAtlas = am["$ANIMATIONS/duck/lookRight.atlas"]
+    private val walkLeftTextureAtlas: TextureAtlas = am["$ANIMATIONS/duck/walkLeft.atlas"]
+    private val walkRightTextureAtlas: TextureAtlas = am["$ANIMATIONS/duck/walkRight.atlas"]
 
     private var lookLeftAnimation: Animation<Sprite> =
         Animation(

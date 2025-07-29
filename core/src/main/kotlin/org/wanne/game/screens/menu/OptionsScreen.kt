@@ -129,11 +129,7 @@ class OptionsScreen(
         modeLabel = modelLabelPair.first
         modeLabelShadow = modelLabelPair.second
 
-        val backSprite = if (game.currentLang().language == Language.DE) {
-            "zuruckspeichern"
-        } else {
-            "backsave"
-        }
+        val backSprite = game.choose("zuruckspeichern", "backsave", false)
         backButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(backSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(backSprite + "_pressed"))

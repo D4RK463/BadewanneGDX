@@ -22,13 +22,13 @@ class OutsideScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val outsideBackgroundSingle: Texture = game.am.get("$TEXTURES/OutsideSingle.png")
-    private val outsideBackgroundMulti: Texture = game.am.get("$TEXTURES/Outside.png")
-    private val outsideBackgroundSingleWide: Texture = game.am.get("$TEXTURES/Outside169.png")
+    private val outsideBackgroundSingle: Texture = game.am["$TEXTURES/OutsideSingle.png"]
+    private val outsideBackgroundMulti: Texture = game.am["$TEXTURES/Outside.png"]
+    private val outsideBackgroundSingleWide: Texture = game.am["$TEXTURES/Outside169.png"]
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("$MUSIC/background.mp3")
-    private val radioBackground: Music = game.am.get("$MUSIC/funky_groove.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/background.mp3"]
+    private val radioBackground: Music = game.am["$MUSIC/funky_groove.mp3"]
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())

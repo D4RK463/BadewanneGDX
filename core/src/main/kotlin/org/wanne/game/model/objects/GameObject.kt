@@ -19,7 +19,7 @@ abstract class GameObject(
     posY: Float,
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
-    val inventoryAtlas: TextureAtlas = am.get("$SPRITES/inventory.atlas")
+    val inventoryAtlas: TextureAtlas = am["$SPRITES/inventory.atlas"]
 
     var blackAndWhite = false
 

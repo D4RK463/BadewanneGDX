@@ -11,7 +11,7 @@ class VictoryMessage(
     posY: Float = 0F,
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
-    private val puzzleAtlas: TextureAtlas = am.get("$SPRITES/puzzle.atlas")
+    private val puzzleAtlas: TextureAtlas = am["$SPRITES/puzzle.atlas"]
 
     override fun getSprite(time: Float): Sprite {
         val sprite = puzzleAtlas.createSprite("PuzzleSieg")

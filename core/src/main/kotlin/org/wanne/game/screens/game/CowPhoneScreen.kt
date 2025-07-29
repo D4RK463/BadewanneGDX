@@ -22,7 +22,7 @@ class CowPhoneScreen(
     private lateinit var viewport: FitViewport
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("$MUSIC/background.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/background.mp3"]
 
     // Animation
     private val cowCallAnimation: CowCallAnimation  = CowCallAnimation(am = game.am)

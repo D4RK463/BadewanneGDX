@@ -13,7 +13,7 @@ class IcemanAnimation(
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
-    private val icemanHeadMove: TextureAtlas = am.get("$ANIMATIONS/iceman.atlas")
+    private val icemanHeadMove: TextureAtlas = am["$ANIMATIONS/iceman.atlas"]
 
     private val icemanAnimation = Animation(
         0.033f,

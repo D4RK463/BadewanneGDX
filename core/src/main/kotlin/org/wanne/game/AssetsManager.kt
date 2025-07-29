@@ -61,6 +61,7 @@ class AssetsManager {
         assetManager.load("$TEXTURES/background.png", Texture::class.java)
         assetManager.load("$TEXTURES/ecke.png", Texture::class.java)
         assetManager.load("$TEXTURES/options.png", Texture::class.java)
+        assetManager.load("$TEXTURES/tutorial_classic.png", Texture::class.java)
 
         assetManager.load("$TEXTURES/OutsideSingle.png", Texture::class.java)
         assetManager.load("$TEXTURES/Outside.png", Texture::class.java)
@@ -149,7 +150,7 @@ class AssetsManager {
         return assetManager.progress
     }
 
-    fun <T>get(path: String): T {
+    operator fun <T>get(path: String): T {
         return assetManager.get(path)
     }
 }

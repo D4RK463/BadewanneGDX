@@ -20,9 +20,9 @@ abstract class AbstractMenuScreen (
 ) : AbstractScreen(game) {
     lateinit var stage: Stage
 
-    val skin: Skin = game.am.get("$SKINS/default/uiskin.json")
+    val skin: Skin = game.am["$SKINS/default/uiskin.json"]
 
-    val mainButtonAtlas: TextureAtlas = game.am.get("$SPRITES/mainbuttons.atlas")
+    val mainButtonAtlas: TextureAtlas = game.am["$SPRITES/mainbuttons.atlas"]
 
     lateinit var viewport: FitViewport
 

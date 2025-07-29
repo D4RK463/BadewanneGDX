@@ -14,7 +14,7 @@ class PuzzlePiece(
     var indexNumber: Int,
     game: WanneGame
 ) : AbstractObject(point.x, point.y, game) {
-    private val puzzleAtlas: TextureAtlas = am.get("$SPRITES/puzzle.atlas")
+    private val puzzleAtlas: TextureAtlas = am["$SPRITES/puzzle.atlas"]
 
     private val spriteRotationSpeed = 90
 

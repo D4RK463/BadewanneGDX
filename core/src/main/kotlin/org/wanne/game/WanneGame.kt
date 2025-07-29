@@ -18,6 +18,7 @@ import org.wanne.game.screens.game.CowPhoneScreen
 import org.wanne.game.screens.game.OutsideScreen
 import org.wanne.game.screens.game.PuzzleScreen
 import org.wanne.game.screens.game.RoomScreen
+import org.wanne.game.screens.menu.ControlsScreen
 import org.wanne.game.screens.menu.MainMenuScreen
 import org.wanne.game.screens.menu.NetworkScreen
 import org.wanne.game.screens.menu.OptionsScreen
@@ -52,6 +53,9 @@ class WanneGame(val android: Boolean): Game() {
     }
     val optionsScreen: OptionsScreen by lazy {
         OptionsScreen(this)
+    }
+    val controlsScreen: ControlsScreen by lazy {
+        ControlsScreen(this)
     }
     val resultScreen: ResultScreen by lazy {
         ResultScreen(this)
@@ -133,7 +137,7 @@ class WanneGame(val android: Boolean): Game() {
     }
 
     fun currentSkin(): Skin = if (classicMode()) {
-        am.get("$SKINS/default/uiskin.json")
+        am["$SKINS/default/uiskin.json"]
     } else {
         wanneSkin
     }

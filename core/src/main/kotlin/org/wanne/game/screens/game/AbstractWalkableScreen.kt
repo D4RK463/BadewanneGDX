@@ -36,7 +36,7 @@ abstract class AbstractWalkableScreen(
 
     val inventory = Inventory.getInstance()
 
-    private val buttonAtlas: TextureAtlas = game.am.get("$SPRITES/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am["$SPRITES/buttons.atlas"]
 
     // Buttons
     private lateinit var lookButton: ImageButton
@@ -49,11 +49,11 @@ abstract class AbstractWalkableScreen(
     private lateinit var exitButton: ImageButton
 
     // Cursor
-    val lookCursor: Pixmap = game.am.get("$PIXMAPS/Ansehen.png")
-    val speakCursor: Pixmap = game.am.get("$PIXMAPS/Reden.png")
-    val takeCursor: Pixmap = game.am.get("$PIXMAPS/Nehmen.png")
-    val useCursor: Pixmap = game.am.get("$PIXMAPS/Benutzen.png")
-    val combineCursor: Pixmap = game.am.get("$PIXMAPS/kombinieren.png")
+    val lookCursor: Pixmap = game.am["$PIXMAPS/Ansehen.png"]
+    val speakCursor: Pixmap = game.am["$PIXMAPS/Reden.png"]
+    val takeCursor: Pixmap = game.am["$PIXMAPS/Nehmen.png"]
+    val useCursor: Pixmap = game.am["$PIXMAPS/Benutzen.png"]
+    val combineCursor: Pixmap = game.am["$PIXMAPS/kombinieren.png"]
 
     // Players
     lateinit var poolAttendant: PoolAttendant

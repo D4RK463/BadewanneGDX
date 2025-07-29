@@ -18,7 +18,7 @@ open class SoundCollection(val am: AssetsManager) {
     fun addAllSoundsFor(dialogEnd: Int, directory: String) {
         activeSounds.forEach {
             for (i in 0..dialogEnd) {
-                addSound(it, am.get("${DIALOG}/${it.dir()}/$directory/${i}.mp3"))
+                addSound(it, am["${DIALOG}/${it.dir()}/$directory/${i}.mp3"])
             }
         }
     }

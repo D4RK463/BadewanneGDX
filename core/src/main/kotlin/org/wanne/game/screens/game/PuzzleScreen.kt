@@ -28,8 +28,8 @@ class PuzzleScreen(
     game: WanneGame,
 ) : AbstractScreen(game) {
     // Background
-    private val puzzleBackgroundSingle: Texture = game.am.get("$TEXTURES/puzzle.png")
-    private val puzzleBackgroundSingleWide: Texture = game.am.get("$TEXTURES/puzzle169.png")
+    private val puzzleBackgroundSingle: Texture = game.am["$TEXTURES/puzzle.png"]
+    private val puzzleBackgroundSingleWide: Texture = game.am["$TEXTURES/puzzle169.png"]
 
     private lateinit var stage: PuzzleStage
 
@@ -40,11 +40,11 @@ class PuzzleScreen(
     private lateinit var victoryMessage: VictoryMessage
 
     // Buttons
-    private val buttonAtlas: TextureAtlas = game.am.get("$SPRITES/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am["$SPRITES/buttons.atlas"]
     private lateinit var exitButton: ImageButton
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("$MUSIC/puzzle_theme.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/puzzle_theme.mp3"]
 
     override fun show() {
         createPuzzle()
