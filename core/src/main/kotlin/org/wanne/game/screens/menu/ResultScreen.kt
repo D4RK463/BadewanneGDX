@@ -58,7 +58,7 @@ class ResultScreen(
         var somethingWasUnlocked = false
         if (game.unlockDrogglWithNewPlaythrough) {
             val drogglString = game.choose("Droggelbecher Modus", "Droggelbecher Mode", false)
-            val drogglPair = createLabelWithShadow(drogglString, 500f, 250f, 1.2F)
+            val drogglPair = createLabelWithShadow(drogglString, 550f, 250f, 1.2F)
             val droggl = drogglPair.first
             val drogglShadow = drogglPair.second
 
@@ -75,7 +75,7 @@ class ResultScreen(
         // Wenn was freigeschaltet wurde?
         if (somethingWasUnlocked) {
             val unlockString = game.choose("freigeschaltet", "unlocked", false)
-            val unlockPair = createLabelWithShadow(unlockString, 500f, 200f, 1.2F)
+            val unlockPair = createLabelWithShadow(unlockString, 550f, 200f, 1.2F)
             val unlock = unlockPair.first
             val unlockShadow = unlockPair.second
 

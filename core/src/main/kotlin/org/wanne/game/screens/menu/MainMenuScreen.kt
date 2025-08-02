@@ -114,6 +114,7 @@ class MainMenuScreen(
                 ) {
                     if (game.gameEnded) {
                         musicBackground.stop()
+                        game.reset()
                         game.screen = game.introVideoScreen
                     } else {
                         if (game.arrivedOutside) {

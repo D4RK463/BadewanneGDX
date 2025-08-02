@@ -33,18 +33,21 @@ const val VERSION = "0.7.8"
 class WanneGame(val android: Boolean): Game() {
     private val random = Random()
 
-    val roomScreen: RoomScreen by lazy {
-        RoomScreen(this)
-    }
-    val puzzleScreen: PuzzleScreen by lazy {
-        PuzzleScreen(this)
-    }
-
+    // Game Screens
+    lateinit var roomScreen: RoomScreen
+    lateinit var puzzleScreen: PuzzleScreen
     lateinit var cowPhoneScreen: CowPhoneScreen
+    lateinit var outsideScreen: OutsideScreen
 
-    val outsideScreen: OutsideScreen by lazy {
-        OutsideScreen(this)
+    // Video Screens
+    val introVideoScreen: VideoScreen by lazy {
+        VideoScreen(this, roomScreen, am.introVideo)
     }
+    val outroVideoScreen: VideoScreen by lazy {
+        VideoScreen(this, resultScreen, am.outroVideo)
+    }
+
+    // Menu Screens
     val mainMenuScreen: MainMenuScreen by lazy {
         MainMenuScreen(this)
     }
@@ -59,12 +62,6 @@ class WanneGame(val android: Boolean): Game() {
     }
     val resultScreen: ResultScreen by lazy {
         ResultScreen(this)
-    }
-    val introVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, roomScreen, am.introVideo)
-    }
-    val outroVideoScreen: VideoScreen by lazy {
-        VideoScreen(this, resultScreen, am.outroVideo)
     }
 
     lateinit var batch: SpriteBatch
@@ -107,16 +104,24 @@ class WanneGame(val android: Boolean): Game() {
         setScreen(LoadingScreen(this))
     }
 
-    fun initializeItemHolder() {
-        this.items = GameObjectsArchive(this)
-    }
-
     override fun dispose() {
         batch.dispose()
     }
 
     fun reset() {
-        // ToDo: Alle Bildschirme zurücksetzen
+        items = GameObjectsArchive()
+        items.resetItems(this)
+
+        puzzleSolved = false
+        talkedToCow = false
+        possessWinningObjects = false
+        cowIsBusy = false
+        arrivedOutside = false
+
+        roomScreen = RoomScreen(this)
+        puzzleScreen = PuzzleScreen(this)
+        outsideScreen = OutsideScreen(this)
+
     }
 
     fun currentLang() = Speech.fromSaveString(config.speech)
