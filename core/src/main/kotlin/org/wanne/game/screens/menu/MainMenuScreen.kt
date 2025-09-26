@@ -131,8 +131,8 @@ class MainMenuScreen(
         )
 
         val multiButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("multiplayer_disabled"))
-            .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_disabled"))
+            .withTexture(mainButtonAtlas.createSprite("multiplayer"))
+            .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_pressed"))
             .withPoint(Point(100F, 180F))
             .build()
         multiButton.addListener(
@@ -146,7 +146,7 @@ class MainMenuScreen(
                 }
             },
         )
-        multiButton.isDisabled = true
+//        multiButton.isDisabled = true
 
         val optionsSprite = game.choose("optionen", "options", false)
         val optionsButton = UiButtonBuilder()

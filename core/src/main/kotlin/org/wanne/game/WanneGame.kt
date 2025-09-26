@@ -12,6 +12,7 @@ import org.wanne.game.dialog.DialogManager
 import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
 import org.wanne.game.network.Client
+import org.wanne.game.network.NetworkManager
 import org.wanne.game.network.Server
 import org.wanne.game.screens.LoadingScreen
 import org.wanne.game.screens.game.CowPhoneScreen
@@ -72,8 +73,7 @@ class WanneGame(val android: Boolean): Game() {
     lateinit var items: GameObjectsArchive
     val am = AssetsManager()
 
-    lateinit var client: Client
-    lateinit var server: Server
+    val network = NetworkManager(this)
 
     var startedGame = false
     var gameEnded = true

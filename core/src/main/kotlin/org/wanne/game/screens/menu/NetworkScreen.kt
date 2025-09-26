@@ -8,11 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
-import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
-import org.wanne.game.network.Client
-import org.wanne.game.network.Server
+import org.wanne.game.screens.util.UiButtonBuilder
 import java.net.NetworkInterface
 
 class NetworkScreen(
@@ -20,6 +18,9 @@ class NetworkScreen(
 ) : AbstractOptionsScreen(game) {
 
     override fun buildMenu() {
+        // Server starten
+        game.network.startServer()
+
         val multiTitle = Image(mainButtonAtlas.createSprite("multiplayer"))
         multiTitle.x = 90f
         multiTitle.y = 550f
@@ -57,61 +58,18 @@ class NetworkScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    if (Client.checkIPAddress(ipField.text) && Client.checkPort(portField.text)) {
-                        game.config.ipAddress = ipField.text
-                        game.config.clientPort = portField.text.toInt()
-                        game.config.saveSettings()
-
-                        game.client = Client(game.config)
-
-                        println("Verbinde...")
-                        game.client.connect()
+                    connectButton.isDisabled = true
+                    connectButton.setText("Verbinde...")
+                    if (game.network.startClient(ipField.text, portField.text)) {
+                        connectButton.setText("Verbunden")
                     } else {
-                        println("IP oder Port nicht valide")
+                        game.network.stopItAll()
+                        connectButton.setText("Verbinden")
+                        connectButton.isDisabled = false
                     }
                 }
-            },
+            }
         )
-
-        val stopServerButton = createTextButton("Server stoppen", 500f, 200f)
-        val startServerButton = createTextButton("Server starten", 500f, 200f)
-        startServerButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    if (Client.checkPort(portField.text)) {
-                        game.config.serverPort = portField.text.toInt()
-                        game.config.saveSettings()
-
-                        game.server = Server(game.config)
-
-                        println("Starte...")
-                        game.server.start()
-
-                        startServerButton.isVisible = false
-                        stopServerButton.isVisible = true
-                    } else {
-                        println("Port nicht valide")
-                    }
-                }
-            },
-        )
-        stopServerButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    println("Stoppe...")
-                    game.server.stop()
-                    startServerButton.isVisible = true
-                    stopServerButton.isVisible = false
-                }
-            },
-        )
-        stopServerButton.isVisible = false
 
         val backSprite = if (game.currentLang().language == Language.EN) {
             "back"
@@ -129,6 +87,7 @@ class NetworkScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
+                    game.network.stopItAll()
                     game.screen = game.mainMenuScreen
                     game.config.saveSettings()
                     dispose()
@@ -143,8 +102,6 @@ class NetworkScreen(
         stage.addActor(ipField)
         stage.addActor(portField)
         stage.addActor(connectButton)
-        stage.addActor(startServerButton)
-        stage.addActor(stopServerButton)
         stage.addActor(backButton)
         stage.addActor(multiTitle)
     }
