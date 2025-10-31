@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.viewport.FitViewport
-import org.wanne.game.Language
 import org.wanne.game.MUSIC
 import org.wanne.game.SPRITES
 import org.wanne.game.TEXTURES

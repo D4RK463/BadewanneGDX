@@ -11,9 +11,7 @@ import de.damios.guacamole.Stopwatch
 import org.wanne.game.dialog.DialogManager
 import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
-import org.wanne.game.network.Client
 import org.wanne.game.network.NetworkManager
-import org.wanne.game.network.Server
 import org.wanne.game.screens.LoadingScreen
 import org.wanne.game.screens.game.CowPhoneScreen
 import org.wanne.game.screens.game.OutsideScreen

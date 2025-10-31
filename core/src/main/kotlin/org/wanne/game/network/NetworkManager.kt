@@ -1,35 +1,30 @@
 package org.wanne.game.network
 
+import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 
 class NetworkManager(val game: WanneGame) {
-
-    lateinit var client: Client
-    lateinit var server: Server
-    lateinit var serverThread: Thread
+    var client: Client? = null
+    var server: Server? = null
 
     private val ipRegex = Regex("((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}")
     private val integerChars = '0'..'9'
 
     fun startServer() {
-        server = Server(game.config)
-        serverThread = Thread( server, "Server" ).also { it.start() }
+        server = Server(game.config).apply {
+            onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+        }
+        Thread(server, "Server").start()
     }
 
     fun startClient(ip: String, port: String): Boolean {
         if (checkAndSaveIPAndPort(ip, port)) {
-            // Client erstellen und verbinden
-            client = Client(game.config)
-            return client.sayHello()
-        } else {
-            println("IP oder Port nicht valide")
+            client = Client(game.config).apply {
+                onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+            }
+            return client!!.connect()
         }
         return false
-    }
-
-    fun stopItAll() {
-        println("Server shutdown")
-        server.stop()
     }
 
     private fun checkAndSaveIPAndPort(ip: String, port: String): Boolean {
@@ -51,4 +46,32 @@ class NetworkManager(val game: WanneGame) {
         return port != "" && port.all { it in integerChars }
     }
 
+    private fun handleIncomingPackage(pkg: Package) {
+        when (pkg.intent) {
+            Intent.HELLO -> {
+                println("Client sagt hallo")
+                 // Spiel starten
+            }
+            Intent.CLICK -> {
+                println("Klick empfangen: ${pkg.clickData}")
+                // Spiel aktualisieren
+            }
+            else -> println("Unbekanntes Paket: ${pkg.intent}")
+        }
+    }
+
+    fun sendClick(clickData: SerializablePointAndClickAction) {
+        val pkg = Package(
+            intent = Intent.CLICK,
+            clickData = clickData,
+            selectedVideoMode = VideoMode.valueOf(game.config.mode)
+        )
+        client?.sendPackage(pkg)
+        server?.sendPackage(pkg)
+    }
+
+    fun stopItAll() {
+        client?.disconnect()
+        server?.stop()
+    }
 }

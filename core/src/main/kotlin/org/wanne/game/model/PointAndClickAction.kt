@@ -16,7 +16,7 @@ class PointAndClickAction(
     var clickedObject: GameObject? = null
 
     var combineObject1: GameObject? = null
-    private var combineObject2: GameObject? = null
+    var combineObject2: GameObject? = null
 
     val inventory = Inventory.getInstance()
 

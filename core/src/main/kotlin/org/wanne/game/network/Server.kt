@@ -4,56 +4,73 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Net
 import com.badlogic.gdx.net.ServerSocket
 import com.badlogic.gdx.net.ServerSocketHints
+import com.badlogic.gdx.net.Socket
 import org.wanne.game.Config
 import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 
 class Server(private val config: Config): Runnable {
-
     private lateinit var serverSocket: ServerSocket
-
     private var running = true
+    private var clientSocket: Socket? = null
+    private lateinit var outputStream: ObjectOutputStream
+    private lateinit var inputStream: ObjectInputStream
+
+    var onPackageReceived: ((Package) -> Unit)? = null
 
     private val hints = ServerSocketHints().apply {
         acceptTimeout = 2000
     }
 
-    private fun openSocket() {
-        try {
-            println("Starte Server auf Port ${config.serverPort}")
-            serverSocket = Gdx.net.newServerSocket(Net.Protocol.TCP, config.serverPort, hints)
-        } catch (e: Exception) {
-            println(e.message)
-        }
-    }
-
-    fun stop() {
-        try {
-            serverSocket.dispose()
-            running = false
-        } catch (e: Exception) {
-            println(e.message)
-        }
-    }
-
     override fun run() {
         openSocket()
-        while (running) {
+
+        // Einmal auf Verbindung warten
+        while (running && clientSocket == null) {
             try {
-                val socket = serverSocket.accept(null)
-                println("Client connected: ${socket.remoteAddress}")
+                clientSocket = serverSocket.accept(null)
+                println("Client verbunden: ${clientSocket?.remoteAddress}")
 
-                val incomingPackage = ObjectInputStream(socket.inputStream).readObject() as Package
+                inputStream = ObjectInputStream(clientSocket!!.inputStream)
+                outputStream = ObjectOutputStream(clientSocket!!.outputStream).apply { flush() }
 
-                if (incomingPackage.intent == Intent.HELLO) {
-                    println("Client sagt Hallo")
-
-                    // ToDo: Server sollte darauf aufmerksam machen, dass ein Client verbunden ist und dann ein Spiel starten
-                }
-
+                startReceiving()
             } catch (e: Exception) {
                 println("Warte auf Client... ${e.message}")
             }
         }
-        stop()
+    }
+
+    private fun startReceiving() {
+        while (running) {
+            try {
+                val pkg = inputStream.readObject() as Package
+                onPackageReceived?.invoke(pkg)
+            } catch (e: Exception) {
+                if (running) {
+                    println("Empfangsfehler: ${e.message}")
+                }
+            }
+        }
+    }
+
+    fun sendPackage(pkg: Package) {
+        try {
+            outputStream.writeObject(pkg)
+            outputStream.flush()
+        } catch (e: Exception) {
+            println("Sendefehler: ${e.message}")
+        }
+    }
+
+    private fun openSocket() {
+        serverSocket = Gdx.net.newServerSocket(Net.Protocol.TCP, config.serverPort, hints)
+        println("Server gestartet auf Port ${config.serverPort}")
+    }
+
+    fun stop() {
+        running = false
+        clientSocket?.dispose()
+        serverSocket.dispose()
     }
 }
