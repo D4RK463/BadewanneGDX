@@ -73,19 +73,25 @@ class NetworkManager(val game: WanneGame) {
                 sendPackage(startPkg)
 
                 // Spiel starten
-                game.reset()
-                game.screen = game.introVideoScreen
+                com.badlogic.gdx.Gdx.app.postRunnable {
+                    game.reset()
+                    game.screen = game.introVideoScreen
+                }
             }
             Intent.START -> {
                 println("Spiel starten")
 
                 // Spiel starten
-                game.reset()
-                game.screen = game.introVideoScreen
+                com.badlogic.gdx.Gdx.app.postRunnable {
+                    game.reset()
+                    game.screen = game.introVideoScreen
+                }
             }
             Intent.CLICK -> {
                 println("Klick empfangen: ${pkg.clickData}")
-                // Spiel aktualisieren
+                com.badlogic.gdx.Gdx.app.postRunnable {
+                    // Spiel aktualisieren
+                }
             }
         }
     }
