@@ -117,10 +117,8 @@ class MainMenuScreen(
                         game.screen = game.introVideoScreen
                     } else {
                         if (game.arrivedOutside) {
-                            musicBackground.stop()
                             game.screen = game.outsideScreen
                         } else {
-                            musicBackground.stop()
                             game.screen = game.roomScreen
                         }
                     }

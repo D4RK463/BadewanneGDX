@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class Package(
     var intent: Intent = Intent.HELLO,
-    val clickData: SerializablePointAndClickAction,
+    val clickData: SerializablePointAndClickAction? = null,
     val selectedVideoMode: VideoMode
 ): Serializable {
 

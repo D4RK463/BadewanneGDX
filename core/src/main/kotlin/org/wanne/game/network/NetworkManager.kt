@@ -13,14 +13,14 @@ class NetworkManager(val game: WanneGame) {
     fun startServer(port: String): Boolean {
         if (checkPort(port)) {
             game.config.serverPort = port.toInt()
+            game.config.saveSettings()
             server = Server(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
             }
             Thread(server, "Server").start()
             return true
-        } else {
-            return false
         }
+        return false
     }
 
     fun startClient(ip: String, port: String): Boolean {
@@ -28,7 +28,16 @@ class NetworkManager(val game: WanneGame) {
             client = Client(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
             }
-            return client!!.connect()
+            val connected = client!!.connect()
+
+            if (connected) {
+                val helloPkg = Package(
+                    intent = Intent.HELLO,
+                    selectedVideoMode = VideoMode.valueOf(game.config.mode)
+                )
+                sendPackage(helloPkg)
+            }
+            return connected
         }
         return false
     }
@@ -54,14 +63,30 @@ class NetworkManager(val game: WanneGame) {
     private fun handleIncomingPackage(pkg: Package) {
         when (pkg.intent) {
             Intent.HELLO -> {
-                println("Client sagt hallo")
-                 // Spiel starten
+                println("Client sagt hallo, Starte Spiel")
+
+                // Starten an Client senden
+                val startPkg = Package(
+                    intent = Intent.START,
+                    selectedVideoMode = VideoMode.valueOf(game.config.mode)
+                )
+                sendPackage(startPkg)
+
+                // Spiel starten
+                game.reset()
+                game.screen = game.introVideoScreen
+            }
+            Intent.START -> {
+                println("Spiel starten")
+
+                // Spiel starten
+                game.reset()
+                game.screen = game.introVideoScreen
             }
             Intent.CLICK -> {
                 println("Klick empfangen: ${pkg.clickData}")
                 // Spiel aktualisieren
             }
-            else -> println("Unbekanntes Paket: ${pkg.intent}")
         }
     }
 
@@ -71,6 +96,10 @@ class NetworkManager(val game: WanneGame) {
             clickData = clickData,
             selectedVideoMode = VideoMode.valueOf(game.config.mode)
         )
+        sendPackage(pkg)
+    }
+
+    private fun sendPackage(pkg: Package) {
         client?.sendPackage(pkg)
         server?.sendPackage(pkg)
     }
@@ -80,11 +109,5 @@ class NetworkManager(val game: WanneGame) {
         server?.stop()
     }
 
-    fun serverRunning(): Boolean {
-        if (server == null) {
-            return false
-        } else {
-            return server!!.running
-        }
-    }
+    fun serverRunning(): Boolean = server?.running ?: false
 }

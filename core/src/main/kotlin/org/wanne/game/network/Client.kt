@@ -45,7 +45,8 @@ class Client(private val config: Config) {
                     onPackageReceived?.invoke(pkg)
                 } catch (e: Exception) {
                     if (isConnected) {
-                        println("Empfangsfehler: ${e.message}")
+                        println("Empfangsfehler... disconnecting: ${e.message}")
+                        disconnect()
                     }
                 }
             }
