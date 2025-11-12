@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream
 
 class Server(private val config: Config): Runnable {
     private lateinit var serverSocket: ServerSocket
-    private var running = true
+    var running = true
     private var clientSocket: Socket? = null
     private lateinit var outputStream: ObjectOutputStream
     private lateinit var inputStream: ObjectInputStream

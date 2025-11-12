@@ -4,17 +4,23 @@ import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 
 class NetworkManager(val game: WanneGame) {
-    var client: Client? = null
-    var server: Server? = null
+    private var client: Client? = null
+    private var server: Server? = null
 
     private val ipRegex = Regex("((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}")
     private val integerChars = '0'..'9'
 
-    fun startServer() {
-        server = Server(game.config).apply {
-            onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+    fun startServer(port: String): Boolean {
+        if (checkPort(port)) {
+            game.config.serverPort = port.toInt()
+            server = Server(game.config).apply {
+                onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+            }
+            Thread(server, "Server").start()
+            return true
+        } else {
+            return false
         }
-        Thread(server, "Server").start()
     }
 
     fun startClient(ip: String, port: String): Boolean {
@@ -31,7 +37,6 @@ class NetworkManager(val game: WanneGame) {
         if (checkIPAddress(ip) && checkPort(port)) {
             game.config.ipAddress = ip
             game.config.clientPort = port.toInt()
-            game.config.serverPort = port.toInt()
             game.config.saveSettings()
             return true
         }
@@ -73,5 +78,13 @@ class NetworkManager(val game: WanneGame) {
     fun stopItAll() {
         client?.disconnect()
         server?.stop()
+    }
+
+    fun serverRunning(): Boolean {
+        if (server == null) {
+            return false
+        } else {
+            return server!!.running
+        }
     }
 }

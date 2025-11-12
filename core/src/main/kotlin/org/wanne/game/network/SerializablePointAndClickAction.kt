@@ -1,6 +1,5 @@
 package org.wanne.game.network
 
-import org.wanne.game.VideoMode
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.PointAndClickAction
 import java.io.Serializable
