@@ -48,6 +48,7 @@ class RoomScreen(
                 stage.addActor(Image(roomBackgroundSingleWide))
             }
         } else {
+            // ToDo: Multiplayer Hintergrund im Widescreen Format
             stage.addActor(Image(roomBackgroundMulti))
         }
 

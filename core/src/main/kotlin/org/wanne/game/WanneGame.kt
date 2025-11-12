@@ -82,6 +82,7 @@ class WanneGame(val android: Boolean): Game() {
     var possessWinningObjects = false
     var cowIsBusy = false
     var arrivedOutside = false
+    var player = 1
 
     var unlockDrogglWithNewPlaythrough = true
 

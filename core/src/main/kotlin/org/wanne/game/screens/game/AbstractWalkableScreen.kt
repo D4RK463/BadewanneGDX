@@ -1,6 +1,7 @@
 package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input.Keys.R
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -270,6 +271,20 @@ abstract class AbstractWalkableScreen(
 
             stage.addActor(poolAttendantButton)
             stage.addActor(duckButton)
+        } else {
+            if (game.player == 1) {
+                stage.currentPlayer = poolAttendant
+                speakButton.isVisible = false
+                takeButton.isVisible = true
+                useButton.isVisible = true
+                combineButton.isVisible = false
+            } else {
+                stage.currentPlayer = duck
+                speakButton.isVisible = true
+                takeButton.isVisible = false
+                useButton.isVisible = false
+                combineButton.isVisible = true
+            }
         }
 
         exitButton = UiButtonBuilder()
