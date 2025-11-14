@@ -6,9 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import de.damios.guacamole.Stopwatch
 import org.wanne.game.dialog.DialogManager
+import org.wanne.game.listener.ExternalListener
 import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
 import org.wanne.game.network.NetworkManager
@@ -83,6 +85,8 @@ class WanneGame(val android: Boolean): Game() {
     var cowIsBusy = false
     var arrivedOutside = false
     var player = 1
+    var currentListener: ExternalListener? = null
+    var currentStage: Stage? = null
 
     var unlockDrogglWithNewPlaythrough = true
 

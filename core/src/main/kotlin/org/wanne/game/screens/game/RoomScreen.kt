@@ -48,7 +48,6 @@ class RoomScreen(
                 stage.addActor(Image(roomBackgroundSingleWide))
             }
         } else {
-            // ToDo: Multiplayer Hintergrund im Widescreen Format
             stage.addActor(Image(roomBackgroundMulti))
         }
 
@@ -57,7 +56,9 @@ class RoomScreen(
         musicBackground.play()
 
         // Klick Steuerung der Charaktere
-        stage.addListener(PointAndClickListener(dialogBoard, limits))
+        val listener = PointAndClickListener(dialogBoard, limits)
+        stage.addListener(listener)
+        game.currentListener = listener // ToDo Alle anderen Listener hinzufügen auf anderen Screens
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
@@ -80,6 +81,7 @@ class RoomScreen(
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
 
+        game.currentStage = stage // ToDo Alle anderen Listener hinzufügen auf anderen Screens
         game.startedGame = true
     }
 

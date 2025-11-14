@@ -1,15 +1,17 @@
 package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.wanne.game.Statistic
 import org.wanne.game.model.puzzle.PuzzlePiece
 import org.wanne.game.model.puzzle.VictoryMessage
+import org.wanne.game.network.SerializablePointAndClickAction
 import org.wanne.game.stage.PuzzleStage
 
-class PuzzleClickListener : ClickListener() {
+class PuzzleClickListener : ClickListener(), ExternalListener {
     override fun clicked(
         event: InputEvent?,
         x: Float,
@@ -48,5 +50,12 @@ class PuzzleClickListener : ClickListener() {
             stage.game.puzzleSolved = true
             stage.game.screen = stage.game.roomScreen
         }
+    }
+
+    override fun externalClick(
+        stage: Stage,
+        action: SerializablePointAndClickAction
+    ): Boolean {
+        TODO("Not yet implemented")
     }
 }

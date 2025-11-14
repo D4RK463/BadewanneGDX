@@ -3,20 +3,23 @@ package org.wanne.game.listener
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.Statistic
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
+import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.network.SerializablePointAndClickAction
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
     private val roomLimits: IntArray,
-) : InputListener() {
+) : InputListener(), ExternalListener {
     override fun touchDown(
         event: InputEvent?,
         x: Float,
@@ -25,42 +28,60 @@ class PointAndClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as PointAndClickAwareStage
+        val action = stage.currentAction
+        return internalClick(stage, action, x, y, pointer)
+    }
+
+    override fun externalClick(stage: Stage, action: SerializablePointAndClickAction): Boolean {
+        // ToDo Action umwandeln
+
+//        return click(stage, action, action.x, action.y, 0)
+        return false
+    }
+
+    private fun internalClick(
+        stage: PointAndClickAwareStage,
+        currentAction: PointAndClickAction,
+        x: Float,
+        y: Float,
+        pointer: Int
+    ): Boolean  {
         if (pointer == 0) {
             Statistic.countClick()
 
             // Aktion
-            if (stage.currentAction.type != ActionType.NOTHING) {
-//            println("${stage.currentAction.type} at $x:$y")
+            if (currentAction.type != ActionType.NOTHING) {
+//            println("${currentAction.type} at $x:$y")
 
                 // Das Objekt holen, auf welches geklickt wurde
                 val hitObject = stage.hit(x, y, true)
 //                println("Hit: $hitObject")
                 if (hitObject is GameObject) {
-                    stage.currentAction.clickedObject = hitObject
+                    currentAction.clickedObject = hitObject
 
                     // Wenn es sich um eine Kombinieren-Aktion handelt,
                     // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
-                    if (stage.currentAction.type == ActionType.COMBINE) {
-                        if (stage.currentAction.combineObject1 != null) {
+                    if (currentAction.type == ActionType.COMBINE) {
+                        if (currentAction.combineObject1 != null) {
                             maybeMove(hitObject, stage)
                         } else {
                             // Nur die Action ausführen
                             stage.needToMove = false
-                            stage.currentAction.action(dialogBoard)
+                            currentAction.action(dialogBoard)
                         }
                     } else {
                         maybeMove(hitObject, stage)
                     }
                 } else if (hitObject is Image) { // Escape vom Dialog
-                    stage.currentAction.reset()
+                    currentAction.reset()
 
                     stage.lookingAtTheEnd = null
                     stage.doTheAction = {}
                     dialogBoard.reset()
                 } else if (hitObject is Label) { // Im Dialog
-                    stage.currentAction.lastSentence = hitObject.text.toString()
+                    currentAction.lastSentence = hitObject.text.toString()
                     stage.doTheAction = {
-                        stage.currentAction.action(dialogBoard)
+                        currentAction.action(dialogBoard)
                     }
                 }
             } else { // oder laufen

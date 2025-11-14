@@ -1,7 +1,6 @@
 package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input.Keys.R
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -13,6 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.wanne.game.PIXMAPS
 import org.wanne.game.SPRITES
+import org.wanne.game.Statistic
 import org.wanne.game.WanneGame
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Inventory
@@ -47,7 +47,8 @@ abstract class AbstractWalkableScreen(
     private lateinit var combineButton: ImageButton
     private lateinit var poolAttendantButton: ImageButton
     private lateinit var duckButton: ImageButton
-    private lateinit var exitButton: ImageButton
+    private var backToMenuButton: ImageButton? = null
+    private var exitButton: ImageButton? = null
 
     // Cursor
     val lookCursor: Pixmap = game.am["$PIXMAPS/Ansehen.png"]
@@ -269,9 +270,60 @@ abstract class AbstractWalkableScreen(
             speakButton.isVisible = false
             combineButton.isVisible = false
 
+            backToMenuButton = UiButtonBuilder()
+                .withTexture(buttonAtlas.createSprite("Passen"))
+                .withTexturePressed(buttonAtlas.createSprite("PassenPressed"))
+                .withPoint(game.choose(Point(978F, 705F), Point(1200F, 640F)))
+                .withTooltip(TextTooltip(game.choose("zurück zum Hauptmenü", "back to the Main menu"), game.currentSkin()))
+                .useScaling(!game.classicMode())
+                .build()
+            backToMenuButton?.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        resetPlayerAndSound()
+                        game.screen = game.mainMenuScreen
+                    }
+                },
+            )
+
             stage.addActor(poolAttendantButton)
             stage.addActor(duckButton)
+            stage.addActor(backToMenuButton)
         } else {
+
+            // Im Multiplayer gibt es nur den Beenden-Button
+            exitButton = UiButtonBuilder()
+                .withTexture(buttonAtlas.createSprite("exit"))
+                .withTexturePressed(buttonAtlas.createSprite("exitPressed"))
+                .withPoint(game.choose(Point(978F, 705F), Point(1200F, 640F)))
+                .withTooltip(TextTooltip(game.choose("Multiplayer beenden", "quit multiplayer"), game.currentSkin()))
+                .useScaling(!game.classicMode())
+                .build()
+            exitButton?.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        resetPlayerAndSound()
+
+                        game.reset()
+                        game.arrivedOutside = false
+                        game.startedGame = false
+                        game.gameEnded = true
+                        Statistic.reset()
+
+                        game.network.stopItAll()
+                        game.screen = game.mainMenuScreen
+                    }
+                },
+            )
+
+            stage.addActor(exitButton)
+
             if (game.player == 1) {
                 stage.currentPlayer = poolAttendant
                 speakButton.isVisible = false
@@ -287,31 +339,11 @@ abstract class AbstractWalkableScreen(
             }
         }
 
-        exitButton = UiButtonBuilder()
-            .withTexture(buttonAtlas.createSprite("Passen"))
-            .withTexturePressed(buttonAtlas.createSprite("PassenPressed"))
-            .withPoint(game.choose(Point(978F, 705F), Point(1200F, 640F)))
-            .withTooltip(TextTooltip(game.choose("zurück zum Hauptmenü", "back to the Main menu"), game.currentSkin()))
-            .useScaling(!game.classicMode())
-            .build()
-        exitButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    resetPlayerAndSound()
-                    game.screen = game.mainMenuScreen
-                }
-            },
-        )
-
         stage.addActor(lookButton)
         stage.addActor(speakButton)
         stage.addActor(takeButton)
         stage.addActor(useButton)
         stage.addActor(combineButton)
-        stage.addActor(exitButton)
     }
 
     abstract fun resetPlayerAndSound()
@@ -331,7 +363,8 @@ abstract class AbstractWalkableScreen(
         combineButton.remove()
         poolAttendantButton.remove()
         duckButton.remove()
-        exitButton.remove()
+        backToMenuButton?.remove()
+        exitButton?.remove()
 
         game.timer.stop()
     }

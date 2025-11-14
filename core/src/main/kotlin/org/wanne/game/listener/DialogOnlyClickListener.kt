@@ -2,15 +2,17 @@ package org.wanne.game.listener
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.Statistic
 import org.wanne.game.stage.DialogOnlyStage
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.dialog.DialogBoard
+import org.wanne.game.network.SerializablePointAndClickAction
 
 class DialogOnlyClickListener(
     val dialogBoard: DialogBoard
-) : InputListener() {
+) : InputListener(), ExternalListener {
     override fun touchDown(
         event: InputEvent?,
         x: Float,
@@ -34,5 +36,12 @@ class DialogOnlyClickListener(
         }
 
         return true
+    }
+
+    override fun externalClick(
+        stage: Stage,
+        action: SerializablePointAndClickAction
+    ): Boolean {
+        TODO("Not yet implemented")
     }
 }

@@ -94,7 +94,9 @@ class NetworkManager(val game: WanneGame) {
             Intent.CLICK -> {
                 println("Klick empfangen: ${pkg.clickData}")
                 com.badlogic.gdx.Gdx.app.postRunnable {
+
                     // Spiel aktualisieren
+                    game.currentListener?.externalClick(game.currentStage, pkg.clickData)
                 }
             }
         }
