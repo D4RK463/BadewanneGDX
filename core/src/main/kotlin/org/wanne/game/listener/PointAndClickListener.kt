@@ -36,7 +36,14 @@ class PointAndClickListener(
     }
 
     override fun externalClick(stage: Stage, action: ActionWrapper): Boolean {
-        return internalClick(stage as PointAndClickAwareStage, action.pointAndClickAction!!, action.x, action.y, 0)
+        return internalClick(
+            stage as PointAndClickAwareStage,
+            action.pointAndClickAction!!,
+            action.x,
+            action.y,
+            0,
+            true
+        )
     }
 
     private fun internalClick(
@@ -44,18 +51,23 @@ class PointAndClickListener(
         currentAction: PointAndClickAction,
         x: Float,
         y: Float,
-        pointer: Int
+        pointer: Int,
+        isMultiplayer: Boolean = false
     ): Boolean  {
         if (pointer == 0) {
             Statistic.countClick()
 
             // Aktion
             if (currentAction.type != ActionType.NOTHING) {
-//            println("${currentAction.type} at $x:$y")
+            println("${currentAction.type} at $x:$y")
 
                 // Das Objekt holen, auf welches geklickt wurde
-                val hitObject = stage.hit(x, y, true)
-//                println("Hit: $hitObject")
+                val hitObject = if (isMultiplayer) {
+                    currentAction.clickedObject
+                } else {
+                    stage.hit(x, y, true)
+                }
+                println("Hit: $hitObject")
                 if (hitObject is GameObject) {
                     currentAction.clickedObject = hitObject
 
