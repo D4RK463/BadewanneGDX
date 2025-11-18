@@ -24,6 +24,7 @@ class ActionConverter(val game: WanneGame) {
 
     private fun findGameObjectByName(name: String): GameObject? {
         // ToDo: Die GameObjects reichen nicht aus, wir brauchen auch alle klickbaren Labels etc.
+        println("Searching for GameObject with name: $name")
 
         game.items.asList().forEach { item ->
             if (item.name == name) {

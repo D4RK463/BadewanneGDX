@@ -31,7 +31,6 @@ class PointAndClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as PointAndClickAwareStage
-        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
         return internalClick(stage, stage.currentAction, x, y, pointer)
     }
 
@@ -60,7 +59,7 @@ class PointAndClickListener(
 
             // Aktion
             if (currentAction.type != ActionType.NOTHING) {
-//            println("${currentAction.type} at $x:$y")
+                println("${currentAction.type} at $x:$y")
 
                 // Das Objekt holen, auf welches geklickt wurde
                 val hitObject = if (isMultiplayer) {
@@ -68,9 +67,13 @@ class PointAndClickListener(
                 } else {
                     stage.hit(x, y, true)
                 }
-//                println("Hit: $hitObject")
+                println("Hit: $hitObject")
                 if (hitObject is GameObject) {
                     currentAction.clickedObject = hitObject
+
+                    if (isMultiplayer) {
+                        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
+                    }
 
                     // Wenn es sich um eine Kombinieren-Aktion handelt,
                     // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
@@ -127,6 +130,10 @@ class PointAndClickListener(
                 } else {
                     stage.firstPlayer.state = Player.Companion.State.STANDING
                     stage.needToMove = false
+                }
+
+                if (isMultiplayer) {
+                    networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
                 }
             }
         } else {
