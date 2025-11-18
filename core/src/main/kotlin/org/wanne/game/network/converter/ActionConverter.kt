@@ -9,6 +9,8 @@ import org.wanne.game.network.model.SerializableAction
 class ActionConverter(val game: WanneGame) {
 
     fun convertToActionWrapper(action: SerializableAction): ActionWrapper {
+
+        // ToDo: Hier muss noch das aktuelle Inventory gesetzt werden
         val pointAndClickAction = PointAndClickAction(type = action.type).apply {
             clickedObject = action.clickedObject?.let { findGameObjectByName(it) }
             combineObject1 = action.combineObject1?.let { findGameObjectByName(it) }
