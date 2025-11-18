@@ -51,18 +51,18 @@ class PointAndClickListener(
         x: Float,
         y: Float,
         pointer: Int,
-        isMultiplayer: Boolean = false
+        isMultiplayerAction: Boolean = false
     ): Boolean  {
         if (pointer == 0) {
             Statistic.countClick()
-            stage.isMultiplayerAction = isMultiplayer
+            stage.isMultiplayerAction = isMultiplayerAction
 
             // Aktion
             if (currentAction.type != ActionType.NOTHING) {
                 println("${currentAction.type} at $x:$y")
 
                 // Das Objekt holen, auf welches geklickt wurde
-                val hitObject = if (isMultiplayer) {
+                val hitObject = if (isMultiplayerAction) {
                     currentAction.clickedObject
                 } else {
                     stage.hit(x, y, true)
@@ -71,7 +71,7 @@ class PointAndClickListener(
                 if (hitObject is GameObject) {
                     currentAction.clickedObject = hitObject
 
-                    if (isMultiplayer) {
+                    if (!isMultiplayerAction) {
                         networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
                     }
 
@@ -132,7 +132,7 @@ class PointAndClickListener(
                     stage.needToMove = false
                 }
 
-                if (isMultiplayer) {
+                if (!isMultiplayerAction) {
                     networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
                 }
             }
