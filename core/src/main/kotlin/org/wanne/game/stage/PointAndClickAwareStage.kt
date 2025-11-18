@@ -15,20 +15,23 @@ class PointAndClickAwareStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
 
-    var currentPlayer: Player = poolAttendant
+    var firstPlayer: Player = poolAttendant
+    var secondPlayer: Player = duck
 
     var moveToPoint: Point? = null
     var needToMove = false
+    var isMultiplayerAction = false
 
     var currentAction = PointAndClickAction.createDefaultAction()
     var lookingAtTheEnd: Player.Companion.Looking? = null
     var doTheAction: () -> Unit = {}
 
     override fun draw() {
+        val player = if (isMultiplayerAction) secondPlayer else firstPlayer
 
         // Bewegung ausrechnen
         if (moveToPoint != null && needToMove) {
-            currentPlayer.walkToPoint(
+            player.walkToPoint(
                 moveToPoint!!.x,
                 moveToPoint!!.y,
                 lookingAtTheEnd,

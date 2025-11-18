@@ -230,7 +230,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        stage.currentPlayer = duck
+                        stage.firstPlayer = duck
+                        stage.secondPlayer = poolAttendant
 
                         poolAttendantButton?.isVisible = true
                         duckButton?.isVisible = false
@@ -252,7 +253,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        stage.currentPlayer = poolAttendant
+                        stage.firstPlayer = poolAttendant
+                        stage.secondPlayer = duck
 
                         poolAttendantButton?.isVisible = false
                         duckButton?.isVisible = true
@@ -325,13 +327,15 @@ abstract class AbstractWalkableScreen(
             stage.addActor(exitButton)
 
             if (game.player == 1) {
-                stage.currentPlayer = poolAttendant
+                stage.firstPlayer = poolAttendant
+                stage.secondPlayer = duck
                 speakButton.isVisible = false
                 takeButton.isVisible = true
                 useButton.isVisible = true
                 combineButton.isVisible = false
             } else {
-                stage.currentPlayer = duck
+                stage.firstPlayer = duck
+                stage.secondPlayer = poolAttendant
                 speakButton.isVisible = true
                 takeButton.isVisible = false
                 useButton.isVisible = false
