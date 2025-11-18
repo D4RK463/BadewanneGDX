@@ -43,11 +43,14 @@ class CowPhoneScreen(
         stage = DialogOnlyStage(viewport, cowCallAnimation, dialogObject = game.items.cow)
         Gdx.input.inputProcessor = stage
 
-        stage.addListener(DialogOnlyClickListener(dialogBoard))
+        val listener = DialogOnlyClickListener(dialogBoard, game.network.takeUnless { game.isSingleplayer })
+        stage.addListener(listener)
+        game.currentListener = listener
 
         dialogBoard.isVisible = true
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+        game.currentStage = stage
 
         // Initialen Dialog starten
         stage.currentAction.action(dialogBoard)

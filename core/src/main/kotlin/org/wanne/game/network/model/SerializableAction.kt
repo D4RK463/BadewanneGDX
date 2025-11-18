@@ -1,10 +1,10 @@
-package org.wanne.game.network
+package org.wanne.game.network.model
 
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.PointAndClickAction
 import java.io.Serializable
 
-class SerializablePointAndClickAction: Serializable {
+class SerializableAction: Serializable {
     private constructor()
 
     var type: ActionType = ActionType.NOTHING
@@ -18,8 +18,8 @@ class SerializablePointAndClickAction: Serializable {
     var y: Float = 0f
 
     companion object {
-        fun createFromPointAndClickAction(action: PointAndClickAction): SerializablePointAndClickAction {
-            return SerializablePointAndClickAction().apply {
+        fun createFromPointAndClickAction(action: PointAndClickAction): SerializableAction {
+            return SerializableAction().apply {
                 type = action.type
                 clickedObject = action.clickedObject?.name
                 combineObject1 = action.combineObject1?.name

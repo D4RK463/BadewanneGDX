@@ -5,13 +5,17 @@ import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.Statistic
-import org.wanne.game.stage.DialogOnlyStage
 import org.wanne.game.model.ActionType
+import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
-import org.wanne.game.network.SerializablePointAndClickAction
+import org.wanne.game.network.NetworkManager
+import org.wanne.game.network.model.ActionWrapper
+import org.wanne.game.network.model.SerializableAction
+import org.wanne.game.stage.DialogOnlyStage
 
 class DialogOnlyClickListener(
-    val dialogBoard: DialogBoard
+    val dialogBoard: DialogBoard,
+    private val networkManager: NetworkManager?
 ) : InputListener(), ExternalListener {
     override fun touchDown(
         event: InputEvent?,
@@ -20,28 +24,36 @@ class DialogOnlyClickListener(
         pointer: Int,
         button: Int,
     ): Boolean {
-        Statistic.countClick()
         val stage = event?.stage as DialogOnlyStage
-
-        stage.currentAction.type = ActionType.TALK_TO
-
-//        println("${stage.currentAction.type} at $x:$y")
-
-        // Das Objekt holen, auf welches geklickt wurde
-        val hitObject = stage.hit(x, y, true)
-        if (hitObject is Label) { // Im Dialog
-            stage.currentAction.lastSentence = hitObject.text.toString()
-            stage.currentAction.action(dialogBoard)
-
-        }
-
-        return true
+        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction))
+        return internalClick(stage, stage.currentAction, x, y)
     }
 
     override fun externalClick(
         stage: Stage,
-        action: SerializablePointAndClickAction
+        action: ActionWrapper,
     ): Boolean {
-        TODO("Not yet implemented")
+        return internalClick(stage as DialogOnlyStage, action.pointAndClickAction!!, action.x, action.y)
+    }
+
+    private fun internalClick(
+        stage: DialogOnlyStage,
+        action: PointAndClickAction,
+        x: Float,
+        y: Float,
+    ): Boolean {
+        Statistic.countClick()
+        action.type = ActionType.TALK_TO
+
+//        println("${action.type} at $x:$y")
+
+        // Das Objekt holen, auf welches geklickt wurde
+        val hitObject = stage.hit(x, y, true)
+        if (hitObject is Label) { // Im Dialog
+            action.lastSentence = hitObject.text.toString()
+            action.action(dialogBoard)
+        }
+
+        return true
     }
 }

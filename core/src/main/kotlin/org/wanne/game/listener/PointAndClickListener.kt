@@ -13,12 +13,15 @@ import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
-import org.wanne.game.network.SerializablePointAndClickAction
+import org.wanne.game.network.NetworkManager
+import org.wanne.game.network.model.ActionWrapper
+import org.wanne.game.network.model.SerializableAction
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
     private val roomLimits: IntArray,
+    private val networkManager: NetworkManager?
 ) : InputListener(), ExternalListener {
     override fun touchDown(
         event: InputEvent?,
@@ -28,15 +31,12 @@ class PointAndClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as PointAndClickAwareStage
-        val action = stage.currentAction
-        return internalClick(stage, action, x, y, pointer)
+        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction))
+        return internalClick(stage, stage.currentAction, x, y, pointer)
     }
 
-    override fun externalClick(stage: Stage, action: SerializablePointAndClickAction): Boolean {
-        // ToDo Action umwandeln
-
-//        return click(stage, action, action.x, action.y, 0)
-        return false
+    override fun externalClick(stage: Stage, action: ActionWrapper): Boolean {
+        return internalClick(stage as PointAndClickAwareStage, action.pointAndClickAction!!, action.x, action.y, 0)
     }
 
     private fun internalClick(

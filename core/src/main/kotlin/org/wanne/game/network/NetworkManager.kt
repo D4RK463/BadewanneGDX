@@ -2,10 +2,14 @@ package org.wanne.game.network
 
 import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
+import org.wanne.game.network.converter.ActionConverter
+import org.wanne.game.network.model.SerializableAction
 
 class NetworkManager(val game: WanneGame) {
     private var client: Client? = null
     private var server: Server? = null
+
+    private val converter = ActionConverter(game)
 
     private val ipRegex = Regex("((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}")
     private val integerChars = '0'..'9'
@@ -96,13 +100,16 @@ class NetworkManager(val game: WanneGame) {
                 com.badlogic.gdx.Gdx.app.postRunnable {
 
                     // Spiel aktualisieren
-                    game.currentListener?.externalClick(game.currentStage, pkg.clickData)
+                    if (game.currentStage != null && pkg.clickData != null) {
+                        val action = converter.convertToActionWrapper(pkg.clickData)
+                        game.currentListener?.externalClick(game.currentStage!!, action)
+                    }
                 }
             }
         }
     }
 
-    fun sendClick(clickData: SerializablePointAndClickAction) {
+    fun sendClick(clickData: SerializableAction) {
         val pkg = Package(
             intent = Intent.CLICK,
             clickData = clickData,

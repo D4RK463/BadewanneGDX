@@ -59,6 +59,7 @@ class PuzzleScreen(
 
         stage = PuzzleStage(viewport, puzzle, game)
         Gdx.input.inputProcessor = stage
+        game.currentStage = stage
 
         // Hintergrund setzen
         if (game.classicMode()) {
@@ -67,7 +68,9 @@ class PuzzleScreen(
             stage.addActor(Image(puzzleBackgroundSingleWide))
         }
 
-        stage.addListener(PuzzleClickListener())
+        val listener = PuzzleClickListener(game.network.takeUnless { game.isSingleplayer })
+        stage.addListener(listener)
+        game.currentListener = listener
 
         puzzle.initializePuzzle(stage)
         stage.addActor(victoryMessage)

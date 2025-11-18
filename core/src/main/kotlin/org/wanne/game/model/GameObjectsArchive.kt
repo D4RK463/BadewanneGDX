@@ -12,6 +12,7 @@ import org.wanne.game.model.objects.DrBear
 import org.wanne.game.model.objects.Drawer
 import org.wanne.game.model.objects.Exit
 import org.wanne.game.model.objects.FireFlower
+import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.objects.GoldBag
 import org.wanne.game.model.objects.Graffiti
 import org.wanne.game.model.objects.HonkSign
@@ -75,6 +76,44 @@ class GameObjectsArchive() {
     lateinit var graffiti: Graffiti
     lateinit var iceman: Iceman
     lateinit var goldBag: GoldBag
+
+    fun asList(): List<GameObject> {
+        return listOf(
+            pills,
+            bed,
+            roomWindow,
+            drawer,
+            door,
+            pa2Poster,
+            brucePoster,
+            deanPoster,
+            rug,
+            stickers,
+            straw,
+            box,
+            safe,
+            drBear,
+            milkSucker,
+            stethoscope,
+            scalpel,
+            note,
+            mario,
+            bell,
+            teddy,
+            flower,
+            telephone,
+            exit,
+            cow,
+            ice,
+            iceMenuLeft,
+            iceMenuRight,
+            honkSign,
+            street,
+            graffiti,
+            iceman,
+            goldBag
+        )
+    }
 
     fun resetItems(game: WanneGame) {
         pills = Pills(game = game)

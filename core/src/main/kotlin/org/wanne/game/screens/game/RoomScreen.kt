@@ -56,9 +56,9 @@ class RoomScreen(
         musicBackground.play()
 
         // Klick Steuerung der Charaktere
-        val listener = PointAndClickListener(dialogBoard, limits)
+        val listener = PointAndClickListener(dialogBoard, limits, game.network.takeUnless { game.isSingleplayer })
         stage.addListener(listener)
-        game.currentListener = listener // ToDo Alle anderen Listener hinzufügen auf anderen Screens
+        game.currentListener = listener
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
@@ -81,7 +81,7 @@ class RoomScreen(
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
 
-        game.currentStage = stage // ToDo Alle anderen Listener hinzufügen auf anderen Screens
+        game.currentStage = stage
         game.startedGame = true
     }
 

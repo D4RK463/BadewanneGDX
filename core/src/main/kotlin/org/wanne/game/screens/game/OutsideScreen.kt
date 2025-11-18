@@ -63,7 +63,9 @@ class OutsideScreen(
         radioBackground.play()
 
         // Klick Steuerung der Charaktere
-        stage.addListener(PointAndClickListener(dialogBoard, limits))
+        val listener = PointAndClickListener(dialogBoard, limits, game.network.takeUnless { game.isSingleplayer })
+        stage.addListener(listener)
+        game.currentListener = listener
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
@@ -83,6 +85,7 @@ class OutsideScreen(
 
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
+        game.currentStage = stage
         game.arrivedOutside = true
     }
 

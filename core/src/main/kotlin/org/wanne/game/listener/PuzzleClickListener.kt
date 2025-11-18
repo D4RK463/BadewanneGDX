@@ -6,19 +6,41 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.wanne.game.Statistic
+import org.wanne.game.model.puzzle.PuzzleAction
 import org.wanne.game.model.puzzle.PuzzlePiece
 import org.wanne.game.model.puzzle.VictoryMessage
-import org.wanne.game.network.SerializablePointAndClickAction
+import org.wanne.game.network.NetworkManager
+import org.wanne.game.network.model.ActionWrapper
 import org.wanne.game.stage.PuzzleStage
 
-class PuzzleClickListener : ClickListener(), ExternalListener {
+class PuzzleClickListener(
+    private val networkManager: NetworkManager?
+) : ClickListener(), ExternalListener {
     override fun clicked(
         event: InputEvent?,
         x: Float,
         y: Float,
     ) {
-        Statistic.countClick()
         val stage = event?.stage as PuzzleStage
+        // ToDo: Netzwerkaktion nur bei Mehrspielerspielen
+        internalClick(stage, stage.action, x, y)
+    }
+
+    override fun externalClick(
+        stage: Stage,
+        action: ActionWrapper
+    ): Boolean {
+        internalClick(stage as PuzzleStage, action.puzzleAction!!, action.x, action.y)
+        return true
+    }
+
+    private fun internalClick(
+        stage: PuzzleStage,
+        currentAction: PuzzleAction,
+        x: Float,
+        y: Float,
+    ) {
+        Statistic.countClick()
 
         // Das Objekt holen, auf welches geklickt wurde
         val hitObject = stage.hit(x, y, true)
@@ -26,13 +48,13 @@ class PuzzleClickListener : ClickListener(), ExternalListener {
         if (hitObject is PuzzlePiece) {
             // Bei einem Doppelklick wird gedreht
             if (tapCount == 2) {
-                stage.action.reset()
+                currentAction.reset()
                 hitObject.rotate90()
 
-            // Sonst wird getauscht
+                // Sonst wird getauscht
             } else {
-                if (stage.action.setChangePieces(hitObject)) {
-                    stage.puzzle.exchangePieces(stage.action)
+                if (currentAction.setChangePieces(hitObject)) {
+                    stage.puzzle.exchangePieces(currentAction)
                 }
             }
 
@@ -50,12 +72,5 @@ class PuzzleClickListener : ClickListener(), ExternalListener {
             stage.game.puzzleSolved = true
             stage.game.screen = stage.game.roomScreen
         }
-    }
-
-    override fun externalClick(
-        stage: Stage,
-        action: SerializablePointAndClickAction
-    ): Boolean {
-        TODO("Not yet implemented")
     }
 }
