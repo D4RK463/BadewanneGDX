@@ -90,6 +90,7 @@ class NetworkManager(val game: WanneGame) {
                 // Spiel starten
                 com.badlogic.gdx.Gdx.app.postRunnable {
                     game.reset()
+                    game.config.mode = pkg.selectedVideoMode.name
                     game.isSingleplayer = false
                     game.player = 2
                     game.screen = game.introVideoScreen

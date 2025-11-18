@@ -361,8 +361,10 @@ abstract class AbstractWalkableScreen(
         takeButton.remove()
         useButton.remove()
         combineButton.remove()
-        poolAttendantButton.remove()
-        duckButton.remove()
+        if (!game.isSingleplayer) {
+            poolAttendantButton.remove()
+            duckButton.remove()
+        }
         backToMenuButton?.remove()
         exitButton?.remove()
 
