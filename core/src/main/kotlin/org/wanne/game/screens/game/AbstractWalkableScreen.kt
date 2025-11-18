@@ -45,8 +45,8 @@ abstract class AbstractWalkableScreen(
     private lateinit var takeButton: ImageButton
     private lateinit var useButton: ImageButton
     private lateinit var combineButton: ImageButton
-    private lateinit var poolAttendantButton: ImageButton
-    private lateinit var duckButton: ImageButton
+    private var poolAttendantButton: ImageButton? = null
+    private var duckButton: ImageButton? = null
     private var backToMenuButton: ImageButton? = null
     private var exitButton: ImageButton? = null
 
@@ -223,7 +223,7 @@ abstract class AbstractWalkableScreen(
                 .withScale(0.4F, 0.4F)
                 .build()
 
-            duckButton.addListener(
+            duckButton?.addListener(
                 object : ChangeListener() {
                     override fun changed(
                         event: ChangeEvent?,
@@ -232,8 +232,8 @@ abstract class AbstractWalkableScreen(
                         poolAttendant.state = Player.Companion.State.STANDING
                         stage.currentPlayer = duck
 
-                        poolAttendantButton.isVisible = true
-                        duckButton.isVisible = false
+                        poolAttendantButton?.isVisible = true
+                        duckButton?.isVisible = false
 
                         speakButton.isVisible = true
                         takeButton.isVisible = false
@@ -245,7 +245,7 @@ abstract class AbstractWalkableScreen(
                 },
             )
 
-            poolAttendantButton.addListener(
+            poolAttendantButton?.addListener(
                 object : ChangeListener() {
                     override fun changed(
                         event: ChangeEvent?,
@@ -254,8 +254,8 @@ abstract class AbstractWalkableScreen(
                         duck.state = Player.Companion.State.STANDING
                         stage.currentPlayer = poolAttendant
 
-                        poolAttendantButton.isVisible = false
-                        duckButton.isVisible = true
+                        poolAttendantButton?.isVisible = false
+                        duckButton?.isVisible = true
 
                         speakButton.isVisible = false
                         takeButton.isVisible = true
@@ -361,10 +361,8 @@ abstract class AbstractWalkableScreen(
         takeButton.remove()
         useButton.remove()
         combineButton.remove()
-        if (!game.isSingleplayer) {
-            poolAttendantButton.remove()
-            duckButton.remove()
-        }
+        poolAttendantButton?.remove()
+        duckButton?.remove()
         backToMenuButton?.remove()
         exitButton?.remove()
 

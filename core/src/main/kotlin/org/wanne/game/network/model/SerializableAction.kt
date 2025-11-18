@@ -13,18 +13,19 @@ class SerializableAction: Serializable {
     var combineObject2: String? = null
     var lastSentence: String? = null
 
-    // ToDo: Füllen irgendwo, irgendwie
     var x: Float = 0f
     var y: Float = 0f
 
     companion object {
-        fun createFromPointAndClickAction(action: PointAndClickAction): SerializableAction {
+        fun createFromPointAndClickAction(action: PointAndClickAction, xPos: Float, yPos: Float): SerializableAction {
             return SerializableAction().apply {
                 type = action.type
                 clickedObject = action.clickedObject?.name
                 combineObject1 = action.combineObject1?.name
                 combineObject2 = action.combineObject2?.name
                 lastSentence = action.lastSentence
+                x = xPos
+                y = yPos
             }
         }
     }

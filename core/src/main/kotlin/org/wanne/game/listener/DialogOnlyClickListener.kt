@@ -25,7 +25,7 @@ class DialogOnlyClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as DialogOnlyStage
-        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction))
+        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
         return internalClick(stage, stage.currentAction, x, y)
     }
 

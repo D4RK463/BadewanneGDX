@@ -31,7 +31,7 @@ class PointAndClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as PointAndClickAwareStage
-        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction))
+        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
         return internalClick(stage, stage.currentAction, x, y, pointer)
     }
 
