@@ -16,6 +16,7 @@ class ActionConverter(val game: WanneGame) {
             combineObject1 = action.combineObject1?.let { findGameObjectByName(it) }
             combineObject2 = action.combineObject2?.let { findGameObjectByName(it) }
             lastSentence = action.lastSentence ?: "Start"
+            external = true
         }
         return ActionWrapper().apply {
             this.pointAndClickAction = pointAndClickAction
@@ -25,7 +26,7 @@ class ActionConverter(val game: WanneGame) {
     }
 
     private fun findGameObjectByName(name: String): GameObject? {
-        // ToDo: Die GameObjects reichen nicht aus, wir brauchen auch alle klickbaren Labels etc.
+        // ToDo: Die GameObjects reichen nicht aus, wir brauchen auch alle klickbaren Labels, PuzzleTeile etc.
         println("Searching for GameObject with name: $name")
 
         game.items.asList().forEach { item ->

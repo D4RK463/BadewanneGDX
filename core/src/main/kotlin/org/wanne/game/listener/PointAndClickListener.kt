@@ -61,43 +61,49 @@ class PointAndClickListener(
             if (currentAction.type != ActionType.NOTHING) {
                 println("${currentAction.type} at $x:$y")
 
-                // Das Objekt holen, auf welches geklickt wurde
+                // Das Objekt holen, auf welches geklickt wurde oder welches vom anderen Spieler angeklickt wurde
                 val hitObject = if (isMultiplayerAction) {
                     currentAction.clickedObject
                 } else {
                     stage.hit(x, y, true)
                 }
                 println("Hit: $hitObject")
-                if (hitObject is GameObject) {
-                    currentAction.clickedObject = hitObject
+                when (hitObject) {
+                    is GameObject -> {
+                        currentAction.clickedObject = hitObject
 
-                    if (!isMultiplayerAction) {
-                        networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
+                        if (!isMultiplayerAction) {
+                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
+                        }
+
+                        // Wenn es sich um eine Kombinieren-Aktion handelt,
+                        // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
+                        if (currentAction.type == ActionType.COMBINE) {
+                            if (currentAction.combineObject1 != null) {
+                                maybeMove(hitObject, stage, currentAction)
+                            } else {
+                                // Nur die Action ausführen
+                                stage.needToMove = false
+                                currentAction.action(dialogBoard)
+                            }
+                        } else {
+                            maybeMove(hitObject, stage, currentAction)
+                        }
                     }
 
-                    // Wenn es sich um eine Kombinieren-Aktion handelt,
-                    // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
-                    if (currentAction.type == ActionType.COMBINE) {
-                        if (currentAction.combineObject1 != null) {
-                            maybeMove(hitObject, stage)
-                        } else {
-                            // Nur die Action ausführen
-                            stage.needToMove = false
+                    is Image -> { // Escape vom Dialog
+                        currentAction.reset()
+
+                        stage.lookingAtTheEnd = null
+                        stage.doTheAction = {}
+                        dialogBoard.reset()
+                    }
+
+                    is Label -> { // Im Dialog
+                        currentAction.lastSentence = hitObject.text.toString()
+                        stage.doTheAction = {
                             currentAction.action(dialogBoard)
                         }
-                    } else {
-                        maybeMove(hitObject, stage)
-                    }
-                } else if (hitObject is Image) { // Escape vom Dialog
-                    currentAction.reset()
-
-                    stage.lookingAtTheEnd = null
-                    stage.doTheAction = {}
-                    dialogBoard.reset()
-                } else if (hitObject is Label) { // Im Dialog
-                    currentAction.lastSentence = hitObject.text.toString()
-                    stage.doTheAction = {
-                        currentAction.action(dialogBoard)
                     }
                 }
             } else { // oder laufen
@@ -152,42 +158,43 @@ class PointAndClickListener(
         }
     }
 
-    // ToDo: Hier muss die Action noch mit übergeben werden
     private fun maybeMove(
         hitObject: GameObject,
         stage: PointAndClickAwareStage,
+        currentAction: PointAndClickAction,
     ) {
         // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
-        if (!stage.currentAction.inventory.isObjectInInventory(hitObject)) {
-            move(stage.currentAction.clickedObject, stage)
+        if (!currentAction.inventory.isObjectInInventory(hitObject)) {
+            move(currentAction.clickedObject, stage, currentAction)
 
             // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
             // kombiniert, was noch angelaufen werden muss
-        } else if (stage.currentAction.type == ActionType.COMBINE && stage.currentAction.combineObject1 != null) {
+        } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
             // Wenn beide Objekte im Inventar sind, muss sich auch nicht bewegt werden
-            if (stage.currentAction.inventory.isObjectInInventory(hitObject) &&
-                stage.currentAction.isCombineObject1InTheInventory()
+            if (currentAction.inventory.isObjectInInventory(hitObject) &&
+                currentAction.isCombineObject1InTheInventory()
             ) {
                 stage.doTheAction = {}
                 stage.needToMove = false
 
                 // Aktion sofort ausführen
-                stage.currentAction.action(dialogBoard)
+                currentAction.action(dialogBoard)
             } else {
-                move(stage.currentAction.combineObject1, stage)
+                move(currentAction.combineObject1, stage, currentAction)
             }
         } else {
             stage.doTheAction = {}
             stage.needToMove = false
 
             // Aktion sofort ausführen
-            stage.currentAction.action(dialogBoard)
+            currentAction.action(dialogBoard)
         }
     }
 
     private fun move(
         actionObject: GameObject?,
         stage: PointAndClickAwareStage,
+        currentAction: PointAndClickAction,
     ) {
         stage.moveToPoint = actionObject?.getInteractPosition()?.first
         stage.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
@@ -195,7 +202,7 @@ class PointAndClickListener(
 
         // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
         stage.doTheAction = {
-            stage.currentAction.action(dialogBoard)
+            currentAction.action(dialogBoard)
         }
     }
 
