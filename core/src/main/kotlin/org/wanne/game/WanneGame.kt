@@ -13,6 +13,7 @@ import org.wanne.game.dialog.DialogManager
 import org.wanne.game.listener.ExternalListener
 import org.wanne.game.model.GameObjectsArchive
 import org.wanne.game.model.Point
+import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.network.NetworkManager
 import org.wanne.game.screens.LoadingScreen
 import org.wanne.game.screens.game.CowPhoneScreen
@@ -87,6 +88,7 @@ class WanneGame(val android: Boolean): Game() {
     var player = 1
     var currentListener: ExternalListener? = null
     var currentStage: Stage? = null
+    var currentDialogBoard: DialogBoard? = null
 
     var unlockDrogglWithNewPlaythrough = true
 

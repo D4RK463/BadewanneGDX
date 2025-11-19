@@ -54,6 +54,7 @@ class CowPhoneScreen(
 
         // Initialen Dialog starten
         stage.currentAction.action(dialogBoard)
+        game.currentDialogBoard = dialogBoard
     }
 
     override fun render(delta: Float) {

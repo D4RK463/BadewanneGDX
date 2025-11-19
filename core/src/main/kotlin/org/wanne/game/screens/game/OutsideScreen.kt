@@ -82,6 +82,7 @@ class OutsideScreen(
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+        game.currentDialogBoard = dialogBoard
 
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 

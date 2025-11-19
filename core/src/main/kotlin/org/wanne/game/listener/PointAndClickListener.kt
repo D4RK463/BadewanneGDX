@@ -100,7 +100,11 @@ class PointAndClickListener(
                     }
 
                     is Label -> { // Im Dialog
-                        currentAction.lastSentence = hitObject.text.toString()
+                        currentAction.lastSentence = if (isMultiplayerAction) {
+                            currentAction.lastSentence
+                        } else {
+                            hitObject.text.toString()
+                        }
                         stage.doTheAction = {
                             currentAction.action(dialogBoard)
                         }

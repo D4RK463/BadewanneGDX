@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.Viewport
-import kotlinx.coroutines.NonCancellable.children
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.CowCallAnimation

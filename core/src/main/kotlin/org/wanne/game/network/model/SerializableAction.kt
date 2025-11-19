@@ -13,11 +13,26 @@ class SerializableAction: Serializable {
     var combineObject2: String? = null
     var lastSentence: String? = null
 
+    var puzzleSolved = false
+    var talkedToCow = false
+    var possessWinningObjects = false
+    var cowIsBusy = false
+    var arrivedOutside = false
+
     var x: Float = 0f
     var y: Float = 0f
 
     companion object {
-        fun createFromPointAndClickAction(action: PointAndClickAction, xPos: Float, yPos: Float): SerializableAction {
+        fun createFromPointAndClickAction(
+            action: PointAndClickAction,
+            xPos: Float,
+            yPos: Float,
+            puzzleSolvedState: Boolean = false,
+            talkedToCowState: Boolean = false,
+            possessWinningObjectsState: Boolean = false,
+            cowIsBusyState: Boolean = false,
+            arrivedOutsideState: Boolean = false
+        ): SerializableAction {
             return SerializableAction().apply {
                 type = action.type
                 clickedObject = action.clickedObject?.name
@@ -26,6 +41,13 @@ class SerializableAction: Serializable {
                 lastSentence = action.lastSentence
                 x = xPos
                 y = yPos
+
+                // ToDo: Setzen for real
+                puzzleSolved = puzzleSolvedState
+                talkedToCow = talkedToCowState
+                possessWinningObjects = possessWinningObjectsState
+                cowIsBusy = cowIsBusyState
+                arrivedOutside = arrivedOutsideState
             }
         }
     }

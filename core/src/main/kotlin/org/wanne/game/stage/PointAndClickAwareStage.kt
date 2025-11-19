@@ -15,6 +15,16 @@ class PointAndClickAwareStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
 
+    // ToDo: Jeder Player braucht einen eigenen State
+    /*
+    data class PlayerState(
+        var moveToPoint: Point? = null,
+        var needToMove: Boolean = false,
+        var currentAction: PointAndClickAction = PointAndClickAction.createDefaultAction(),
+        var lookingAtTheEnd: Player.Companion.Looking? = null,
+        var doTheAction: () -> Unit = {}
+    )
+     */
     var firstPlayer: Player = poolAttendant
     var secondPlayer: Player = duck
 

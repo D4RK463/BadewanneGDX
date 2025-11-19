@@ -80,6 +80,7 @@ class RoomScreen(
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+        game.currentDialogBoard = dialogBoard
 
         game.currentStage = stage
         game.startedGame = true
