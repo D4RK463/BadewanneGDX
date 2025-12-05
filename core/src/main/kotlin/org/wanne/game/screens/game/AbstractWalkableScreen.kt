@@ -116,7 +116,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
-                    stage.currentAction.type = ActionType.LOOK_AT
+                    stage.firstPlayerState.currentAction.type = ActionType.LOOK_AT
                     resetPlayerAndSound()
                 }
             },
@@ -136,7 +136,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
-                    stage.currentAction.type = ActionType.TALK_TO
+                    stage.firstPlayerState.currentAction.type = ActionType.TALK_TO
                     resetPlayerAndSound()
                 }
             },
@@ -156,7 +156,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
-                    stage.currentAction.type = ActionType.ADD_TO_INVENTORY
+                    stage.firstPlayerState.currentAction.type = ActionType.ADD_TO_INVENTORY
                     resetPlayerAndSound()
                 }
             },
@@ -176,7 +176,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
-                    stage.currentAction.type = ActionType.USE
+                    stage.firstPlayerState.currentAction.type = ActionType.USE
                     resetPlayerAndSound()
                 }
             },
@@ -196,7 +196,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
-                    stage.currentAction.type = ActionType.COMBINE
+                    stage.firstPlayerState.currentAction.type = ActionType.COMBINE
                     resetPlayerAndSound()
                 }
             },
@@ -230,8 +230,7 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        stage.firstPlayer = duck
-                        stage.secondPlayer = poolAttendant
+                        stage.switchPlayers()
 
                         poolAttendantButton?.isVisible = true
                         duckButton?.isVisible = false
@@ -253,8 +252,7 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        stage.firstPlayer = poolAttendant
-                        stage.secondPlayer = duck
+                        stage.switchPlayers()
 
                         poolAttendantButton?.isVisible = false
                         duckButton?.isVisible = true

@@ -13,6 +13,7 @@ import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PlayerState
 import org.wanne.game.network.NetworkManager
 import org.wanne.game.network.model.ActionWrapper
 import org.wanne.game.network.model.SerializableAction
@@ -31,7 +32,14 @@ class PointAndClickListener(
         button: Int,
     ): Boolean {
         val stage = event?.stage as PointAndClickAwareStage
-        return internalClick(stage, stage.currentAction, x, y, pointer)
+        return internalClick(
+            stage,
+            stage.firstPlayerState.currentAction,
+            x,
+            y,
+            pointer,
+            stage.firstPlayerState
+        )
     }
 
     override fun externalClick(stage: Stage, action: ActionWrapper): Boolean {
@@ -41,6 +49,7 @@ class PointAndClickListener(
             action.x,
             action.y,
             0,
+            stage.secondPlayerState,
             true
         )
     }
@@ -51,11 +60,12 @@ class PointAndClickListener(
         x: Float,
         y: Float,
         pointer: Int,
+        playerState: PlayerState,
         isMultiplayerAction: Boolean = false
     ): Boolean  {
         if (pointer == 0) {
             Statistic.countClick()
-            stage.isMultiplayerAction = isMultiplayerAction
+            playerState.currentAction = currentAction
 
             // Aktion
             if (currentAction.type != ActionType.NOTHING) {
@@ -73,29 +83,29 @@ class PointAndClickListener(
                         currentAction.clickedObject = hitObject
 
                         if (!isMultiplayerAction) {
-                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
+                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
                         }
 
                         // Wenn es sich um eine Kombinieren-Aktion handelt,
                         // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
                         if (currentAction.type == ActionType.COMBINE) {
                             if (currentAction.combineObject1 != null) {
-                                maybeMove(hitObject, stage, currentAction)
+                                maybeMove(hitObject, playerState, currentAction)
                             } else {
                                 // Nur die Action ausführen
-                                stage.needToMove = false
+                                playerState.needToMove = false
                                 currentAction.action(dialogBoard)
                             }
                         } else {
-                            maybeMove(hitObject, stage, currentAction)
+                            maybeMove(hitObject, playerState, currentAction)
                         }
                     }
 
                     is Image -> { // Escape vom Dialog
                         currentAction.reset()
 
-                        stage.lookingAtTheEnd = null
-                        stage.doTheAction = {}
+                        playerState.lookingAtTheEnd = null
+                        playerState.doTheAction = {}
                         dialogBoard.reset()
                     }
 
@@ -105,14 +115,14 @@ class PointAndClickListener(
                         } else {
                             hitObject.text.toString()
                         }
-                        stage.doTheAction = {
+                        playerState.doTheAction = {
                             currentAction.action(dialogBoard)
                         }
                     }
                 }
             } else { // oder laufen
-                stage.lookingAtTheEnd = null
-                stage.doTheAction = {}
+                playerState.lookingAtTheEnd = null
+                playerState.doTheAction = {}
                 dialogBoard.reset()
 
                 var moveX = x.toInt()
@@ -135,15 +145,15 @@ class PointAndClickListener(
                     moveX = (moveX - (moveX % Player.MOVE_PIXEL))
                     moveY = (moveY - (moveY % Player.MOVE_PIXEL))
 
-                    stage.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
-                    stage.needToMove = true
+                    playerState.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
+                    playerState.needToMove = true
                 } else {
-                    stage.firstPlayer.state = Player.Companion.State.STANDING
-                    stage.needToMove = false
+                    playerState.player.state = Player.Companion.State.STANDING
+                    playerState.needToMove = false
                 }
 
                 if (!isMultiplayerAction) {
-                    networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(stage.currentAction, x, y))
+                    networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
                 }
             }
         } else {
@@ -164,12 +174,12 @@ class PointAndClickListener(
 
     private fun maybeMove(
         hitObject: GameObject,
-        stage: PointAndClickAwareStage,
+        playerState: PlayerState,
         currentAction: PointAndClickAction,
     ) {
         // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
         if (!currentAction.inventory.isObjectInInventory(hitObject)) {
-            move(currentAction.clickedObject, stage, currentAction)
+            move(currentAction.clickedObject, playerState, currentAction)
 
             // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
             // kombiniert, was noch angelaufen werden muss
@@ -178,17 +188,17 @@ class PointAndClickListener(
             if (currentAction.inventory.isObjectInInventory(hitObject) &&
                 currentAction.isCombineObject1InTheInventory()
             ) {
-                stage.doTheAction = {}
-                stage.needToMove = false
+                playerState.doTheAction = {}
+                playerState.needToMove = false
 
                 // Aktion sofort ausführen
                 currentAction.action(dialogBoard)
             } else {
-                move(currentAction.combineObject1, stage, currentAction)
+                move(currentAction.combineObject1, playerState, currentAction)
             }
         } else {
-            stage.doTheAction = {}
-            stage.needToMove = false
+            playerState.doTheAction = {}
+            playerState.needToMove = false
 
             // Aktion sofort ausführen
             currentAction.action(dialogBoard)
@@ -197,15 +207,15 @@ class PointAndClickListener(
 
     private fun move(
         actionObject: GameObject?,
-        stage: PointAndClickAwareStage,
+        playerState: PlayerState,
         currentAction: PointAndClickAction,
     ) {
-        stage.moveToPoint = actionObject?.getInteractPosition()?.first
-        stage.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
-        stage.needToMove = true
+        playerState.moveToPoint = actionObject?.getInteractPosition()?.first
+        playerState.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
+        playerState.needToMove = true
 
         // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
-        stage.doTheAction = {
+        playerState.doTheAction = {
             currentAction.action(dialogBoard)
         }
     }

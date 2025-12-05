@@ -119,7 +119,7 @@ class OutsideScreen(
     }
 
     override fun resetPlayerAndSound() {
-        stage.needToMove = false
+        stage.firstPlayerState.needToMove = false
         stage.firstPlayer.stopHammerTime()
         game.soundManager.stopSound()
     }

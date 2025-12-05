@@ -1,54 +1,56 @@
 package org.wanne.game.stage
 
 import com.badlogic.gdx.utils.viewport.Viewport
-import org.wanne.game.model.Point
-import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PlayerState
+import org.wanne.game.model.player.PoolAttendant
 
 class PointAndClickAwareStage(
     viewport: Viewport,
-    poolAttendant: Player,
-    duck: Player,
+    val poolAttendant: Player,
+    val duck: Player,
     additionalAnimations: List<Animation>?,
 ) : AbstractAnimationStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
 
-    // ToDo: Jeder Player braucht einen eigenen State
-    /*
-    data class PlayerState(
-        var moveToPoint: Point? = null,
-        var needToMove: Boolean = false,
-        var currentAction: PointAndClickAction = PointAndClickAction.createDefaultAction(),
-        var lookingAtTheEnd: Player.Companion.Looking? = null,
-        var doTheAction: () -> Unit = {}
-    )
-     */
+    // Im Singleplayer ist der erste Spieler immer der Bademeister
     var firstPlayer: Player = poolAttendant
     var secondPlayer: Player = duck
 
-    var moveToPoint: Point? = null
-    var needToMove = false
-    var isMultiplayerAction = false
-
-    var currentAction = PointAndClickAction.createDefaultAction()
-    var lookingAtTheEnd: Player.Companion.Looking? = null
-    var doTheAction: () -> Unit = {}
+    var firstPlayerState: PlayerState = PlayerState(player = firstPlayer)
+    var secondPlayerState: PlayerState = PlayerState(player = secondPlayer)
 
     override fun draw() {
-        val player = if (isMultiplayerAction) secondPlayer else firstPlayer
-
         // Bewegung ausrechnen
-        if (moveToPoint != null && needToMove) {
-            player.walkToPoint(
-                moveToPoint!!.x,
-                moveToPoint!!.y,
-                lookingAtTheEnd,
-                doTheAction,
-            )
-        }
+        movingPlayers(firstPlayerState)
+        movingPlayers(secondPlayerState)
 
         drawTheWorld()
+    }
+
+    private fun movingPlayers(playerState: PlayerState) {
+        if (playerState.moveToPoint != null && playerState.needToMove) {
+            playerState.player.walkToPoint(
+                playerState.moveToPoint!!.x,
+                playerState.moveToPoint!!.y,
+                playerState.lookingAtTheEnd,
+                playerState.doTheAction,
+            )
+        }
+    }
+
+    fun switchPlayers() {
+        if (firstPlayer is PoolAttendant) {
+            firstPlayer = duck
+            secondPlayer = poolAttendant
+        } else {
+            firstPlayer = poolAttendant
+            secondPlayer = duck
+        }
+
+        firstPlayerState = PlayerState(player = firstPlayer)
+        secondPlayerState = PlayerState(player = secondPlayer)
     }
 }
