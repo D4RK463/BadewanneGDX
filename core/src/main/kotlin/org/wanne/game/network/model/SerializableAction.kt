@@ -51,4 +51,10 @@ class SerializableAction: Serializable {
             }
         }
     }
+
+    override fun toString(): String {
+        return "SerializableAction(type=$type, clickedObject=$clickedObject, combineObject1=$combineObject1, combineObject2=$combineObject2, lastSentence=$lastSentence, puzzleSolved=$puzzleSolved, talkedToCow=$talkedToCow, possessWinningObjects=$possessWinningObjects, cowIsBusy=$cowIsBusy, arrivedOutside=$arrivedOutside, x=$x, y=$y)"
+    }
+
+
 }

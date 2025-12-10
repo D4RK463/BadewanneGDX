@@ -21,6 +21,7 @@ import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Duck
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PlayerState
 import org.wanne.game.model.player.PoolAttendant
 import org.wanne.game.screens.AbstractScreen
 import org.wanne.game.screens.util.UiButtonBuilder
@@ -230,7 +231,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        stage.switchPlayers()
+                        stage.firstPlayerState = PlayerState(player = duck)
+                        stage.secondPlayerState = PlayerState(player = poolAttendant)
 
                         poolAttendantButton?.isVisible = true
                         duckButton?.isVisible = false
@@ -252,7 +254,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        stage.switchPlayers()
+                        stage.firstPlayerState = PlayerState(player = poolAttendant)
+                        stage.secondPlayerState = PlayerState(player = duck)
 
                         poolAttendantButton?.isVisible = false
                         duckButton?.isVisible = true
@@ -325,15 +328,15 @@ abstract class AbstractWalkableScreen(
             stage.addActor(exitButton)
 
             if (game.player == 1) {
-                stage.firstPlayer = poolAttendant
-                stage.secondPlayer = duck
+                stage.firstPlayerState = PlayerState(player = poolAttendant)
+                stage.secondPlayerState = PlayerState(player = duck)
                 speakButton.isVisible = false
                 takeButton.isVisible = true
                 useButton.isVisible = true
                 combineButton.isVisible = false
             } else {
-                stage.firstPlayer = duck
-                stage.secondPlayer = poolAttendant
+                stage.firstPlayerState = PlayerState(player = duck)
+                stage.secondPlayerState = PlayerState(player = poolAttendant)
                 speakButton.isVisible = true
                 takeButton.isVisible = false
                 useButton.isVisible = false

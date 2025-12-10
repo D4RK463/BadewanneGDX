@@ -4,23 +4,18 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.player.Player
 import org.wanne.game.model.player.PlayerState
-import org.wanne.game.model.player.PoolAttendant
 
 class PointAndClickAwareStage(
     viewport: Viewport,
-    val poolAttendant: Player,
-    val duck: Player,
+    poolAttendant: Player,
+    duck: Player,
     additionalAnimations: List<Animation>?,
 ) : AbstractAnimationStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
-
-    // Im Singleplayer ist der erste Spieler immer der Bademeister
-    var firstPlayer: Player = poolAttendant
-    var secondPlayer: Player = duck
-
-    var firstPlayerState: PlayerState = PlayerState(player = firstPlayer)
-    var secondPlayerState: PlayerState = PlayerState(player = secondPlayer)
+    // Im Singleplayer fängt immer der Bademeister an
+    var firstPlayerState = PlayerState(player = poolAttendant)
+    var secondPlayerState = PlayerState(player = duck)
 
     override fun draw() {
         // Bewegung ausrechnen
@@ -39,18 +34,5 @@ class PointAndClickAwareStage(
                 playerState.doTheAction,
             )
         }
-    }
-
-    fun switchPlayers() {
-        if (firstPlayer is PoolAttendant) {
-            firstPlayer = duck
-            secondPlayer = poolAttendant
-        } else {
-            firstPlayer = poolAttendant
-            secondPlayer = duck
-        }
-
-        firstPlayerState = PlayerState(player = firstPlayer)
-        secondPlayerState = PlayerState(player = secondPlayer)
     }
 }

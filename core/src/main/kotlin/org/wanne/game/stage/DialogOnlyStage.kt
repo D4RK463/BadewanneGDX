@@ -17,7 +17,7 @@ class DialogOnlyStage(
 ) : Stage(
     viewport,
 ) {
-    // ToDo: Auch den PlayerState benutzen
+    // ToDo: Auch den PlayerState benutzen... wirklich?
     var currentAction: PointAndClickAction = PointAndClickAction(ActionType.TALK_TO).apply {
         clickedObject = dialogObject
     }

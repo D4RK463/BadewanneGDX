@@ -136,7 +136,7 @@ class RoomScreen(
 
     override fun resetPlayerAndSound() {
         stage.firstPlayerState.needToMove = false
-        stage.firstPlayer.stopHammerTime()
+        stage.firstPlayerState.player.stopHammerTime()
         game.soundManager.stopSound()
     }
 
