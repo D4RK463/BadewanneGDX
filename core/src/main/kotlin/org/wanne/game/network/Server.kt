@@ -48,7 +48,9 @@ class Server(private val config: Config): Runnable {
                 onPackageReceived?.invoke(pkg)
             } catch (e: Exception) {
                 if (running) {
-                    println("Empfangsfehler: ${e.message}")
+                    println("Empfangsfehler: $e")
+                    println("Stoppe Server...")
+                    stop()
                 }
             }
         }
@@ -59,7 +61,7 @@ class Server(private val config: Config): Runnable {
             outputStream.writeObject(pkg)
             outputStream.flush()
         } catch (e: Exception) {
-            println("Sendefehler: ${e.message}")
+            println("Sendefehler: $e")
         }
     }
 
