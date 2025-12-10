@@ -81,10 +81,7 @@ class PointAndClickListener(
                 when (hitObject) {
                     is GameObject -> {
                         currentAction.clickedObject = hitObject
-
-                        if (!isMultiplayerAction) {
-                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
-                        }
+                        sendClick(currentAction, x, y, isMultiplayerAction)
 
                         // Wenn es sich um eine Kombinieren-Aktion handelt,
                         // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
@@ -118,10 +115,7 @@ class PointAndClickListener(
                         playerState.doTheAction = {
                             currentAction.action(dialogBoard)
                         }
-
-                        if (!isMultiplayerAction) {
-                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
-                        }
+                        sendClick(currentAction, x, y, isMultiplayerAction)
                     }
                 }
             } else { // oder laufen
@@ -156,9 +150,7 @@ class PointAndClickListener(
                     playerState.needToMove = false
                 }
 
-                if (!isMultiplayerAction) {
-                    networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
-                }
+                sendClick(currentAction, x, y, isMultiplayerAction)
             }
         } else {
             // Bei mehr als einem Finger
@@ -286,6 +278,17 @@ class PointAndClickListener(
         val actors = stage.actors
         actors.filterIsInstance<GameObject>().forEach {
             it.blackAndWhite = false
+        }
+    }
+
+    private fun sendClick(
+        currentAction: PointAndClickAction,
+        x: Float,
+        y: Float,
+        isMultiplayerAction: Boolean = false
+    ) {
+        if (!isMultiplayerAction) {
+            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
         }
     }
 }

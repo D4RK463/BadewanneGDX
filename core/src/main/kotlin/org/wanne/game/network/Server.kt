@@ -17,6 +17,7 @@ class Server(private val config: Config): Runnable {
     private lateinit var inputStream: ObjectInputStream
 
     var onPackageReceived: ((Package) -> Unit)? = null
+    var onConnectionLost: (() -> Unit)? = null
 
     private val hints = ServerSocketHints().apply {
         acceptTimeout = 2000
@@ -49,8 +50,8 @@ class Server(private val config: Config): Runnable {
             } catch (e: Exception) {
                 if (running) {
                     println("Empfangsfehler: $e")
-                    println("Stoppe Server...")
                     stop()
+                    onConnectionLost?.invoke()
                 }
             }
         }
@@ -62,6 +63,8 @@ class Server(private val config: Config): Runnable {
             outputStream.flush()
         } catch (e: Exception) {
             println("Sendefehler: $e")
+            stop()
+            onConnectionLost?.invoke()
         }
     }
 

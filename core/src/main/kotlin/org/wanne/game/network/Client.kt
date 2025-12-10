@@ -15,6 +15,7 @@ class Client(private val config: Config) {
     private var isConnected = false
 
     var onPackageReceived: ((Package) -> Unit)? = null
+    var onConnectionLost: (() -> Unit)? = null
 
     private val hints = SocketHints().apply {
         connectTimeout = 4000
@@ -47,6 +48,7 @@ class Client(private val config: Config) {
                     if (isConnected) {
                         println("Empfangsfehler... disconnecting: ${e.message}")
                         disconnect()
+                        onConnectionLost?.invoke()
                     }
                 }
             }
@@ -58,7 +60,9 @@ class Client(private val config: Config) {
             outputStream.writeObject(pkg)
             outputStream.flush()
         } catch (e: Exception) {
-            println("Sendefehler: ${e.message}")
+            println("Sendefehler: ${e}")
+            disconnect()
+            onConnectionLost?.invoke()
         }
     }
 

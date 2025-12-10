@@ -20,6 +20,14 @@ class NetworkManager(val game: WanneGame) {
             game.config.saveSettings()
             server = Server(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+                onConnectionLost = {
+                    com.badlogic.gdx.Gdx.app.postRunnable {
+                        game.reset()
+                        game.isSingleplayer = true
+                        game.player = 1
+                        game.screen = game.mainMenuScreen
+                    }
+                }
             }
             Thread(server, "Server").start()
             return true
@@ -31,6 +39,14 @@ class NetworkManager(val game: WanneGame) {
         if (checkAndSaveIPAndPort(ip, port)) {
             client = Client(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
+                onConnectionLost = {
+                    com.badlogic.gdx.Gdx.app.postRunnable {
+                        game.reset()
+                        game.isSingleplayer = true
+                        game.player = 1
+                        game.screen = game.mainMenuScreen
+                    }
+                }
             }
             val connected = client!!.connect()
 
