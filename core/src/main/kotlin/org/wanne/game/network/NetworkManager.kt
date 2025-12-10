@@ -1,5 +1,6 @@
 package org.wanne.game.network
 
+import org.wanne.game.Statistic
 import org.wanne.game.VideoMode
 import org.wanne.game.WanneGame
 import org.wanne.game.network.converter.ActionConverter
@@ -20,14 +21,7 @@ class NetworkManager(val game: WanneGame) {
             game.config.saveSettings()
             server = Server(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
-                onConnectionLost = {
-                    com.badlogic.gdx.Gdx.app.postRunnable {
-                        game.reset()
-                        game.isSingleplayer = true
-                        game.player = 1
-                        game.screen = game.mainMenuScreen
-                    }
-                }
+                onConnectionLost = { resetGame() }
             }
             Thread(server, "Server").start()
             return true
@@ -39,14 +33,7 @@ class NetworkManager(val game: WanneGame) {
         if (checkAndSaveIPAndPort(ip, port)) {
             client = Client(game.config).apply {
                 onPackageReceived = { pkg -> handleIncomingPackage(pkg) }
-                onConnectionLost = {
-                    com.badlogic.gdx.Gdx.app.postRunnable {
-                        game.reset()
-                        game.isSingleplayer = true
-                        game.player = 1
-                        game.screen = game.mainMenuScreen
-                    }
-                }
+                onConnectionLost = { resetGame() }
             }
             val connected = client!!.connect()
 
@@ -127,12 +114,16 @@ class NetworkManager(val game: WanneGame) {
     }
 
     fun sendClick(clickData: SerializableAction) {
-        val pkg = Package(
-            intent = Intent.CLICK,
-            clickData = clickData,
-            selectedVideoMode = VideoMode.valueOf(game.config.mode)
-        )
-        sendPackage(pkg)
+        if (server?.running == true || client?.isConnected == true) {
+            val pkg = Package(
+                intent = Intent.CLICK,
+                clickData = clickData,
+                selectedVideoMode = VideoMode.valueOf(game.config.mode)
+            )
+            sendPackage(pkg)
+        } else {
+            println("Keine Verbindung zum Senden eines Klicks")
+        }
     }
 
     private fun sendPackage(pkg: Package) {
@@ -146,4 +137,15 @@ class NetworkManager(val game: WanneGame) {
     }
 
     fun serverRunning(): Boolean = server?.running ?: false
+
+    fun resetGame() {
+        game.startedGame = false
+        game.gameEnded = true
+        Statistic.reset()
+
+        game.reset()
+        game.isSingleplayer = true
+        game.player = 1
+        game.screen = game.mainMenuScreen
+    }
 }

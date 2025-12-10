@@ -314,7 +314,6 @@ abstract class AbstractWalkableScreen(
                         resetPlayerAndSound()
 
                         game.reset()
-                        game.arrivedOutside = false
                         game.startedGame = false
                         game.gameEnded = true
                         Statistic.reset()

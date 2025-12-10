@@ -12,7 +12,7 @@ class Client(private val config: Config) {
     private lateinit var socket: Socket
     private lateinit var outputStream: ObjectOutputStream
     private lateinit var inputStream: ObjectInputStream
-    private var isConnected = false
+    var isConnected = false
 
     var onPackageReceived: ((Package) -> Unit)? = null
     var onConnectionLost: (() -> Unit)? = null
@@ -60,7 +60,7 @@ class Client(private val config: Config) {
             outputStream.writeObject(pkg)
             outputStream.flush()
         } catch (e: Exception) {
-            println("Sendefehler: ${e}")
+            println("Sendefehler: $e")
             disconnect()
             onConnectionLost?.invoke()
         }

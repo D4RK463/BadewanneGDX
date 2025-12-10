@@ -13,7 +13,7 @@ class PointAndClickAwareStage(
 ) : AbstractAnimationStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
-    // Im Singleplayer fängt immer der Bademeister an
+    // Im Singleplayer wird nur der FirstPlayerState benutzt und bei PLayer Wechsel die Figur gewechselt
     var firstPlayerState = PlayerState(player = poolAttendant)
     var secondPlayerState = PlayerState(player = duck)
 
