@@ -110,10 +110,6 @@ class PointAndClickListener(
                     }
 
                     is Label -> { // Im Dialog
-                        if (!isMultiplayerAction) {
-                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
-                        }
-
                         currentAction.lastSentence = if (isMultiplayerAction) {
                             currentAction.lastSentence
                         } else {
@@ -121,6 +117,10 @@ class PointAndClickListener(
                         }
                         playerState.doTheAction = {
                             currentAction.action(dialogBoard)
+                        }
+
+                        if (!isMultiplayerAction) {
+                            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
                         }
                     }
                 }
