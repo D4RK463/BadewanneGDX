@@ -47,7 +47,7 @@ class PointAndClickAction(
             ActionType.USE -> clickedObject?.use(dialogBoard, this)
             ActionType.COMBINE -> clickedObject?.combine(dialogBoard, this)
             ActionType.ADD_TO_INVENTORY -> clickedObject?.take(dialogBoard, this)
-            ActionType.NOTHING -> return
+            ActionType.NOTHING, ActionType.ROTATE, ActionType.EXCHANGE -> return
         }
     }
 

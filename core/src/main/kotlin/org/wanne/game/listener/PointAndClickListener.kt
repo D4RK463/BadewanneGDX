@@ -38,7 +38,8 @@ class PointAndClickListener(
             x,
             y,
             pointer,
-            stage.firstPlayerState
+            stage.firstPlayerState,
+            false
         )
     }
 
@@ -61,7 +62,7 @@ class PointAndClickListener(
         y: Float,
         pointer: Int,
         playerState: PlayerState,
-        isMultiplayerAction: Boolean = false
+        isMultiplayerAction: Boolean
     ): Boolean  {
         if (pointer == 0) {
             Statistic.countClick()

@@ -68,7 +68,7 @@ class PuzzleScreen(
             stage.addActor(Image(puzzleBackgroundSingleWide))
         }
 
-        val listener = PuzzleClickListener(game.network.takeUnless { game.isSingleplayer })
+        val listener = PuzzleClickListener(game.network.takeUnless { game.isSingleplayer }, game)
         stage.addListener(listener)
         game.currentListener = listener
 
@@ -89,8 +89,10 @@ class PuzzleScreen(
 
     private fun createGameUI() {
         val action = if (game.android) { "tab" } else { game.choose("klick", "click", false) }
-        val instructionsTextDuck = game.choose("Drehen = Puzzleteil doppelt ${action}en", "To turn = double $action")
-        val instructionsTextAttendant = game.choose("Tauschen = 2 Puzzleteile ${action}en", "To switch = $action 2 pieces")
+        val instructionDuckAddition = if (game.isSingleplayer) { "" } else { game.choose("(nur Ente)", "(Duck only)", false) }
+        val instructionAttendantAddition = if (game.isSingleplayer) { "" } else { game.choose("(nur Bademeister)", "(Pool Attendant only)", false) }
+        val instructionsTextDuck = game.choose("Drehen = Puzzleteil doppelt ${action}en $instructionDuckAddition", "To turn = double $action")
+        val instructionsTextAttendant = game.choose("Tauschen = 2 Puzzleteile ${action}en $instructionAttendantAddition", "To switch = $action 2 pieces")
         val instructionsDuckPair = createLabelWithShadow(instructionsTextDuck, 150f, 50f)
         val instructionsDuck = instructionsDuckPair.first
         val instructionsDuckShadow = instructionsDuckPair.second

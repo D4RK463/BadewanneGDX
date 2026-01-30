@@ -85,7 +85,7 @@ class WanneGame(val android: Boolean): Game() {
     var possessWinningObjects = false
     var cowIsBusy = false
     var arrivedOutside = false
-    var player = 1
+    var player = 1 // 1 = Duck, 2 = Pool Attendant
     var currentListener: ExternalListener? = null
     var currentStage: Stage? = null
     var currentDialogBoard: DialogBoard? = null

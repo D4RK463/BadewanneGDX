@@ -13,6 +13,8 @@ class FireAnimation(
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am)  {
+
+    // ToDo: Animation erst laden, wenn die Animation gestartet wird, damit der richtige Thread genutzt wird
     private val fireAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.NORMAL,
         Gdx.files.internal("$ANIMATIONS/FeuerTeppich.gif").read()
