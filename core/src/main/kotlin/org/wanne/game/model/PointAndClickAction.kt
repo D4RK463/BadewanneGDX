@@ -22,8 +22,6 @@ class PointAndClickAction(
 
     var lastSentence: String = "Start"
 
-    var usedRug = false
-    var marioPoweredUp = false
     var external = false
 
     fun reset(resetObjectToo: Boolean = true) {

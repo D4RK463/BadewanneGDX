@@ -79,6 +79,7 @@ class WanneGame(val android: Boolean): Game() {
     var startedGame = false
     var gameEnded = true
 
+    // Game States
     var isSingleplayer = true
     var puzzleSolved = false
     var talkedToCow = false
@@ -86,6 +87,9 @@ class WanneGame(val android: Boolean): Game() {
     var cowIsBusy = false
     var arrivedOutside = false
     var player = 1 // 1 = Duck, 2 = Pool Attendant
+    var usedRug = false
+    var marioPoweredUp = false
+
     var currentListener: ExternalListener? = null
     var currentStage: Stage? = null
     var currentDialogBoard: DialogBoard? = null

@@ -8,9 +8,11 @@ const val ICEMAN = "iceman"
 class IcemanSoundCollection(am: AssetsManager) : SoundCollection(am) {
 
     companion object {
-        const val DIALOG_END = 0
+        const val DIALOG_END = 9
     }
 
-    // ToDo: Audioaufnahmen einfügen
+    init {
+        addAllSoundsFor(DIALOG_END, ICEMAN)
+    }
 
 }

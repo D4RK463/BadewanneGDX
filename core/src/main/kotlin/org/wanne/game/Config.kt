@@ -23,7 +23,7 @@ class Config(android: Boolean) {
 
     var drooglUnlocked: Boolean = prefs.getBoolean("drooglUnlocked", false)
 
-    var speech: String = Speech.DE_ORIGINAL.speech
+    var speech: String = Speech.DE_NEU.speech
 
     var mode: String = if (android) {VideoMode.MODERN.toString()} else {VideoMode.CLASSIC.toString()}
 

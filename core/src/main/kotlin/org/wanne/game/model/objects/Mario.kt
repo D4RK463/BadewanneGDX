@@ -84,20 +84,20 @@ class Mario(
             addPositionToSprite(itemAtlas.createSprite("Mario"))
         }
 
-    override fun getName(): String = "Mario"
+    override fun getName(): String = "Rario"
 
     override fun look(dialogBoard: DialogBoard) {
         when (state) {
             POWERED_UP, POWERED_UP_END, AFTER_RUG_USAGE -> {
-                dialogBoard.prepLookAt("It's a him, Feuermario!")
+                dialogBoard.prepLookAt("It's a him, Feuerrario!")
             }
 
             PISSED -> {
-                dialogBoard.prepLookAt("It's a him, pissed off Feuermario!")
+                dialogBoard.prepLookAt("It's a him, pissed off Feuerrario!")
             }
 
             else -> {
-                dialogBoard.prepLookAt("It's a him, Mario!")
+                dialogBoard.prepLookAt("It's a him, Rario!")
             }
         }
     }
@@ -147,7 +147,7 @@ class Mario(
                 }
             }
         } else {
-            if (!action.usedRug) {
+            if (!game.usedRug) {
                 action.reset()
             } else {
                 when (state) {
@@ -196,7 +196,7 @@ class Mario(
                     return "Start4"
                 }
             } else {
-                if (!action.usedRug) {
+                if (!game.usedRug) {
                     return "Start5"
                 } else {
                     if (state == POWERED_UP_END || state == AFTER_RUG_USAGE) {
@@ -231,7 +231,7 @@ class Mario(
 
         powerUpAnimation.visible = true
         game.soundManager.playSound(dialogCollection.soundCollection!!, 22)
-        action.marioPoweredUp = true
+        game.marioPoweredUp = true
         action.type = ActionType.TALK_TO
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
     }
@@ -243,7 +243,7 @@ class Mario(
         ), Player.Companion.Looking.LEFT
     )
 
-    override fun getToolTipDescription(): String = game.choose("Mario", "Mario")
+    override fun getToolTipDescription(): String = game.choose("Rario", "Rario")
 }
 
 enum class MarioState {

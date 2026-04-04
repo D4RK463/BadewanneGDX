@@ -22,7 +22,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "wie steht die Sonne?",
                 "Wie steht die Sonne? Echt jetz?",
                 "Hell und funkelt! Und bei dir?",
-                null
+                0
             )
         )
 
@@ -32,7 +32,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Nice, kannst'e Eis entbehren?",
                 null,
-                null
+                1
             )
         )
 
@@ -42,7 +42,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "wie ihr wollt, Bros, No need anyway!",
                 "Mega gut, Danke.",
                 null,
-                null,
+                2,
                 StateChange.LEFT
             )
         )
@@ -53,7 +53,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                3
             )
         )
 
@@ -63,7 +63,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "Was wollt ihr?",
                 "Ich hätte gerne 1 riesen Eis für meinen Freund hier.",
                 null,
-                null
+                4
             )
         )
 
@@ -73,7 +73,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "Got the money?",
                 "Ich schau mal in meiner Hose nach.",
                 null,
-                null,
+                5,
                 StateChange.RIGHT
             )
         )
@@ -84,7 +84,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                6
             )
         )
 
@@ -94,17 +94,17 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Danke, wir haben genug!",
                 null,
-                null
+                7
             )
         )
 
         addDialog(
             "Danke, wir haben genug!", Language.DE, Dialog(
-                "Eismann: Jo man, Eis in the sunshine!",
+                "Eismann: Jo dude, Eis in the sunshine!",
                 null,
                 null,
                 null,
-                null
+                3
             )
         )
 
@@ -114,7 +114,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                8
             )
         )
 
@@ -124,7 +124,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                9
             )
         )
     }

@@ -14,6 +14,8 @@ import org.wanne.game.sound.collections.COW
 import org.wanne.game.sound.collections.CowSoundCollection
 import org.wanne.game.sound.collections.DR_BEAR
 import org.wanne.game.sound.collections.DrBearSoundCollection
+import org.wanne.game.sound.collections.ICEMAN
+import org.wanne.game.sound.collections.IcemanSoundCollection
 import org.wanne.game.sound.collections.MARIO
 import org.wanne.game.sound.collections.MarioSoundCollection
 import org.wanne.game.sound.collections.TEDDY
@@ -121,13 +123,14 @@ class AssetsManager {
     }
 
     fun loadSounds() {
-        val activeDialogs = listOf(Speech.DE_ORIGINAL)
+        val activeDialogs = listOf(Speech.DE_ORIGINAL, Speech.DE_NEU)
 
         activeDialogs.forEach {
             loadDialog(DrBearSoundCollection.DIALOG_END, it, DR_BEAR)
             loadDialog(CowSoundCollection.DIALOG_END, it, COW)
             loadDialog(MarioSoundCollection.DIALOG_END, it, MARIO)
             loadDialog(TeddySoundCollection.DIALOG_END, it, TEDDY)
+            loadDialog(IcemanSoundCollection.DIALOG_END, it, ICEMAN)
         }
     }
 

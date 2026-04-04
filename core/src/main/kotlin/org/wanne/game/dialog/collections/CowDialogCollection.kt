@@ -148,7 +148,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 null,
                 null,
                 "Wir haben dein ganzes Zeug gesammelt.",
-                null
+                9
             )
         )
 
@@ -168,7 +168,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 "Wehe ihr saagt jemand daas ich euch raus lasse!",
                 null,
                 "Alles klar...",
-                null
+                10
             )
         )
 

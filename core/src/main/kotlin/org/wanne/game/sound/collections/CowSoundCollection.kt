@@ -8,7 +8,7 @@ const val COW = "cow"
 class CowSoundCollection(am: AssetsManager) : SoundCollection(am) {
 
     companion object {
-        const val DIALOG_END = 8
+        const val DIALOG_END = 10
     }
 
     init {

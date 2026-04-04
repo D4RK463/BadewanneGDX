@@ -3,7 +3,7 @@ package org.wanne.game.sound.collections
 import org.wanne.game.AssetsManager
 import org.wanne.game.sound.SoundCollection
 
-const val MARIO = "mario"
+const val MARIO = "rario"
 
 class MarioSoundCollection(am: AssetsManager) : SoundCollection(am) {
 
