@@ -387,8 +387,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "I don't care.", Language.EN, Dialog(
-                "Rario: Since the nasty Rowser has gone,",
-                "the action is out of the relationship.",
+                "Rario: Ever since that Rowser left,",
+                "the spark has gone out of the relationship.",
                 null,
                 "*yadda yadda* ...",
                 2
@@ -397,8 +397,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Tell me more.", Language.EN, Dialog(
-                "Rario: Since the nasty Rowser has gone,",
-                "the action is out of the relationship.",
+                "Rario: Ever since that Rowser left,",
+                "the spark has gone out of the relationship.",
                 null,
                 "*yadda yadda* ...",
                 2
@@ -459,7 +459,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
         addDialog(
             "And what do I do now?", Language.EN, Dialog(
                 "Rario: Maybe you should try to escape",
-                "from the room?",
+                "from this room?",
                 null,
                 "Can't, the door is locked.",
                 8
@@ -571,7 +571,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start3", Language.EN, Dialog(
-                "Rario: Great, thank you.",
+                "Rario: Jawohl!",
                 "I'm sure I can win the princess back with this.",
                 "How did we get here?",
                 "Why is the door locked?",
@@ -613,7 +613,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
         addDialog(
             "Why can't the carpet be moved?", Language.EN, Dialog(
                 "Rario: I'm getting tired of helping you.",
-                "We're already even.",
+                "We're even already.",
                 null,
                 "Pretty please...",
                 16

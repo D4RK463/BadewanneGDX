@@ -9,11 +9,11 @@ open class SoundCollection(val am: AssetsManager) {
         mapOf(
             Speech.DE_ORIGINAL to mutableListOf<Sound>(),
             Speech.DE_NEU to mutableListOf<Sound>(),
-            Speech.EN to null,
+            Speech.EN to mutableListOf<Sound>(),
             Speech.DROGL to null,
         )
 
-    private val activeSounds = listOf(Speech.DE_ORIGINAL, Speech.DE_NEU)
+    private val activeSounds = listOf(Speech.DE_ORIGINAL, Speech.DE_NEU, Speech.EN)
 
     fun addAllSoundsFor(dialogEnd: Int, directory: String) {
         activeSounds.forEach {

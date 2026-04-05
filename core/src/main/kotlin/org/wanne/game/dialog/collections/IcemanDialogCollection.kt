@@ -60,7 +60,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
         addDialog(
             "Wie steht die Sonne? Echt jetz?", Language.DE, Dialog(
                 "Eismann: Jo man, chill!",
-                "Was wollt ihr?",
+                "Was wollt ihr, hee?",
                 "Ich hätte gerne 1 riesen Eis für meinen Freund hier.",
                 null,
                 4
@@ -90,7 +90,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
 
         addDialog(
             "Start2", Language.DE, Dialog(
-                "Eismann: Mehr Eis, Duckyboy?",
+                "Eismann: Mehr Eis, Duckboy?",
                 null,
                 "Danke, wir haben genug!",
                 null,
@@ -136,7 +136,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "how is the sun hanging?",
                 "How is the sun hanging? Seriously?",
                 "Bright and sparkling! And yours?",
-                null
+                0
             )
         )
 
@@ -146,7 +146,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Nice, can you spare some ice cream?",
                 null,
-                null
+                1
             )
         )
 
@@ -156,7 +156,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "as you like, Bros, No need anyway!",
                 "Awesome, thank you.",
                 null,
-                null,
+                2,
                 StateChange.LEFT
             )
         )
@@ -167,17 +167,17 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                3
             )
         )
 
         addDialog(
             "How is the sun hanging? Seriously?", Language.EN, Dialog(
                 "Iceman: Jo man, chill!",
-                "What do you want?",
+                "What do you want, hee?",
                 "I would like 1 large ice cream for my friend here.",
                 null,
-                null
+                4
             )
         )
 
@@ -187,7 +187,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "Got the money?",
                 "Let me check my wallet.",
                 null,
-                null,
+                5,
                 StateChange.RIGHT
             )
         )
@@ -198,17 +198,17 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                6
             )
         )
 
         addDialog(
             "Start2", Language.EN, Dialog(
-                "Iceman: More ice, Duckyboy?",
+                "Iceman: More ice, Duckboy?",
                 null,
                 "Thanks, we've had enough!",
                 null,
-                null
+                7
             )
         )
 
@@ -218,7 +218,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                3
             )
         )
 
@@ -228,7 +228,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                8
             )
         )
 
@@ -238,7 +238,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                9
             )
         )
     }

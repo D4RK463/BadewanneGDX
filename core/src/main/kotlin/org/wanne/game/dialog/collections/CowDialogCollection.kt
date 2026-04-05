@@ -203,7 +203,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
         addDialog(
             "Hi... I'm Duck,", Language.EN, Dialog(
                 "Cow: I I can't do do that.",
-                "I have to abide by thethe ruules too.",
+                "I have to abide by the ruuules too.",
                 "What rules do you mean?",
                 "Why did you kidnap us?",
                 1
@@ -213,7 +213,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
         addDialog(
             "let us out!!!", Language.EN, Dialog(
                 "Cow: I I can't do do that.",
-                "I have to abide by thethe ruules too.",
+                "I have to abide by the ruuules too.",
                 "What rules do you mean?",
                 "Why did you kidnap us?",
                 1
@@ -312,7 +312,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 null,
                 null,
                 "We've collected all your stuff.",
-                null
+                9
             )
         )
 
@@ -332,7 +332,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 "da-dare tell anyone that I'm letting you ooout!",
                 null,
                 "All right...",
-                null
+                10
             )
         )
 
