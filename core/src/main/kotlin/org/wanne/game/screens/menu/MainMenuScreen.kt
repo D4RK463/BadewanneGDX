@@ -128,7 +128,7 @@ class MainMenuScreen(
         )
 
         val multiButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("multiplayer"))
+            .withTexture(mainButtonAtlas.createSprite("multiplayer_disabled")) // für den Moment deaktiviert
             .withTexturePressed(mainButtonAtlas.createSprite("multiplayer_pressed"))
             .withPoint(Point(100F, 180F))
             .build()
@@ -138,8 +138,8 @@ class MainMenuScreen(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    game.screen = game.networkScreen
-                    dispose()
+                    //game.screen = game.networkScreen
+                    //dispose()
                 }
             },
         )

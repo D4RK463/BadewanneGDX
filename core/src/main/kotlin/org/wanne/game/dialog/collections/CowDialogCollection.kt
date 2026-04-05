@@ -367,7 +367,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
         addDialog(
             "Droggelbecher.", Language.DROGL, Dialog(
                 "Droggelbecher: Droggelbecher.",
-                "Droggelbecher.",
+                null,
                 "Droggelbecher?",
                 "Droggelbecher??",
                 1
@@ -400,7 +400,7 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 null,
                 "Droggelbecher???",
                 null,
-                4
+                8
             )
         )
 
@@ -416,8 +416,8 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
 
         addDialog(
             "Droggelbecher Droggelbecher?", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher, Droggelbecher,",
-                "Droggelbecher. 'Click'",
+                "Droggelbecher: Droggelbecher. 'Click'",
+                null,
                 null,
                 "Droggelbecher...",
                 7
@@ -436,13 +436,13 @@ class CowDialogCollection(am: AssetsManager) : DialogCollection(am, CowSoundColl
                 null,
                 null,
                 "Droggelbecher!!",
-                null
+                4
             )
         )
 
         addDialog(
             "Droggelbecher!!", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher. Droggelbecher.",
+                "Droggelbecher: Droggelbecher.",
                 null,
                 null,
                 "Droggelbecher!!!",

@@ -242,7 +242,7 @@ class TeddyDialogCollection(am: AssetsManager) : DialogCollection(am, TeddySound
 
         addDialog(
             "Droggelbecher?", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher, Droggelbecher. ",
+                "Droggelbecher: Droggelbecher. ",
                 null,
                 null,
                 null,

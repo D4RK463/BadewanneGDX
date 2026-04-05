@@ -123,7 +123,7 @@ class AssetsManager {
     }
 
     fun loadSounds() {
-        val activeDialogs = listOf(Speech.DE_ORIGINAL, Speech.DE_NEU, Speech.EN)
+        val activeDialogs = listOf(Speech.DE_ORIGINAL, Speech.DE_NEU, Speech.EN, Speech.DROGL)
 
         activeDialogs.forEach {
             loadDialog(DrBearSoundCollection.DIALOG_END, it, DR_BEAR)

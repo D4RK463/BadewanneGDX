@@ -246,11 +246,11 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
     private fun addDroglDialog() {
         addDialog(
             "Start1", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher, ",
-                "Droggelbecher?",
+                "Droggelbecher: Droggelbecher!",
+                null,
                 "Droggelbecher? Droggelbecher?",
                 "Droggelbecher! Droggelbecher?",
-                null
+                0
             )
         )
 
@@ -260,17 +260,17 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Droggelbecher?",
                 null,
-                null
+                1
             )
         )
 
         addDialog(
             "Droggelbecher?", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher! Droggelbecher,",
-                "Droggelbecher!",
+                "Droggelbecher: Droggelbecher!",
+                null,
                 "Droggelbecher.",
                 null,
-                null,
+                3,
                 StateChange.LEFT
             )
         )
@@ -281,7 +281,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                4
             )
         )
 
@@ -291,7 +291,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 "Droggelbecher?",
                 "Droggelbecher.?",
                 null,
-                null
+                5
             )
         )
 
@@ -301,7 +301,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Droggelbecher...",
                 null,
-                null,
+                6,
                 StateChange.RIGHT
             )
         )
@@ -312,7 +312,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                9
             )
         )
 
@@ -322,7 +322,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 "Droggelbecher",
                 null,
-                null
+                7
             )
         )
 
@@ -332,7 +332,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                2
             )
         )
 
@@ -342,7 +342,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                8
             )
         )
 
@@ -352,7 +352,7 @@ class IcemanDialogCollection(am: AssetsManager) : DialogCollection(am, IcemanSou
                 null,
                 null,
                 null,
-                null
+                6
             )
         )
     }

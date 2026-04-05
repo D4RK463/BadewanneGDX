@@ -84,7 +84,7 @@ class ResultScreen(
         }
 
 
-        val backSprite = if (game.currentLang().language == Language.EN) {
+        val backSprite = if (game.currentLang().language == Language.EN || game.currentLang().language == Language.DROGL ) {
             "back"
         } else {
             "zuruck"
