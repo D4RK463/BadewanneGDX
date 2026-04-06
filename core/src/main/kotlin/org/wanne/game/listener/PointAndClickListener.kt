@@ -70,7 +70,7 @@ class PointAndClickListener(
 
             // Aktion
             if (currentAction.type != ActionType.NOTHING) {
-                println("${currentAction.type} at $x:$y")
+                //println("${currentAction.type} at $x:$y")
 
                 // Das Objekt holen, auf welches geklickt wurde oder welches vom anderen Spieler angeklickt wurde
                 val hitObject = if (isMultiplayerAction) {
@@ -78,7 +78,7 @@ class PointAndClickListener(
                 } else {
                     stage.hit(x, y, true)
                 }
-                println("Hit: $hitObject")
+                //println("Hit: $hitObject")
                 when (hitObject) {
                     is GameObject -> {
                         currentAction.clickedObject = hitObject
