@@ -8,7 +8,7 @@ const val MARIO = "rario"
 class MarioSoundCollection(am: AssetsManager) : SoundCollection(am) {
 
     companion object {
-        const val DIALOG_END = 22
+        const val DIALOG_END = 21
     }
 
     init {
