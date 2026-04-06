@@ -1,4 +1,4 @@
-![alt text](assets/textures/title3.png)
+![alt text](assets/textures/title_de.png)
 
 **[Deutsch](#worum-gehts)** | **[English](#whats-it-all-about)**
 
@@ -40,6 +40,8 @@ Danke an:
 - David Diener
 
 ---
+
+![alt text](assets/textures/title_en.png)
 
 ## What's it all about?
 

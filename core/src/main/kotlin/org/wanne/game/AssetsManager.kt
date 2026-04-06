@@ -59,7 +59,8 @@ class AssetsManager {
     }
 
     fun loadTextures() {
-        assetManager.load("$TEXTURES/title3.png", Texture::class.java)
+        assetManager.load("$TEXTURES/title_de.png", Texture::class.java)
+        assetManager.load("$TEXTURES/title_en.png", Texture::class.java)
         assetManager.load("$TEXTURES/background.png", Texture::class.java)
         assetManager.load("$TEXTURES/ecke.png", Texture::class.java)
         assetManager.load("$TEXTURES/options.png", Texture::class.java)

@@ -25,7 +25,7 @@ import kotlin.system.exitProcess
 class MainMenuScreen(
     game: WanneGame,
 ) : AbstractMenuScreen(game) {
-    private var logoHeadline: Image = Image(game.am.get("$TEXTURES/title3.png") as Texture)
+    private lateinit var logoHeadline: Image
     private var edge: Image = Image(game.am.get("$TEXTURES/ecke.png") as Texture)
 
     private var background: Texture = game.am["$TEXTURES/background.png"]
@@ -54,6 +54,8 @@ class MainMenuScreen(
 
         stage = MainMenuStage(viewport, poolAttendant, duck, listOf(waterAnimation))
 
+        val logoHeadlineName = game.choose("title_de.png", "title_en.png", false)
+        logoHeadline = Image(game.am.get("$TEXTURES/$logoHeadlineName") as Texture)
         logoHeadline.x = 100f
         logoHeadline.y = 550f
 
