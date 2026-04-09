@@ -22,6 +22,8 @@ class Config(android: Boolean) {
     var extrasUnlocked: Boolean = prefs.getBoolean("extrasUnlocked", false)
 
     var drooglUnlocked: Boolean = prefs.getBoolean("drooglUnlocked", false)
+    var orgUnlocked: Boolean = prefs.getBoolean("orglUnlocked", false)
+    var numberOfPlaythroughs: Int = prefs.getInteger("numberOfPlaythroughs", 0)
 
     var speech: String = Speech.DE_NEU.speech
 
@@ -35,6 +37,8 @@ class Config(android: Boolean) {
         prefs["musicVolume"] = musicVolume
         prefs["extrasUnlocked"] = extrasUnlocked
         prefs["drooglUnlocked"] = drooglUnlocked
+        prefs["orglUnlocked"] = orgUnlocked
+        prefs["numberOfPlaythroughs"] = numberOfPlaythroughs
         prefs["language"] = speech
         prefs["mode"] = mode
 

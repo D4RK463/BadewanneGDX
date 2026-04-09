@@ -56,7 +56,7 @@ class ResultScreen(
 
         // Was freigeschaltet wurde?
         var somethingWasUnlocked = false
-        if (game.unlockDrogglWithNewPlaythrough) {
+        if (game.config.numberOfPlaythroughs == 1) {
             val drogglString = game.choose("Droggelbecher Modus", "Droggelbecher Mode", false)
             val drogglPair = createLabelWithShadow(drogglString, 550f, 250f, 1.2F)
             val droggl = drogglPair.first
@@ -65,8 +65,22 @@ class ResultScreen(
             stage.addActor(drogglShadow)
             stage.addActor(droggl)
 
-            game.unlockDrogglWithNewPlaythrough = false
             game.config.drooglUnlocked = true
+            game.config.saveSettings()
+
+            somethingWasUnlocked = true
+        }
+
+        if (game.config.numberOfPlaythroughs == 5) {
+            val originalString = game.choose("Original Modus", "Original Mode", false)
+            val originalPair = createLabelWithShadow(originalString, 550f, 250f, 1.2F)
+            val original = originalPair.first
+            val originalShadow = originalPair.second
+
+            stage.addActor(originalShadow)
+            stage.addActor(original)
+
+            game.config.orgUnlocked = true
             game.config.saveSettings()
 
             somethingWasUnlocked = true

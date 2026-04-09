@@ -98,10 +98,13 @@ class OptionsScreen(
 
         gerButton.remove()
         engButton.remove()
-        orgButton.remove()
 
         if (game.config.drooglUnlocked) {
             droglButton.remove()
+        }
+
+        if (game.config.orgUnlocked) {
+            orgButton.remove()
         }
 
         classicButton.remove()
@@ -195,28 +198,11 @@ class OptionsScreen(
             },
         )
 
-        orgButton = UiButtonBuilder()
-            .withTexture(mainButtonAtlas.createSprite("orgButton"+getButtonSelectionState(Speech.DE_ORIGINAL)))
-            .withTexturePressed(mainButtonAtlas.createSprite("orgButton_pressed"))
-            .withPoint(Point(910F, 350F))
-            .build()
-        orgButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    game.config.speech = Speech.DE_ORIGINAL.speech
-                    updateObjects()
-                }
-            },
-        )
-
         if (game.config.drooglUnlocked) {
             droglButton = UiButtonBuilder()
                 .withTexture(mainButtonAtlas.createSprite("droglButton"+getButtonSelectionState(Speech.DROGL)))
                 .withTexturePressed(mainButtonAtlas.createSprite("droglButton_pressed"))
-                .withPoint(Point(1085F, 350F))
+                .withPoint(Point(910F, 350F))
                 .build()
             droglButton.addListener(
                 object : ChangeListener() {
@@ -233,9 +219,29 @@ class OptionsScreen(
             stage.addActor(droglButton)
         }
 
+        if (game.config.orgUnlocked) {
+            orgButton = UiButtonBuilder()
+                .withTexture(mainButtonAtlas.createSprite("orgButton"+getButtonSelectionState(Speech.DE_ORIGINAL)))
+                .withTexturePressed(mainButtonAtlas.createSprite("orgButton_pressed"))
+                .withPoint(Point(1085F, 350F))
+                .build()
+            orgButton.addListener(
+                object : ChangeListener() {
+                    override fun changed(
+                        event: ChangeEvent?,
+                        actor: Actor?,
+                    ) {
+                        game.config.speech = Speech.DE_ORIGINAL.speech
+                        updateObjects()
+                    }
+                },
+            )
+
+            stage.addActor(orgButton)
+        }
+
         stage.addActor(gerButton)
         stage.addActor(engButton)
-        stage.addActor(orgButton)
     }
 
     private fun createModeButtons() {
