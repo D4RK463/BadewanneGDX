@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import org.wanne.game.Language
+import org.wanne.game.SPRITES
 import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
@@ -18,7 +19,11 @@ abstract class GameObject(
     posY: Float,
     game: WanneGame
 ) : AbstractObject(posX, posY, game) {
-    val inventoryAtlas: TextureAtlas = am.get("pictures/Items/inventory.atlas")
+    val inventoryAtlas: TextureAtlas = am["$SPRITES/inventory.atlas"]
+
+    var blackAndWhite = false
+
+    var drunk = false
 
     private val random = Random()
 
@@ -145,6 +150,7 @@ abstract class GameObject(
 
     override fun dispose() {
         itemAtlas.dispose()
+        inventoryAtlas.dispose()
     }
 
     abstract fun getInteractPosition(): Pair<Point, Player.Companion.Looking?>

@@ -2,6 +2,7 @@ package org.wanne.game.model.puzzle
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import org.wanne.game.SPRITES
 import org.wanne.game.WanneGame
 import org.wanne.game.model.AbstractObject
 import org.wanne.game.model.Point
@@ -13,7 +14,7 @@ class PuzzlePiece(
     var indexNumber: Int,
     game: WanneGame
 ) : AbstractObject(point.x, point.y, game) {
-    private val puzzleAtlas: TextureAtlas = am.get("pictures/Puzzle/puzzle.atlas")
+    private val puzzleAtlas: TextureAtlas = am["$SPRITES/puzzle.atlas"]
 
     private val spriteRotationSpeed = 90
 
@@ -21,7 +22,7 @@ class PuzzlePiece(
 
     private val random = Random()
 
-    var currentRotation = 0
+    private var currentRotation = 0
 
     init {
         x = posX

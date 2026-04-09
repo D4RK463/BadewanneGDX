@@ -20,3 +20,5 @@ enum class Speech(val speech: String, val language: Language) {
         }
     }
 }
+
+fun Speech.dir() = speech.lowercase()

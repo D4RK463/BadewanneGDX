@@ -1,18 +1,13 @@
 package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import org.wanne.game.Language
-import org.wanne.game.screens.util.UiButtonBuilder
 import org.wanne.game.WanneGame
 import org.wanne.game.model.Point
-import org.wanne.game.network.Client
-import org.wanne.game.network.Server
+import org.wanne.game.screens.util.UiButtonBuilder
 import java.net.NetworkInterface
 
 class NetworkScreen(
@@ -24,94 +19,91 @@ class NetworkScreen(
         multiTitle.x = 90f
         multiTitle.y = 550f
 
-        val ipField = TextField("IP Adresse eingeben", skin)
-        ipField.x = 500f
-        ipField.y = 500f
-        ipField.width = 300f
-        ipField.height = 50f
-        ipField.addListener(object : InputListener() {
-            override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-                ipField.text = ""
-                return true
-            }
-        })
-        ipField.text = game.config.ipAddress
+        // Server, also wenn ich selbst hoste
+        val serverIpLabelPair = createLabelWithShadow("Server IP-Adresse: ${getIpAddress()}", 100f, 480f)
+        val serverIpLabel = serverIpLabelPair.first
+        val serverIpLabelShadow = serverIpLabelPair.second
 
-        val portField = TextField("Port eingeben", skin)
-        portField.x = 500f
-        portField.y = 450f
-        portField.width = 300f
-        portField.height = 50f
-        portField.addListener(object : InputListener() {
-            override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-                portField.text = ""
-                return true
-            }
-        })
-        portField.text = game.config.serverPort.toString()
+        val serverPortLabelPair = createLabelWithShadow("Port:", 800f, 480f)
+        val serverPortLabel = serverPortLabelPair.first
+        val serverPortLabelShadow = serverPortLabelPair.second
 
-        val connectButton = createTextButton("Verbinden", 500f, 320f)
+        val serverPortField = TextField("", skin)
+        serverPortField.x = 920f
+        serverPortField.y = 480f
+        serverPortField.width = 50f
+        serverPortField.height = 50f
+        serverPortField.text = game.config.serverPort.toString()
+
+        val serverButton = createTextButton("Server starten", 100f, 380f)
+
+        // Client, also wenn ich mich mit einem anderen verbinde
+        val clientIpLabelPair = createLabelWithShadow("Ziel-Server IP-Adresse:", 100f, 280f)
+        val clientIpLabel = clientIpLabelPair.first
+        val clientIpLabelShadow = clientIpLabelPair.second
+
+        val clientPortLabelPair = createLabelWithShadow("Port:", 800f, 280f)
+        val clientPortLabel = clientPortLabelPair.first
+        val clientPortLabelShadow = clientPortLabelPair.second
+
+        val clientIpField = TextField("", skin)
+        clientIpField.x = 580f
+        clientIpField.y = 280f
+        clientIpField.width = 160f
+        clientIpField.height = 50f
+        clientIpField.text = game.config.ipAddress
+
+        val clientPortField = TextField("", skin)
+        clientPortField.x = 920f
+        clientPortField.y = 280f
+        clientPortField.width = 50f
+        clientPortField.height = 50f
+        clientPortField.text = game.config.clientPort.toString()
+
+        val connectButton = createTextButton("Verbinden", 100f, 180f)
         connectButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    if (Client.checkIPAddress(ipField.text) && Client.checkPort(portField.text)) {
-                        game.config.ipAddress = ipField.text
-                        game.config.clientPort = portField.text.toInt()
-                        game.config.saveSettings()
-
-                        game.client = Client(game.config)
-
-                        println("Verbinde...")
-                        game.client.connect()
+                    connectButton.isDisabled = true
+                    connectButton.setText("Verbinde...")
+                    if (game.network.startClient(clientIpField.text, clientPortField.text)) {
+                        connectButton.setText("Verbunden")
+                        serverButton.isDisabled = true
                     } else {
-                        println("IP oder Port nicht valide")
+                        connectButton.setText("Verbinden")
+                        connectButton.isDisabled = false
+                        serverButton.isDisabled = false
                     }
                 }
-            },
+            }
         )
 
-        val stopServerButton = createTextButton("Server stoppen", 500f, 200f)
-        val startServerButton = createTextButton("Server starten", 500f, 200f)
-        startServerButton.addListener(
+        serverButton.addListener(
             object : ChangeListener() {
                 override fun changed(
                     event: ChangeEvent?,
                     actor: Actor?,
                 ) {
-                    if (Client.checkPort(portField.text)) {
-                        game.config.serverPort = portField.text.toInt()
-                        game.config.saveSettings()
-
-                        game.server = Server(game.config)
-
-                        println("Starte...")
-                        game.server.start()
-
-                        startServerButton.isVisible = false
-                        stopServerButton.isVisible = true
+                    if (game.network.serverRunning()) {
+                        game.network.stopItAll()
+                        serverButton.setText("Server starten")
+                        connectButton.isDisabled = false
                     } else {
-                        println("Port nicht valide")
+                        serverButton.setText("Starte...")
+                        if (game.network.startServer(serverPortField.text)) {
+                            serverButton.setText("Stoppen")
+                            connectButton.isDisabled = true
+                        } else {
+                            serverButton.setText("Server starten")
+                            connectButton.isDisabled = false
+                        }
                     }
                 }
-            },
+            }
         )
-        stopServerButton.addListener(
-            object : ChangeListener() {
-                override fun changed(
-                    event: ChangeEvent?,
-                    actor: Actor?,
-                ) {
-                    println("Stoppe...")
-                    game.server.stop()
-                    startServerButton.isVisible = true
-                    stopServerButton.isVisible = false
-                }
-            },
-        )
-        stopServerButton.isVisible = false
 
         val backSprite = if (game.currentLang().language == Language.EN) {
             "back"
@@ -121,7 +113,7 @@ class NetworkScreen(
         val backButton = UiButtonBuilder()
             .withTexture(mainButtonAtlas.createSprite(backSprite))
             .withTexturePressed(mainButtonAtlas.createSprite(backSprite + "_pressed"))
-            .withPoint(Point(500F, 80F))
+            .withPoint(Point(500F, 35F))
             .build()
         backButton.addListener(
             object : ChangeListener() {
@@ -136,15 +128,20 @@ class NetworkScreen(
             },
         )
 
-        val ipLabel = Label("Eigene IP-Adresse: ${getIpAddress()}", game.wanneSkin)
-        ipLabel.setPosition(500f, 550f)
-
-        stage.addActor(ipLabel)
-        stage.addActor(ipField)
-        stage.addActor(portField)
+        stage.addActor(clientIpLabelShadow)
+        stage.addActor(clientIpLabel)
+        stage.addActor(serverIpLabelShadow)
+        stage.addActor(serverIpLabel)
+        stage.addActor(clientPortLabelShadow)
+        stage.addActor(clientPortLabel)
+        stage.addActor(serverPortLabelShadow)
+        stage.addActor(serverPortLabel)
+        stage.addActor(serverIpLabel)
+        stage.addActor(clientIpField)
+        stage.addActor(serverPortField)
+        stage.addActor(clientPortField)
         stage.addActor(connectButton)
-        stage.addActor(startServerButton)
-        stage.addActor(stopServerButton)
+        stage.addActor(serverButton)
         stage.addActor(backButton)
         stage.addActor(multiTitle)
     }

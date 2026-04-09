@@ -8,7 +8,7 @@
 
 | 0 | Lass mich, ich bin gerad betrübt. | 😟
 | 1 | Die Prinzessin hat mich verlassen, weil ich mein 'Feuer' verloren hab. | 😟
-| 2 | Seit dem der fiese Bowser weg ist, ist die Action aus der Beziehung raus. | 😭
+| 2 | Seit dem der fiese Rowser weg ist, ist die Action aus der Beziehung raus. | 😭
 | 3 | Sie sagt, ich bin ein 'Gefühlsstein'. Dabei mag ich Steine nichtmal. | 😟
 | 4 | Weisst du vielleicht, wie man das Feuer wieder entfachen kann? | 🥺
 | 5 | Klasse, Danke. Damit kann ich die Prinzessin bestimmt wieder zurückgewinnen. | 🤩
@@ -39,7 +39,7 @@
 
 | 0 | Leave me alone, I'm sad. | 😟
 | 1 | The princess left me because I lost my ‘fire’. | 😟
-| 2 | Since the nasty Bowser has gone, the action is out of the relationship. | 😭
+| 2 | Since the nasty Rowser has gone, the action is out of the relationship. | 😭
 | 3 | She says I am 'stone-hearted'. But I don't even like stones. | 😟
 | 4 | Do you know how to rekindle the fire? | 🥺
 | 5 | Great, thank you. I'm sure I can win the princess back with this. | 🤩

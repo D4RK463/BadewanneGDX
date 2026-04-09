@@ -3,6 +3,7 @@ package org.wanne.game.model.animation
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import org.wanne.game.ANIMATIONS
 import org.wanne.game.AssetsManager
 import org.wanne.game.model.Point
 import org.wanne.utils.GifDecoder
@@ -12,9 +13,11 @@ class FireAnimation(
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(point.x, point.y, visible, am)  {
+
+    // ToDo: Animation erst laden, wenn die Animation gestartet wird, damit der richtige Thread genutzt wird
     private val fireAnimation = GifDecoder.loadGIFAnimation(
         Animation.PlayMode.NORMAL,
-        Gdx.files.internal("pictures/Items/FeuerTeppich.gif").read()
+        Gdx.files.internal("$ANIMATIONS/FeuerTeppich.gif").read()
     )
 
     override fun getTextureRegionOfCurrentState(time: Float): TextureRegion? {

@@ -62,7 +62,7 @@ class Inventory private constructor() {
         return getObjectFromInventory(gameObject) != null
     }
 
-    fun getObjectFromInventory(gameObject: GameObject): GameObject? {
+    private fun getObjectFromInventory(gameObject: GameObject): GameObject? {
         return try {
             items.first { item -> item.name == gameObject.name }
         } catch (e: NoSuchElementException) {

@@ -73,7 +73,7 @@ class FireFlower(
         action: PointAndClickAction,
     ) {
         if (solved && (gameObjectToManipulate is Mario) && gameObjectToManipulate.didntTalkForTheFirstTime()) {
-            doCombine(dialogBoard, action, this, "Mario")
+            doCombine(dialogBoard, action, this, "Rario")
         } else {
             super.combine(dialogBoard, action)
         }

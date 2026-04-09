@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.SPRITES
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PuzzleClickListener
 import org.wanne.game.model.Point
@@ -25,8 +28,8 @@ class PuzzleScreen(
     game: WanneGame,
 ) : AbstractScreen(game) {
     // Background
-    private val puzzleBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/puzzle.png")
-    private val puzzleBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/puzzle169.png")
+    private val puzzleBackgroundSingle: Texture = game.am["$TEXTURES/puzzle.png"]
+    private val puzzleBackgroundSingleWide: Texture = game.am["$TEXTURES/puzzle169.png"]
 
     private lateinit var stage: PuzzleStage
 
@@ -37,11 +40,11 @@ class PuzzleScreen(
     private lateinit var victoryMessage: VictoryMessage
 
     // Buttons
-    private val buttonAtlas: TextureAtlas = game.am.get("pictures/Buttons/buttons.atlas")
+    private val buttonAtlas: TextureAtlas = game.am["$SPRITES/buttons.atlas"]
     private lateinit var exitButton: ImageButton
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/puzzle_theme.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/puzzle_theme.mp3"]
 
     override fun show() {
         createPuzzle()
@@ -56,6 +59,7 @@ class PuzzleScreen(
 
         stage = PuzzleStage(viewport, puzzle, game)
         Gdx.input.inputProcessor = stage
+        game.currentStage = stage
 
         // Hintergrund setzen
         if (game.classicMode()) {
@@ -64,7 +68,9 @@ class PuzzleScreen(
             stage.addActor(Image(puzzleBackgroundSingleWide))
         }
 
-        stage.addListener(PuzzleClickListener())
+        val listener = PuzzleClickListener(game.network.takeUnless { game.isSingleplayer }, game)
+        stage.addListener(listener)
+        game.currentListener = listener
 
         puzzle.initializePuzzle(stage)
         stage.addActor(victoryMessage)
@@ -83,8 +89,10 @@ class PuzzleScreen(
 
     private fun createGameUI() {
         val action = if (game.android) { "tab" } else { game.choose("klick", "click", false) }
-        val instructionsTextDuck = game.choose("Drehen = Puzzleteil doppelt ${action}en", "To turn = double $action")
-        val instructionsTextAttendant = game.choose("Tauschen = 2 Puzzleteile ${action}en", "To switch = $action 2 pieces")
+        val instructionDuckAddition = if (game.isSingleplayer) { "" } else { game.choose("(nur Ente)", "(Duck only)", false) }
+        val instructionAttendantAddition = if (game.isSingleplayer) { "" } else { game.choose("(nur Bademeister)", "(Pool Attendant only)", false) }
+        val instructionsTextDuck = game.choose("Drehen = Puzzleteil doppelt ${action}en $instructionDuckAddition", "To turn = double $action")
+        val instructionsTextAttendant = game.choose("Tauschen = 2 Puzzleteile ${action}en $instructionAttendantAddition", "To switch = $action 2 pieces")
         val instructionsDuckPair = createLabelWithShadow(instructionsTextDuck, 150f, 50f)
         val instructionsDuck = instructionsDuckPair.first
         val instructionsDuckShadow = instructionsDuckPair.second

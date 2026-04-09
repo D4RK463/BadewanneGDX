@@ -1,4 +1,4 @@
-![alt text](assets/pictures/Menue/title3.png)
+![alt text](assets/textures/title_de.png)
 
 **[Deutsch](#worum-gehts)** | **[English](#whats-it-all-about)**
 
@@ -33,13 +33,15 @@ Einfach hier bei github ein [Issue](https://github.com/D4RK463/BadewanneGDX/issu
 An das originale Entwicklungsteam, für die Idee und die Grafiken (Vom Original Code ist in dieser Umsetzung nichts mehr übrig. 😀)
 
 Danke an:
-- Dennis Ludwig
+- [Dennis Ludwig](https://github.com/bmsuseluda)
 - Rolf Scheuerling
 - Jessica Dutschun
 - Jonas Ebling
 - David Diener
 
 ---
+
+![alt text](assets/textures/title_en.png)
 
 ## What's it all about?
 

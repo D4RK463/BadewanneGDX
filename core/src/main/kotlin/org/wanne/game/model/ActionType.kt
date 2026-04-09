@@ -7,4 +7,6 @@ enum class ActionType {
     COMBINE,
     ADD_TO_INVENTORY,
     NOTHING,
+    ROTATE,
+    EXCHANGE
 }

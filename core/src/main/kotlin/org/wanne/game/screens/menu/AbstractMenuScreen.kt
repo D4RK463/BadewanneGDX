@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.SKINS
+import org.wanne.game.SPRITES
 import org.wanne.game.WanneGame
 import org.wanne.game.screens.AbstractScreen
 
@@ -18,9 +20,9 @@ abstract class AbstractMenuScreen (
 ) : AbstractScreen(game) {
     lateinit var stage: Stage
 
-    val skin: Skin = game.am.get("ui/default/uiskin.json")
+    val skin: Skin = game.am["$SKINS/default/uiskin.json"]
 
-    val mainButtonAtlas: TextureAtlas = game.am.get("pictures/Menue/mainbuttons.atlas")
+    val mainButtonAtlas: TextureAtlas = game.am["$SPRITES/mainbuttons.atlas"]
 
     lateinit var viewport: FitViewport
 

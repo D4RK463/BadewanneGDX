@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.Point
@@ -20,13 +22,13 @@ class OutsideScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val outsideBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/OutsideSingle.png")
-    private val outsideBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Outside.png")
-    private val outsideBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Outside169.png")
+    private val outsideBackgroundSingle: Texture = game.am["$TEXTURES/OutsideSingle.png"]
+    private val outsideBackgroundMulti: Texture = game.am["$TEXTURES/Outside.png"]
+    private val outsideBackgroundSingleWide: Texture = game.am["$TEXTURES/Outside169.png"]
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
-    private val radioBackground: Music = game.am.get("soundsOriginal/Background/funky_groove.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/background.mp3"]
+    private val radioBackground: Music = game.am["$MUSIC/funky_groove.mp3"]
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -61,7 +63,9 @@ class OutsideScreen(
         radioBackground.play()
 
         // Klick Steuerung der Charaktere
-        stage.addListener(PointAndClickListener(dialogBoard, limits))
+        val listener = PointAndClickListener(dialogBoard, limits, game.network.takeUnless { game.isSingleplayer })
+        stage.addListener(listener)
+        game.currentListener = listener
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
@@ -78,9 +82,11 @@ class OutsideScreen(
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+        game.currentDialogBoard = dialogBoard
 
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
+        game.currentStage = stage
         game.arrivedOutside = true
     }
 
@@ -113,8 +119,8 @@ class OutsideScreen(
     }
 
     override fun resetPlayerAndSound() {
-        stage.needToMove = false
-        stage.currentPlayer.stopHammerTime()
+        stage.firstPlayerState.needToMove = false
+        stage.firstPlayerState.player.stopHammerTime()
         game.soundManager.stopSound()
     }
 

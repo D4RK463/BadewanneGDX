@@ -18,7 +18,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
     private fun getGermanDialog() {
         addDialog(
             "Start1", Language.DE, Dialog(
-                "Mario: Lass mich, ich bin gerad betrübt.",
+                "Rario: Lass mich, ich bin gerad betrübt.",
                 null,
                 "Was'n los ?",
                 null,
@@ -28,7 +28,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start2", Language.DE, Dialog(
-                "Mario: Weisst du vielleicht wie man ",
+                "Rario: Weisst du vielleicht wie man ",
                 "das Feuer wieder entfachen kann?",
                 null,
                 null,
@@ -38,7 +38,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Was'n los ?", Language.DE, Dialog(
-                "Mario: Die Prinzessin hat mich verlassen,",
+                "Rario: Die Prinzessin hat mich verlassen,",
                 "weil ich mein 'Feuer' verloren hab.",
                 "Erzähl mir mehr.",
                 "Mir doch egal",
@@ -48,7 +48,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Mir doch egal", Language.DE, Dialog(
-                "Mario: Seit dem der fiese Bowser weg ist,",
+                "Rario: Seit dem der fiese Rowser weg ist,",
                 "ist die Action aus der Beziehung raus.",
                 null,
                 "*laber* ...",
@@ -58,7 +58,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Erzähl mir mehr.", Language.DE, Dialog(
-                "Mario: Seit dem der fiese Bowser weg ist,",
+                "Rario: Seit dem der fiese Rowser weg ist,",
                 "ist die Action aus der Beziehung raus.",
                 null,
                 "*laber* ...",
@@ -68,7 +68,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "*laber* ...", Language.DE, Dialog(
-                "Mario: Sie sagt ich bin ein 'Gefühlsstein'.",
+                "Rario: Sie sagt ich bin ein 'Gefühlsstein'.",
                 "Dabei mag ich Steine nichtmal :(",
                 null,
                 "bla, bla, bla...",
@@ -78,7 +78,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "bla, bla, bla...", Language.DE, Dialog(
-                "Mario: Weisst du vielleicht wie man ",
+                "Rario: Weisst du vielleicht wie man ",
                 "das Feuer wieder entfachen kann?",
                 null,
                 null,
@@ -89,7 +89,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wie sind wir hier her gekommen?", Language.DE, Dialog(
-                "Mario: Hier landen alle Leute die ",
+                "Rario: Hier landen alle Leute die ",
                 "sich im Ausguss verirren.",
                 "Warum ist die Tür verschlossen?",
                 "Und was mach ich nun?",
@@ -99,7 +99,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Warum ist die Tür verschlossen?", Language.DE, Dialog(
-                "Mario: Der Wächter hat sie versiegelt.",
+                "Rario: Der Wächter hat sie versiegelt.",
                 null,
                 "Wo ist der Wächter?",
                 "Wer ist der Wächter?",
@@ -109,7 +109,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Geht net, die Tür ist zu.", Language.DE, Dialog(
-                "Mario: Der Wächter hat sie versiegelt.",
+                "Rario: Der Wächter hat sie versiegelt.",
                 null,
                 "Wo ist der Wächter?",
                 "Wer ist der Wächter?",
@@ -119,7 +119,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Und was mach ich nun?", Language.DE, Dialog(
-                "Mario: Vielleicht solltest du versuchen ",
+                "Rario: Vielleicht solltest du versuchen ",
                 "aus dem Raum zu entkommen?",
                 null,
                 "Geht net, die Tür ist zu.",
@@ -129,7 +129,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wo ist der Wächter?", Language.DE, Dialog(
-                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Rario: Ich hab keine Ahnung wo er ist.",
                 "Aber ich hab seine Telefonnummer.",
                 null,
                 null,
@@ -140,7 +140,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wo kann ich ihn finden?", Language.DE, Dialog(
-                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Rario: Ich hab keine Ahnung wo er ist.",
                 "Aber ich hab seine Telefonnummer.",
                 null,
                 null,
@@ -151,7 +151,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wo ist nochma der Wächter?", Language.DE, Dialog(
-                "Mario: Ich hab keine Ahnung wo er ist.",
+                "Rario: Ich hab keine Ahnung wo er ist.",
                 "Aber ich hab seine Telefonnummer.",
                 null,
                 null,
@@ -162,7 +162,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wer ist der Wächter?", Language.DE, Dialog(
-                "Mario: Das ist eine abgrundtief böse Kreatur.",
+                "Rario: Das ist eine abgrundtief böse Kreatur.",
                 "Es gibt niemand der sie gesehen hat und noch lebt.",
                 "Klar doch!",
                 "Weiter...",
@@ -172,7 +172,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Wer ist nochma der Wächter?", Language.DE, Dialog(
-                "Mario: Das ist eine abgrundtief böse Kreatur.",
+                "Rario: Das ist eine abgrundtief böse Kreatur.",
                 "Es gibt niemand der sie gesehen hat und noch lebt.",
                 "Klar doch!",
                 "Weiter...",
@@ -182,7 +182,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Weiter...", Language.DE, Dialog(
-                "Mario: Es wird gemunkelt, das der Wächter die",
+                "Rario: Es wird gemunkelt, das der Wächter die",
                 "Seelen derer erntet die sich im Ausguss verirren.",
                 "Übertrieben!",
                 "WOW!!!",
@@ -192,7 +192,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "WOW!!!", Language.DE, Dialog(
-                "Mario: Er soll riesig gross sein mit ",
+                "Rario: Er soll riesig gross sein mit ",
                 "fürchterlichen Klauen und Eiter triefendem Maul.",
                 "Wo kann ich ihn finden?",
                 "Du laberst doch nur!",
@@ -202,7 +202,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Du laberst doch nur!", Language.DE, Dialog(
-                "Mario: Wenn du meinst, aber ich hab dich gewarnt.",
+                "Rario: Wenn du meinst, aber ich hab dich gewarnt.",
                 null,
                 null,
                 "Wo kann ich ihn finden?",
@@ -212,7 +212,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Übertrieben!", Language.DE, Dialog(
-                "Mario: Wenn du meinst, aber ich hab dich gewarnt.",
+                "Rario: Wenn du meinst, aber ich hab dich gewarnt.",
                 null,
                 null,
                 "Wo kann ich ihn finden?",
@@ -222,7 +222,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Klar doch!", Language.DE, Dialog(
-                "Mario: Wenn du meinst, aber ich hab dich gewarnt.",
+                "Rario: Wenn du meinst, aber ich hab dich gewarnt.",
                 null,
                 null,
                 "Wo kann ich ihn finden?",
@@ -232,7 +232,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start3", Language.DE, Dialog(
-                "Mario: Klasse, Danke. Damit kann ich ",
+                "Rario: Jawohl! Damit kann ich ",
                 "die Prinzessin bestimmt wieder zurückgewinnen.",
                 "Wie sind wir hier her gekommen?",
                 "Warum ist die Tür verschlossen?",
@@ -253,7 +253,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start5", Language.DE, Dialog(
-                "Mario: Ich kann die Angst in deinen Augen sehen. Sei ",
+                "Rario: Ich kann die Angst in deinen Augen sehen. Sei ",
                 "froh das man durchs Telefon nichts riechen kann!",
                 null,
                 null,
@@ -263,7 +263,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Warum liegt hier eigentlich Stroh?", Language.DE, Dialog(
-                "Mario: Warum hast du ne Maske auf?",
+                "Rario: Warum hast du ne Maske auf?",
                 null,
                 null,
                 null,
@@ -273,7 +273,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Warum lässt sich der Teppich nicht bewegen?", Language.DE, Dialog(
-                "Mario: Langsam hab ich keine Lust mehr dir ",
+                "Rario: Langsam hab ich keine Lust mehr dir ",
                 "zu helfen. Wir sind schon quitt.",
                 null,
                 "Bitte, bitte...",
@@ -283,7 +283,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Was riecht hier so komisch?", Language.DE, Dialog(
-                "Mario: Frag ma deinen dicken Freund da drüben. XD",
+                "Rario: Frag ma deinen dicken Freund da drüben. XD",
                 null,
                 "Warum liegt hier eigentlich Stroh?",
                 "Warum lässt sich der Teppich nicht bewegen?",
@@ -293,7 +293,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Bitte, bitte...", Language.DE, Dialog(
-                "Mario: Na gut, es wird erzählt das der Wächter ",
+                "Rario: Na gut, es wird erzählt das der Wächter ",
                 "den Teppich festgenagelt hat.",
                 null,
                 "Kannst du mir helfen den Teppich loszuwerden?",
@@ -303,7 +303,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Kannst du mir helfen den Teppich loszuwerden?", Language.DE, Dialog(
-                "Mario: Ich würde dir ja helfen aber ich will nicht.",
+                "Rario: Ich würde dir ja helfen aber ich will nicht.",
                 null,
                 "Du #*%&!!! Ich hasse dich!!",
                 "*schnief* Bitte, bitte ich tu auch alles für dich!",
@@ -313,7 +313,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Du #*%&!!! Ich hasse dich!!", Language.DE, Dialog(
-                "Mario: Na gut, na gut, aber wehe du erzählst es ",
+                "Rario: Na gut, na gut, aber wehe du erzählst es ",
                 "den Anderen. Mehr werde ich nicht helfen!",
                 null,
                 null,
@@ -324,7 +324,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "*schnief* Bitte, bitte ich tu auch alles für dich!", Language.DE, Dialog(
-                "Mario: Na gut, na gut, aber wehe du erzählst es ",
+                "Rario: Na gut, na gut, aber wehe du erzählst es ",
                 "den Anderen. Mehr werde ich nicht helfen!",
                 null,
                 null,
@@ -335,7 +335,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start6", Language.DE, Dialog(
-                "Mario: Das reicht jetzt! Wir kennen uns nicht!",
+                "Rario: Das reicht jetzt! Wir kennen uns nicht!",
                 null,
                 null,
                 null,
@@ -357,7 +357,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
     private fun getEnglishDialog() {
         addDialog(
             "Start1", Language.EN, Dialog(
-                "Mario: Leave me alone, I'm sad.",
+                "Rario: Leave me alone, I'm sad.",
                 null,
                 "What's going on?",
                 null,
@@ -367,7 +367,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start2", Language.EN, Dialog(
-                "Mario: Do you know how to rekindle the fire?",
+                "Rario: Do you know how to rekindle the fire?",
                 null,
                 null,
                 null,
@@ -377,7 +377,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "What's going on?", Language.EN, Dialog(
-                "Mario: The princess left me because",
+                "Rario: The princess left me because",
                 "I lost my ‘fire’.",
                 "Tell me more.",
                 "I don't care.",
@@ -387,8 +387,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "I don't care.", Language.EN, Dialog(
-                "Mario: Since the nasty Bowser has gone,",
-                "the action is out of the relationship.",
+                "Rario: Ever since that Rowser left,",
+                "the spark has gone out of the relationship.",
                 null,
                 "*yadda yadda* ...",
                 2
@@ -397,8 +397,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Tell me more.", Language.EN, Dialog(
-                "Mario: Since the nasty Bowser has gone,",
-                "the action is out of the relationship.",
+                "Rario: Ever since that Rowser left,",
+                "the spark has gone out of the relationship.",
                 null,
                 "*yadda yadda* ...",
                 2
@@ -407,7 +407,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "*yadda yadda* ...", Language.EN, Dialog(
-                "Mario: She says I am 'stone-hearted'.",
+                "Rario: She says I am 'stone-hearted'.",
                 "But I don't even like stones :(",
                 null,
                 "bla, bla, bla...",
@@ -417,7 +417,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "bla, bla, bla...", Language.EN, Dialog(
-                "Mario: Do you know how to rekindle the fire?",
+                "Rario: Do you know how to rekindle the fire?",
                 null,
                 null,
                 null,
@@ -428,7 +428,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "How did we get here?", Language.EN, Dialog(
-                "Mario: This is where all the people",
+                "Rario: This is where all the people",
                 " who get lost in the sink end up.",
                 "Why is the door locked?",
                 "And what do I do now?",
@@ -438,7 +438,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Why is the door locked?", Language.EN, Dialog(
-                "Mario: The guardian has sealed it.",
+                "Rario: The guardian has sealed it.",
                 null,
                 "Where is the guardian?",
                 "Who is the guardian?",
@@ -448,7 +448,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Can't, the door is locked.", Language.EN, Dialog(
-                "Mario: The guardian has sealed it.",
+                "Rario: The guardian has sealed it.",
                 null,
                 "Where is the guardian?",
                 "Who is the guardian?",
@@ -458,8 +458,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "And what do I do now?", Language.EN, Dialog(
-                "Mario: Maybe you should try to escape",
-                "from the room?",
+                "Rario: Maybe you should try to escape",
+                "from this room?",
                 null,
                 "Can't, the door is locked.",
                 8
@@ -468,7 +468,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where is the guardian?", Language.EN, Dialog(
-                "Mario: I don't know where he is.",
+                "Rario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -479,7 +479,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where can I find him?", Language.EN, Dialog(
-                "Mario: I don't know where he is.",
+                "Rario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -490,7 +490,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Where is the guardian again?", Language.EN, Dialog(
-                "Mario: I don't know where he is.",
+                "Rario: I don't know where he is.",
                 "But I have his number.",
                 null,
                 null,
@@ -501,7 +501,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Who is the guardian?", Language.EN, Dialog(
-                "Mario: This is an abysmally evil creature.",
+                "Rario: This is an abysmally evil creature.",
                 "There is no one who has seen him and is still alive.",
                 "Sure thing!",
                 "more...",
@@ -511,7 +511,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Who is the guardian again?", Language.EN, Dialog(
-                "Mario: This is an abysmally evil creature.",
+                "Rario: This is an abysmally evil creature.",
                 "There is no one who has seen him and is still alive.",
                 "Sure thing!",
                 "more...",
@@ -521,7 +521,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "more...", Language.EN, Dialog(
-                "Mario: It is rumoured that the guardian harvests",
+                "Rario: It is rumoured that the guardian harvests",
                 "the souls of those who stray into the sink.",
                 "Excessive!",
                 "WOW!!!",
@@ -531,7 +531,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "WOW!!!", Language.EN, Dialog(
-                "Mario: It is said to be huge with",
+                "Rario: It is said to be huge with",
                 "terrible claws and a mouth dripping with pus.",
                 "Where can I find him?",
                 "You're just babbling!",
@@ -541,7 +541,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "You're just babbling!", Language.EN, Dialog(
-                "Mario: If you think so, but I warned you.",
+                "Rario: If you think so, but I warned you.",
                 null,
                 null,
                 "Where can I find him?",
@@ -551,7 +551,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Excessive!", Language.EN, Dialog(
-                "Mario: If you think so, but I warned you.",
+                "Rario: If you think so, but I warned you.",
                 null,
                 null,
                 "Where can I find him?",
@@ -561,7 +561,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Sure thing!", Language.EN, Dialog(
-                "Mario: If you think so, but I warned you.",
+                "Rario: If you think so, but I warned you.",
                 null,
                 null,
                 "Where can I find him?",
@@ -571,7 +571,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start3", Language.EN, Dialog(
-                "Mario: Great, thank you.",
+                "Rario: Jawohl!",
                 "I'm sure I can win the princess back with this.",
                 "How did we get here?",
                 "Why is the door locked?",
@@ -592,7 +592,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start5", Language.EN, Dialog(
-                "Mario: I can see the fear in your eyes. Just be",
+                "Rario: I can see the fear in your eyes. Just be",
                 "glad that you can't smell anything through the phone!",
                 null,
                 null,
@@ -602,7 +602,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Why is there straw here?", Language.EN, Dialog(
-                "Mario: Why are you wearing a mask?",
+                "Rario: Why are you wearing a mask?",
                 null,
                 null,
                 null,
@@ -612,8 +612,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Why can't the carpet be moved?", Language.EN, Dialog(
-                "Mario: I'm getting tired of helping you.",
-                "We're already even.",
+                "Rario: I'm getting tired of helping you.",
+                "We're even already.",
                 null,
                 "Pretty please...",
                 16
@@ -622,7 +622,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "What's that funny smell?", Language.EN, Dialog(
-                "Mario: Just ask your fat friend over there. XD",
+                "Rario: Just ask your fat friend over there. XD",
                 null,
                 "Why is there straw here?",
                 "Why can't the carpet be moved?",
@@ -632,7 +632,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Pretty please...", Language.EN, Dialog(
-                "Mario: All right, the story goes that the",
+                "Rario: All right, the story goes that the",
                 "guardian nailed the carpet down.",
                 null,
                 "Can you help me, to get rid of the carpet?",
@@ -642,7 +642,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Can you help me, to get rid of the carpet?", Language.EN, Dialog(
-                "Mario: I would help you, but I don't want to.",
+                "Rario: I would help you, but I don't want to.",
                 null,
                 "You #*%&!!! I hate you!!",
                 "*sniff* Please, please I'll do everything for you!",
@@ -652,7 +652,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "You #*%&!!! I hate you!!", Language.EN, Dialog(
-                "Mario: All right, all right. Don't you dare tell",
+                "Rario: All right, all right. Don't you dare tell",
                 "the others. That's all I'm going to help with!",
                 null,
                 null,
@@ -663,7 +663,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "*sniff* Please, please I'll do everything for you!", Language.EN, Dialog(
-                "Mario: All right, all right. Don't you dare tell",
+                "Rario: All right, all right. Don't you dare tell",
                 "the others. That's all I'm going to help with!",
                 null,
                 null,
@@ -674,7 +674,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start6", Language.EN, Dialog(
-                "Mario: That's enough now! I don't know you!",
+                "Rario: That's enough now! I don't know you!",
                 null,
                 null,
                 null,
@@ -716,8 +716,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Droggelbecher?", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher,",
-                "Droggelbecher.",
+                "Droggelbecher: Droggelbecher.",
+                null,
                 "Droggelbecher.",
                 null,
                 1
@@ -757,8 +757,8 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Droggelbecher??", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher ",
-                "Droggelbecher.",
+                "Droggelbecher: Droggelbecher.",
+                null,
                 "Droggelbecher???",
                 null,
                 6
@@ -802,7 +802,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
                 null,
                 "Droggelbecher??",
                 "Droggelbecher???",
-                null,
+                15,
                 StateChange.YES
             )
         )
@@ -860,7 +860,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
 
         addDialog(
             "Start6", Language.DROGL, Dialog(
-                "Droggelbecher: Droggelbecher! Droggelbecher!",
+                "Droggelbecher: Droggelbecher!",
                 null,
                 null,
                 null,
@@ -874,7 +874,7 @@ class MarioDialogCollection(am: AssetsManager) : DialogCollection(am, MarioSound
                 null,
                 "Drogl becher??",
                 null,
-                null
+                19
             )
         )
     }

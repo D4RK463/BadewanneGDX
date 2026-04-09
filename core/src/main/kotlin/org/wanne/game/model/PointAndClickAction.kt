@@ -16,14 +16,13 @@ class PointAndClickAction(
     var clickedObject: GameObject? = null
 
     var combineObject1: GameObject? = null
-    private var combineObject2: GameObject? = null
+    var combineObject2: GameObject? = null
 
     val inventory = Inventory.getInstance()
 
     var lastSentence: String = "Start"
 
-    var usedRug = false
-    var marioPoweredUp = false
+    var external = false
 
     fun reset(resetObjectToo: Boolean = true) {
         count(type)
@@ -46,7 +45,7 @@ class PointAndClickAction(
             ActionType.USE -> clickedObject?.use(dialogBoard, this)
             ActionType.COMBINE -> clickedObject?.combine(dialogBoard, this)
             ActionType.ADD_TO_INVENTORY -> clickedObject?.take(dialogBoard, this)
-            ActionType.NOTHING -> return
+            ActionType.NOTHING, ActionType.ROTATE, ActionType.EXCHANGE -> return
         }
     }
 

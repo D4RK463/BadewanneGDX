@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.shader.BlackAndWhite
+import org.wanne.game.model.shader.Underwater
 
 abstract class AbstractAnimationStage(
     viewport: Viewport,
@@ -43,7 +45,18 @@ abstract class AbstractAnimationStage(
             }
         }
         actors.filterIsInstance<GameObject>().forEach { renderedChildren.add(it) }
-        actors.filterIsInstance<GameObject>().filter { it.isVisible }.forEach { it.draw(batch, 1F, Gdx.graphics.deltaTime) }
+        actors.filterIsInstance<GameObject>().filter {
+            it.isVisible
+        }.forEach {
+            // Shader rendern, wenn nötig
+            if (it.blackAndWhite) {
+                BlackAndWhite.draw(batch, it, stateTime)
+            } else if(it.drunk) {
+                Underwater.draw(batch, it, stateTime)
+            } else {
+                it.draw(batch, 1F, Gdx.graphics.deltaTime)
+            }
+        }
 
         // Zusätzliche Animationen rendern
         additionalAnimations?.forEach {

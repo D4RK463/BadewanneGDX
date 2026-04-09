@@ -1,10 +1,9 @@
 package org.wanne.game.stage
 
 import com.badlogic.gdx.utils.viewport.Viewport
-import org.wanne.game.model.Point
-import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.animation.Animation
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PlayerState
 
 class PointAndClickAwareStage(
     viewport: Viewport,
@@ -14,28 +13,26 @@ class PointAndClickAwareStage(
 ) : AbstractAnimationStage(
     viewport, poolAttendant, duck, additionalAnimations
 ) {
-
-    var currentPlayer: Player = poolAttendant
-
-    var moveToPoint: Point? = null
-    var needToMove = false
-
-    var currentAction = PointAndClickAction.createDefaultAction()
-    var lookingAtTheEnd: Player.Companion.Looking? = null
-    var doTheAction: () -> Unit = {}
+    // Im Singleplayer wird nur der FirstPlayerState benutzt und bei PLayer Wechsel die Figur gewechselt
+    var firstPlayerState = PlayerState(player = poolAttendant)
+    var secondPlayerState = PlayerState(player = duck)
 
     override fun draw() {
-
         // Bewegung ausrechnen
-        if (moveToPoint != null && needToMove) {
-            currentPlayer.walkToPoint(
-                moveToPoint!!.x,
-                moveToPoint!!.y,
-                lookingAtTheEnd,
-                doTheAction,
-            )
-        }
+        movingPlayers(firstPlayerState)
+        movingPlayers(secondPlayerState)
 
         drawTheWorld()
+    }
+
+    private fun movingPlayers(playerState: PlayerState) {
+        if (playerState.moveToPoint != null && playerState.needToMove) {
+            playerState.player.walkToPoint(
+                playerState.moveToPoint!!.x,
+                playerState.moveToPoint!!.y,
+                playerState.lookingAtTheEnd,
+                playerState.doTheAction,
+            )
+        }
     }
 }

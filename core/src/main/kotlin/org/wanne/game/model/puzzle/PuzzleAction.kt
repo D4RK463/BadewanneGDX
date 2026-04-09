@@ -1,6 +1,6 @@
 package org.wanne.game.model.puzzle
 
-class PuzzleAction private constructor(){
+class PuzzleAction{
     companion object {
 
         private var instance: PuzzleAction? = null

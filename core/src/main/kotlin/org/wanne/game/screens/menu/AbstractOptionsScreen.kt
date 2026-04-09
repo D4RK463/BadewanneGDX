@@ -1,16 +1,18 @@
 package org.wanne.game.screens.menu
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.model.animation.WaterAboveAnimation
 
 abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) {
 
-    var background: Texture = game.am.get("pictures/Menue/options.png")
+    var background: Texture = game.am["$TEXTURES/options.png"]
 
     private val waterAnimation = WaterAboveAnimation(235F, 225F, true, game.am)
 
@@ -28,10 +30,10 @@ abstract class AbstractOptionsScreen(game: WanneGame): AbstractMenuScreen(game) 
     abstract fun buildMenu()
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(84 / 255f, 88 / 255f, 92 / 255f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        ScreenUtils.clear(Color.BLACK)
         viewport.apply()
 
+        game.batch.projectionMatrix = viewport.camera.combined
         game.batch.begin()
 
         game.batch.draw(background, 0F, 0F)

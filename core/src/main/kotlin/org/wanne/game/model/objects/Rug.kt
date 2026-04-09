@@ -52,7 +52,7 @@ class Rug(
                 action,
             )
 
-            action.usedRug = true
+            game.usedRug = true
         } else {
             this.isVisible = false
         }

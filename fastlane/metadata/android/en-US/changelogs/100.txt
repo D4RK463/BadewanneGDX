@@ -1,0 +1,2 @@
+* Rearranged Assets and cleanup
+* Video playback, now consistent

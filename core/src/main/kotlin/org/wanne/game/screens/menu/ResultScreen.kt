@@ -56,17 +56,31 @@ class ResultScreen(
 
         // Was freigeschaltet wurde?
         var somethingWasUnlocked = false
-        if (game.unlockDrogglWithNewPlaythrough) {
+        if (game.config.numberOfPlaythroughs == 1) {
             val drogglString = game.choose("Droggelbecher Modus", "Droggelbecher Mode", false)
-            val drogglPair = createLabelWithShadow(drogglString, 500f, 250f, 1.2F)
+            val drogglPair = createLabelWithShadow(drogglString, 550f, 250f, 1.2F)
             val droggl = drogglPair.first
             val drogglShadow = drogglPair.second
 
             stage.addActor(drogglShadow)
             stage.addActor(droggl)
 
-            game.unlockDrogglWithNewPlaythrough = false
             game.config.drooglUnlocked = true
+            game.config.saveSettings()
+
+            somethingWasUnlocked = true
+        }
+
+        if (game.config.numberOfPlaythroughs == 5) {
+            val originalString = game.choose("Original Modus", "Original Mode", false)
+            val originalPair = createLabelWithShadow(originalString, 550f, 250f, 1.2F)
+            val original = originalPair.first
+            val originalShadow = originalPair.second
+
+            stage.addActor(originalShadow)
+            stage.addActor(original)
+
+            game.config.orgUnlocked = true
             game.config.saveSettings()
 
             somethingWasUnlocked = true
@@ -75,7 +89,7 @@ class ResultScreen(
         // Wenn was freigeschaltet wurde?
         if (somethingWasUnlocked) {
             val unlockString = game.choose("freigeschaltet", "unlocked", false)
-            val unlockPair = createLabelWithShadow(unlockString, 500f, 200f, 1.2F)
+            val unlockPair = createLabelWithShadow(unlockString, 550f, 200f, 1.2F)
             val unlock = unlockPair.first
             val unlockShadow = unlockPair.second
 
@@ -84,7 +98,7 @@ class ResultScreen(
         }
 
 
-        val backSprite = if (game.currentLang().language == Language.EN) {
+        val backSprite = if (game.currentLang().language == Language.EN || game.currentLang().language == Language.DROGL ) {
             "back"
         } else {
             "zuruck"
@@ -138,6 +152,10 @@ class ResultScreen(
         return game.choose("Spielzeit: ", "Game Time: ", false)
             .plus(minutes).plus("M ")
             .plus(secs).plus("S")
+    }
+
+    override fun resize(width: Int, height: Int) {
+        viewport.update(width, height, true)
     }
 
 }

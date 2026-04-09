@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import org.wanne.game.ANIMATIONS
 import org.wanne.game.AssetsManager
 
 class IcemanAnimation(
@@ -12,7 +13,7 @@ class IcemanAnimation(
     visible: Boolean,
     am: AssetsManager
 ): org.wanne.game.model.animation.Animation(posX, posY, visible, am) {
-    private val icemanHeadMove: TextureAtlas = am.get("pictures/Items/iceman.atlas")
+    private val icemanHeadMove: TextureAtlas = am["$ANIMATIONS/iceman.atlas"]
 
     private val icemanAnimation = Animation(
         0.033f,

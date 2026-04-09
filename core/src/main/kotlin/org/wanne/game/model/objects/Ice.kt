@@ -48,7 +48,10 @@ class Ice(
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
         action.reset()
 
-        println("Game Over")
+        game.config.numberOfPlaythroughs++
+        game.config.saveSettings()
+
+        // Game over
         game.screen = game.outroVideoScreen
 
     }

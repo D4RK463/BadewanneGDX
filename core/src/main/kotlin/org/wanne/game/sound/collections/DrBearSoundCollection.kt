@@ -1,14 +1,17 @@
 package org.wanne.game.sound.collections
 
 import org.wanne.game.AssetsManager
-import org.wanne.game.sound.Speech
 import org.wanne.game.sound.SoundCollection
 
-class DrBearSoundCollection(am: AssetsManager) : SoundCollection(am) {
-    init {
+const val DR_BEAR = "drBear"
 
-        // Deutsch Alt
-        addSound(Speech.DE_ORIGINAL, am.get("soundsOriginal/Arztbaer/arztbaerLachen.mp3")) // 0
-        addSound(Speech.DE_ORIGINAL, am.get("soundsOriginal/Arztbaer/aufschneiden.mp3")) // 1
+class DrBearSoundCollection(am: AssetsManager) : SoundCollection(am) {
+
+    companion object {
+        const val DIALOG_END = 1
+    }
+
+    init {
+        addAllSoundsFor(DIALOG_END, DR_BEAR)
     }
 }

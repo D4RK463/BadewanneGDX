@@ -2,11 +2,11 @@ package org.wanne.game.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.wanne.game.MUSIC
+import org.wanne.game.TEXTURES
 import org.wanne.game.WanneGame
 import org.wanne.game.listener.PointAndClickListener
 import org.wanne.game.model.Point
@@ -21,12 +21,12 @@ class RoomScreen(
 ) : AbstractWalkableScreen(game) {
 
     // Background
-    private val roomBackgroundSingle: Texture = game.am.get("pictures/Backgrounds/KinderzimmerSingle.png")
-    private val roomBackgroundMulti: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer.png")
-    private val roomBackgroundSingleWide: Texture = game.am.get("pictures/Backgrounds/Kinderzimmer169.png")
+    private val roomBackgroundSingle: Texture = game.am["$TEXTURES/KinderzimmerSingle.png"]
+    private val roomBackgroundMulti: Texture = game.am["$TEXTURES/Kinderzimmer.png"]
+    private val roomBackgroundSingleWide: Texture = game.am["$TEXTURES/Kinderzimmer169.png"]
 
     // Ambience Musik
-    private val musicBackground: Music = game.am.get("soundsOriginal/Background/Kinderzimmer.mp3")
+    private val musicBackground: Music = game.am["$MUSIC/background.mp3"]
 
     override fun show() {
         viewport = FitViewport(game.config.getResolutionX().toFloat(), game.config.getResolutionY().toFloat())
@@ -56,7 +56,9 @@ class RoomScreen(
         musicBackground.play()
 
         // Klick Steuerung der Charaktere
-        stage.addListener(PointAndClickListener(dialogBoard, limits))
+        val listener = PointAndClickListener(dialogBoard, limits, game.network.takeUnless { game.isSingleplayer })
+        stage.addListener(listener)
+        game.currentListener = listener
 
         // Stage Config
         inventory.rearrangeObjects(!game.classicMode())
@@ -78,7 +80,9 @@ class RoomScreen(
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
         stage.addActor(dialogBoard)
         dialogBoard.initialize(stage)
+        game.currentDialogBoard = dialogBoard
 
+        game.currentStage = stage
         game.startedGame = true
     }
 
@@ -110,9 +114,6 @@ class RoomScreen(
 //        game.items.exit.isVisible = true
 //        game.items.door.isVisible = false
 
-        // Wenn wir aus der Kuh Szene zurückkommen, ist die Notiz im Inventar und muss sicher bleiben.
-//        inventory.addGameObjectToInventory(game.items.note, !game.classicMode())
-//        game.items.note.isVisible = true
         if (!inventory.isObjectInInventory(game.items.note)) {
             game.items.note.isVisible = false
         }
@@ -134,8 +135,8 @@ class RoomScreen(
     }
 
     override fun resetPlayerAndSound() {
-        stage.needToMove = false
-        stage.currentPlayer.stopHammerTime()
+        stage.firstPlayerState.needToMove = false
+        stage.firstPlayerState.player.stopHammerTime()
         game.soundManager.stopSound()
     }
 

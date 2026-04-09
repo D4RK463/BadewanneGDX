@@ -29,14 +29,14 @@ class DialogBoard(
         width = getSprite(0F)?.width ?: 0F
     }
 
-    private lateinit var label1: Label
-    private lateinit var shadowLabel1: Shadow
-    private lateinit var label2: Label
-    private lateinit var shadowLabel2: Shadow
-    private lateinit var label3: Label
-    private lateinit var shadowLabel3: Shadow
-    private lateinit var label4: Label
-    private lateinit var shadowLabel4: Shadow
+    lateinit var label1: Label
+    lateinit var shadowLabel1: Shadow
+    lateinit var label2: Label
+    lateinit var shadowLabel2: Shadow
+    lateinit var label3: Label
+    lateinit var shadowLabel3: Shadow
+    lateinit var label4: Label
+    lateinit var shadowLabel4: Shadow
 
     fun initialize(stage: Stage) {
         val label1Pair = createDialogLabelAndShadow(game.choose(Point(5F, 205F), Point(15F, 135F)))

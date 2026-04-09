@@ -1,21 +1,29 @@
 package org.wanne.game.listener
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import org.wanne.game.Statistic
 import org.wanne.game.model.ActionType
 import org.wanne.game.model.Point
+import org.wanne.game.model.PointAndClickAction
 import org.wanne.game.model.dialog.DialogBoard
 import org.wanne.game.model.objects.GameObject
 import org.wanne.game.model.player.Player
+import org.wanne.game.model.player.PlayerState
+import org.wanne.game.network.NetworkManager
+import org.wanne.game.network.model.ActionWrapper
+import org.wanne.game.network.model.SerializableAction
 import org.wanne.game.stage.PointAndClickAwareStage
 
 class PointAndClickListener(
     val dialogBoard: DialogBoard,
     private val roomLimits: IntArray,
-) : InputListener() {
+    private val networkManager: NetworkManager?
+) : InputListener(), ExternalListener {
     override fun touchDown(
         event: InputEvent?,
         x: Float,
@@ -23,75 +31,131 @@ class PointAndClickListener(
         pointer: Int,
         button: Int,
     ): Boolean {
-        Statistic.countClick()
         val stage = event?.stage as PointAndClickAwareStage
+        return internalClick(
+            stage,
+            stage.firstPlayerState.currentAction,
+            x,
+            y,
+            pointer,
+            stage.firstPlayerState,
+            false
+        )
+    }
 
-        // Aktion
-        if (stage.currentAction.type != ActionType.NOTHING) {
-//            println("${stage.currentAction.type} at $x:$y")
+    override fun externalClick(stage: Stage, action: ActionWrapper): Boolean {
+        return internalClick(
+            stage as PointAndClickAwareStage,
+            action.pointAndClickAction!!,
+            action.x,
+            action.y,
+            0,
+            stage.secondPlayerState,
+            true
+        )
+    }
 
-            // Das Objekt holen, auf welches geklickt wurde
-            val hitObject = stage.hit(x, y, true)
-//            println("Hit: $hitObject")
-            if (hitObject is GameObject) {
-                stage.currentAction.clickedObject = hitObject
+    private fun internalClick(
+        stage: PointAndClickAwareStage,
+        currentAction: PointAndClickAction,
+        x: Float,
+        y: Float,
+        pointer: Int,
+        playerState: PlayerState,
+        isMultiplayerAction: Boolean
+    ): Boolean  {
+        if (pointer == 0) {
+            Statistic.countClick()
+            playerState.currentAction = currentAction
 
-                // Wenn es sich um eine Kombinieren-Aktion handelt,
-                // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
-                if (stage.currentAction.type == ActionType.COMBINE) {
-                    if (stage.currentAction.combineObject1 != null) {
-                        maybeMove(hitObject, stage)
-                    } else {
-                        // Nur die Action ausführen
-                        stage.needToMove = false
-                        stage.currentAction.action(dialogBoard)
-                    }
+            // Aktion
+            if (currentAction.type != ActionType.NOTHING) {
+                //println("${currentAction.type} at $x:$y")
+
+                // Das Objekt holen, auf welches geklickt wurde oder welches vom anderen Spieler angeklickt wurde
+                val hitObject = if (isMultiplayerAction) {
+                    currentAction.clickedObject
                 } else {
-                    maybeMove(hitObject, stage)
+                    stage.hit(x, y, true)
                 }
-            } else if (hitObject is Image) { // Escape vom Dialog
-                stage.currentAction.reset()
+                //println("Hit: $hitObject")
+                when (hitObject) {
+                    is GameObject -> {
+                        currentAction.clickedObject = hitObject
+                        sendClick(currentAction, x, y, isMultiplayerAction)
 
-                stage.lookingAtTheEnd = null
-                stage.doTheAction = {}
+                        // Wenn es sich um eine Kombinieren-Aktion handelt,
+                        // soll nur gegangen werden, nachdem beide Objekte angeklickt wurden
+                        if (currentAction.type == ActionType.COMBINE) {
+                            if (currentAction.combineObject1 != null) {
+                                maybeMove(hitObject, playerState, currentAction)
+                            } else {
+                                // Nur die Action ausführen
+                                playerState.needToMove = false
+                                currentAction.action(dialogBoard)
+                            }
+                        } else {
+                            maybeMove(hitObject, playerState, currentAction)
+                        }
+                    }
+
+                    is Image -> { // Escape vom Dialog
+                        currentAction.reset()
+
+                        playerState.lookingAtTheEnd = null
+                        playerState.doTheAction = {}
+                        dialogBoard.reset()
+                    }
+
+                    is Label -> { // Im Dialog
+                        currentAction.lastSentence = if (isMultiplayerAction) {
+                            currentAction.lastSentence
+                        } else {
+                            hitObject.text.toString()
+                        }
+                        playerState.doTheAction = {
+                            currentAction.action(dialogBoard)
+                        }
+                        sendClick(currentAction, x, y, isMultiplayerAction)
+                    }
+                }
+            } else { // oder laufen
+                playerState.lookingAtTheEnd = null
+                playerState.doTheAction = {}
                 dialogBoard.reset()
-            } else if (hitObject is Label) { // Im Dialog
-                stage.currentAction.lastSentence = hitObject.text.toString()
-                stage.doTheAction = {
-                    stage.currentAction.action(dialogBoard)
+
+                var moveX = x.toInt()
+                var moveY = y.toInt()
+
+                // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
+                if (checkGameLimits(moveX, moveY)) {
+                    if (moveX < roomLimits[0]) { // links
+                        moveX = roomLimits[0]
+                    } else if (moveX > roomLimits[2]) { // rechts
+                        moveX = roomLimits[2]
+                    }
+                    if (moveY < roomLimits[1]) { // unten
+                        moveY = roomLimits[1]
+                    } else if (moveY > roomLimits[3]) { // oben
+                        moveY = roomLimits[3]
+                    }
+
+                    // Koordinaten am Raster ausrichten
+                    moveX = (moveX - (moveX % Player.MOVE_PIXEL))
+                    moveY = (moveY - (moveY % Player.MOVE_PIXEL))
+
+                    playerState.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
+                    playerState.needToMove = true
+                } else {
+                    playerState.player.state = Player.Companion.State.STANDING
+                    playerState.needToMove = false
                 }
+
+                sendClick(currentAction, x, y, isMultiplayerAction)
             }
-        } else { // oder laufen
-            stage.lookingAtTheEnd = null
-            stage.doTheAction = {}
-            dialogBoard.reset()
-
-            var moveX = x.toInt()
-            var moveY = y.toInt()
-
-            // Er darf sich nur bewegen, wenn der Klick innerhalb der Spiellimits liegt
-            if (checkGameLimits(moveX, moveY)) {
-                if (moveX < roomLimits[0]) { // links
-                    moveX = roomLimits[0]
-                } else if (moveX > roomLimits[2]) { // rechts
-                    moveX = roomLimits[2]
-                }
-                if (moveY < roomLimits[1]) { // unten
-                    moveY = roomLimits[1]
-                } else if (moveY > roomLimits[3]) { // oben
-                    moveY = roomLimits[3]
-                }
-
-                // Koordinaten am Raster ausrichten
-                moveX = (moveX - (moveX % Player.MOVE_PIXEL))
-                moveY = (moveY - (moveY % Player.MOVE_PIXEL))
-
-                stage.moveToPoint = Point(moveX.toFloat(), moveY.toFloat())
-                stage.needToMove = true
-            } else {
-                stage.currentPlayer.state = Player.Companion.State.STANDING
-                stage.needToMove = false
-            }
+        } else {
+            // Bei mehr als einem Finger
+            setToBlackAndWhite(stage)
         }
 
         return true
@@ -107,47 +171,125 @@ class PointAndClickListener(
 
     private fun maybeMove(
         hitObject: GameObject,
-        stage: PointAndClickAwareStage,
+        playerState: PlayerState,
+        currentAction: PointAndClickAction,
     ) {
         // Auf das Objekt zugehen und in die richtige Richtung schauen, wenn es nicht im Inventar ist
-        if (!stage.currentAction.inventory.isObjectInInventory(hitObject)) {
-            move(stage.currentAction.clickedObject, stage)
+        if (!currentAction.inventory.isObjectInInventory(hitObject)) {
+            move(currentAction.clickedObject, playerState, currentAction)
 
             // Es sei denn es ist eine Kombinieren-Aktion und das Item welches im Inventar ist, wird mit etwas
             // kombiniert, was noch angelaufen werden muss
-        } else if (stage.currentAction.type == ActionType.COMBINE && stage.currentAction.combineObject1 != null) {
+        } else if (currentAction.type == ActionType.COMBINE && currentAction.combineObject1 != null) {
             // Wenn beide Objekte im Inventar sind, muss sich auch nicht bewegt werden
-            if (stage.currentAction.inventory.isObjectInInventory(hitObject) &&
-                stage.currentAction.isCombineObject1InTheInventory()
+            if (currentAction.inventory.isObjectInInventory(hitObject) &&
+                currentAction.isCombineObject1InTheInventory()
             ) {
-                stage.doTheAction = {}
-                stage.needToMove = false
+                playerState.doTheAction = {}
+                playerState.needToMove = false
 
                 // Aktion sofort ausführen
-                stage.currentAction.action(dialogBoard)
+                currentAction.action(dialogBoard)
             } else {
-                move(stage.currentAction.combineObject1, stage)
+                move(currentAction.combineObject1, playerState, currentAction)
             }
         } else {
-            stage.doTheAction = {}
-            stage.needToMove = false
+            playerState.doTheAction = {}
+            playerState.needToMove = false
 
             // Aktion sofort ausführen
-            stage.currentAction.action(dialogBoard)
+            currentAction.action(dialogBoard)
         }
     }
 
     private fun move(
         actionObject: GameObject?,
-        stage: PointAndClickAwareStage,
+        playerState: PlayerState,
+        currentAction: PointAndClickAction,
     ) {
-        stage.moveToPoint = actionObject?.getInteractPosition()?.first
-        stage.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
-        stage.needToMove = true
+        playerState.moveToPoint = actionObject?.getInteractPosition()?.first
+        playerState.lookingAtTheEnd = actionObject?.getInteractPosition()?.second
+        playerState.needToMove = true
 
         // Aktion ausführen als Lambda, wenn der Spieler angekommen ist
-        stage.doTheAction = {
-            stage.currentAction.action(dialogBoard)
+        playerState.doTheAction = {
+            currentAction.action(dialogBoard)
+        }
+    }
+
+    override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+        val stage = event?.stage as PointAndClickAwareStage
+        if (pointer > 0) {
+            resetToColor(stage)
+        }
+    }
+
+    override fun keyDown(event: InputEvent?, keycode: Int): Boolean {
+        val stage = event?.stage as PointAndClickAwareStage
+        return when (keycode) {
+            Input.Keys.SPACE -> {
+                setToBlackAndWhite(stage)
+                true
+            }
+            Input.Keys.W -> {
+                val actors = stage.actors
+                actors.filterIsInstance<GameObject>().forEach {
+                    if (!it.isInInventory && it.isVisible) {
+                        it.drunk = true
+                    }
+                }
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    override fun keyUp(event: InputEvent?, keycode: Int): Boolean {
+        val stage = event?.stage as PointAndClickAwareStage
+        return when (keycode) {
+            Input.Keys.SPACE -> {
+                resetToColor(stage)
+                true
+            }
+            Input.Keys.W -> {
+                val actors = stage.actors
+                actors.filterIsInstance<GameObject>().forEach {
+                    it.drunk = false
+                }
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    private fun setToBlackAndWhite(stage: PointAndClickAwareStage) {
+        val actors = stage.actors
+        actors.filterIsInstance<GameObject>().forEach {
+            if (!it.isInInventory && it.isVisible) {
+                it.blackAndWhite = true
+            }
+        }
+    }
+
+    private fun resetToColor(stage: PointAndClickAwareStage) {
+        val actors = stage.actors
+        actors.filterIsInstance<GameObject>().forEach {
+            it.blackAndWhite = false
+        }
+    }
+
+    private fun sendClick(
+        currentAction: PointAndClickAction,
+        x: Float,
+        y: Float,
+        isMultiplayerAction: Boolean = false
+    ) {
+        if (!isMultiplayerAction) {
+            networkManager?.sendClick(SerializableAction.createFromPointAndClickAction(currentAction, x, y))
         }
     }
 }
