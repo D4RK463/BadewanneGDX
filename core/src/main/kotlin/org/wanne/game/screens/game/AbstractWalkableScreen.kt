@@ -30,7 +30,7 @@ import org.wanne.game.stage.PointAndClickAwareStage
 abstract class AbstractWalkableScreen(
     game: WanneGame,
 ) : AbstractScreen(game) {
-    lateinit var stage: PointAndClickAwareStage
+    var stage: PointAndClickAwareStage? = null
 
     lateinit var viewport: FitViewport
 
@@ -71,8 +71,8 @@ abstract class AbstractWalkableScreen(
         game.batch.begin()
 
         // Stage zeichnen mit UI, Objekten, Spielern, dem Dialog-Brett und Spieler Bewegung
-        stage.act()
-        stage.draw()
+        stage?.act()
+        stage?.draw()
 
         game.batch.end()
     }
@@ -90,11 +90,11 @@ abstract class AbstractWalkableScreen(
             return@filter true
         }.forEach { item ->
             item.initialize()
-            item.addToStage(stage, game.currentSkin())
+            item.addToStage(stage!!, game.currentSkin())
         }
 
         // Inventar Objekt hinzufügen
-        inventoryItems.forEach { item -> item.addToStage(stage, game.currentSkin()) }
+        inventoryItems.forEach { item -> item.addToStage(stage!!, game.currentSkin()) }
     }
 
     fun createGameUI(
@@ -117,7 +117,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(lookCursor, 0, 0))
-                    stage.firstPlayerState.currentAction.type = ActionType.LOOK_AT
+                    stage?.firstPlayerState?.currentAction?.type = ActionType.LOOK_AT
                     resetPlayerAndSound()
                 }
             },
@@ -137,7 +137,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(speakCursor, 0, 0))
-                    stage.firstPlayerState.currentAction.type = ActionType.TALK_TO
+                    stage?.firstPlayerState?.currentAction?.type = ActionType.TALK_TO
                     resetPlayerAndSound()
                 }
             },
@@ -157,7 +157,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(takeCursor, 0, 0))
-                    stage.firstPlayerState.currentAction.type = ActionType.ADD_TO_INVENTORY
+                    stage?.firstPlayerState?.currentAction?.type = ActionType.ADD_TO_INVENTORY
                     resetPlayerAndSound()
                 }
             },
@@ -177,7 +177,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(useCursor, 0, 0))
-                    stage.firstPlayerState.currentAction.type = ActionType.USE
+                    stage?.firstPlayerState?.currentAction?.type = ActionType.USE
                     resetPlayerAndSound()
                 }
             },
@@ -197,7 +197,7 @@ abstract class AbstractWalkableScreen(
                     actor: Actor?,
                 ) {
                     Gdx.graphics.setCursor(Gdx.graphics.newCursor(combineCursor, 0, 0))
-                    stage.firstPlayerState.currentAction.type = ActionType.COMBINE
+                    stage?.firstPlayerState?.currentAction?.type = ActionType.COMBINE
                     resetPlayerAndSound()
                 }
             },
@@ -231,8 +231,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         poolAttendant.state = Player.Companion.State.STANDING
-                        stage.firstPlayerState = PlayerState(player = duck)
-                        stage.secondPlayerState = PlayerState(player = poolAttendant)
+                        stage?.firstPlayerState = PlayerState(player = duck)
+                        stage?.secondPlayerState = PlayerState(player = poolAttendant)
 
                         poolAttendantButton?.isVisible = true
                         duckButton?.isVisible = false
@@ -254,8 +254,8 @@ abstract class AbstractWalkableScreen(
                         actor: Actor?,
                     ) {
                         duck.state = Player.Companion.State.STANDING
-                        stage.firstPlayerState = PlayerState(player = poolAttendant)
-                        stage.secondPlayerState = PlayerState(player = duck)
+                        stage?.firstPlayerState = PlayerState(player = poolAttendant)
+                        stage?.secondPlayerState = PlayerState(player = duck)
 
                         poolAttendantButton?.isVisible = false
                         duckButton?.isVisible = true
@@ -292,9 +292,9 @@ abstract class AbstractWalkableScreen(
                 },
             )
 
-            stage.addActor(poolAttendantButton)
-            stage.addActor(duckButton)
-            stage.addActor(backToMenuButton)
+            stage?.addActor(poolAttendantButton)
+            stage?.addActor(duckButton)
+            stage?.addActor(backToMenuButton)
         } else {
 
             // Im Multiplayer gibt es nur den Beenden-Button
@@ -313,7 +313,7 @@ abstract class AbstractWalkableScreen(
                     ) {
                         resetPlayerAndSound()
 
-                        game.reset()
+                        game.resetAndInitialize()
                         game.startedGame = false
                         game.gameEnded = true
                         Statistic.reset()
@@ -324,18 +324,18 @@ abstract class AbstractWalkableScreen(
                 },
             )
 
-            stage.addActor(exitButton)
+            stage?.addActor(exitButton)
 
             if (game.player == 1) {
-                stage.firstPlayerState = PlayerState(player = poolAttendant)
-                stage.secondPlayerState = PlayerState(player = duck)
+                stage?.firstPlayerState = PlayerState(player = poolAttendant)
+                stage?.secondPlayerState = PlayerState(player = duck)
                 speakButton.isVisible = false
                 takeButton.isVisible = true
                 useButton.isVisible = true
                 combineButton.isVisible = false
             } else {
-                stage.firstPlayerState = PlayerState(player = duck)
-                stage.secondPlayerState = PlayerState(player = poolAttendant)
+                stage?.firstPlayerState = PlayerState(player = duck)
+                stage?.secondPlayerState = PlayerState(player = poolAttendant)
                 speakButton.isVisible = true
                 takeButton.isVisible = false
                 useButton.isVisible = false
@@ -343,11 +343,11 @@ abstract class AbstractWalkableScreen(
             }
         }
 
-        stage.addActor(lookButton)
-        stage.addActor(speakButton)
-        stage.addActor(takeButton)
-        stage.addActor(useButton)
-        stage.addActor(combineButton)
+        stage?.addActor(lookButton)
+        stage?.addActor(speakButton)
+        stage?.addActor(takeButton)
+        stage?.addActor(useButton)
+        stage?.addActor(combineButton)
     }
 
     abstract fun resetPlayerAndSound()

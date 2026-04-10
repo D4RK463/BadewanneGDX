@@ -46,12 +46,12 @@ class OutsideScreen(
         // Hintergrund setzen
         if (game.isSingleplayer) {
             if (game.classicMode()) {
-                stage.addActor(Image(outsideBackgroundSingle))
+                stage?.addActor(Image(outsideBackgroundSingle))
             } else {
-                stage.addActor(Image(outsideBackgroundSingleWide))
+                stage?.addActor(Image(outsideBackgroundSingleWide))
             }
         } else {
-            stage.addActor(Image(outsideBackgroundMulti))
+            stage?.addActor(Image(outsideBackgroundMulti))
         }
 
         musicBackground.volume = game.config.musicVolume
@@ -64,7 +64,7 @@ class OutsideScreen(
 
         // Klick Steuerung der Charaktere
         val listener = PointAndClickListener(dialogBoard, limits, game.network.takeUnless { game.isSingleplayer })
-        stage.addListener(listener)
+        stage?.addListener(listener)
         game.currentListener = listener
 
         // Stage Config
@@ -80,8 +80,8 @@ class OutsideScreen(
         createGameUI(poolAttendant, duck)
 
         // Anfangs muss das Dialog-Brett nicht angezeigt werden
-        stage.addActor(dialogBoard)
-        dialogBoard.initialize(stage)
+        stage?.addActor(dialogBoard)
+        dialogBoard.initialize(stage!!)
         game.currentDialogBoard = dialogBoard
 
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
@@ -119,8 +119,8 @@ class OutsideScreen(
     }
 
     override fun resetPlayerAndSound() {
-        stage.firstPlayerState.needToMove = false
-        stage.firstPlayerState.player.stopHammerTime()
+        stage?.firstPlayerState?.needToMove = false
+        stage?.firstPlayerState?.player?.stopHammerTime()
         game.soundManager.stopSound()
     }
 
@@ -148,6 +148,6 @@ class OutsideScreen(
     }
 
     override fun dispose() {
-        stage.dispose()
+        stage?.dispose()
     }
 }

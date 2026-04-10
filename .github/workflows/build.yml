@@ -31,9 +31,6 @@ jobs:
       - name: Build MacX64 Version
         run: ./gradlew packageMacX64
 
-      - name: Build Mac M1 Version
-        run: ./gradlew packageMacM1
-
       - name: Build Unsigned Apk Version
         run: ./gradlew android:assembleRelease
 

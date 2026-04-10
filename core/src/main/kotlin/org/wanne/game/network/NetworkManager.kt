@@ -81,7 +81,7 @@ class NetworkManager(val game: WanneGame) {
 
                 // Spiel starten
                 com.badlogic.gdx.Gdx.app.postRunnable {
-                    game.reset()
+                    game.resetAndInitialize()
                     game.isSingleplayer = false
                     game.player = 1
                     game.screen = game.introVideoScreen
@@ -92,7 +92,7 @@ class NetworkManager(val game: WanneGame) {
 
                 // Spiel starten
                 com.badlogic.gdx.Gdx.app.postRunnable {
-                    game.reset()
+                    game.resetAndInitialize()
                     game.config.mode = pkg.selectedVideoMode.name
                     game.isSingleplayer = false
                     game.player = 2
@@ -143,7 +143,7 @@ class NetworkManager(val game: WanneGame) {
         game.gameEnded = true
         Statistic.reset()
 
-        game.reset()
+        game.resetAndInitialize()
         game.isSingleplayer = true
         game.player = 1
         game.screen = game.mainMenuScreen

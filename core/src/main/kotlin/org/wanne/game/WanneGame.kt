@@ -30,7 +30,7 @@ import org.wanne.game.sound.SoundManager
 import org.wanne.game.sound.Speech
 import java.util.*
 
-const val VERSION = "0.7.8"
+const val VERSION = "0.7.9"
 
 class WanneGame(val android: Boolean): Game() {
     private val random = Random()
@@ -113,7 +113,7 @@ class WanneGame(val android: Boolean): Game() {
         batch.dispose()
     }
 
-    fun reset() {
+    fun resetAndInitialize() {
         items = GameObjectsArchive()
         items.resetItems(this)
 
