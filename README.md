@@ -24,6 +24,7 @@ Das Original war ein Schulprojekt, das ich als Grundlage genommen habe um:
 ### Runterladen und Starten
 
 Einfach die passende Version aus dem letzten [Release](https://github.com/D4RK463/BadewanneGDX/releases) herunterladen, starten und glücklich sein.
+Jetzt auch auf [itch.io](https://d4rk463.itch.io/the-bathtub-conspiracy)
 
 ### Fehler gefunden?
 
@@ -65,6 +66,8 @@ The original was a school project that I used as a basis to:
 ### Download and start
 
 Simply download the appropriate version from the latest [release](https://github.com/D4RK463/BadewanneGDX/releases), start it and have fun.
+Now also available on [itch.io](https://d4rk463.itch.io/the-bathtub-conspiracy)
+
 
 ### Found a bug?
 
